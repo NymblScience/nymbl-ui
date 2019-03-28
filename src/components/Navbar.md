@@ -4,11 +4,13 @@
     <template v-slot:logo>
       <img class="navbar__logo" :src="logo"/>
     </template>
-    <template v-slot:nav-items>
+    <template v-slot:nav-items-drawer>
       <nav-item :active="true">Item One</nav-item>
       <nav-item>Item Two</nav-item>
       <nav-item disabled>Disabled</nav-item>
       <nav-item>Item Three</nav-item>
+    </template>
+    <template v-slot:nav-items>
       <nav-dropdown text="Dropdown" right>
         <dropdown-item>Item One</dropdown-item>
         <dropdown-item>Item Two</dropdown-item>

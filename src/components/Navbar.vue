@@ -6,10 +6,10 @@
 @import "node_modules/bootstrap/scss/_variables.scss";
 @import "node_modules/bootstrap/scss/_mixins.scss";
 
-
 .navbar {
   box-shadow: 0 1px 2px rgba(57, 63, 72, 0.3);
   background: #ffffff;
+  z-index: 2006;
 }
 
 .menu-toggle {
@@ -28,7 +28,7 @@
 
 .menu-close {
   position: absolute;
-  right: 5px;
+  left: 5px;
   top: 3px;
 }
 
@@ -43,6 +43,10 @@
     display: block;
     animation: fadeIn 400ms;
   }
+  .navbar-brand {
+ width: 100%;
+text-align: center;
+}
   .sidebar {
     width: 200px;
     height: 100%;
@@ -50,44 +54,47 @@
     top: 0;
     background: #fff;
     z-index: 3010;
-    right: -300px;
-    transition: 400ms right;
+    left: -300px;
+    transition: 400ms left;
     transition-timing-function: ease-in-out;
     padding: 20px 20px;
     z-index: 2061;
   }
   .sidebar.open {
-    right: 0;
+    left: 0;
     padding-top: 50px;
+    display:block;
   }
-  .sidebar {
-    .dropdown .dropdown-menu {
-      transform: scale(1);
-      box-shadow: none;
-      padding: 0;
-      margin: 0;
-      border: 0;
-    }
-    .dropdown .dropdown-toggle {
-      &:after {
-        display: none;
-      }
-      &:hover {
-        color: #bebebe;
-      }
-      font-size: 0.7rem;
-      cursor: auto;
-      color: #bebebe;
-      margin-top: 1.1rem;
-      padding: 0.03rem 0 !important;
-      text-transform: uppercase;
-      letter-spacing: 0.01rem;
-    }
-    .dropdown .dropdown-item {
-      padding: 0.5rem 0;
-      margin: 0;
-    }
-  }
+
+  // .sidebar {
+
+  //   .dropdown .dropdown-menu {
+  //     transform: scale(1);
+  //     box-shadow: none;
+  //     padding: 0;
+  //     margin: 0;
+  //     border: 0;
+  //   }
+  //   .dropdown .dropdown-toggle {
+  //     &:after {
+  //       display: none;
+  //     }
+  //     &:hover {
+  //       color: #bebebe;
+  //     }
+  //     font-size: 0.7rem;
+  //     cursor: auto;
+  //     color: #bebebe;
+  //     margin-top: 1.1rem;
+  //     padding: 0.03rem 0 !important;
+  //     text-transform: uppercase;
+  //     letter-spacing: 0.01rem;
+  //   }
+  //   .dropdown .dropdown-item {
+  //     padding: 0.5rem 0;
+  //     margin: 0;
+  //   }
+  // }
 
   .backdrop {
     position: fixed;
@@ -109,16 +116,19 @@
     :sticky="sticky"
     :toggleable="toggleable"
   >
-    <b-navbar-brand href="#">
-      <slot name="logo" />
-    </b-navbar-brand>
-
     <div
       class="menu-toggle"
       @click="toggleSidebar()"
     >
       <menu-icon />
     </div>
+    <b-navbar-brand
+      class="navbar-brand"
+      href="#"
+    >
+      <slot name="logo" />
+    </b-navbar-brand>
+
     <b-navbar-nav
       id="side-bar"
       right
@@ -131,9 +141,14 @@
       >
         <close-icon :size="22" />
       </div>
+      <slot name="nav-items-drawer" />
+    </b-navbar-nav>
+    <b-navbar-nav
+      right
+      class="ml-auto"
+    >
       <slot name="nav-items" />
     </b-navbar-nav>
-
     <div
       v-if="show"
       class="backdrop"
@@ -223,11 +238,11 @@ export default {
   methods: {
     hide() {
       this.show = false;
-      document.body.style.overflow = 'auto';
+      document.html.style.overflow = 'auto';
     },
     toggleSidebar() {
       this.show = true;
-      document.body.style.overflow = 'hidden';
+      document.html.style.overflow = 'hidden';
     },
   },
 };
