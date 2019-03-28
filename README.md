@@ -1,5 +1,7 @@
 # Nymbl Vue UI Library
 
+https://nymblscience.github.io/nymbl-ui
+
 ## Project setup
 ```
 npm install
