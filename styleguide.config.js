@@ -57,6 +57,6 @@ module.exports = {
   },
   assetsDir: "src/assets/",
   template: {
-    favicon: "/favicon.ico"
+    favicon: "/nymbl-ui/favicon.ico"
   }
 };
