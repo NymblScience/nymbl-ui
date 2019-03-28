@@ -1,0 +1,40 @@
+@import "@/assets/sass/colors.scss";
+
+$primary: $dark-green;
+$secondary: $blue !default;
+$danger: $light-red !default;
+
+$border-radius: 0.09rem !default;
+$border-radius-lg: 0.1rem !default;
+$border-radius-sm: 0.02rem !default;
+
+$navbar-light-hover-color: $dark-green;
+$navbar-light-active-color: $dark-green;
+
+$navbar-nav-link-padding-x: 1rem !default;
+
+$link-hover-color: $dark-green;
+$navbar-light-hover-color: $dark-green;
+
+$btn-padding-y:               1rem !default;
+$btn-padding-x:               2rem !default;
+// $btn-font-family:             $input-btn-font-family !default;
+// $btn-font-size:               $input-btn-font-size !default;
+// $btn-line-height:             $input-btn-line-height !default;
+
+$btn-padding-y-sm:            1rem !default;
+$btn-padding-x-sm:            2rem !default;
+// $btn-font-size-sm:            1re    m !default;
+// $btn-line-height-sm:          2rem !default;
+
+$btn-padding-y-lg:            1rem !default;
+$btn-padding-x-lg:            2rem !default;
+// $btn-font-size-lg:            $input-btn-font-size-lg !default;
+// $btn-line-height-lg:          $input-btn-line-height-lg !default;
+
+$btn-font-size: 0.81rem;
+
+$btn-focus-width:   0;      
+
+@import "node_modules/bootstrap/scss/bootstrap";
+@import "node_modules/bootstrap-vue/src/index.scss";
