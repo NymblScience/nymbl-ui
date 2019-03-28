@@ -41,17 +41,20 @@ $btn-focus-width:   0;
 @import "node_modules/bootstrap/scss/_variables.scss";
 @import "node_modules/bootstrap/scss/_mixins.scss";
 
+@import "node_modules/bootstrap/scss/_root.scss";
+@import "node_modules/bootstrap/scss/_reboot.scss";
 
-// @import "node_modules/bootstrap/scss/bootstrap/type.scss";
+
+@import "node_modules/bootstrap/scss/_type.scss";
 // @import "node_modules/bootstrap/scss/bootstrap/images.scss";
 // @import "node_modules/bootstrap/scss/bootstrap/tables.scss";
-// @import "node_modules/bootstrap/scss/bootstrap/forms.scss";
+// @import "node_modules/bootstrap/scss/_forms.scss";
 @import "node_modules/bootstrap/scss/_buttons.scss";
 @import "node_modules/bootstrap/scss/_transitions.scss";
 @import "node_modules/bootstrap/scss/_dropdown.scss";
-// @import "node_modules/bootstrap/scss/button-group.scss";
-// @import "node_modules/bootstrap/scss/input-group.scss";
-// @import "node_modules/bootstrap/scss/custom-forms.scss";
+// @import "node_modules/bootstrap/scss/_button-group.scss";
+// @import "node_modules/bootstrap/scss/_input-group.scss";
+// @import "node_modules/bootstrap/scss/_custom-forms.scss";
 @import "node_modules/bootstrap/scss/_nav.scss";
 @import "node_modules/bootstrap/scss/_navbar.scss";
 // @import "node_modules/bootstrap/scss/card.scss";
@@ -63,7 +66,7 @@ $btn-focus-width:   0;
 // @import "node_modules/bootstrap/scss/progress.scss";
 // @import "node_modules/bootstrap/scss/media.scss";
 // @import "node_modules/bootstrap/scss/list-group.scss";
-// @import "node_modules/bootstrap/scss/close.scss";
+@import "node_modules/bootstrap/scss/close.scss";
 // @import "node_modules/bootstrap/scss/toasts.scss";
 @import "node_modules/bootstrap/scss/_modal.scss";
 // @import "node_modules/bootstrap/scss/tooltip.scss";
@@ -71,6 +74,6 @@ $btn-focus-width:   0;
 // @import "node_modules/bootstrap/scss/carousel.scss";
 // @import "node_modules/bootstrap/scss/spinners.scss";
 @import "node_modules/bootstrap/scss/_utilities.scss";
-// @import "node_modules/bootstrap/scss/print";
+@import "node_modules/bootstrap/scss/_print.scss";
 
 @import "node_modules/bootstrap-vue/src/index.scss";
