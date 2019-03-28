@@ -3,8 +3,6 @@
   <div>
     <Button @click.native="enabled = true">Show Modal</Button>
     <Modal @hidden="enabled = false" title="Set Training Level for A6 B6B6" :show="enabled" id="myModal">
-      Hello From My Modal!
-      <div style="height: 800px">dasd</div>
       <div slot="modal-footer" class="w-100">
         <Button size="sm" class="float-right" @click.native="enabled = false">Close</Button>
       </div>

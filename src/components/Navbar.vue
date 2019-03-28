@@ -108,7 +108,6 @@
     :fixed="fixed"
     :sticky="sticky"
     :toggleable="toggleable"
-    :use-router="userRouter"
   >
     <b-navbar-brand href="#">
       <slot name="logo" />
@@ -224,11 +223,11 @@ export default {
   methods: {
     hide() {
       this.show = false;
-      document.body.style.overflow = 'auto!important';
+      document.body.style.overflow = 'auto';
     },
     toggleSidebar() {
       this.show = true;
-      document.body.style.overflow = 'hidden!important';
+      document.body.style.overflow = 'hidden';
     },
   },
 };
