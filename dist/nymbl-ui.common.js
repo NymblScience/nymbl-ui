@@ -226,7 +226,7 @@ exports.default = void 0;
 /*
  * Key Codes (events)
  */
-var _default = {
+var KEY_CODES = {
   SPACE: 32,
   ENTER: 13,
   ESC: 27,
@@ -249,6 +249,7 @@ var _default = {
   INS: 45,
   DELETE: 46
 };
+var _default = KEY_CODES;
 exports.default = _default;
 
 /***/ }),
@@ -334,7 +335,9 @@ var _default = {
       (0, _dom.eventOn)(this.focusInElement, 'focusin', this._focusInHandler, false);
     }
   },
-  beforeDestroy: function beforeDestroy() {
+  beforeDestroy: function beforeDestroy()
+  /* istanbul ignore next */
+  {
     (0, _dom.eventOff)(this.focusInElement, 'focusin', this._focusInHandler, false);
   },
   methods: {
@@ -406,13 +409,13 @@ module.exports = __webpack_require__("9e1e") ? Object.defineProperties : functio
 
 
 exports.__esModule = true;
-exports.requestAF = exports.position = exports.offset = exports.getCS = exports.getBCR = exports.hasAttr = exports.getAttr = exports.removeAttr = exports.setAttr = exports.hasClass = exports.removeClass = exports.addClass = exports.getById = exports.contains = exports.closest = exports.matches = exports.select = exports.selectAll = exports.reflow = exports.isDisabled = exports.isVisible = exports.isElement = exports.eventOff = exports.eventOn = void 0;
+exports.requestAF = exports.position = exports.offset = exports.getCS = exports.getBCR = exports.hasAttr = exports.getAttr = exports.removeAttr = exports.setAttr = exports.hasClass = exports.removeClass = exports.addClass = exports.getById = exports.contains = exports.closest = exports.matches = exports.select = exports.selectAll = exports.reflow = exports.isDisabled = exports.isVisible = exports.isElement = exports.eventOff = exports.eventOn = exports.parseEventOptions = exports.isPassiveSupported = void 0;
 
 var _array = __webpack_require__("bb2f");
 
-var _env = __webpack_require__("4565");
+var _object = __webpack_require__("24e2");
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+var _env = __webpack_require__("4565");
 
 // Determine if the browser supports the option passive for events
 var passiveEventSupported = false;
@@ -433,24 +436,33 @@ if (_env.inBrowser) {
   } catch (err) {
     passiveEventSupported = false;
   }
-} // Normalize event options based on support of passive option
+} // Exported only for testing purposes
 
 
-function parseEventOptions(options) {
-  var useCapture = false;
+var isPassiveSupported = function isPassiveSupported() {
+  return passiveEventSupported;
+}; // Normalize event options based on support of passive option
+// Exported only for testing purposes
 
-  if (options) {
-    if (_typeof(options) === 'object') {
-      // eslint-disable-next-line no-unneeded-ternary
-      useCapture = options.useCapture ? true : false;
-    } else {
-      useCapture = options;
-    }
+
+exports.isPassiveSupported = isPassiveSupported;
+
+var parseEventOptions = function parseEventOptions(options) {
+  if (!passiveEventSupported) {
+    // Need to translate to actual Boolean value
+    return Boolean((0, _object.isObject)(options) ? options.useCapture : options);
   }
+  /* istanbul ignore next: JSDOM doesn't support above detection of passive */
 
-  return passiveEventSupported ? options : useCapture;
-} // Attach an event listener to an element
 
+  return options || {
+    useCapture: false // So we can't reach this anymore for unit testing due to the above if statement
+
+  };
+}; // Attach an event listener to an element
+
+
+exports.parseEventOptions = parseEventOptions;
 
 var eventOn = function eventOn(el, evtName, handler, options) {
   if (el && el.addEventListener) {
@@ -471,7 +483,7 @@ var eventOff = function eventOff(el, evtName, handler, options) {
 exports.eventOff = eventOff;
 
 var isElement = function isElement(el) {
-  return el && el.nodeType === Node.ELEMENT_NODE;
+  return Boolean(el && el.nodeType === Node.ELEMENT_NODE);
 }; // Determine if an HTML element is visible - Faster than CSS check
 
 
@@ -482,10 +494,12 @@ var isVisible = function isVisible(el)
 {
   if (!isElement(el) || !contains(document.body, el)) {
     return false;
-  }
+  } // All browsers support getBoundingClientRect(), except JSDOM as it returns all 0's for values :(
+  // So any tests that need isVisible will fail in JSDOM
+
 
   var bcr = getBCR(el);
-  return bcr && bcr.height > 0 && bcr.width > 0;
+  return Boolean(bcr && bcr.height > 0 && bcr.width > 0);
 }; // Determine if an element is disabled
 
 
@@ -581,8 +595,8 @@ var closest = function closest(selector, root) {
         return element;
       }
 
-      element = element.parentElement;
-    } while (element !== null);
+      element = element.parentElement || element.parentNode;
+    } while (element !== null && element.nodeType === Node.ELEMENT_NODE);
 
     return null;
   };
@@ -821,6 +835,180 @@ module.exports = (
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_index_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navbar_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_index_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navbar_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
  /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_index_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navbar_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "185a":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.computeHref = exports.computeRel = exports.computeTag = exports.isRouterLink = exports.parseQuery = exports.stringifyQueryObj = void 0;
+
+var _object = __webpack_require__("24e2");
+
+var _array = __webpack_require__("bb2f");
+
+var _toString = __webpack_require__("40f6");
+
+var ANCHOR_TAG = 'a'; // Precompile RegExp
+
+var commaRE = /%2C/g;
+var encodeReserveRE = /[!'()*]/g; // Method to replace reserved chars
+
+var encodeReserveReplacer = function encodeReserveReplacer(c) {
+  return '%' + c.charCodeAt(0).toString(16);
+}; // Fixed encodeURIComponent which is more conformant to RFC3986:
+// - escapes [!'()*]
+// - preserve commas
+
+
+var encode = function encode(str) {
+  return encodeURIComponent((0, _toString.default)(str)).replace(encodeReserveRE, encodeReserveReplacer).replace(commaRE, ',');
+};
+
+var decode = decodeURIComponent; // Stringifies an object of query parameters
+// See: https://github.com/vuejs/vue-router/blob/dev/src/util/query.js
+
+var stringifyQueryObj = function stringifyQueryObj(obj) {
+  if (!(0, _object.isPlainObject)(obj)) {
+    return '';
+  }
+
+  var query = (0, _object.keys)(obj).map(function (key) {
+    var val = obj[key];
+
+    if (val === undefined) {
+      return '';
+    } else if (val === null) {
+      return encode(key);
+    } else if ((0, _array.isArray)(val)) {
+      return val.reduce(function (results, val2) {
+        if (val2 === null) {
+          results.push(encode(key));
+        } else if (val2 !== undefined) {
+          // Faster than string interpolation
+          results.push(encode(key) + '=' + encode(val2));
+        }
+
+        return results;
+      }, []).join('&');
+    } // Faster than string interpolation
+
+
+    return encode(key) + '=' + encode(val);
+  })
+  /* must check for length, as we only want to filter empty strings, not things that look falsey! */
+  .filter(function (x) {
+    return x.length > 0;
+  }).join('&');
+  return query ? "?".concat(query) : '';
+};
+
+exports.stringifyQueryObj = stringifyQueryObj;
+
+var parseQuery = function parseQuery(query) {
+  var parsed = {};
+  query = (0, _toString.default)(query).trim().replace(/^(\?|#|&)/, '');
+
+  if (!query) {
+    return parsed;
+  }
+
+  query.split('&').forEach(function (param) {
+    var parts = param.replace(/\+/g, ' ').split('=');
+    var key = decode(parts.shift());
+    var val = parts.length > 0 ? decode(parts.join('=')) : null;
+
+    if (parsed[key] === undefined) {
+      parsed[key] = val;
+    } else if ((0, _array.isArray)(parsed[key])) {
+      parsed[key].push(val);
+    } else {
+      parsed[key] = [parsed[key], val];
+    }
+  });
+  return parsed;
+};
+
+exports.parseQuery = parseQuery;
+
+var isRouterLink = function isRouterLink(tag) {
+  return tag !== ANCHOR_TAG;
+};
+
+exports.isRouterLink = isRouterLink;
+
+var computeTag = function computeTag() {
+  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      to = _ref.to,
+      disabled = _ref.disabled;
+
+  var thisOrParent = arguments.length > 1 ? arguments[1] : undefined;
+  return thisOrParent.$router && to && !disabled ? thisOrParent.$nuxt ? 'nuxt-link' : 'router-link' : ANCHOR_TAG;
+};
+
+exports.computeTag = computeTag;
+
+var computeRel = function computeRel() {
+  var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      target = _ref2.target,
+      rel = _ref2.rel;
+
+  if (target === '_blank' && rel === null) {
+    return 'noopener';
+  }
+
+  return rel || null;
+};
+
+exports.computeRel = computeRel;
+
+var computeHref = function computeHref() {
+  var _ref3 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      href = _ref3.href,
+      to = _ref3.to;
+
+  var tag = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ANCHOR_TAG;
+  var fallback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '#';
+  var toFallback = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '/';
+
+  // We've already checked the $router in computeTag(), so isRouterLink() indicates a live router.
+  // When deferring to Vue Router's router-link, don't use the href attribute at all.
+  // We return null, and then remove href from the attributes passed to router-link
+  if (isRouterLink(tag)) {
+    return null;
+  } // Return `href` when explicitly provided
+
+
+  if (href) {
+    return href;
+  } // Reconstruct `href` when `to` used, but no router
+
+
+  if (to) {
+    // Fallback to `to` prop (if `to` is a string)
+    if (typeof to === 'string') {
+      return to || toFallback;
+    } // Fallback to `to.path + to.query + to.hash` prop (if `to` is an object)
+
+
+    if ((0, _object.isPlainObject)(to) && (to.path || to.query || to.hash)) {
+      var path = (0, _toString.default)(to.path);
+      var query = stringifyQueryObj(to.query);
+      var hash = (0, _toString.default)(to.hash);
+      hash = !hash || hash.charAt(0) === '#' ? hash : "#".concat(hash);
+      return "".concat(path).concat(query).concat(hash) || toFallback;
+    }
+  } // If nothing is provided return the fallback
+
+
+  return fallback;
+};
+
+exports.computeHref = computeHref;
 
 /***/ }),
 
@@ -1317,13 +1505,16 @@ var _keyCodes = __webpack_require__("06e4");
 
 var _bvEvent = __webpack_require__("f8bb");
 
+var _config = __webpack_require__("eb60");
+
 var _html = __webpack_require__("be11");
 
 var _dom = __webpack_require__("1611");
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-// Selectors for padding/margin adjustments
+var NAME = 'BModal'; // Selectors for padding/margin adjustments
+
 var Selector = {
   FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
   STICKY_CONTENT: '.sticky-top',
@@ -1380,8 +1571,8 @@ function getModalNextZIndex() {
 } // @vue/component
 
 
-var _default = {
-  name: 'BModal',
+var _default2 = {
+  name: NAME,
   components: {
     BButton: _button.default,
     BButtonClose: _buttonClose.default
@@ -1537,29 +1728,39 @@ var _default = {
     },
     headerCloseLabel: {
       type: String,
-      default: 'Close'
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'headerCloseLabel');
+      }
     },
     cancelTitle: {
       type: String,
-      default: 'Cancel'
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'cancelTitle');
+      }
     },
     cancelTitleHtml: {
       type: String
     },
     okTitle: {
       type: String,
-      default: 'OK'
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'okTitle');
+      }
     },
     okTitleHtml: {
       type: String
     },
     cancelVariant: {
       type: String,
-      default: 'secondary'
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'cancelVariant');
+      }
     },
     okVariant: {
       type: String,
-      default: 'primary'
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'okVariant');
+      }
     },
     lazy: {
       type: Boolean,
@@ -1643,6 +1844,7 @@ var _default = {
   watch: {
     visible: function visible(newVal, oldVal) {
       if (newVal === oldVal) {
+        /* istanbul ignore next */
         return;
       }
 
@@ -1669,7 +1871,7 @@ var _default = {
     }
   },
   beforeDestroy: function beforeDestroy()
-  /* instanbul ignore next */
+  /* istanbul ignore next */
   {
     // Ensure everything is back to normal
     if (this._observer) {
@@ -1758,7 +1960,9 @@ var _default = {
         relatedTarget: null,
         isOK: trigger || null,
         trigger: trigger || null,
-        cancel: function cancel() {
+        cancel: function cancel()
+        /* istanbul ignore next */
+        {
           // Backwards compatibility
           (0, _warn.default)('b-modal: evt.cancel() is deprecated. Please use evt.preventDefault().');
           this.preventDefault();
@@ -2368,6 +2572,32 @@ var _default = {
     return h('div', {}, [outer]);
   }
 };
+exports.default = _default2;
+
+/***/ }),
+
+/***/ "40f6":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _array = __webpack_require__("bb2f");
+
+var _object = __webpack_require__("24e2");
+
+/**
+ * Convert a value to a string that can be rendered.
+ */
+var toString = function toString(val) {
+  var spaces = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+  return val === null || val === undefined ? '' : (0, _array.isArray)(val) || (0, _object.isPlainObject)(val) && val.toString === Object.prototype.toString ? JSON.stringify(val, null, spaces) : String(val);
+};
+
+var _default = toString;
 exports.default = _default;
 
 /***/ }),
@@ -2393,23 +2623,69 @@ module.exports = function (Constructor, NAME, next) {
 
 /***/ }),
 
+/***/ "4362":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports.nextTick = function nextTick(fn) {
+	setTimeout(fn, 0);
+};
+
+exports.platform = exports.arch = 
+exports.execPath = exports.title = 'browser';
+exports.pid = 1;
+exports.browser = true;
+exports.env = {};
+exports.argv = [];
+
+exports.binding = function (name) {
+	throw new Error('No such module. (Possibly not yet loaded)')
+};
+
+(function () {
+    var cwd = '/';
+    var path;
+    exports.cwd = function () { return cwd };
+    exports.chdir = function (dir) {
+        if (!path) path = __webpack_require__("df7c");
+        cwd = path.resolve(dir, cwd);
+    };
+})();
+
+exports.exit = exports.kill = 
+exports.umask = exports.dlopen = 
+exports.uptime = exports.memoryUsage = 
+exports.uvCounters = function() {};
+exports.features = {};
+
+
+/***/ }),
+
 /***/ "4565":
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(process) {
 
 exports.__esModule = true;
-exports.hasPointerEvent = exports.hasTouchSupport = exports.isServer = exports.inBrowser = void 0;
+exports.getNoWarn = exports.hasPointerEvent = exports.hasTouchSupport = exports.isServer = exports.inBrowser = void 0;
 // Info about the current environment
+// Constants
 var inBrowser = typeof document !== 'undefined' && typeof window !== 'undefined';
 exports.inBrowser = inBrowser;
 var isServer = !inBrowser;
 exports.isServer = isServer;
 var hasTouchSupport = inBrowser && ('ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0);
 exports.hasTouchSupport = hasTouchSupport;
-var hasPointerEvent = inBrowser && Boolean(window.PointerEvent || window.MSPointerEvent);
+var hasPointerEvent = inBrowser && Boolean(window.PointerEvent || window.MSPointerEvent); // Getters
+
 exports.hasPointerEvent = hasPointerEvent;
+
+var getNoWarn = function getNoWarn() {
+  return process && Object({"NODE_ENV":"production","BASE_URL":"/"}) && Object({"NODE_ENV":"production","BASE_URL":"/"}).BOOTSTRAP_VUE_NO_WARN;
+};
+
+exports.getNoWarn = getNoWarn;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("4362")))
 
 /***/ }),
 
@@ -2609,19 +2885,19 @@ exports.__esModule = true;
 exports.propsFactory = propsFactory;
 exports.pickLinkProps = pickLinkProps;
 exports.omitLinkProps = omitLinkProps;
-exports.default = exports.computed = exports.props = void 0;
+exports.default = exports.props = void 0;
 
 var _object = __webpack_require__("24e2");
 
 var _array = __webpack_require__("bb2f");
+
+var _router = __webpack_require__("185a");
 
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 /**
  * The Link component is used in many other BV components.
@@ -2696,7 +2972,8 @@ function propsFactory() {
   };
 }
 
-var props = propsFactory();
+var props = propsFactory(); // Return a fresh copy of BLink props, containing only the specifeid prop(s)
+
 exports.props = props;
 
 function pickLinkProps(propsToPick) {
@@ -2710,7 +2987,8 @@ function pickLinkProps(propsToPick) {
 
     return memo;
   }, {});
-}
+} // Return a fresh copy of BLink props, keeping all but the specified omitting prop(s)
+
 
 function omitLinkProps(propsToOmit) {
   var freshLinkProps = propsFactory(); // Normalize everything to array.
@@ -2725,103 +3003,36 @@ function omitLinkProps(propsToOmit) {
   }, {});
 }
 
-var computed = {
-  linkProps: function linkProps() {
-    var linkProps = {};
-    var propKeys = (0, _object.keys)(props);
-
-    for (var i = 0; i < propKeys.length; i++) {
-      var prop = propKeys[i]; // Computed Vue getters are bound to the instance.
-
-      linkProps[prop] = this[prop];
-    }
-
-    return linkProps;
-  }
-};
-exports.computed = computed;
-
-function computeTag(props, parent) {
-  return parent.$router && props.to && !props.disabled ? parent.$nuxt ? 'nuxt-link' : 'router-link' : 'a';
-}
-
-function isRouterLink(tag) {
-  return tag !== 'a';
-}
-
-function computeHref(_ref, tag) {
+function clickHandlerFactory(_ref) {
   var disabled = _ref.disabled,
+      tag = _ref.tag,
       href = _ref.href,
-      to = _ref.to;
-
-  // We've already checked the parent.$router in computeTag,
-  // so isRouterLink(tag) indicates a live router.
-  // When deferring to Vue Router's router-link, don't use the href attr at all.
-  // We return null, and then remove href from the attributes passed to router-link
-  if (isRouterLink(tag)) {
-    return null;
-  } // If href explicitly provided
-
-
-  if (href) {
-    return href;
-  } // Reconstruct `href` when `to` used, but no router
-
-
-  if (to) {
-    // Fallback to `to` prop (if `to` is a string)
-    if (typeof to === 'string') {
-      return to;
-    } // Fallback to `to.path` prop (if `to` is an object)
-
-
-    if (_typeof(to) === 'object' && typeof to.path === 'string') {
-      return to.path;
-    }
-  } // If nothing is provided use '#' as a fallback
-
-
-  return '#';
-}
-
-function computeRel(_ref2) {
-  var target = _ref2.target,
-      rel = _ref2.rel;
-
-  if (target === '_blank' && rel === null) {
-    return 'noopener';
-  }
-
-  return rel || null;
-}
-
-function clickHandlerFactory(_ref3) {
-  var disabled = _ref3.disabled,
-      tag = _ref3.tag,
-      href = _ref3.href,
-      suppliedHandler = _ref3.suppliedHandler,
-      parent = _ref3.parent;
-  return function onClick(e) {
-    if (disabled && e instanceof Event) {
+      suppliedHandler = _ref.suppliedHandler,
+      parent = _ref.parent;
+  return function onClick(evt) {
+    if (disabled && evt instanceof Event) {
       // Stop event from bubbling up.
-      e.stopPropagation(); // Kill the event loop attached to this specific EventTarget.
+      evt.stopPropagation(); // Kill the event loop attached to this specific EventTarget.
 
-      e.stopImmediatePropagation();
+      evt.stopImmediatePropagation();
     } else {
-      if (isRouterLink(tag) && e.target.__vue__) {
-        e.target.__vue__.$emit('click', e);
+      if ((0, _router.isRouterLink)(tag) && evt.target.__vue__) {
+        // Router links do not emit instance 'click' events, so we
+        // add in an $emit('click', evt) on it's vue instance
+        evt.target.__vue__.$emit('click', evt);
       }
 
       if (typeof suppliedHandler === 'function') {
         suppliedHandler.apply(void 0, arguments);
       }
 
-      parent.$root.$emit('clicked::link', e);
+      parent.$root.$emit('clicked::link', evt);
     }
 
-    if (!isRouterLink(tag) && href === '#' || disabled) {
-      // Stop scroll-to-top behavior or navigation.
-      e.preventDefault();
+    if (!(0, _router.isRouterLink)(tag) && href === '#' || disabled) {
+      // Stop scroll-to-top behavior or navigation on regular links
+      // when href is just '#'
+      evt.preventDefault();
     }
   };
 } // @vue/component
@@ -2831,15 +3042,15 @@ var _default = {
   name: 'BLink',
   functional: true,
   props: propsFactory(),
-  render: function render(h, _ref4) {
-    var props = _ref4.props,
-        data = _ref4.data,
-        parent = _ref4.parent,
-        children = _ref4.children;
-    var tag = computeTag(props, parent);
-    var rel = computeRel(props);
-    var href = computeHref(props, tag);
-    var eventType = isRouterLink(tag) ? 'nativeOn' : 'on';
+  render: function render(h, _ref2) {
+    var props = _ref2.props,
+        data = _ref2.data,
+        parent = _ref2.parent,
+        children = _ref2.children;
+    var tag = (0, _router.computeTag)(props, parent);
+    var rel = (0, _router.computeRel)(props);
+    var href = (0, _router.computeHref)(props, tag);
+    var eventType = (0, _router.isRouterLink)(tag) ? 'nativeOn' : 'on';
     var suppliedHandler = (data[eventType] || {}).click;
     var handlers = {
       click: clickHandlerFactory({
@@ -3043,8 +3254,11 @@ exports.default = void 0;
 
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
+var _config = __webpack_require__("eb60");
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var NAME = 'BButtonClose';
 var props = {
   disabled: {
     type: Boolean,
@@ -3052,16 +3266,20 @@ var props = {
   },
   ariaLabel: {
     type: String,
-    default: 'Close'
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'ariaLabel');
+    }
   },
   textVariant: {
     type: String,
-    default: null
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'textVariant');
+    }
   } // @vue/component
 
 };
-var _default = {
-  name: 'BButtonClose',
+var _default2 = {
+  name: NAME,
   functional: true,
   props: props,
   render: function render(h, _ref) {
@@ -3100,7 +3318,7 @@ var _default = {
     return h('button', (0, _vueFunctionalDataMerge.mergeData)(data, componentData), slots().default);
   }
 };
-exports.default = _default;
+exports.default = _default2;
 
 /***/ }),
 
@@ -3350,7 +3568,9 @@ var _default = {
       (0, _dom.eventOn)(this.clickOutElement, this.clickOutEventName, this._clickOutHandler, false);
     }
   },
-  beforeDestroy: function beforeDestroy() {
+  beforeDestroy: function beforeDestroy()
+  /* istanbul ignore next */
+  {
     (0, _dom.eventOff)(this.clickOutElement, this.clickOutEventName, this._clickOutHandler, false);
   },
   methods: {
@@ -3569,15 +3789,19 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 exports.__esModule = true;
 exports.default = void 0;
 
+var _env = __webpack_require__("4565");
+
 /**
  * Log a warning message to the console with bootstrap-vue formatting sugar.
  * @param {string} message
  */
 
 /* istanbul ignore next */
-function warn(message) {
-  console.warn("[BootstrapVue warn]: ".concat(message));
-}
+var warn = function warn(message) {
+  if (!(0, _env.getNoWarn)()) {
+    console.warn("[BootstrapVue warn]: ".concat(message));
+  }
+};
 
 var _default = warn;
 exports.default = _default;
@@ -3632,7 +3856,7 @@ module.exports = function (key) {
 
 
 exports.__esModule = true;
-exports.default = pluckProps;
+exports.default = void 0;
 
 var _object = __webpack_require__("24e2");
 
@@ -3642,19 +3866,24 @@ var _identity = __webpack_require__("fccc");
 
 /**
  * Given an array of properties or an object of property keys,
- * plucks all the values off the target object.
+ * plucks all the values off the target object, returning a new object
+ * that has props that reference the original prop values
+ *
  * @param {{}|string[]} keysToPluck
  * @param {{}} objToPluck
  * @param {Function} transformFn
  * @return {{}}
  */
-function pluckProps(keysToPluck, objToPluck) {
+var pluckProps = function pluckProps(keysToPluck, objToPluck) {
   var transformFn = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _identity.default;
   return ((0, _array.isArray)(keysToPluck) ? keysToPluck.slice() : (0, _object.keys)(keysToPluck)).reduce(function (memo, prop) {
-    // eslint-disable-next-line no-sequences
-    return memo[transformFn(prop)] = objToPluck[prop], memo;
+    memo[transformFn(prop)] = objToPluck[prop];
+    return memo;
   }, {});
-}
+};
+
+var _default = pluckProps;
+exports.default = _default;
 
 /***/ }),
 
@@ -3813,6 +4042,63 @@ module.exports = function (bitmap, value) {
 
 /***/ }),
 
+/***/ "b0df":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _array = __webpack_require__("bb2f");
+
+var _object = __webpack_require__("24e2");
+
+/**
+ * Get property defined by dot/array notation in string.
+ *
+ * @link https://gist.github.com/jeneg/9767afdcca45601ea44930ea03e0febf#gistcomment-1935901
+ *
+ * @param {Object} obj
+ * @param {string|Array} path
+ * @param {*} defaultValue (optional)
+ * @return {*}
+ */
+var get = function get(obj, path) {
+  var defaultValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+  // Handle array of path values
+  path = (0, _array.isArray)(path) ? path.join('.') : path; // If no path or no object passed
+
+  if (!path || !(0, _object.isObject)(obj)) {
+    return defaultValue;
+  } // Handle edge case where user has dot(s) in top-level item field key
+  // See https://github.com/bootstrap-vue/bootstrap-vue/issues/2762
+
+
+  if (obj.hasOwnProperty(path)) {
+    return obj[path];
+  } // Handle string array notation (numeric indices only)
+
+
+  path = String(path).replace(/\[(\d+)]/g, '.$1');
+  var steps = path.split('.').filter(Boolean); // Handle case where someone passes a string of only dots
+
+  if (steps.length === 0) {
+    return defaultValue;
+  } // Traverse path in object to find result
+
+
+  return steps.every(function (step) {
+    return (0, _object.isObject)(obj) && obj.hasOwnProperty(step) && (obj = obj[step]);
+  }) ? obj : defaultValue;
+};
+
+var _default = get;
+exports.default = _default;
+
+/***/ }),
+
 /***/ "b42e":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3849,6 +4135,8 @@ exports.default = exports.props = void 0;
 
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
+var _config = __webpack_require__("eb60");
+
 var _pluckProps = __webpack_require__("9c97");
 
 var _array = __webpack_require__("bb2f");
@@ -3863,6 +4151,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var NAME = 'BButton';
 var btnProps = {
   block: {
     type: Boolean,
@@ -3878,7 +4167,9 @@ var btnProps = {
   },
   variant: {
     type: String,
-    default: null
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'variant');
+    }
   },
   type: {
     type: String,
@@ -3945,7 +4236,7 @@ function isNonStandardTag(props) {
 function computeClass(props) {
   var _ref;
 
-  return [props.variant ? "btn-".concat(props.variant) : "btn-secondary", (_ref = {}, _defineProperty(_ref, "btn-".concat(props.size), Boolean(props.size)), _defineProperty(_ref, 'btn-block', props.block), _defineProperty(_ref, "disabled", props.disabled), _defineProperty(_ref, "active", props.pressed), _ref)];
+  return ["btn-".concat(props.variant || (0, _config.getComponentConfig)(NAME, 'variant')), (_ref = {}, _defineProperty(_ref, "btn-".concat(props.size), Boolean(props.size)), _defineProperty(_ref, 'btn-block', props.block), _defineProperty(_ref, "disabled", props.disabled), _defineProperty(_ref, "active", props.pressed), _ref)];
 } // Compute the link props to pass to b-link (if required)
 
 
@@ -3990,8 +4281,8 @@ function computeAttrs(props, data) {
 } // @vue/component
 
 
-var _default = {
-  name: 'BButton',
+var _default2 = {
+  name: NAME,
   functional: true,
   props: props,
   render: function render(h, _ref2) {
@@ -4003,6 +4294,7 @@ var _default = {
     var link = isLink(props);
     var on = {
       click: function click(e) {
+        /* istanbul ignore if: blink/button disabled should handle this */
         if (props.disabled && e instanceof Event) {
           e.stopPropagation();
           e.preventDefault();
@@ -4034,7 +4326,7 @@ var _default = {
     return h(link ? _link.default : props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, componentData), children);
   }
 };
-exports.default = _default;
+exports.default = _default2;
 
 /***/ }),
 
@@ -4053,8 +4345,7 @@ module.exports = true;
 
 
 exports.__esModule = true;
-exports.concat = concat;
-exports.arrayIncludes = exports.isArray = exports.from = void 0;
+exports.concat = exports.arrayIncludes = exports.isArray = exports.from = void 0;
 
 // Production steps of ECMA-262, Edition 6, 22.1.2.1
 // es6-ified by @alexsasharegan
@@ -4219,9 +4510,15 @@ var arrayIncludes = function arrayIncludes(array, value) {
 
 exports.arrayIncludes = arrayIncludes;
 
-function concat() {
-  return Array.prototype.concat.apply([], arguments);
-}
+var concat = function concat() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+
+  return Array.prototype.concat.apply([], args);
+};
+
+exports.concat = concat;
 
 /***/ }),
 
@@ -4232,22 +4529,26 @@ function concat() {
 
 
 exports.__esModule = true;
-exports.stripTags = stripTags;
-exports.htmlOrText = htmlOrText;
-var stripTagsRegex = /(<([^>]+)>)/gi;
+exports.htmlOrText = exports.stripTags = void 0;
+var stripTagsRegex = /(<([^>]+)>)/gi; // Removes any thing that looks like an HTML tag from the supplied string
 
-function stripTags() {
+var stripTags = function stripTags() {
   var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
   return String(text).replace(stripTagsRegex, '');
-}
+}; // Generate a domProps object for either innerHTML, textContent or nothing
 
-function htmlOrText(innerHTML, textContent) {
+
+exports.stripTags = stripTags;
+
+var htmlOrText = function htmlOrText(innerHTML, textContent) {
   return innerHTML ? {
     innerHTML: innerHTML
-  } : {
+  } : textContent ? {
     textContent: textContent
-  };
-}
+  } : {};
+};
+
+exports.htmlOrText = htmlOrText;
 
 /***/ }),
 
@@ -4270,17 +4571,21 @@ module.exports = function (it) {
 
 
 exports.__esModule = true;
-exports.default = observeDOM;
+exports.default = void 0;
 
 var _dom = __webpack_require__("1611");
+
+var _env = __webpack_require__("4565");
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-// Falback observation for legacy broswers
+var eventListenerSupported = _env.inBrowser && window.addEventListener;
+var MutationObserver = _env.inBrowser && (window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver); // Fallback observation for legacy browsers
 // Emulate observer disconnect() method so that we can detach the events later
-function fakeObserverFactory(el, callback)
+
+var fakeObserverFactory = function fakeObserverFactory(el, callback)
 /* istanbul ignore next: hard to test in JSDOM */
 {
   (0, _dom.eventOn)(el, 'DOMNodeInserted', callback, false);
@@ -4291,7 +4596,7 @@ function fakeObserverFactory(el, callback)
       (0, _dom.eventOff)(el, 'DOMNodeRemoved', callback, false);
     }
   };
-}
+};
 /**
  * Observe a DOM element changes, falls back to eventListener mode
  * @param {Element} el The DOM element to observe
@@ -4301,17 +4606,15 @@ function fakeObserverFactory(el, callback)
  */
 
 
-function observeDOM(el, callback, opts)
+var observeDom = function observeDom(el, callback, opts)
 /* istanbul ignore next: difficult to test in JSDOM */
 {
-  var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
-  var eventListenerSupported = window.addEventListener; // Handle case where we might be passed a vue instance
-
+  // Handle case where we might be passed a vue instance
   el = el ? el.$el || el : null;
-  /* istanbul ignore next: dificult to test in JSDOM */
+  /* istanbul ignore next: difficult to test in JSDOM */
 
   if (!(0, _dom.isElement)(el)) {
-    // We can't observe somthing that isn't an element
+    // We can't observe something that isn't an element
     return null;
   }
 
@@ -4324,7 +4627,7 @@ function observeDOM(el, callback, opts)
       // We break out of the loop early if any "significant" change has been detected
 
       for (var i = 0; i < mutations.length && !changed; i++) {
-        // The muttion record
+        // The mutation record
         var mutation = mutations[i]; // Mutation Type
 
         var type = mutation.type; // DOM Node (could be any DOM Node type - HTMLElement, Text, comment, etc)
@@ -4356,11 +4659,14 @@ function observeDOM(el, callback, opts)
     // Legacy interface. most likely not used in modern browsers
     obs = fakeObserverFactory(el, callback);
   } // We return a reference to the observer so that obs.disconnect() can be called if necessary
-  // To reduce overhead when the root element is hiiden
+  // To reduce overhead when the root element is hidden
 
 
   return obs;
-}
+};
+
+var _default = observeDom;
+exports.default = _default;
 
 /***/ }),
 
@@ -7921,6 +8227,238 @@ var store = global[SHARED] || (global[SHARED] = {});
 
 /***/ }),
 
+/***/ "df7c":
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+// resolves . and .. elements in a path array with directory names there
+// must be no slashes, empty elements, or device names (c:\) in the array
+// (so also no leading and trailing slashes - it does not distinguish
+// relative and absolute paths)
+function normalizeArray(parts, allowAboveRoot) {
+  // if the path tries to go above the root, `up` ends up > 0
+  var up = 0;
+  for (var i = parts.length - 1; i >= 0; i--) {
+    var last = parts[i];
+    if (last === '.') {
+      parts.splice(i, 1);
+    } else if (last === '..') {
+      parts.splice(i, 1);
+      up++;
+    } else if (up) {
+      parts.splice(i, 1);
+      up--;
+    }
+  }
+
+  // if the path is allowed to go above the root, restore leading ..s
+  if (allowAboveRoot) {
+    for (; up--; up) {
+      parts.unshift('..');
+    }
+  }
+
+  return parts;
+}
+
+// Split a filename into [root, dir, basename, ext], unix version
+// 'root' is just a slash, or nothing.
+var splitPathRe =
+    /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/;
+var splitPath = function(filename) {
+  return splitPathRe.exec(filename).slice(1);
+};
+
+// path.resolve([from ...], to)
+// posix version
+exports.resolve = function() {
+  var resolvedPath = '',
+      resolvedAbsolute = false;
+
+  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+    var path = (i >= 0) ? arguments[i] : process.cwd();
+
+    // Skip empty and invalid entries
+    if (typeof path !== 'string') {
+      throw new TypeError('Arguments to path.resolve must be strings');
+    } else if (!path) {
+      continue;
+    }
+
+    resolvedPath = path + '/' + resolvedPath;
+    resolvedAbsolute = path.charAt(0) === '/';
+  }
+
+  // At this point the path should be resolved to a full absolute path, but
+  // handle relative paths to be safe (might happen when process.cwd() fails)
+
+  // Normalize the path
+  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
+    return !!p;
+  }), !resolvedAbsolute).join('/');
+
+  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
+};
+
+// path.normalize(path)
+// posix version
+exports.normalize = function(path) {
+  var isAbsolute = exports.isAbsolute(path),
+      trailingSlash = substr(path, -1) === '/';
+
+  // Normalize the path
+  path = normalizeArray(filter(path.split('/'), function(p) {
+    return !!p;
+  }), !isAbsolute).join('/');
+
+  if (!path && !isAbsolute) {
+    path = '.';
+  }
+  if (path && trailingSlash) {
+    path += '/';
+  }
+
+  return (isAbsolute ? '/' : '') + path;
+};
+
+// posix version
+exports.isAbsolute = function(path) {
+  return path.charAt(0) === '/';
+};
+
+// posix version
+exports.join = function() {
+  var paths = Array.prototype.slice.call(arguments, 0);
+  return exports.normalize(filter(paths, function(p, index) {
+    if (typeof p !== 'string') {
+      throw new TypeError('Arguments to path.join must be strings');
+    }
+    return p;
+  }).join('/'));
+};
+
+
+// path.relative(from, to)
+// posix version
+exports.relative = function(from, to) {
+  from = exports.resolve(from).substr(1);
+  to = exports.resolve(to).substr(1);
+
+  function trim(arr) {
+    var start = 0;
+    for (; start < arr.length; start++) {
+      if (arr[start] !== '') break;
+    }
+
+    var end = arr.length - 1;
+    for (; end >= 0; end--) {
+      if (arr[end] !== '') break;
+    }
+
+    if (start > end) return [];
+    return arr.slice(start, end - start + 1);
+  }
+
+  var fromParts = trim(from.split('/'));
+  var toParts = trim(to.split('/'));
+
+  var length = Math.min(fromParts.length, toParts.length);
+  var samePartsLength = length;
+  for (var i = 0; i < length; i++) {
+    if (fromParts[i] !== toParts[i]) {
+      samePartsLength = i;
+      break;
+    }
+  }
+
+  var outputParts = [];
+  for (var i = samePartsLength; i < fromParts.length; i++) {
+    outputParts.push('..');
+  }
+
+  outputParts = outputParts.concat(toParts.slice(samePartsLength));
+
+  return outputParts.join('/');
+};
+
+exports.sep = '/';
+exports.delimiter = ':';
+
+exports.dirname = function(path) {
+  var result = splitPath(path),
+      root = result[0],
+      dir = result[1];
+
+  if (!root && !dir) {
+    // No dirname whatsoever
+    return '.';
+  }
+
+  if (dir) {
+    // It has a dirname, strip trailing slash
+    dir = dir.substr(0, dir.length - 1);
+  }
+
+  return root + dir;
+};
+
+
+exports.basename = function(path, ext) {
+  var f = splitPath(path)[2];
+  // TODO: make this comparison case-insensitive on windows?
+  if (ext && f.substr(-1 * ext.length) === ext) {
+    f = f.substr(0, f.length - ext.length);
+  }
+  return f;
+};
+
+
+exports.extname = function(path) {
+  return splitPath(path)[3];
+};
+
+function filter (xs, f) {
+    if (xs.filter) return xs.filter(f);
+    var res = [];
+    for (var i = 0; i < xs.length; i++) {
+        if (f(xs[i], i, xs)) res.push(xs[i]);
+    }
+    return res;
+}
+
+// String.prototype.substr - negative index don't work in IE8
+var substr = 'ab'.substr(-1) === 'b'
+    ? function (str, start, len) { return str.substr(start, len) }
+    : function (str, start, len) {
+        if (start < 0) start = str.length + start;
+        return str.substr(start, len);
+    }
+;
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("4362")))
+
+/***/ }),
+
 /***/ "e11e":
 /***/ (function(module, exports) {
 
@@ -7943,23 +8481,29 @@ exports.default = void 0;
 
 var _html = __webpack_require__("be11");
 
+var _config = __webpack_require__("eb60");
+
 var _id = __webpack_require__("eae0");
 
 var _dropdown = __webpack_require__("c190");
 
 var _button = __webpack_require__("b664");
 
-// @vue/component
-var _default = {
-  name: 'BDropdown',
+var NAME = 'BDropdown'; // @vue/component
+
+var _default2 = {
+  name: NAME,
   components: {
     BButton: _button.default
   },
   mixins: [_id.default, _dropdown.default],
   props: {
     toggleText: {
+      // This really should be toggleLabel
       type: String,
-      default: 'Toggle Dropdown'
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'toggleText');
+      }
     },
     size: {
       type: String,
@@ -7967,7 +8511,9 @@ var _default = {
     },
     variant: {
       type: String,
-      default: null
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'variant');
+      }
     },
     menuClass: {
       type: [String, Array],
@@ -8122,7 +8668,7 @@ var _default = {
     }, [split, toggle, menu]);
   }
 };
-exports.default = _default;
+exports.default = _default2;
 
 /***/ }),
 
@@ -8136,6 +8682,8 @@ exports.__esModule = true;
 exports.default = exports.props = void 0;
 
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _config = __webpack_require__("eb60");
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -8180,8 +8728,9 @@ var _default = {
         data = _ref.data,
         children = _ref.children;
     var breakpoint = '';
+    var xs = (0, _config.getBreakpoints)()[0];
 
-    if (props.toggleable && typeof props.toggleable === 'string' && props.toggleable !== 'xs') {
+    if (props.toggleable && typeof props.toggleable === 'string' && props.toggleable !== xs) {
       breakpoint = "navbar-expand-".concat(props.toggleable);
     } else if (props.toggleable === false) {
       breakpoint = 'navbar-expand';
@@ -8360,6 +8909,7 @@ var _default = {
       // Reacts to changes in both .id and .localId_ And regens a new function
       var id = this.id || this.localId_; // We return a function that accepts an optional suffix string
       // So this computed prop looks and works like a method!!!
+      // But benefits from Vue's Computed prop caching
 
       var fn = function fn(suffix) {
         if (!id) {
@@ -8388,6 +8938,241 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "eb60":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.getBreakpointsDown = exports.getBreakpointsUp = exports.getBreakpoints = exports.getComponentConfig = exports.getConfigValue = exports.getDefaults = exports.getConfig = exports.resetConfig = exports.setConfig = void 0;
+
+var _cloneDeep = __webpack_require__("f18f");
+
+var _get = __webpack_require__("b0df");
+
+var _warn = __webpack_require__("93e0");
+
+var _array = __webpack_require__("bb2f");
+
+var _object = __webpack_require__("24e2");
+
+// General Bootstrap Vue configuration
+//
+// BREAKPOINT DEFINITIONS
+//
+// Some components (BCol and BFormGroup) generate props based on breakpoints, and this
+// occurs when the component is first loaded (evaluated), which may happen before the
+// config is created/modified
+//
+// To get around this we make these components async (lazy evaluation)
+// The component definition is only called/executed when the first access to the
+// component is used (and cached on subsequent uses)
+//
+// See: https://vuejs.org/v2/guide/components-dynamic-async.html#Async-Components
+//
+// PROP DEFAULTS
+//
+// For default values on props, we use the default value factory function approach so
+// so that the default values are pulled in at each component instantiation
+//
+//  props: {
+//    variant: {
+//      type: String,
+//      default: () => getConfigComponent('BAlert', 'variant')
+//    }
+//  }
+// prettier-ignore
+var DEFAULTS = {
+  // Breakpoints
+  breakpoints: ['xs', 'sm', 'md', 'lg', 'xl'],
+  // Component Specific defaults are keyed by the component
+  // name (PascalCase) and prop name (camelCase)
+  BAlert: {
+    dismissLabel: 'Close',
+    variant: 'info'
+  },
+  BBadge: {
+    variant: 'secondary'
+  },
+  BButton: {
+    variant: 'secondary'
+  },
+  BButtonClose: {
+    // `textVariant` is `null` to inherit the current text color
+    textVariant: null,
+    ariaLabel: 'Close'
+  },
+  BCardSubTitle: {
+    // BCard and BCardBody also inherit this prop
+    subTitleTextVariant: 'muted'
+  },
+  BDropdown: {
+    toggleText: 'Toggle Dropdown',
+    variant: 'secondary'
+  },
+  BFormFile: {
+    browseText: 'Browse',
+    // Chrome default file prompt
+    placeholder: 'No file chosen',
+    dropPlaceholder: 'Drop files here'
+  },
+  BFormText: {
+    textVariant: 'muted'
+  },
+  BImg: {
+    blankColor: 'transparent'
+  },
+  BImgLazy: {
+    blankColor: 'transparent'
+  },
+  BModal: {
+    cancelTitle: 'Cancel',
+    cancelVariant: 'secondary',
+    okTitle: 'OK',
+    okVariant: 'primary',
+    headerCloseLabel: 'Close'
+  } // This contains user defined configuration
+
+};
+var CONFIG = {}; // Method to get a deep clone (immutable) copy of the defaults
+
+var getDefaults = function getDefaults() {
+  return (0, _cloneDeep.default)(DEFAULTS);
+}; // Method to set the config
+// Merges in only known top-level and sub-level keys
+//   Vue.use(BootstrapVue, config)
+// or
+//   BootstrapVue.setConfig(config)
+//   Vue.use(BootstrapVue)
+
+
+exports.getDefaults = getDefaults;
+
+var setConfig = function setConfig() {
+  var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  if (!(0, _object.isObject)(config)) {
+    /* istanbul ignore next */
+    return;
+  }
+
+  (0, _object.keys)(config).filter(function (cmpName) {
+    return config.hasOwnProperty(cmpName);
+  }).forEach(function (cmpName) {
+    if (!DEFAULTS.hasOwnProperty(cmpName)) {
+      /* istanbul ignore next */
+      (0, _warn.default)("config: unknown config property \"".concat(cmpName, "\""));
+      /* istanbul ignore next */
+
+      return;
+    }
+
+    var cmpConfig = config[cmpName];
+
+    if (cmpName === 'breakpoints') {
+      // Special case for breakpoints
+      var breakpoints = config.breakpoints;
+
+      if (!(0, _array.isArray)(breakpoints) || breakpoints.length < 2 || breakpoints.some(function (b) {
+        return typeof b !== 'string' || b.length === 0;
+      })) {
+        /* istanbul ignore next */
+        (0, _warn.default)('config: "breakpoints" must be an array of at least 2 breakpoint names');
+      } else {
+        CONFIG.breakpoints = (0, _cloneDeep.default)(breakpoints);
+      }
+    } else if ((0, _object.isObject)(cmpConfig)) {
+      (0, _object.keys)(cmpConfig).filter(function (key) {
+        return cmpConfig.hasOwnProperty(key);
+      }).forEach(function (key) {
+        if (!DEFAULTS[cmpName].hasOwnProperty(key)) {
+          /* istanbul ignore next */
+          (0, _warn.default)("config: unknown config property \"".concat(cmpName, ".{$key}\""));
+        } else {
+          // If we pre-populate the config with defaults, we can skip this line
+          CONFIG[cmpName] = CONFIG[cmpName] || {};
+
+          if (cmpConfig[key] !== undefined) {
+            CONFIG[cmpName][key] = (0, _cloneDeep.default)(cmpConfig[key]);
+          }
+        }
+      });
+    }
+  });
+}; // Reset the user config to default
+// For testing purposes only
+
+
+exports.setConfig = setConfig;
+
+var resetConfig = function resetConfig() {
+  CONFIG = {};
+}; // Get the current user config
+// For testing purposes only
+
+
+exports.resetConfig = resetConfig;
+
+var getConfig = function getConfig() {
+  return (0, _cloneDeep.default)(CONFIG);
+}; // Method to grab a config value based on a dotted/array notation key
+// Returns a deep clone (immutable) copy
+
+
+exports.getConfig = getConfig;
+
+var getConfigValue = function getConfigValue(key) {
+  // First we try the user config, and if key not found we fall back to default value
+  // NOTE: If we deep clone DEFAULTS into config, then we can skip the fallback for get
+  return (0, _cloneDeep.default)((0, _get.default)(CONFIG, key, (0, _get.default)(getDefaults(), key)));
+}; // Method to grab a config value for a particular component.
+// Returns a deep clone (immutable) copy
+
+
+exports.getConfigValue = getConfigValue;
+
+var getComponentConfig = function getComponentConfig(cmpName) {
+  var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  // Return the particular config value for key for if specified,
+  // otherwise we return the full config
+  return key ? getConfigValue("".concat(cmpName, ".").concat(key)) : getConfigValue(cmpName) || {};
+}; // Convenience method for getting all breakpoint names
+
+
+exports.getComponentConfig = getComponentConfig;
+
+var getBreakpoints = function getBreakpoints() {
+  return getConfigValue('breakpoints');
+}; // Convenience method for getting breakpoints with
+// the smallest breakpoint set as ''
+// Useful for components that create breakpoint specific props
+
+
+exports.getBreakpoints = getBreakpoints;
+
+var getBreakpointsUp = function getBreakpointsUp() {
+  var breakpoints = getBreakpoints();
+  breakpoints[0] = '';
+  return breakpoints;
+}; // Convenience method for getting breakpoints with
+// the largest breakpoint set as ''
+// Useful for components that create breakpoint specific props
+
+
+exports.getBreakpointsUp = getBreakpointsUp;
+
+var getBreakpointsDown = function getBreakpointsDown() {
+  var breakpoints = getBreakpoints();
+  breakpoints[breakpoints.length - 1] = '';
+  return breakpoints;
+}; // Named Exports
+
+
+exports.getBreakpointsDown = getBreakpointsDown;
+
+/***/ }),
+
 /***/ "edbc":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8397,27 +9182,12 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _array = __webpack_require__("bb2f");
-
 /**
  * Issue #569: collapse::toggle::state triggered too many times
  * @link https://github.com/bootstrap-vue/bootstrap-vue/issues/569
  */
-var BVRL = '__BV_root_listeners__'; // @vue/component
-
+// @vue/component
 var _default = {
-  beforeDestroy: function beforeDestroy() {
-    if (this[BVRL] && (0, _array.isArray)(this[BVRL])) {
-      while (this[BVRL].length > 0) {
-        // shift to process in order
-        var _this$BVRL$shift = this[BVRL].shift(),
-            event = _this$BVRL$shift.event,
-            callback = _this$BVRL$shift.callback;
-
-        this.$root.$off(event, callback);
-      }
-    }
-  },
   methods: {
     /**
      * Safely register event listeners on the root Vue node.
@@ -8426,24 +9196,22 @@ var _default = {
      * this orphans a callback because the node is gone,
      * but the root does not clear the callback.
      *
-     * This adds a non-reactive prop to a vm on the fly
-     * in order to avoid object observation and its performance costs
-     * to something that needs no reactivity.
-     * It should be highly unlikely there are any naming collisions.
+     * When registering a $root listener, it also registers a listener on
+     * the component's `beforeDestroy` hook to automatically remove the
+     * event listener from the $root instance.
+     *
      * @param {string} event
      * @param {function} callback
      * @chainable
      */
     listenOnRoot: function listenOnRoot(event, callback) {
-      if (!this[BVRL] || !(0, _array.isArray)(this[BVRL])) {
-        this[BVRL] = [];
-      }
+      var _this = this;
 
-      this[BVRL].push({
-        event: event,
-        callback: callback
-      });
       this.$root.$on(event, callback);
+      this.$on('hook:beforeDestroy', function () {
+        _this.$root.$off(event, callback);
+      }); // Return this for easy chaining
+
       return this;
     },
 
@@ -8460,7 +9228,8 @@ var _default = {
         args[_key - 1] = arguments[_key];
       }
 
-      (_this$$root = this.$root).$emit.apply(_this$$root, [event].concat(args));
+      (_this$$root = this.$root).$emit.apply(_this$$root, [event].concat(args)); // Return this for easy chaining
+
 
       return this;
     }
@@ -11129,6 +11898,55 @@ Popper.Defaults = Defaults;
 
 /***/ }),
 
+/***/ "f18f":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.cloneDeep = void 0;
+
+var _array = __webpack_require__("bb2f");
+
+var _object = __webpack_require__("24e2");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+var cloneDeep = function cloneDeep(obj) {
+  var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : obj;
+
+  if ((0, _array.isArray)(obj)) {
+    return obj.reduce(function (result, val) {
+      return [].concat(_toConsumableArray(result), [cloneDeep(val, val)]);
+    }, []);
+  }
+
+  if ((0, _object.isPlainObject)(obj)) {
+    return (0, _object.keys)(obj).reduce(function (result, key) {
+      return _objectSpread({}, result, _defineProperty({}, key, cloneDeep(obj[key], obj[key])));
+    }, {});
+  }
+
+  return defaultValue;
+};
+
+exports.cloneDeep = cloneDeep;
+var _default = cloneDeep;
+exports.default = _default;
+
+/***/ }),
+
 /***/ "f772":
 /***/ (function(module, exports) {
 
@@ -11220,7 +12038,8 @@ function () {
   return BvEvent;
 }();
 
-exports.default = BvEvent;
+var _default = BvEvent;
+exports.default = _default;
 
 /***/ }),
 
@@ -11274,7 +12093,7 @@ var web_dom_iterable = __webpack_require__("ac6a");
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 var external_commonjs_vue_commonjs2_vue_root_Vue_default = /*#__PURE__*/__webpack_require__.n(external_commonjs_vue_commonjs2_vue_root_Vue_);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"53545204-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Button.vue?vue&type=template&id=535c097b&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Button.vue?vue&type=template&id=535c097b&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-button',{attrs:{"variant":_vm.type,"size":_vm.size,"block":_vm.block,"disabled":_vm.disabled}},[_vm._t("default")],2)}
 var staticRenderFns = []
 
@@ -11466,7 +12285,7 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var Button = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"53545204-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/DropdownItem.vue?vue&type=template&id=43f7d806&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/DropdownItem.vue?vue&type=template&id=43f7d806&
 var DropdownItemvue_type_template_id_43f7d806_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-dropdown-item',_vm._g(_vm._b({attrs:{"disabled":_vm.disabled}},'b-dropdown-item',_vm.$attrs,false),_vm.$listeners),[_vm._t("default")],2)}
 var DropdownItemvue_type_template_id_43f7d806_staticRenderFns = []
 
@@ -11522,7 +12341,7 @@ var DropdownItem_component = normalizeComponent(
 )
 
 /* harmony default export */ var DropdownItem = (DropdownItem_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"53545204-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Dropdown.vue?vue&type=template&id=6bf8151a&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Dropdown.vue?vue&type=template&id=6bf8151a&
 var Dropdownvue_type_template_id_6bf8151a_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-dropdown',{attrs:{"text":_vm.text}},[_vm._t("default")],2)}
 var Dropdownvue_type_template_id_6bf8151a_staticRenderFns = []
 
@@ -11594,7 +12413,7 @@ var Dropdown_component = normalizeComponent(
 )
 
 /* harmony default export */ var Dropdown = (Dropdown_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"53545204-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Modal.vue?vue&type=template&id=5cd426a8&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Modal.vue?vue&type=template&id=5cd426a8&
 var Modalvue_type_template_id_5cd426a8_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-modal',_vm._g(_vm._b({attrs:{"centered":_vm.centered,"title":_vm.title},model:{value:(_vm.show),callback:function ($$v) {_vm.show=$$v},expression:"show"}},'b-modal',_vm.$attrs,false),_vm.$listeners),[_vm._t("default"),_c('div',{staticClass:"w-100",attrs:{"slot":"modal-footer"},slot:"modal-footer"},[_vm._t("modal-footer")],2),_c('div',{attrs:{"slot":"modal-header-close"},slot:"modal-header-close"},[_c('close-icon',{attrs:{"size":16}})],1)],2)}
 var Modalvue_type_template_id_5cd426a8_staticRenderFns = []
 
@@ -11605,7 +12424,7 @@ var Modalvue_type_template_id_5cd426a8_staticRenderFns = []
 var modal = __webpack_require__("3a5b");
 var modal_default = /*#__PURE__*/__webpack_require__.n(modal);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"53545204-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./node_modules/vue-material-design-icons/Close.vue?vue&type=template&id=78909527&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./node_modules/vue-material-design-icons/Close.vue?vue&type=template&id=78909527&
 var Closevue_type_template_id_78909527_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{staticClass:"material-design-icon close-icon",attrs:{"aria-hidden":_vm.decorative,"aria-label":_vm.title,"role":"img"},on:{"click":function($event){return _vm.$emit('click', $event)}}},[_c('svg',{staticClass:"material-design-icon__svg",attrs:{"fill":_vm.fillColor,"width":_vm.size,"height":_vm.size,"viewBox":"0 0 24 24"}},[_c('path',{attrs:{"d":"M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"}},[_c('title',[_vm._v(_vm._s(_vm.title))])])])])}
 var Closevue_type_template_id_78909527_staticRenderFns = []
 
@@ -11753,12 +12572,12 @@ var Modal_component = normalizeComponent(
 )
 
 /* harmony default export */ var Modal = (Modal_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"53545204-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Navbar.vue?vue&type=template&id=09c7fcdc&
-var Navbarvue_type_template_id_09c7fcdc_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-navbar',{attrs:{"fixed":_vm.fixed,"sticky":_vm.sticky,"toggleable":_vm.toggleable}},[_c('b-navbar-brand',{attrs:{"href":"#"}},[_vm._t("logo")],2),_c('div',{staticClass:"menu-toggle",on:{"click":function($event){return _vm.toggleSidebar()}}},[_c('menu-icon')],1),_c('b-navbar-nav',{staticClass:"ml-auto sidebar",class:{ open: _vm.show },attrs:{"id":"side-bar","right":""}},[_c('div',{staticClass:"menu-toggle menu-close",on:{"click":function($event){return _vm.hide()}}},[_c('close-icon',{attrs:{"size":22}})],1),_vm._t("nav-items")],2),(_vm.show)?_c('div',{staticClass:"backdrop",on:{"click":function($event){return _vm.hide()}}}):_vm._e()],1)}
-var Navbarvue_type_template_id_09c7fcdc_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Navbar.vue?vue&type=template&id=3a50916c&
+var Navbarvue_type_template_id_3a50916c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-navbar',{attrs:{"fixed":_vm.fixed,"sticky":_vm.sticky,"toggleable":_vm.toggleable}},[_c('b-navbar-brand',{attrs:{"href":"#"}},[_vm._t("logo")],2),_c('div',{staticClass:"menu-toggle",on:{"click":function($event){return _vm.toggleSidebar()}}},[_c('menu-icon')],1),_c('b-navbar-nav',{staticClass:"ml-auto sidebar",class:{ open: _vm.show },attrs:{"id":"side-bar","right":""}},[_c('div',{staticClass:"menu-toggle menu-close",on:{"click":function($event){return _vm.hide()}}},[_c('close-icon',{attrs:{"size":22}})],1),_vm._t("nav-items")],2),(_vm.show)?_c('div',{staticClass:"backdrop",on:{"click":function($event){return _vm.hide()}}}):_vm._e()],1)}
+var Navbarvue_type_template_id_3a50916c_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/Navbar.vue?vue&type=template&id=09c7fcdc&
+// CONCATENATED MODULE: ./src/components/Navbar.vue?vue&type=template&id=3a50916c&
 
 // EXTERNAL MODULE: ./node_modules/bootstrap-vue/es/components/navbar/navbar.js
 var navbar = __webpack_require__("e1a8");
@@ -11776,7 +12595,7 @@ var navbar_nav_default = /*#__PURE__*/__webpack_require__.n(navbar_nav);
 var vue_click_outside = __webpack_require__("e67d");
 var vue_click_outside_default = /*#__PURE__*/__webpack_require__.n(vue_click_outside);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"53545204-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./node_modules/vue-material-design-icons/Menu.vue?vue&type=template&id=6224dad2&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./node_modules/vue-material-design-icons/Menu.vue?vue&type=template&id=6224dad2&
 var Menuvue_type_template_id_6224dad2_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{staticClass:"material-design-icon menu-icon",attrs:{"aria-hidden":_vm.decorative,"aria-label":_vm.title,"role":"img"},on:{"click":function($event){return _vm.$emit('click', $event)}}},[_c('svg',{staticClass:"material-design-icon__svg",attrs:{"fill":_vm.fillColor,"width":_vm.size,"height":_vm.size,"viewBox":"0 0 24 24"}},[_c('path',{attrs:{"d":"M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"}},[_c('title',[_vm._v(_vm._s(_vm.title))])])])])}
 var Menuvue_type_template_id_6224dad2_staticRenderFns = []
 
@@ -12094,8 +12913,8 @@ var Navbarvue_type_style_index_0_lang_scss_ = __webpack_require__("16a3");
 
 var Navbar_component = normalizeComponent(
   components_Navbarvue_type_script_lang_js_,
-  Navbarvue_type_template_id_09c7fcdc_render,
-  Navbarvue_type_template_id_09c7fcdc_staticRenderFns,
+  Navbarvue_type_template_id_3a50916c_render,
+  Navbarvue_type_template_id_3a50916c_staticRenderFns,
   false,
   null,
   null,
@@ -12104,7 +12923,7 @@ var Navbar_component = normalizeComponent(
 )
 
 /* harmony default export */ var Navbar = (Navbar_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"53545204-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NavDropdown.vue?vue&type=template&id=0c3fd33e&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NavDropdown.vue?vue&type=template&id=0c3fd33e&
 var NavDropdownvue_type_template_id_0c3fd33e_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-nav-item-dropdown',_vm._g(_vm._b({attrs:{"disabled":_vm.disabled,"text":_vm.text,"right":""}},'b-nav-item-dropdown',_vm.$attrs,false),_vm.$listeners),[_vm._t("default")],2)}
 var NavDropdownvue_type_template_id_0c3fd33e_staticRenderFns = []
 
@@ -12166,7 +12985,7 @@ var NavDropdown_component = normalizeComponent(
 )
 
 /* harmony default export */ var NavDropdown = (NavDropdown_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"53545204-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NavItem.vue?vue&type=template&id=11338ce0&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NavItem.vue?vue&type=template&id=11338ce0&
 var NavItemvue_type_template_id_11338ce0_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-nav-item',_vm._g(_vm._b({attrs:{"disabled":_vm.disabled}},'b-nav-item',_vm.$attrs,false),_vm.$listeners),[_vm._t("default")],2)}
 var NavItemvue_type_template_id_11338ce0_staticRenderFns = []
 
@@ -12271,11 +13090,14 @@ keys_default()(Components).forEach(function (name) {
 
 
 exports.__esModule = true;
-exports.default = identity;
+exports.default = void 0;
 
-function identity(x) {
+var identity = function identity(x) {
   return x;
-}
+};
+
+var _default = identity;
+exports.default = _default;
 
 /***/ }),
 
