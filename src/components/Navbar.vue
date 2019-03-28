@@ -37,16 +37,15 @@
 //     background: red!important }
 // }
 
-
 @media only screen and (max-width: 800px) {
   .menu-toggle {
     display: block;
     animation: fadeIn 400ms;
   }
   .navbar-brand {
- width: 100%;
-text-align: center;
-}
+    width: 100%;
+    text-align: center;
+  }
   .sidebar {
     width: 200px;
     height: 100%;
@@ -63,7 +62,7 @@ text-align: center;
   .sidebar.open {
     left: 0;
     padding-top: 50px;
-    display:block;
+    display: block;
   }
 
   // .sidebar {
@@ -181,32 +180,31 @@ export default {
   },
   props: {
     /**
-    * Set to `top` for fixed to the top of the viewport,
-    * or `bottom` for fixed to the bottom of the viewport.
-    */
+     * Set to `top` for fixed to the top of the viewport,
+     * or `bottom` for fixed to the bottom of the viewport.
+     */
     fixed: {
       type: String,
       default: null,
     },
     /**
-    * Set to `true` to make the navbar stick to the top of the viewport
-    * (or parent container that has `position: relative` set) when scrolled.
-    */
+     * Set to `true` to make the navbar stick to the top of the viewport
+     * (or parent container that has `position: relative` set) when scrolled.
+     */
     sticky: {
       type: Boolean,
       default: false,
     },
     /**
-    * Possible toggleable values are `sm`, `md`, `lg` and `xl`.
-    * Setting toggleable to `true` (or an empty string)
-    * will set the navbar to be always collapsed,
-    * while setting it to `false` (the default) will disable collapsing (always expanded).
-    */
+     * Possible toggleable values are `sm`, `md`, `lg` and `xl`.
+     * Setting toggleable to `true` (or an empty string)
+     * will set the navbar to be always collapsed,
+     * while setting it to `false` (the default) will disable collapsing (always expanded).
+     */
     toggleable: {
       type: [Boolean, String],
       default: false,
     },
-
   },
 
   data() {
@@ -230,7 +228,7 @@ export default {
 
       hammer.add(swipe);
 
-      hammer.on('swiperight', () => {
+      hammer.on('swipeleft', () => {
         that.hide();
       });
     }, 100);
