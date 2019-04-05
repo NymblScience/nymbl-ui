@@ -27,7 +27,7 @@ module.exports = {
     plugins: [new VueLoaderPlugin()]
   },
   // set your styleguidist configuration here
-  title: "Nymbl UI",
+  title: "Nymbl Style Guide",
   components: "src/components/**/[A-Z]*.vue",
   defaultExample: false,
   exampleMode: "expand",

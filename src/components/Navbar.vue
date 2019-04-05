@@ -231,16 +231,16 @@ export default {
       hammer.on('swipeleft', () => {
         that.hide();
       });
-    }, 100);
+    }, 1000);
   },
   methods: {
     hide() {
       this.show = false;
-      document.html.style.overflow = 'auto';
+      document.documentElement.style.overflow = 'auto';
     },
     toggleSidebar() {
       this.show = true;
-      document.html.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
     },
   },
 };
