@@ -12,8 +12,7 @@
   z-index: 2006;
 }
 
-
-.menu-toggle {
+.navbar .menu-toggle, .navbar .menu-close {
   display: none;
 }
 
@@ -21,7 +20,7 @@
   position: absolute;
   left: 5px;
   top: 3px;
-  display:none;
+
 }
 
 // @include media-breakpoint-up(xs) {
@@ -29,8 +28,8 @@
 //     background: red!important }
 // }
 
-@media only screen and (max-width: 800px) {
-  .menu-toggle, .menu-close {
+@media only screen and (max-width: 70rem) {
+  .navbar .menu-toggle, .navbar .menu-close {
     display: block;
     animation: fadeIn 400ms;
   }
@@ -40,15 +39,8 @@
     text-align: center;
   }
 
-  .navbar ul {
-        margin-block-start: 0px;
-    margin-block-end: 0px;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 0px;
-  }
 
-  .sidebar {
+  .navbar .sidebar {
     width: 200px;
     height: 100%;
     position: fixed;

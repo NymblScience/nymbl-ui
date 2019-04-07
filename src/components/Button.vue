@@ -100,7 +100,7 @@ export default {
   font-weight: 400;
 }
 
-.btn-text {
+.btn.btn-text {
   background: none;
   border: none;
   color: $text;
@@ -114,7 +114,7 @@ export default {
   }
 }
 
-.btn-text.btn-secondary {
+.btn.btn-text.btn-secondary {
   color: $secondary;
   &:focus {
     background: lighten($secondary, 53%) !important;
@@ -129,7 +129,7 @@ export default {
 }
 
 
-.btn-text.btn-primary {
+.btn.btn-text.btn-primary {
   color: $primary;
   &:focus {
     background: lighten($primary, 53%) !important;
@@ -143,7 +143,7 @@ export default {
   }
 }
 
-.btn-text.btn-transparent {
+.btn.btn-text.btn-transparent {
   &:focus {
     background: rgba(60, 64, 67, 0.1);
   }
@@ -152,7 +152,7 @@ export default {
   }
 }
 
-.btn-text.btn-danger {
+.btn.btn-text.btn-danger {
   color: $danger;
   &:focus {
     background: lighten($danger, 40%) !important;
@@ -166,19 +166,19 @@ export default {
     color: $danger !important;
   }
 }
-.btn-icon.btn-primary svg {
+.btn.btn-icon.btn-primary svg {
   color: $primary;
 }
 
-.btn-icon.btn-secondary svg {
+.btn.btn-icon.btn-secondary svg {
   color: $secondary;
 }
 
-.btn-icon.btn-danger svg {
+.btn.btn-icon.btn-danger svg {
   color: $danger;
 }
 
-.btn-icon {
+.btn.btn-icon {
   color: #333;
   &:hover {
     background: rgba(60, 64, 67, 0.1);
@@ -195,15 +195,15 @@ export default {
   }
 }
 
-.btn-icon-round {
+.btn.btn-icon-round {
   border-radius: 999rem;
   padding: 8px;
 }
 
-.btn-outline {
+.btn.btn-outline {
   background: none;
 }
-.btn-outline.btn-primary {
+.btn.btn-outline.btn-primary {
   color: $dark-green;
 }
 // .btn-lg {
@@ -211,31 +211,31 @@ export default {
 // }
 // Maybe add padding here instead of variables?
 
-.btn-primary:focus {
+.btn.btn-primary:focus {
   background: lighten($primary, 3%);
 }
-.btn-primary:active {
+.btn.btn-primary:active {
   background: darken($primary, 3%);
 }
-.btn-primary:hover {
+.btn.btn-primary:hover {
   background: lighten($primary, 3%);
 }
 
-.btn-secondary:focus {
+.btn.btn-secondary:focus {
   background: lighten($secondary, 3%);
 }
-.btn-danger:focus {
+.btn.btn-danger:focus {
   background: lighten($danger, 10%);
 }
 
-.btn-secondary:active {
+.btn.btn-secondary:active {
   background: darken($secondary, 3%);
 }
-.btn-danger:active {
+.btn.btn-danger:active {
   background: darken($danger, 10%);
 }
 
-.btn-text-primary {
+.btn.btn-text-primary {
   outline: none;
   font-weight: 600;
   color: #333;
