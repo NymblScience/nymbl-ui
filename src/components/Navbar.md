@@ -2,7 +2,7 @@
 <template>
   <Navbar>
     <template v-slot:logo>
-      <img class="navbar__logo" :src="logo"/>
+      <img class="navbar__logo" :src="logo" />
     </template>
     <template v-slot:nav-items-drawer>
       <nav-item :active="true">Item One</nav-item>
@@ -11,11 +11,11 @@
       <nav-item>Item Three</nav-item>
     </template>
     <template v-slot:nav-items>
-      <nav-dropdown text="Dropdown" right>
-        <dropdown-item>Item One</dropdown-item>
-        <dropdown-item>Item Two</dropdown-item>
-        <dropdown-item disabled>Disabled</dropdown-item>
-      </nav-dropdown>
+      <Button round type="icon" variant="transparent">
+        <star-icon></star-icon>
+      </Button>
+
+      <nav-item>Item Four</nav-item>
     </template>
   </Navbar>
 </template>
@@ -25,12 +25,13 @@ const logo = require("../assets/img/nymblscience-logo.svg");
 const NavItem = require("./NavItem.vue").default;
 const NavDropdown = require("./NavDropdown.vue").default;
 const DropdownItem = require("./DropdownItem.vue").default;
-
+const StarIcon = require("../assets/icons/Star.vue").default;
 export default {
   components: {
     NavItem,
     NavDropdown,
-    DropdownItem
+    DropdownItem,
+    StarIcon
   },
   data() {
     return {

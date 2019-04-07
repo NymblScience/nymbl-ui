@@ -197,9 +197,9 @@ export default {
 
 .btn-icon-round {
   border-radius: 999rem;
-
-  padding: 10px;
+  padding: 8px;
 }
+
 .btn-outline {
   background: none;
 }

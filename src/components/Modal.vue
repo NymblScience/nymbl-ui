@@ -13,9 +13,14 @@
     >
       <slot name="modal-footer" />
     </div>
-
     <div slot="modal-header-close">
-      <close-icon :size="16" />
+      <Button
+        round
+        type="icon"
+        variant="transparent"
+      >
+        <close-icon :size="18" />
+      </Button>
     </div>
   </b-modal>
 </template>
@@ -59,6 +64,10 @@ export default {
 }
 .modal-header {
   border-bottom: none;
+}
+.modal-header .close {
+  margin: 0;
+  padding: 0;
 }
 .modal-title {
   color: #303133;

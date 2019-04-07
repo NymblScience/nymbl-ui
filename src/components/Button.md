@@ -1,32 +1,27 @@
 ```vue
 <template>
   <div>
-    <div class="styleguide-buttons">
-   <h2>Default buttons</h2>
+    <div class="styleguide-section">
+      <h3>Default buttons</h3>
       <Button variant="primary">Primary</Button>
       <Button variant="secondary">Secondary</Button>
       <Button variant="danger">Danger</Button>
     </div>
-    <!-- <div class="styleguide-buttons">
-      <Button type="outline">Outline Primary</Button>
-      <Button type="outline">Outline Secondary</Button>
-      <Button type="outline">Outline Danger</Button>
-    </div>-->
-    <div class="styleguide-buttons">
-      <h2>Button sizes</h2>
+    <div class="styleguide-section">
+      <h3>Button sizes</h3>
       <Button size="lg">Large</Button>
       <Button>Medium</Button>
       <Button size="sm">Small</Button>
     </div>
-    <div class="styleguide-buttons">
-      <h2>Text Buttons</h2>
+    <div class="styleguide-section">
+      <h3>Text Buttons</h3>
       <Button variant="transparent" type="text">Learn More</Button>
       <Button type="text" variant="primary">Accept</Button>
       <Button type="text" variant="secondary">Cancel</Button>
       <Button type="text" variant="danger">Delete</Button>
     </div>
-    <div class="styleguide-buttons">
-      <h2>Icon Buttons</h2>
+    <div class="styleguide-section">
+      <h3>Icon Buttons</h3>
       <Button round type="icon" variant="transparent">
         <star-icon size="24"></star-icon>
       </Button>
@@ -64,17 +59,10 @@ export default {
 };
 </script>
 <style lang="scss">
-.styleguide-buttons {
-  margin: 20px 0;
-}
+
 .btn {
   margin-right: 10px;
 }
-.styleguide-buttons h2 {
-  font-size: 10px;
-  display:block;
-  border-bottom: 1px solid black;
-  margin-bottom: 10px;
-}
+
 </style>
 ```

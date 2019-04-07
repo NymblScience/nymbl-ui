@@ -12,24 +12,16 @@
   z-index: 2006;
 }
 
+
 .menu-toggle {
   display: none;
-  transition: 100ms all;
-  &:hover {
-    border-radius: 9999px;
-    background: #f1f1f1;
-  }
-  &:active {
-    border-radius: 9999px;
-    background: #f1f1f1;
-  }
-  padding: 10px;
 }
 
 .menu-close {
   position: absolute;
   left: 5px;
   top: 3px;
+  display:none;
 }
 
 // @include media-breakpoint-up(xs) {
@@ -38,14 +30,24 @@
 // }
 
 @media only screen and (max-width: 800px) {
-  .menu-toggle {
+  .menu-toggle, .menu-close {
     display: block;
     animation: fadeIn 400ms;
   }
+
   .navbar-brand {
     width: 100%;
     text-align: center;
   }
+
+  .navbar ul {
+        margin-block-start: 0px;
+    margin-block-end: 0px;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0px;
+  }
+
   .sidebar {
     width: 200px;
     height: 100%;
@@ -56,13 +58,23 @@
     left: -300px;
     transition: 400ms left;
     transition-timing-function: ease-in-out;
-    padding: 20px 20px;
     z-index: 2061;
+    display: block;
+    padding: 50px 0;
+    .nav-item:hover {
+      background: #f1f1f1;
+    }
+    .nav-item:active {
+           background:darken(#f1f1f1, 5%);
+    }
+    .nav-link:focus {
+      box-shadow: none;
+      outline:none;
+      background: #f1f1f1;
+    }
   }
   .sidebar.open {
     left: 0;
-    padding-top: 50px;
-    display: block;
   }
 
   // .sidebar {
@@ -115,12 +127,16 @@
     :sticky="sticky"
     :toggleable="toggleable"
   >
-    <div
+    <Button
+      round
+      type="icon"
+      variant="transparent"
       class="menu-toggle"
-      @click="toggleSidebar()"
+      @click.native="toggleSidebar()"
     >
       <menu-icon />
-    </div>
+    </Button>
+
     <b-navbar-brand
       class="navbar-brand"
       href="#"
@@ -128,23 +144,28 @@
       <slot name="logo" />
     </b-navbar-brand>
 
+    <!-- Hidden in drawer  -->
     <b-navbar-nav
       id="side-bar"
       right
       :class="{ open: show }"
       class="ml-auto sidebar"
     >
-      <div
-        class="menu-toggle menu-close"
-        @click="hide()"
+      <Button
+        round
+        type="icon"
+        variant="transparent"
+        class="menu-close"
+        @click.native="hide()"
       >
-        <close-icon :size="22" />
-      </div>
+        <close-icon />
+      </Button>
       <slot name="nav-items-drawer" />
     </b-navbar-nav>
+
+    <!-- Always shown  -->
     <b-navbar-nav
       right
-      class="ml-auto"
     >
       <slot name="nav-items" />
     </b-navbar-nav>
@@ -240,7 +261,7 @@ export default {
     },
     toggleSidebar() {
       this.show = true;
-      document.documentElement.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'visible';
     },
   },
 };
