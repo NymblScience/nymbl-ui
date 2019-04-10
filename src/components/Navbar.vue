@@ -20,12 +20,17 @@
 .menu-close {
   position: absolute;
   right: 1rem;
-  top: 1rem;
+  top: 0.8rem;
 }
 // @include media-breakpoint-up(xs) {
 //   html {
 //     background: red!important }
 // }
+
+.no-scrolling {
+    overflow: hidden;
+    padding-right: 17px;
+}
 
 @media only screen and (max-width: 70rem) {
   .navbar .menu-toggle, .navbar .menu-close {
@@ -52,15 +57,16 @@
     display: block;
     padding: 4rem 0;
     .nav-item:hover {
-      background: #f1f1f1;
+      background:rgba(32,33,36,0.039)
     }
     .nav-item:active {
-      background:darken(#f1f1f1, 5%);
+      background: rgba(32,33,36,0.045)
     }
     .nav-link:focus {
       box-shadow: none;
       outline:none;
       background: #f1f1f1;
+      background:rgba(32,33,36,0.039)
     }
     .nav-link {
       padding-left: 1.8rem;
@@ -221,11 +227,11 @@ export default {
   methods: {
     hide() {
       this.show = false;
-      document.documentElement.style.overflow = 'auto';
+      document.documentElement.classList.remove('no-scrolling');
     },
     toggleSidebar() {
       this.show = true;
-      document.documentElement.style.overflow = 'visible';
+      document.documentElement.classList.add('no-scrolling');
     },
   },
 };

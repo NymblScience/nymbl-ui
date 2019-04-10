@@ -105,7 +105,7 @@ export default {
   border: none;
   color: $text;
   font-weight: 500;
-
+  letter-spacing: 0.04rem;
   &:focus {
     box-shadow: none;
   }
@@ -128,17 +128,16 @@ export default {
   }
 }
 
-
 .btn.btn-text.btn-primary {
   color: $primary;
   &:focus {
-    background: lighten($primary, 53%) !important;
+    background: #ebfeff
   }
   &:hover {
-    background-color: lighten($primary, 53%) !important;
+    background-color: #ebfeff
   }
   &:active {
-    background-color: lighten($primary, 36%) !important;
+    background-color: #dafdff;
     color: $primary !important;
   }
 }
@@ -155,15 +154,14 @@ export default {
 .btn.btn-text.btn-danger {
   color: $danger;
   &:focus {
-    background: lighten($danger, 40%) !important;
+    background:  #fdede9
   }
   &:hover {
-    background-color: lighten($danger, 40%) !important;
-
-}
+    background-color: #fdede9
+  }
   &:active {
-    background-color: lighten($danger, 35%) !important;
-    color: $danger !important;
+    background-color: #fbe0da;
+    color: $danger
   }
 }
 .btn.btn-icon.btn-primary svg {
@@ -185,7 +183,6 @@ export default {
   }
   &:focus {
     background: rgba(60, 64, 67, 0.1);
-    // color: #fff;
     box-shadow: none;
   }
   &:active {
@@ -206,10 +203,6 @@ export default {
 .btn.btn-outline.btn-primary {
   color: $dark-green;
 }
-// .btn-lg {
-//   padding: 1rem 2rem;
-// }
-// Maybe add padding here instead of variables?
 
 .btn.btn-primary:focus {
   background: lighten($primary, 3%);

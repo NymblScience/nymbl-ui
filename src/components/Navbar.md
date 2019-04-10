@@ -7,15 +7,13 @@
     <template v-slot:nav-items-drawer>
       <nav-item :active="true">Item One</nav-item>
       <nav-item>Item Two</nav-item>
-      <nav-item disabled>Disabled</nav-item>
       <nav-item>Item Three</nav-item>
+      <nav-item disabled>Disabled</nav-item>
     </template>
     <template v-slot:nav-items>
       <Button round type="icon" variant="transparent">
         <star-icon></star-icon>
       </Button>
-
-      <nav-item>Item Four</nav-item>
     </template>
   </Navbar>
 </template>
@@ -40,5 +38,4 @@ export default {
   }
 };
 </script>
-
 ```

@@ -77,3 +77,10 @@ $btn-focus-width:   0;
 @import "node_modules/bootstrap/scss/_print.scss";
 
 @import "node_modules/bootstrap-vue/src/index.scss";
+
+
+// Helper Classes
+.no-scrolling {
+    overflow: hidden;
+    padding-right: 17px;
+}

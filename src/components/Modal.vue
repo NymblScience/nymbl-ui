@@ -2,25 +2,28 @@
   <b-modal
     v-model="show"
     :centered="centered"
-    :title="title"
     v-bind="$attrs"
+    hide-header-close
     v-on="$listeners"
   >
+    <div slot="modal-header">
+      {{ title }}
+      <Button
+        round
+        type="icon"
+        variant="transparent"
+        class="modal-close"
+      >
+        <close-icon :size="18" />
+      </Button>
+    </div>
+
     <slot />
     <div
       slot="modal-footer"
       class="w-100"
     >
       <slot name="modal-footer" />
-    </div>
-    <div slot="modal-header-close">
-      <Button
-        round
-        type="icon"
-        variant="transparent"
-      >
-        <close-icon :size="18" />
-      </Button>
     </div>
   </b-modal>
 </template>
@@ -47,7 +50,7 @@ export default {
       type: Boolean,
     },
     title: {
-      default: '',
+      default: 'null',
       type: String,
     },
   },
@@ -57,51 +60,43 @@ export default {
 @import "@/assets/sass/colors.scss";
 .modal-content {
   margin-top: 15vh;
-  padding: 10px 10px;
+  padding: 1rem 1rem
 }
 .modal-footer {
   border-top: none;
+  text-align: right;
 }
 .modal-header {
   border-bottom: none;
+  padding-right: 3rem;
 }
-.modal-header .close {
-  margin: 0;
-  padding: 0;
+
+.modal-close {
+position: absolute;
+top: 1.6rem;
+right: 2rem;
 }
+
 .modal-title {
   color: #303133;
   font-weight: 400;
   font-size: 1.1rem;
 }
 @media only screen and (max-width: 600px) {
-  // .model-content {
-  //   margin: 0;
-  // }
-  // .modal {
-  //   padding: 0!important;
-  //   bottom: 0;
-  //   top: auto;
-  // }
-  // .modal-dialog {
-  //   margin: 0;
-  //   height: 100%;
-  // }
-  // .modal-content {
-  //   margin: 0;
-  // }
   .modal-dialog {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0; transition: all 1s;
-}
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    transition: all 1s;
+  }
 
-.modal-content { transition: all 1s;
-  margin: 0;
-  height: auto;
-  min-height: 100%;
-  border-radius: 0;
-}
+  .modal-content {
+    transition: all 1s;
+    margin: 0;
+    height: auto;
+    min-height: 100%;
+    border-radius: 0;
+  }
 }
 </style>
