@@ -30,10 +30,10 @@ export default {
       //   return ['sm', 'lg'].includes(prop);
       // },
     },
-    loading: {
-      type: Boolean,
-      default: false,
-    },
+    // loading: {
+    //   type: Boolean,
+    //   default: false,
+    // },
     /**
      * Create block level buttons — those that span the full width of a parent.
      */
@@ -131,14 +131,14 @@ export default {
 .btn.btn-text.btn-primary {
   color: $primary;
   &:focus {
-    background: #ebfeff
+    background: #ebfeff!important;
   }
   &:hover {
-    background-color: #ebfeff
+    background-color: #ebfeff!important;
   }
   &:active {
-    background-color: #dafdff;
-    color: $primary !important;
+    background-color: #dafdff!important;
+    color: $primary!important;
   }
 }
 
@@ -154,14 +154,14 @@ export default {
 .btn.btn-text.btn-danger {
   color: $danger;
   &:focus {
-    background:  #fdede9
+    background:  #fdede9!important
   }
   &:hover {
-    background-color: #fdede9
+    background-color: #fdede9!important;
   }
   &:active {
-    background-color: #fbe0da;
-    color: $danger
+    background-color: #fbe0da!important;
+    color: $danger!important;
   }
 }
 .btn.btn-icon.btn-primary svg {

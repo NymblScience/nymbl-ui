@@ -2,26 +2,26 @@
 <template>
   <div>
     <div class="styleguide-section">
-      <h3>Default buttons</h3>
+      <h3>Default</h3>
       <Button variant="primary">Primary</Button>
       <Button variant="secondary">Secondary</Button>
       <Button variant="danger">Danger</Button>
     </div>
     <div class="styleguide-section">
-      <h3>Button sizes</h3>
+      <h3>Sizes</h3>
       <Button size="lg">Large</Button>
       <Button>Medium</Button>
       <Button size="sm">Small</Button>
     </div>
     <div class="styleguide-section">
-      <h3>Text Buttons</h3>
+      <h3>Text</h3>
       <Button variant="transparent" type="text">Learn More</Button>
       <Button type="text" variant="primary">Accept</Button>
       <Button type="text" variant="secondary">Cancel</Button>
       <Button type="text" variant="danger">Delete</Button>
     </div>
     <div class="styleguide-section">
-      <h3>Icon Buttons</h3>
+      <h3>Icon</h3>
       <Button round type="icon" variant="transparent">
         <star-icon size="24"></star-icon>
       </Button>
