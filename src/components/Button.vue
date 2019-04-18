@@ -101,6 +101,7 @@ export default {
   text-transform: uppercase;
   box-shadow: 0 1.5px 3px rgba(25, 25, 26, 0.3);
   border: none;
+  line-height: 1;
   letter-spacing: 0.06rem;
   &:active {
     box-shadow: none;
@@ -159,8 +160,9 @@ export default {
   border: none;
   box-shadow: none;
   color: $text;
-  letter-spacing: 0.04rem;
-  font-size: 0.9rem;
+  letter-spacing: 0.05rem;
+  font-size: 0.8rem;
+  font-weight: 500;
   &:focus {
     box-shadow: none;
   }
@@ -182,14 +184,14 @@ export default {
 
 .btn.btn-text.btn-primary {
   color: #0a6b69;
-  &:active {
-    background: #c9ffff !important;
-  }
   &:focus {
     background-color: #e9fdfe;
   }
   &:hover {
     background-color: #e9fdfe !important;
+  }
+  &:active {
+    background-color: #c9ffff !important;
   }
 }
 
