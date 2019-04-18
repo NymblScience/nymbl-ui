@@ -31,15 +31,27 @@ module.exports = {
   components: "src/components/**/[A-Z]*.vue",
   defaultExample: false,
   exampleMode: "expand",
+  
   sections: [
+		{
+			name: 'Documentation',
+			content: 'docs/Introduction.md',
+			sections: [
+				{
+					name: 'Typography',
+					content: 'docs/Typography.md',
+				},
+				{
+					name: 'Colors',
+					content: 'docs/Colors.md',
+				},
+			],
+			sectionDepth: 1
+		},
     {
       name: "Components",
       components: "src/components/**/[A-Z]*.vue"
     }
-    // {
-    //   name: 'Icons',
-    //   components: 'src/components/**/[D-Z]*.vue'
-    // }
   ],
 
   // webpackConfig: {

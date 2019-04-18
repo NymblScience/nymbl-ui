@@ -29,10 +29,10 @@
         <star-icon size="24"></star-icon>
       </Button>
       <Button round type="icon" variant="secondary">
-        <menu-icon size="24"></menu-icon>
+        <menu-icon size="42"></menu-icon>
       </Button>
       <Button round type="icon" variant="danger">
-        <delete-icon size="24"></delete-icon>
+        <close-icon size="42"></delete-icon>
       </Button>
     </div>
   </div>
