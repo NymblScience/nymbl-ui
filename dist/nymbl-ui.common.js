@@ -12622,12 +12622,12 @@ var Modal_component = normalizeComponent(
 )
 
 /* harmony default export */ var Modal = (Modal_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Navbar.vue?vue&type=template&id=2ae1d73e&
-var Navbarvue_type_template_id_2ae1d73e_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-navbar',{attrs:{"fixed":_vm.fixed,"sticky":_vm.sticky,"toggleable":_vm.toggleable}},[_c('Button',{staticClass:"menu-toggle",attrs:{"round":"","type":"icon","variant":"transparent"},nativeOn:{"click":function($event){return _vm.toggleSidebar()}}},[_c('menu-icon')],1),_c('b-navbar-brand',{staticClass:"navbar-brand",attrs:{"href":"#"}},[_vm._t("logo")],2),_c('b-navbar-nav',{staticClass:"ml-auto sidebar",class:{ open: _vm.show },attrs:{"id":"side-bar","right":""}},[_c('Button',{staticClass:"menu-close",attrs:{"round":"","type":"icon","variant":"transparent"},nativeOn:{"click":function($event){return _vm.hide()}}},[_c('close-icon')],1),_vm._t("nav-items-drawer")],2),_c('b-navbar-nav',{attrs:{"right":""}},[_vm._t("nav-items")],2),(_vm.show)?_c('div',{staticClass:"backdrop",on:{"click":function($event){return _vm.hide()}}}):_vm._e()],1)}
-var Navbarvue_type_template_id_2ae1d73e_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Navbar.vue?vue&type=template&id=dc64440c&
+var Navbarvue_type_template_id_dc64440c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-navbar',{class:{drawer: _vm.drawer},attrs:{"fixed":_vm.fixed,"sticky":_vm.sticky,"toggleable":_vm.toggleable}},[(_vm.drawer)?_c('Button',{staticClass:"menu-toggle",attrs:{"round":"","type":"icon","variant":"transparent"},nativeOn:{"click":function($event){return _vm.toggleSidebar()}}},[_c('menu-icon')],1):_vm._e(),_c('b-navbar-brand',{staticClass:"navbar-brand",attrs:{"href":"#"}},[_vm._t("logo")],2),_c('b-navbar-nav',{staticClass:"ml-auto sidebar",class:{ open: _vm.show },attrs:{"id":"side-bar","right":""}},[_c('Button',{staticClass:"menu-close",attrs:{"round":"","type":"icon","variant":"transparent"},nativeOn:{"click":function($event){return _vm.hide()}}},[_c('close-icon')],1),_vm._t("nav-items-drawer")],2),_c('b-navbar-nav',{attrs:{"right":""}},[_vm._t("nav-items")],2),(_vm.show)?_c('div',{staticClass:"backdrop",on:{"click":function($event){return _vm.hide()}}}):_vm._e()],1)}
+var Navbarvue_type_template_id_dc64440c_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/Navbar.vue?vue&type=template&id=2ae1d73e&
+// CONCATENATED MODULE: ./src/components/Navbar.vue?vue&type=template&id=dc64440c&
 
 // EXTERNAL MODULE: ./node_modules/bootstrap-vue/es/components/navbar/navbar.js
 var navbar = __webpack_require__("e1a8");
@@ -12864,11 +12864,6 @@ var hammer_default = /*#__PURE__*/__webpack_require__.n(hammerjs_hammer);
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -12877,7 +12872,7 @@ var hammer_default = /*#__PURE__*/__webpack_require__.n(hammerjs_hammer);
 
 
 /* harmony default export */ var Navbarvue_type_script_lang_js_ = ({
-  name: 'Navbar',
+  name: "Navbar",
   components: {
     BNavbar: navbar_default.a,
     BNavbarBrand: navbar_brand_default.a,
@@ -12889,6 +12884,14 @@ var hammer_default = /*#__PURE__*/__webpack_require__.n(hammerjs_hammer);
     ClickOutside: vue_click_outside_default.a
   },
   props: {
+    /**
+     * Enable or disable responsive side drawer menu.
+     */
+    drawer: {
+      type: Boolean,
+      default: false
+    },
+
     /**
      * Set to `top` for fixed to the top of the viewport,
      * or `bottom` for fixed to the bottom of the viewport.
@@ -12932,11 +12935,11 @@ var hammer_default = /*#__PURE__*/__webpack_require__.n(hammerjs_hammer);
   created: function created() {
     var that = this;
     setTimeout(function () {
-      var element = document.getElementById('side-bar');
+      var element = document.getElementById("side-bar");
       var hammer = new hammer_default.a.Manager(element);
       var swipe = new hammer_default.a.Swipe();
       hammer.add(swipe);
-      hammer.on('swipeleft', function () {
+      hammer.on("swipeleft", function () {
         that.hide();
       });
     }, 1000);
@@ -12944,11 +12947,11 @@ var hammer_default = /*#__PURE__*/__webpack_require__.n(hammerjs_hammer);
   methods: {
     hide: function hide() {
       this.show = false;
-      document.documentElement.classList.remove('no-scrolling');
+      document.documentElement.classList.remove("no-scrolling");
     },
     toggleSidebar: function toggleSidebar() {
       this.show = true;
-      document.documentElement.classList.add('no-scrolling');
+      document.documentElement.classList.add("no-scrolling");
     }
   }
 });
@@ -12968,8 +12971,8 @@ var Navbarvue_type_style_index_0_lang_scss_ = __webpack_require__("16a3");
 
 var Navbar_component = normalizeComponent(
   components_Navbarvue_type_script_lang_js_,
-  Navbarvue_type_template_id_2ae1d73e_render,
-  Navbarvue_type_template_id_2ae1d73e_staticRenderFns,
+  Navbarvue_type_template_id_dc64440c_render,
+  Navbarvue_type_template_id_dc64440c_staticRenderFns,
   false,
   null,
   null,

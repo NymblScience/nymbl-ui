@@ -1,11 +1,10 @@
 <template>
-  <b-dropdown :text="text">
+  <b-form-select :options="options">
     <slot />
-  </b-dropdown>
+  </b-form-select>
 </template>
 <script>
-import BFormSelect from 'bootstrap-vue/es/components/form-select/form-select';
-
+import BFormSelect from 'bootstrap-vue/es/components/form-select/form-select'
 export default {
   name: 'Select',
   components: {
@@ -15,7 +14,7 @@ export default {
     /**
     * Dropdown Text
     */
-    text: {
+    options: {
       type: String,
       default: '',
     },
@@ -37,23 +36,22 @@ export default {
 <style lang="scss" >
 
 
-// .dropdown-toggle::after {
-//     display: inline-block;
-//     // margin-left: 0.255em;
-//     vertical-align: unset;
-//     content: "";
-//     border: none;
-//     width: 10px;
-//     height: 10px;
-//     background:red;
-//     // border-top: 0.3em solid;
-//     // border-right: 0.3em solid transparent;
-//     // border-bottom: 0;
-//     // border-left: 0.3em solid transparent;
-//     // height: 20px;
-//     // width:20px;
-//     // background:red;
-// }
+.dropdown-toggle::after {
+    // display: inline-block;
+    // margin-left: 0.255em;
+    // vertical-align: unset;
+    // content: "";
+    // border: none;
+
+    // background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z'/%3E%3Cpath fill='none' d='M0 0h24v24H0V0z'/%3E%3C/svg%3E")
+    // border-top: 0.3em solid;
+    // border-right: 0.3em solid transparent;
+    // border-bottom: 0;
+    // border-left: 0.3em solid transparent;
+    // height: 20px;
+    // width:20px;
+    // background:red;
+}
 
 .dropdown {
 

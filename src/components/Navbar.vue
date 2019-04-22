@@ -1,4 +1,4 @@
-<style lang="scss" >
+<style lang="scss">
 @import "@/assets/sass/animations.scss";
 @import "@/assets/sass/colors.scss";
 
@@ -13,7 +13,8 @@
   min-height: 4rem;
 }
 
-.navbar .menu-toggle, .navbar .menu-close {
+.navbar .menu-toggle,
+.navbar .menu-close {
   display: none;
 }
 
@@ -28,22 +29,23 @@
 // }
 
 .no-scrolling {
-    overflow: hidden;
-    padding-right: 17px;
+  overflow: hidden;
+  padding-right: 17px;
 }
 
 @media only screen and (max-width: 70rem) {
-  .navbar .menu-toggle, .navbar .menu-close {
+  .navbar.drawer .menu-toggle,
+  .navbar.drawer .menu-close {
     display: block;
     animation: fadeIn 400ms;
   }
 
-  .navbar-brand {
+  .navbar.drawer .navbar-brand {
     width: 100%;
     text-align: center;
   }
 
-  .navbar .sidebar {
+  .navbar.drawer .sidebar {
     width: 14rem;
     height: 100%;
     position: fixed;
@@ -57,23 +59,23 @@
     display: block;
     padding: 4rem 0;
     .nav-item:hover {
-      background:rgba(32,33,36,0.039)
+      background: rgba(32, 33, 36, 0.039);
     }
     .nav-item:active {
-      background: rgba(32,33,36,0.045)
+      background: rgba(32, 33, 36, 0.045);
     }
     .nav-link:focus {
       box-shadow: none;
-      outline:none;
+      outline: none;
       background: #f1f1f1;
-      background:rgba(32,33,36,0.039)
+      background: rgba(32, 33, 36, 0.039);
     }
     .nav-link {
       padding-left: 1.8rem;
     }
   }
 
-  .sidebar.open {
+  .navbar.drawer.sidebar.open {
     left: 0;
   }
 
@@ -96,8 +98,10 @@
     :fixed="fixed"
     :sticky="sticky"
     :toggleable="toggleable"
+    :class="{ drawer: drawer }"
   >
     <Button
+      v-if="drawer"
       round
       type="icon"
       variant="transparent"
@@ -107,10 +111,7 @@
       <menu-icon />
     </Button>
 
-    <b-navbar-brand
-      class="navbar-brand"
-      href="#"
-    >
+    <b-navbar-brand class="navbar-brand" href="#">
       <slot name="logo" />
     </b-navbar-brand>
 
@@ -134,49 +135,50 @@
     </b-navbar-nav>
 
     <!-- Always shown  -->
-    <b-navbar-nav
-      right
-    >
+    <b-navbar-nav right>
       <slot name="nav-items" />
     </b-navbar-nav>
-    <div
-      v-if="show"
-      class="backdrop"
-      @click="hide()"
-    />
+    <div v-if="show" class="backdrop" @click="hide()" />
   </b-navbar>
 </template>
 
 <script>
-import BNavbar from 'bootstrap-vue/es/components/navbar/navbar';
-import BNavbarBrand from 'bootstrap-vue/es/components/navbar/navbar-brand';
-import BNavbarNav from 'bootstrap-vue/es/components/navbar/navbar-nav';
-import ClickOutside from 'vue-click-outside';
-import MenuIcon from 'vue-material-design-icons/Menu.vue';
-import CloseIcon from 'vue-material-design-icons/Close.vue';
-import Hammer from 'hammerjs';
+import BNavbar from "bootstrap-vue/es/components/navbar/navbar";
+import BNavbarBrand from "bootstrap-vue/es/components/navbar/navbar-brand";
+import BNavbarNav from "bootstrap-vue/es/components/navbar/navbar-nav";
+import ClickOutside from "vue-click-outside";
+import MenuIcon from "vue-material-design-icons/Menu.vue";
+import CloseIcon from "vue-material-design-icons/Close.vue";
+import Hammer from "hammerjs";
 
 export default {
-  name: 'Navbar',
+  name: "Navbar",
   components: {
     BNavbar,
     BNavbarBrand,
     BNavbarNav,
     MenuIcon,
-    CloseIcon,
+    CloseIcon
   },
 
   directives: {
-    ClickOutside,
+    ClickOutside
   },
   props: {
+    /**
+     * Enable or disable responsive side drawer menu.
+     */
+    drawer: {
+      type: Boolean,
+      default: false
+    },
     /**
      * Set to `top` for fixed to the top of the viewport,
      * or `bottom` for fixed to the bottom of the viewport.
      */
     fixed: {
       type: String,
-      default: null,
+      default: null
     },
     /**
      * Set to `true` to make the navbar stick to the top of the viewport
@@ -184,7 +186,7 @@ export default {
      */
     sticky: {
       type: Boolean,
-      default: false,
+      default: false
     },
     /**
      * Possible toggleable values are `sm`, `md`, `lg` and `xl`.
@@ -194,32 +196,32 @@ export default {
      */
     toggleable: {
       type: [Boolean, String],
-      default: false,
-    },
+      default: false
+    }
   },
 
   data() {
     return {
       dropdownVisible: false,
-      show: false,
+      show: false
     };
   },
   computed: {
     me() {
       return false;
-    },
+    }
   },
   created() {
     const that = this;
 
     setTimeout(() => {
-      const element = document.getElementById('side-bar');
+      const element = document.getElementById("side-bar");
       const hammer = new Hammer.Manager(element);
       const swipe = new Hammer.Swipe();
 
       hammer.add(swipe);
 
-      hammer.on('swipeleft', () => {
+      hammer.on("swipeleft", () => {
         that.hide();
       });
     }, 1000);
@@ -227,12 +229,12 @@ export default {
   methods: {
     hide() {
       this.show = false;
-      document.documentElement.classList.remove('no-scrolling');
+      document.documentElement.classList.remove("no-scrolling");
     },
     toggleSidebar() {
       this.show = true;
-      document.documentElement.classList.add('no-scrolling');
-    },
-  },
+      document.documentElement.classList.add("no-scrolling");
+    }
+  }
 };
 </script>
