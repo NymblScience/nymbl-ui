@@ -6,6 +6,7 @@
       <Button variant="primary">Primary</Button>
       <Button variant="secondary">Secondary</Button>
       <Button variant="danger">Danger</Button>
+      <Button disabled variant="primary">Disabled</Button>
     </div>
     <div class="styleguide-section">
       <h3>Sizes</h3>
@@ -22,33 +23,23 @@
     </div>
     <div class="styleguide-section">
       <h3>Icon</h3>
-      <Button round type="icon" variant="transparent">
-        <star-icon size="24"></star-icon>
-      </Button>
-      <Button round type="icon" variant="primary">
-        <star-icon size="24"></star-icon>
-      </Button>
       <Button round type="icon" variant="secondary">
         <menu-icon size="42"></menu-icon>
       </Button>
       <Button round type="icon" variant="danger">
-        <close-icon size="42"></delete-icon>
+        <close-icon size="42"></close-icon>
       </Button>
     </div>
   </div>
 </template>
 
 <script>
-const StarIcon = require("../assets/icons/Star.vue").default;
 const MenuIcon = require("../assets/icons/Menu.vue").default;
 const CloseIcon = require("../assets/icons/Close.vue").default;
-const DeleteIcon = require("../assets/icons/Delete.vue").default;
 
 export default {
   components: {
-    StarIcon,
     MenuIcon,
-    DeleteIcon,
     CloseIcon
   },
   data() {

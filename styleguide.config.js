@@ -33,21 +33,21 @@ module.exports = {
   exampleMode: "expand",
   
   sections: [
-		{
-			name: 'Documentation',
-			content: 'docs/Introduction.md',
-			sections: [
-				{
-					name: 'Typography',
-					content: 'docs/Typography.md',
-				},
-				{
-					name: 'Colors',
-					content: 'docs/Colors.md',
-				},
-			],
-			sectionDepth: 1
-		},
+		// {
+		// 	name: 'Documentation',
+		// 	content: 'docs/Introduction.md',
+		// 	sections: [
+		// 		{
+		// 			name: 'Typography',
+		// 			content: 'docs/Typography.md',
+		// 		},
+		// 		{
+		// 			name: 'Colors',
+		// 			content: 'docs/Colors.md',
+		// 		},
+		// 	],
+		// 	sectionDepth: 1
+		// },
     {
       name: "Components",
       components: "src/components/**/[A-Z]*.vue"
@@ -63,7 +63,7 @@ module.exports = {
     spaceFactor: 1,
     baseBackground: "red",
     link: "#274e75",
-    linkHover: "#90a7bf",
+    linkHover: "red",
     border: "#e0d2de",
     font: ["Roboto", "sans-serif"]
   },

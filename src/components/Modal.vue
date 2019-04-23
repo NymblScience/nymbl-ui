@@ -1,67 +1,114 @@
 <template>
   <b-modal
+    ref="modal"
     v-model="show"
     :centered="centered"
     v-bind="$attrs"
     hide-header-close
+    no-fade
+    :hide-header="isHeaderHidden"
+    :style="{ 'max-width': size + 'rem' }"
+    :content-class="contentClass"
+    @hide="close"
     v-on="$listeners"
   >
-    <div slot="modal-header">
+    <div v-if="type !== 'confirm'" slot="modal-header">
       {{ title }}
       <Button
         round
         type="icon"
-        variant="transparent"
+        variant="danger"
         class="modal-close"
+        @click.native="close()"
       >
-        <close-icon :size="18" />
+        <close-icon :size="32" />
       </Button>
     </div>
 
     <slot />
-    <div
-      slot="modal-footer"
-      class="w-100"
-    >
+    <div slot="modal-footer" class="w-100">
       <slot name="modal-footer" />
     </div>
   </b-modal>
 </template>
 <script>
-import BModal from 'bootstrap-vue/es/components/modal/modal';
-import CloseIcon from 'vue-material-design-icons/Close.vue';
+import BModal from "bootstrap-vue/es/components/modal/modal";
+import CloseIcon from "vue-material-design-icons/Close.vue";
 
 export default {
-  name: 'Modal',
+  name: "Modal",
   components: {
     BModal,
-    CloseIcon,
+    CloseIcon
   },
   props: {
     show: {
       default: false,
-      type: Boolean,
+      type: Boolean
     },
     /**
      * Vertically center your modal in the viewport.
      */
     centered: {
       default: false,
-      type: Boolean,
+      type: Boolean
     },
     title: {
-      default: 'null',
-      type: String,
+      default: "null",
+      type: String
     },
+
+    size: {
+      default: 40,
+      type: Number
+    },
+    /**
+     * Make dialog fullscreen in responsive breakpoints.
+     */
+    type: {
+      default: "default",
+      type: String
+    },
+    /**
+     * Make dialog fullscreen in responsive breakpoints.
+     */
+    fullscreen: {
+      default: "no",
+      type: String
+    }
   },
+  computed: {
+    isHeaderHidden() {
+      if (this.type === "confirm") {
+        return true;
+      }
+      return false;
+    },
+    contentClass() {
+      if (this.type === "confirm") {
+        return "modal-confirm";
+      }
+      return "";
+    }
+  },
+  methods: {
+    close() {
+      // this.$refs["modal"].hide();
+      this.$emit("close");
+    }
+  }
 };
 </script>
 <style lang="scss">
 @import "@/assets/sass/colors.scss";
+@import "@/assets/sass/animations.scss";
 .modal-content {
   margin-top: 15vh;
-  padding: 1rem 1rem
+  padding: 1rem 1rem;
+  animation: fadeIn 300ms;
+  box-shadow: 0 2.5px 4px rgba(25, 25, 26, 0.7);
 }
+
 .modal-footer {
   border-top: none;
   text-align: right;
@@ -71,10 +118,17 @@ export default {
   padding-right: 3rem;
 }
 
+.modal-confirm {
+  max-width: 20rem;
+  margin-right: auto;
+  margin-left: auto;
+  margin: 0 auto;
+}
+
 .modal-close {
-position: absolute;
-top: 1.6rem;
-right: 2rem;
+  position: absolute;
+  top: 1.6rem;
+  right: 2rem;
 }
 
 .modal-title {
