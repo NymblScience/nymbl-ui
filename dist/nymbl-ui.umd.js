@@ -146,6 +146,43 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "00df":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _inputGroup = __webpack_require__("fde0");
+
+var _inputGroupAddon = __webpack_require__("9d25");
+
+var _inputGroupPrepend = __webpack_require__("9e3e");
+
+var _inputGroupAppend = __webpack_require__("6780");
+
+var _inputGroupText = __webpack_require__("df74");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BInputGroup: _inputGroup.default,
+  BInputGroupAddon: _inputGroupAddon.default,
+  BInputGroupPrepend: _inputGroupPrepend.default,
+  BInputGroupAppend: _inputGroupAppend.default,
+  BInputGroupText: _inputGroupText.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "01f9":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -223,6 +260,270 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
 
 /***/ }),
 
+/***/ "057b":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _listGroup = __webpack_require__("5a5e");
+
+var _listGroupItem = __webpack_require__("5ac8");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BListGroup: _listGroup.default,
+  BListGroupItem: _listGroupItem.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "0596":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var props = {
+  id: {
+    type: String,
+    default: null
+  },
+  inline: {
+    type: Boolean,
+    default: false
+  },
+  novalidate: {
+    type: Boolean,
+    default: false
+  },
+  validated: {
+    type: Boolean,
+    default: false
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BForm',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h('form', (0, _vueFunctionalDataMerge.mergeData)(data, {
+      class: {
+        'form-inline': props.inline,
+        'was-validated': props.validated
+      },
+      attrs: {
+        id: props.id,
+        novalidate: props.novalidate
+      }
+    }), children);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "060b":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _startcase = __webpack_require__("3098");
+
+var _keyCodes = __webpack_require__("06e4");
+
+var _html = __webpack_require__("be11");
+
+var _filterEvent = __webpack_require__("382a");
+
+var _textSelectionActive = __webpack_require__("c57f");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var _default = {
+  props: {
+    headVariant: {
+      type: String,
+      default: ''
+    },
+    theadClass: {
+      type: [String, Array, Object],
+      default: null
+    },
+    theadTrClass: {
+      type: [String, Array, Object],
+      default: null
+    }
+  },
+  computed: {
+    headClasses: function headClasses() {
+      return [this.headVariant ? 'thead-' + this.headVariant : '', this.theadClass];
+    }
+  },
+  methods: {
+    fieldClasses: function fieldClasses(field) {
+      // header field (th) classes
+      return [field.variant ? 'table-' + field.variant : '', field.class ? field.class : '', field.thClass ? field.thClass : ''];
+    },
+    headClicked: function headClicked(evt, field, isFoot) {
+      if (this.stopIfBusy(evt)) {
+        // If table is busy (via provider) then don't propagate
+        return;
+      } else if ((0, _filterEvent.default)(evt)) {
+        // clicked on a non-disabled control so ignore
+        return;
+      } else if ((0, _textSelectionActive.default)(this.$el)) {
+        // User is selecting text, so ignore
+
+        /* istanbul ignore next: JSDOM doesn't support getSelection() */
+        return;
+      }
+
+      evt.stopPropagation();
+      evt.preventDefault();
+      this.$emit('head-clicked', field.key, field, evt, isFoot);
+    },
+    renderThead: function renderThead() {
+      var _this = this;
+
+      var isFoot = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      var h = this.$createElement;
+
+      if (this.isStacked === true) {
+        // In always stacked mode, we don't bother rendering the head/foot
+        return h(false);
+      }
+
+      var fields = this.computedFields || []; // Helper function to generate a field TH cell
+
+      var makeCell = function makeCell(field, colIndex) {
+        var ariaLabel = null;
+
+        if (!field.label.trim() && !field.headerTitle) {
+          // In case field's label and title are empty/blank
+          // We need to add a hint about what the column is about for non-sighted users
+
+          /* istanbul ignore next */
+          ariaLabel = (0, _startcase.default)(field.key);
+        }
+
+        var hasHeadClickListener = _this.$listeners['head-clicked'] || _this.isSortable;
+        var handlers = {};
+
+        if (hasHeadClickListener) {
+          handlers.click = function (evt) {
+            _this.headClicked(evt, field, isFoot);
+          };
+
+          handlers.keydown = function (evt) {
+            var keyCode = evt.keyCode;
+
+            if (keyCode === _keyCodes.default.ENTER || keyCode === _keyCodes.default.SPACE) {
+              _this.headClicked(evt, field, isFoot);
+            }
+          };
+        }
+
+        var data = {
+          key: field.key,
+          class: [_this.fieldClasses(field), _this.sortTheadThClasses(field.key, field, isFoot)],
+          style: field.thStyle || {},
+          attrs: _objectSpread({
+            // We only add a tabindex of 0 if there is a head-clicked listener
+            tabindex: hasHeadClickListener ? '0' : null,
+            abbr: field.headerAbbr || null,
+            title: field.headerTitle || null,
+            role: 'columnheader',
+            scope: 'col',
+            'aria-colindex': String(colIndex + 1),
+            'aria-label': ariaLabel
+          }, _this.sortTheadThAttrs(field.key, field, isFoot)),
+          on: handlers
+        };
+        var fieldScope = {
+          label: field.label,
+          column: field.key,
+          field: field
+        };
+        var slot = isFoot && _this.hasNormalizedSlot("FOOT_".concat(field.key)) ? _this.normalizeSlot("FOOT_".concat(field.key), fieldScope) : _this.normalizeSlot("HEAD_".concat(field.key), fieldScope);
+
+        if (slot) {
+          slot = [slot];
+        } else {
+          data.domProps = (0, _html.htmlOrText)(field.labelHtml);
+        }
+
+        return h('th', data, slot || field.label);
+      }; // Generate the array of TH cells
+
+
+      var $cells = fields.map(makeCell).filter(function (th) {
+        return th;
+      }); // Genrate the row(s)
+
+      var $trs = [];
+
+      if (isFoot) {
+        $trs.push(h('tr', {
+          class: this.tfootTrClass,
+          attrs: {
+            role: 'row'
+          }
+        }, $cells));
+      } else {
+        var scope = {
+          columns: fields.length,
+          fields: fields
+        };
+        $trs.push(this.normalizeSlot('thead-top', scope) || h(false));
+        $trs.push(h('tr', {
+          class: this.theadTrClass,
+          attrs: {
+            role: 'row'
+          }
+        }, $cells));
+      }
+
+      return h(isFoot ? 'tfoot' : 'thead', {
+        key: isFoot ? 'tfoot' : 'thead',
+        class: isFoot ? this.footClasses : this.headClasses,
+        attrs: {
+          role: 'rowgroup'
+        }
+      }, $trs);
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "06e4":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -263,6 +564,598 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "076e":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _spinner = __webpack_require__("9c6f");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BSpinner: _spinner.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "07b5":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _id = __webpack_require__("eae0");
+
+var _form = __webpack_require__("5f07");
+
+var _formState = __webpack_require__("41fb");
+
+var _formCustom = __webpack_require__("377c");
+
+var _normalizeSlot = __webpack_require__("532a");
+
+var _array = __webpack_require__("bb2f");
+
+var _config = __webpack_require__("eb60");
+
+var NAME = 'BFormFile'; // @vue/component
+
+var _default2 = {
+  name: NAME,
+  mixins: [_id.default, _form.default, _formState.default, _formCustom.default, _normalizeSlot.default],
+  model: {
+    prop: 'value',
+    event: 'input'
+  },
+  props: {
+    value: {
+      // type: Object,
+      default: null
+    },
+    accept: {
+      type: String,
+      default: ''
+    },
+    // Instruct input to capture from camera
+    capture: {
+      type: Boolean,
+      default: false
+    },
+    placeholder: {
+      type: String,
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'placeholder');
+      }
+    },
+    browseText: {
+      type: String,
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'browseText');
+      }
+    },
+    dropPlaceholder: {
+      type: String,
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'dropPlaceholder');
+      }
+    },
+    multiple: {
+      type: Boolean,
+      default: false
+    },
+    directory: {
+      type: Boolean,
+      default: false
+    },
+    noTraverse: {
+      type: Boolean,
+      default: false
+    },
+    noDrop: {
+      type: Boolean,
+      default: false
+    },
+    fileNameFormatter: {
+      type: Function,
+      default: null
+    }
+  },
+  data: function data() {
+    return {
+      selectedFile: null,
+      dragging: false,
+      hasFocus: false
+    };
+  },
+  computed: {
+    selectLabel: function selectLabel() {
+      // Draging active
+      if (this.dragging && this.dropPlaceholder) {
+        return this.dropPlaceholder;
+      } // No file chosen
+
+
+      if (!this.selectedFile || this.selectedFile.length === 0) {
+        return this.placeholder;
+      } // Convert selectedFile to an array (if not already one)
+
+
+      var files = (0, _array.concat)(this.selectedFile).filter(Boolean);
+
+      if (this.hasNormalizedSlot('file-name')) {
+        // There is a slot for formatting the files/names
+        return [this.normalizeSlot('file-name', {
+          files: files,
+          names: files.map(function (f) {
+            return f.name;
+          })
+        })];
+      } else {
+        // Use the user supplied formatter, or the built in one.
+        return typeof this.fileNameFormatter === 'function' ? String(this.fileNameFormatter(files)) : files.map(function (file) {
+          return file.name;
+        }).join(', ');
+      }
+    }
+  },
+  watch: {
+    selectedFile: function selectedFile(newVal, oldVal) {
+      // The following test is needed when the file input is "reset" or the
+      // exact same file(s) are selected to prevent an infinite loop.
+      // When in `multiple` mode we need to check for two empty arrays or
+      // two arrays with identical files
+      if (newVal === oldVal || (0, _array.isArray)(newVal) && (0, _array.isArray)(oldVal) && newVal.length === oldVal.length && newVal.every(function (v, i) {
+        return v === oldVal[i];
+      })) {
+        return;
+      }
+
+      if (!newVal && this.multiple) {
+        this.$emit('input', []);
+      } else {
+        this.$emit('input', newVal);
+      }
+    },
+    value: function value(newVal) {
+      if (!newVal || (0, _array.isArray)(newVal) && newVal.length === 0) {
+        this.reset();
+      }
+    }
+  },
+  methods: {
+    focusHandler: function focusHandler(evt) {
+      // Bootstrap v4 doesn't have focus styling for custom file input
+      // Firefox has a '[type=file]:focus ~ sibling' selector issue,
+      // so we add a 'focus' class to get around these bugs
+      if (this.plain || evt.type === 'focusout') {
+        this.hasFocus = false;
+      } else {
+        // Add focus styling for custom file input
+        this.hasFocus = true;
+      }
+    },
+    reset: function reset() {
+      try {
+        // Wrapped in try in case IE 11 craps out
+        this.$refs.input.value = '';
+      } catch (e) {} // IE 11 doesn't support setting `input.value` to '' or null
+      // So we use this little extra hack to reset the value, just in case.
+      // This also appears to work on modern browsers as well.
+
+
+      this.$refs.input.type = '';
+      this.$refs.input.type = 'file';
+      this.selectedFile = this.multiple ? [] : null;
+    },
+    onFileChange: function onFileChange(evt) {
+      var _this = this;
+
+      // Always emit original event
+      this.$emit('change', evt); // Check if special `items` prop is available on event (drop mode)
+      // Can be disabled by setting no-traverse
+
+      var items = evt.dataTransfer && evt.dataTransfer.items;
+      /* istanbul ignore next: not supported in JSDOM */
+
+      if (items && !this.noTraverse) {
+        var queue = [];
+
+        for (var i = 0; i < items.length; i++) {
+          var item = items[i].webkitGetAsEntry();
+
+          if (item) {
+            queue.push(this.traverseFileTree(item));
+          }
+        }
+
+        Promise.all(queue).then(function (filesArr) {
+          _this.setFiles((0, _array.from)(filesArr));
+        });
+        return;
+      } // Normal handling
+
+
+      this.setFiles(evt.target.files || evt.dataTransfer.files);
+    },
+    setFiles: function setFiles() {
+      var files = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+
+      if (!files) {
+        /* istanbul ignore next: this will probably not happen */
+        this.selectedFile = null;
+      } else if (this.multiple) {
+        // Convert files to array
+        var filesArray = [];
+
+        for (var i = 0; i < files.length; i++) {
+          filesArray.push(files[i]);
+        } // Return file(s) as array
+
+
+        this.selectedFile = filesArray;
+      } else {
+        // Return single file object
+        this.selectedFile = files[0] || null;
+      }
+    },
+    onReset: function onReset() {
+      // Triggered when the parent form (if any) is reset
+      this.selectedFile = this.multiple ? [] : null;
+    },
+    onDragover: function onDragover(evt)
+    /* istanbul ignore next: difficult to test in JSDOM */
+    {
+      evt.preventDefault();
+      evt.stopPropagation();
+
+      if (this.noDrop || !this.custom) {
+        return;
+      }
+
+      this.dragging = true;
+      evt.dataTransfer.dropEffect = 'copy';
+    },
+    onDragleave: function onDragleave(evt)
+    /* istanbul ignore next: difficult to test in JSDOM */
+    {
+      evt.preventDefault();
+      evt.stopPropagation();
+      this.dragging = false;
+    },
+    onDrop: function onDrop(evt)
+    /* istanbul ignore next: difficult to test in JSDOM */
+    {
+      evt.preventDefault();
+      evt.stopPropagation();
+
+      if (this.noDrop) {
+        return;
+      }
+
+      this.dragging = false;
+
+      if (evt.dataTransfer.files && evt.dataTransfer.files.length > 0) {
+        this.onFileChange(evt);
+      }
+    },
+    traverseFileTree: function traverseFileTree(item, path)
+    /* istanbul ignore next: not supported in JSDOM */
+    {
+      var _this2 = this;
+
+      // Based on http://stackoverflow.com/questions/3590058
+      return new Promise(function (resolve) {
+        path = path || '';
+
+        if (item.isFile) {
+          // Get file
+          item.file(function (file) {
+            file.$path = path; // Inject $path to file obj
+
+            resolve(file);
+          });
+        } else if (item.isDirectory) {
+          // Get folder contents
+          item.createReader().readEntries(function (entries) {
+            var queue = [];
+
+            for (var i = 0; i < entries.length; i++) {
+              queue.push(_this2.traverseFileTree(entries[i], path + item.name + '/'));
+            }
+
+            Promise.all(queue).then(function (filesArr) {
+              resolve((0, _array.from)(filesArr));
+            });
+          });
+        }
+      });
+    }
+  },
+  render: function render(h) {
+    // Form Input
+    var input = h('input', {
+      ref: 'input',
+      class: [{
+        'form-control-file': this.plain,
+        'custom-file-input': this.custom,
+        focus: this.custom && this.hasFocus
+      }, this.stateClass],
+      attrs: {
+        type: 'file',
+        id: this.safeId(),
+        name: this.name,
+        disabled: this.disabled,
+        required: this.required,
+        form: this.form || null,
+        capture: this.capture || null,
+        accept: this.accept || null,
+        multiple: this.multiple,
+        webkitdirectory: this.directory,
+        'aria-required': this.required ? 'true' : null
+      },
+      on: {
+        change: this.onFileChange,
+        focusin: this.focusHandler,
+        focusout: this.focusHandler,
+        reset: this.onReset
+      }
+    });
+
+    if (this.plain) {
+      return input;
+    } // Overlay Labels
+
+
+    var label = h('label', {
+      staticClass: 'custom-file-label',
+      class: [this.dragging ? 'dragging' : null],
+      attrs: {
+        for: this.safeId(),
+        'data-browse': this.browseText || null
+      }
+    }, this.selectLabel); // Return rendered custom file input
+
+    return h('div', {
+      staticClass: 'custom-file b-form-file',
+      class: this.stateClass,
+      attrs: {
+        id: this.safeId('_BV_file_outer_')
+      },
+      on: {
+        dragover: this.onDragover,
+        dragleave: this.onDragleave,
+        drop: this.onDrop
+      }
+    }, [input, label]);
+  }
+};
+exports.default = _default2;
+
+/***/ }),
+
+/***/ "07d0":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _looseEqual = __webpack_require__("96cd");
+
+var _id = __webpack_require__("eae0");
+
+var _normalizeSlot = __webpack_require__("532a");
+
+var _mixinItems = __webpack_require__("4399");
+
+var _mixinFiltering = __webpack_require__("a306");
+
+var _mixinSorting = __webpack_require__("e8c7");
+
+var _mixinPagination = __webpack_require__("0c42");
+
+var _mixinCaption = __webpack_require__("50b2");
+
+var _mixinColgroup = __webpack_require__("6a0e");
+
+var _mixinThead = __webpack_require__("060b");
+
+var _mixinTfoot = __webpack_require__("711a");
+
+var _mixinTbody = __webpack_require__("3888");
+
+var _mixinBusy = __webpack_require__("7f6b");
+
+var _mixinSelectable = __webpack_require__("3966");
+
+var _mixinProvider = __webpack_require__("b6bd");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// b-table component definition
+// @vue/component
+var _default2 = {
+  name: 'BTable',
+  // Order of mixins is important.
+  // They are merged from left to fight, followed by this component.
+  mixins: [_id.default, _normalizeSlot.default, _mixinItems.default, _mixinFiltering.default, _mixinSorting.default, _mixinPagination.default, _mixinBusy.default, _mixinCaption.default, _mixinColgroup.default, _mixinThead.default, _mixinTfoot.default, _mixinTbody.default, _mixinSelectable.default, _mixinProvider.default],
+  // Don't place ATTRS on root element automatically, as table could be wrapped in responsive div
+  inheritAttrs: false,
+  props: {
+    striped: {
+      type: Boolean,
+      default: false
+    },
+    bordered: {
+      type: Boolean,
+      default: false
+    },
+    borderless: {
+      type: Boolean,
+      default: false
+    },
+    outlined: {
+      type: Boolean,
+      default: false
+    },
+    dark: {
+      type: Boolean,
+      default: false
+    },
+    hover: {
+      type: Boolean,
+      default: false
+    },
+    small: {
+      type: Boolean,
+      default: false
+    },
+    fixed: {
+      type: Boolean,
+      default: false
+    },
+    responsive: {
+      type: [Boolean, String],
+      default: false
+    },
+    stacked: {
+      type: [Boolean, String],
+      default: false
+    },
+    value: {
+      // v-model for retrieving the current displayed rows
+      type: Array,
+      default: function _default() {
+        return [];
+      }
+    }
+  },
+  data: function data() {
+    // Mixins add to data
+    return {};
+  },
+  computed: {
+    // Layout related computed props
+    isStacked: function isStacked() {
+      return this.stacked === '' ? true : this.stacked;
+    },
+    isResponsive: function isResponsive() {
+      var responsive = this.responsive === '' ? true : this.responsive;
+      return this.isStacked ? false : responsive;
+    },
+    responsiveClass: function responsiveClass() {
+      return this.isResponsive === true ? 'table-responsive' : this.isResponsive ? "table-responsive-".concat(this.responsive) : '';
+    },
+    tableClasses: function tableClasses() {
+      return [_defineProperty({
+        'table-striped': this.striped,
+        'table-hover': this.hover,
+        'table-dark': this.dark,
+        'table-bordered': this.bordered,
+        'table-borderless': this.borderless,
+        'table-sm': this.small,
+        border: this.outlined,
+        // The following are b-table custom styles
+        'b-table-fixed': this.fixed,
+        'b-table-stacked': this.stacked === true || this.stacked === ''
+      }, "b-table-stacked-".concat(this.stacked), this.stacked !== true && this.stacked), // Selectable classes
+      this.selectableTableClasses];
+    },
+    tableAttrs: function tableAttrs() {
+      // Preserve user supplied aria-describedby, if provided in $attrs
+      var adb = [(this.$attrs || {})['aria-describedby'], this.captionId].filter(Boolean).join(' ') || null;
+      var items = this.computedItems;
+      var fields = this.computedFields;
+      return _objectSpread({
+        // We set aria-rowcount before merging in $attrs, in case user has supplied their own
+        'aria-rowcount': this.filteredItems.length > items.length ? String(this.filteredItems.length) : null
+      }, this.$attrs, {
+        // Now we can override any $attrs here
+        id: this.safeId(),
+        role: this.isStacked ? 'table' : null,
+        'aria-busy': this.computedBusy ? 'true' : 'false',
+        'aria-colcount': String(fields.length),
+        'aria-describedby': adb
+      }, this.selectableTableAttrs);
+    },
+    context: function context() {
+      // Current state of sorting, filtering and pagination props/values
+      return {
+        filter: this.localFilter,
+        sortBy: this.localSortBy,
+        sortDesc: this.localSortDesc,
+        perPage: parseInt(this.perPage, 10) || 0,
+        currentPage: parseInt(this.currentPage, 10) || 1,
+        apiUrl: this.apiUrl
+      };
+    },
+    computedItems: function computedItems() {
+      return this.paginatedItems || [];
+    }
+  },
+  watch: {
+    // Watch for changes on computedItems and update the v-model
+    computedItems: function computedItems(newVal, oldVal) {
+      this.$emit('input', newVal);
+    },
+    context: function context(newVal, oldVal) {
+      // Emit context info for external paging/filtering/sorting handling
+      if (!(0, _looseEqual.default)(newVal, oldVal)) {
+        this.$emit('context-changed', newVal);
+      }
+    }
+  },
+  mounted: function mounted() {
+    // Initially update the v-model of displayed items
+    this.$emit('input', this.computedItems);
+  },
+  render: function render(h) {
+    // Build the caption (from caption mixin)
+    var $caption = this.renderCaption(); // Build the colgroup
+
+    var $colgroup = this.renderColgroup(); // Build the thead
+
+    var $thead = this.renderThead(); // Build the tfoot
+
+    var $tfoot = this.renderTfoot(); // Build the tbody
+
+    var $tbody = this.renderTbody(); // Assemble table
+
+    var $table = h('table', {
+      key: 'b-table',
+      staticClass: 'table b-table',
+      class: this.tableClasses,
+      attrs: this.tableAttrs
+    }, [$caption, $colgroup, $thead, $tfoot, $tbody]); // Add responsive wrapper if needed and return table
+
+    return this.isResponsive ? h('div', {
+      key: 'b-table-responsive',
+      class: this.responsiveClass
+    }, [$table]) : $table;
+  }
+};
+exports.default = _default2;
+
+/***/ }),
+
 /***/ "07e3":
 /***/ (function(module, exports) {
 
@@ -271,6 +1164,611 @@ module.exports = function (it, key) {
   return hasOwnProperty.call(it, key);
 };
 
+
+/***/ }),
+
+/***/ "0866":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _button = __webpack_require__("b664");
+
+var _buttonClose = __webpack_require__("600b");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BButton: _button.default,
+  BBtn: _button.default,
+  BButtonClose: _buttonClose.default,
+  BBtnClose: _buttonClose.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "0903":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _config = __webpack_require__("eb60");
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var NAME = 'BFormText';
+var props = {
+  id: {
+    type: String,
+    default: null
+  },
+  tag: {
+    type: String,
+    default: 'small'
+  },
+  textVariant: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'textVariant');
+    }
+  },
+  inline: {
+    type: Boolean,
+    default: false
+  } // @vue/component
+
+};
+exports.props = props;
+var _default2 = {
+  name: NAME,
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      class: _defineProperty({
+        'form-text': !props.inline
+      }, "text-".concat(props.textVariant), Boolean(props.textVariant)),
+      attrs: {
+        id: props.id
+      }
+    }), children);
+  }
+};
+exports.default = _default2;
+
+/***/ }),
+
+/***/ "0942":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _array = __webpack_require__("bb2f");
+
+var _object = __webpack_require__("24e2");
+
+var _identity = __webpack_require__("fccc");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+/**
+ * Copies props from one array/object to a new array/object. Prop values
+ * are also cloned as new references to prevent possible mutation of original
+ * prop object values. Optionally accepts a function to transform the prop name.
+ *
+ * @param {[]|{}} props
+ * @param {Function} transformFn
+ */
+var copyProps = function copyProps(props) {
+  var transformFn = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _identity.default;
+
+  if ((0, _array.isArray)(props)) {
+    return props.map(transformFn);
+  } // Props as an object.
+
+
+  var copied = {};
+
+  for (var prop in props) {
+    /* istanbul ignore else */
+    if (props.hasOwnProperty(prop)) {
+      // If the prop value is an object, do a shallow clone to prevent
+      // potential mutations to the original object.
+      copied[transformFn(prop)] = (0, _object.isObject)(props[prop]) ? _objectSpread({}, props[prop]) : props[prop];
+    }
+  }
+
+  return copied;
+};
+
+var _default = copyProps;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "0a8d":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.vueUse = exports.registerDirectives = exports.registerDirective = exports.registerComponents = exports.registerComponent = exports.registerPlugins = exports.installFactory = void 0;
+
+var _config = __webpack_require__("eb60");
+
+/**
+ * Plugin install factory function.
+ * @param {object} { components, directives }
+ * @returns {function} plugin install function
+ */
+var installFactory = function installFactory(_ref) {
+  var components = _ref.components,
+      directives = _ref.directives,
+      plugins = _ref.plugins;
+  return function (Vue) {
+    var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    (0, _config.setConfig)(config);
+    registerComponents(Vue, components);
+    registerDirectives(Vue, directives);
+    registerPlugins(Vue, plugins);
+  };
+};
+/**
+ * Load a group of plugins.
+ * @param {object} Vue
+ * @param {object} Plugin definitions
+ */
+
+
+exports.installFactory = installFactory;
+
+var registerPlugins = function registerPlugins(Vue) {
+  var plugins = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  for (var plugin in plugins) {
+    if (plugin && plugins[plugin]) {
+      Vue.use(plugins[plugin]);
+    }
+  }
+};
+/**
+ * Load a component.
+ * @param {object} Vue
+ * @param {string} Component name
+ * @param {object} Component definition
+ */
+
+
+exports.registerPlugins = registerPlugins;
+
+var registerComponent = function registerComponent(Vue, name, def) {
+  if (Vue && name && def) {
+    Vue.component(name, def);
+  }
+};
+/**
+ * Load a group of components.
+ * @param {object} Vue
+ * @param {object} Object of component definitions
+ */
+
+
+exports.registerComponent = registerComponent;
+
+var registerComponents = function registerComponents(Vue) {
+  var components = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  for (var component in components) {
+    registerComponent(Vue, component, components[component]);
+  }
+};
+/**
+ * Load a directive.
+ * @param {object} Vue
+ * @param {string} Directive name
+ * @param {object} Directive definition
+ */
+
+
+exports.registerComponents = registerComponents;
+
+var registerDirective = function registerDirective(Vue, name, def) {
+  if (Vue && name && def) {
+    Vue.directive(name, def);
+  }
+};
+/**
+ * Load a group of directives.
+ * @param {object} Vue
+ * @param {object} Object of directive definitions
+ */
+
+
+exports.registerDirective = registerDirective;
+
+var registerDirectives = function registerDirectives(Vue) {
+  var directives = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  for (var directive in directives) {
+    registerDirective(Vue, directive, directives[directive]);
+  }
+};
+/**
+ * Install plugin if window.Vue available
+ * @param {object} Plugin definition
+ */
+
+
+exports.registerDirectives = registerDirectives;
+
+var vueUse = function vueUse(VuePlugin) {
+  /* istanbul ignore next */
+  if (typeof window !== 'undefined' && window.Vue) {
+    window.Vue.use(VuePlugin);
+  }
+};
+
+exports.vueUse = vueUse;
+
+/***/ }),
+
+/***/ "0b34":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _html = __webpack_require__("be11");
+
+var _default = {
+  props: {
+    showEmpty: {
+      type: Boolean,
+      default: false
+    },
+    emptyText: {
+      type: String,
+      default: 'There are no records to show'
+    },
+    emptyHtml: {
+      type: String
+    },
+    emptyFilteredText: {
+      type: String,
+      default: 'There are no records matching your request'
+    },
+    emptyFilteredHtml: {
+      type: String
+    }
+  },
+  methods: {
+    renderEmpty: function renderEmpty() {
+      var h = this.$createElement;
+      var items = this.computedItems;
+      var $empty;
+
+      if (this.showEmpty && (!items || items.length === 0) && !(this.computedBusy && this.hasNormalizedSlot('table-busy'))) {
+        $empty = this.normalizeSlot(this.isFiltered ? 'emptyfiltered' : 'empty', {
+          emptyFilteredHtml: this.emptyFilteredHtml,
+          emptyFilteredText: this.emptyFilteredText,
+          emptyHtml: this.emptyHtml,
+          emptyText: this.emptyText,
+          fields: this.computedFields,
+          // Not sure why this is included, as it will always be an empty array
+          items: this.computedItems
+        });
+
+        if (!$empty) {
+          $empty = h('div', {
+            class: ['text-center', 'my-2'],
+            domProps: this.isFiltered ? (0, _html.htmlOrText)(this.emptyFilteredHtml, this.emptyFilteredText) : (0, _html.htmlOrText)(this.emptyHtml, this.emptyText)
+          });
+        }
+
+        $empty = h('td', {
+          attrs: {
+            colspan: String(this.computedFields.length),
+            role: 'cell'
+          }
+        }, [h('div', {
+          attrs: {
+            role: 'alert',
+            'aria-live': 'polite'
+          }
+        }, [$empty])]);
+        $empty = h('tr', {
+          key: this.isFiltered ? '_b-table-empty-filtered-row_' : '_b-table-empty-row_',
+          staticClass: 'b-table-empty-row',
+          class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-empty') : this.tbodyTrClass],
+          attrs: {
+            role: 'row'
+          }
+        }, [$empty]);
+      }
+
+      return $empty || h(false);
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "0c40":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _id = __webpack_require__("eae0");
+
+var _form = __webpack_require__("5f07");
+
+var _formSize = __webpack_require__("6e1b");
+
+var _formState = __webpack_require__("41fb");
+
+var _formText = __webpack_require__("c01c");
+
+var _formSelection = __webpack_require__("10fc");
+
+var _formValidity = __webpack_require__("b965");
+
+var _dom = __webpack_require__("1611");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// @vue/component
+var _default = {
+  name: 'BFormTextarea',
+  mixins: [_id.default, _form.default, _formSize.default, _formState.default, _formText.default, _formSelection.default, _formValidity.default],
+  props: {
+    rows: {
+      type: [Number, String],
+      default: 2
+    },
+    maxRows: {
+      type: [Number, String],
+      default: null
+    },
+    wrap: {
+      // 'soft', 'hard' or 'off'. Browser default is 'soft'
+      type: String,
+      default: 'soft'
+    },
+    noResize: {
+      // Disable the resize handle of textarea
+      type: Boolean,
+      default: false
+    },
+    noAutoShrink: {
+      // When in auto resize mode, disable shrinking to content height
+      type: Boolean,
+      default: false
+    }
+  },
+  data: function data() {
+    return {
+      dontResize: true
+    };
+  },
+  computed: {
+    computedStyle: function computedStyle() {
+      var styles = {
+        // Setting `noResize` to true will disable the ability for the user to
+        // manually resize the textarea. We also disable when in auto resize mode
+        resize: !this.computedRows || this.noResize ? 'none' : null
+      };
+
+      if (!this.computedRows) {
+        // The computed height for auto resize.
+        // We avoid setting the style to null, which can override user manual resize.
+        styles.height = this.computedHeight;
+      }
+
+      return styles;
+    },
+    computedMinRows: function computedMinRows() {
+      // Ensure rows is at least 2 and positive (2 is the native textarea value).
+      // A value of 1 can cause issues in some browsers, and most browsers only support
+      // 2 as the smallest value.
+      return Math.max(parseInt(this.rows, 10) || 2, 2);
+    },
+    computedMaxRows: function computedMaxRows() {
+      return Math.max(this.computedMinRows, parseInt(this.maxRows, 10) || 0);
+    },
+    computedRows: function computedRows() {
+      // This is used to set the attribute 'rows' on the textarea.
+      // If auto-resize is enabled, then we return null as we use CSS to control height.
+      return this.computedMinRows === this.computedMaxRows ? this.computedMinRows : null;
+    },
+    computedHeight: function computedHeight()
+    /* istanbul ignore next: can't test getComputedProperties */
+    {
+      // We compare `computedRows` and `localValue` to `true`, a value
+      // they both can't have at any time, to ensure reactivity
+      if (this.$isServer || this.dontResize || this.computedRows === true || this.localValue === true) {
+        return null;
+      }
+
+      var el = this.$el; // Element must be visible (not hidden) and in document
+      // *Must* be checked after above checks
+
+      if (!(0, _dom.isVisible)(el)) {
+        return null;
+      } // Remember old height (includes `px` units) and reset it temporarily to `auto`
+
+
+      var oldHeight = el.style.height;
+      el.style.height = 'auto'; // Get current computed styles
+
+      var computedStyle = (0, _dom.getCS)(el); // Height of one line of text in px
+
+      var lineHeight = parseFloat(computedStyle.lineHeight); // Minimum height for min rows (browser dependant)
+
+      var minHeight = parseInt(computedStyle.height, 10) || lineHeight * this.computedMinRows; // Calculate height of content
+
+      var offset = (parseFloat(computedStyle.borderTopWidth) || 0) + (parseFloat(computedStyle.borderBottomWidth) || 0) + (parseFloat(computedStyle.paddingTop) || 0) + (parseFloat(computedStyle.paddingBottom) || 0); // Calculate content height in "rows"
+
+      var contentRows = Math.max((el.scrollHeight - offset) / lineHeight, 2); // Calculate number of rows to display (limited within min/max rows)
+
+      var rows = Math.min(Math.max(contentRows, this.computedMinRows), this.computedMaxRows); // Calculate the required height of the textarea including border and padding (in pixels)
+
+      var height = Math.max(Math.ceil(rows * lineHeight + offset), minHeight); // Place old height back on element, just in case this computed prop returns the same value
+
+      el.style.height = oldHeight; // Value of previous height (without px units appended)
+
+      var oldHeightPx = parseFloat(oldHeight) || 0;
+
+      if (this.noAutoShrink && oldHeightPx > height) {
+        // Computed height remains the larger of oldHeight and new height
+        // When height is `sticky` (no-auto-shrink is true)
+        return oldHeight;
+      } // Return the new computed height in px units
+
+
+      return "".concat(height, "px");
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    // Enable opt-in resizing once mounted
+    this.$nextTick(function () {
+      _this.dontResize = false;
+    });
+  },
+  activated: function activated() {
+    var _this2 = this;
+
+    // If we are being re-activated in <keep-alive>, enable opt-in resizing
+    this.$nextTick(function () {
+      _this2.dontResize = false;
+    });
+  },
+  deactivated: function deactivated() {
+    // If we are in a deactivated <keep-alive>, disable opt-in resizing
+    this.dontResize = true;
+  },
+  beforeDestroy: function beforeDestroy() {
+    /* istanbul ignore next */
+    this.dontResize = true;
+  },
+  render: function render(h) {
+    // Using self instead of this helps reduce code size during minification
+    var self = this;
+    return h('textarea', {
+      ref: 'input',
+      class: self.computedClass,
+      style: self.computedStyle,
+      directives: [{
+        name: 'model',
+        rawName: 'v-model',
+        value: self.localValue,
+        expression: 'localValue'
+      }],
+      attrs: {
+        id: self.safeId(),
+        name: self.name,
+        form: self.form || null,
+        disabled: self.disabled,
+        placeholder: self.placeholder,
+        required: self.required,
+        autocomplete: self.autocomplete || null,
+        readonly: self.readonly || self.plaintext,
+        rows: self.computedRows,
+        wrap: self.wrap || null,
+        'aria-required': self.required ? 'true' : null,
+        'aria-invalid': self.computedAriaInvalid
+      },
+      domProps: {
+        value: self.localValue
+      },
+      on: _objectSpread({}, self.$listeners, {
+        input: self.onInput,
+        change: self.onChange,
+        blur: self.onBlur
+      })
+    });
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "0c42":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+var _default = {
+  props: {
+    perPage: {
+      type: [Number, String],
+      default: 0
+    },
+    currentPage: {
+      type: [Number, String],
+      default: 1
+    }
+  },
+  computed: {
+    localPaging: function localPaging() {
+      return this.hasProvider ? !!this.noProviderPaging : true;
+    },
+    paginatedItems: function paginatedItems() {
+      var items = this.sortedItems || [];
+      var currentPage = Math.max(parseInt(this.currentPage, 10) || 1, 1);
+      var perPage = Math.max(parseInt(this.perPage, 10) || 0, 0); // Apply local pagination
+
+      if (this.localPaging && !!perPage) {
+        // Grab the current page of data (which may be past filtered items limit)
+        items = items.slice((currentPage - 1) * perPage, currentPage * perPage);
+      } // Return the items to display in the table
+
+
+      return items;
+    }
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -299,6 +1797,156 @@ module.exports = function (index, length) {
   return index < 0 ? max(index + length, 0) : min(index, length);
 };
 
+
+/***/ }),
+
+/***/ "1018":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _tabs = __webpack_require__("40bb");
+
+var _tab = __webpack_require__("a212");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BTabs: _tabs.default,
+  BTab: _tab.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "10fc":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+// @vue/component
+var _default = {
+  computed: {
+    selectionStart: {
+      // Expose selectionStart for formatters, etc
+      cache: false,
+      get: function get()
+      /* istanbul ignore next */
+      {
+        return this.$refs.input.selectionStart;
+      },
+      set: function set(val)
+      /* istanbul ignore next */
+      {
+        this.$refs.input.selectionStart = val;
+      }
+    },
+    selectionEnd: {
+      // Expose selectionEnd for formatters, etc
+      cache: false,
+      get: function get()
+      /* istanbul ignore next */
+      {
+        return this.$refs.input.selectionEnd;
+      },
+      set: function set(val)
+      /* istanbul ignore next */
+      {
+        this.$refs.input.selectionEnd = val;
+      }
+    },
+    selectionDirection: {
+      // Expose selectionDirection for formatters, etc
+      cache: false,
+      get: function get()
+      /* istanbul ignore next */
+      {
+        return this.$refs.input.selectionDirection;
+      },
+      set: function set(val)
+      /* istanbul ignore next */
+      {
+        this.$refs.input.selectionDirection = val;
+      }
+    }
+  },
+  methods: {
+    select: function select()
+    /* istanbul ignore next */
+    {
+      var _this$$refs$input;
+
+      // For external handler that may want a select() method
+      (_this$$refs$input = this.$refs.input).select.apply(_this$$refs$input, arguments);
+    },
+    setSelectionRange: function setSelectionRange()
+    /* istanbul ignore next */
+    {
+      var _this$$refs$input2;
+
+      // For external handler that may want a setSelectionRange(a,b,c) method
+      (_this$$refs$input2 = this.$refs.input).setSelectionRange.apply(_this$$refs$input2, arguments);
+    },
+    setRangeText: function setRangeText()
+    /* istanbul ignore next */
+    {
+      var _this$$refs$input3;
+
+      // For external handler that may want a setRangeText(a,b,c) method
+      (_this$$refs$input3 = this.$refs.input).setRangeText.apply(_this$$refs$input3, arguments);
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "1106":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+var _default = {
+  methods: {
+    renderBottomRow: function renderBottomRow() {
+      var h = this.$createElement; // Static bottom row slot (hidden in visibly stacked mode as we can't control the data-label)
+      // If in always stacked mode, we don't bother rendering the row
+
+      if (!this.hasNormalizedSlot('bottom-row') || this.isStacked === true) {
+        return h(false);
+      }
+
+      var fields = this.computedFields;
+      return h('tr', {
+        key: '__b-table-bottom-row__',
+        staticClass: 'b-table-bottom-row',
+        class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-bottom') : this.tbodyTrClass],
+        attrs: {
+          role: 'row'
+        }
+      }, this.normalizeSlot('bottom-row', {
+        columns: fields.length,
+        fields: fields
+      }));
+    }
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -361,6 +2009,68 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "11ab":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _id = __webpack_require__("eae0");
+
+var _form = __webpack_require__("5f07");
+
+var _formOptions = __webpack_require__("461c");
+
+var _formRadioCheckGroup = __webpack_require__("5c02");
+
+var _formSize = __webpack_require__("6e1b");
+
+var _formState = __webpack_require__("41fb");
+
+var _formCheckbox = __webpack_require__("bdb1");
+
+// @vue/component
+var _default = {
+  name: 'BFormCheckboxGroup',
+  components: {
+    BFormCheckbox: _formCheckbox.default
+  },
+  mixins: [_id.default, _form.default, _formRadioCheckGroup.default, // Includes render function
+  _formOptions.default, _formSize.default, _formState.default],
+  provide: function provide() {
+    return {
+      bvCheckGroup: this
+    };
+  },
+  props: {
+    switches: {
+      // Custom switch styling
+      type: Boolean,
+      default: false
+    },
+    checked: {
+      type: [String, Number, Object, Array, Boolean],
+      default: null
+    }
+  },
+  data: function data() {
+    return {
+      localChecked: this.checked || []
+    };
+  },
+  computed: {
+    is_RadioGroup: function is_RadioGroup() {
+      return false;
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "11e9":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -381,6 +2091,98 @@ exports.f = __webpack_require__("9e1e") ? gOPD : function getOwnPropertyDescript
   if (has(O, P)) return createDesc(!pIE.f.call(O, P), O[P]);
 };
 
+
+/***/ }),
+
+/***/ "12b6":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _lowerFirst = __webpack_require__("2839");
+
+/**
+ * @param {string} prefix
+ * @param {string} value
+ */
+var unprefixPropName = function unprefixPropName(prefix, value) {
+  return (0, _lowerFirst.default)(value.replace(prefix, ''));
+};
+
+var _default = unprefixPropName;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "12d3":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _pluckProps = __webpack_require__("9c97");
+
+var _link = __webpack_require__("4e40");
+
+var _html = __webpack_require__("be11");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var props = _objectSpread({}, (0, _link.propsFactory)(), {
+  text: {
+    type: String,
+    default: null
+  },
+  html: {
+    type: String,
+    default: null
+  },
+  ariaCurrent: {
+    type: String,
+    default: 'location'
+  } // @vue/component
+
+});
+
+exports.props = props;
+var _default = {
+  name: 'BBreadcrumbLink',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var suppliedProps = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    var tag = suppliedProps.active ? 'span' : _link.default;
+    var componentData = {
+      props: (0, _pluckProps.default)(props, suppliedProps)
+    };
+
+    if (suppliedProps.active) {
+      componentData.attrs = {
+        'aria-current': suppliedProps.ariaCurrent
+      };
+    }
+
+    if (!children) {
+      componentData.domProps = (0, _html.htmlOrText)(suppliedProps.html, suppliedProps.text);
+    }
+
+    return h(tag, (0, _vueFunctionalDataMerge.mergeData)(data, componentData), children);
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -408,6 +2210,49 @@ module.exports = __webpack_require__("9e1e") ? Object.defineProperties : functio
   return O;
 };
 
+
+/***/ }),
+
+/***/ "1520":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var props = {
+  tag: {
+    type: String,
+    default: 'div'
+  },
+  fluid: {
+    type: Boolean,
+    default: false
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BContainer',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      class: {
+        container: !props.fluid,
+        'container-fluid': props.fluid
+      }
+    }), children);
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -825,6 +2670,42 @@ exports.requestAF = requestAF;
 
 /***/ }),
 
+/***/ "1665":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var props = {
+  tag: {
+    type: String,
+    default: 'div'
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BFormRow',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'form-row'
+    }), children);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "1691":
 /***/ (function(module, exports) {
 
@@ -844,6 +2725,1154 @@ module.exports = (
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_index_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navbar_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_index_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navbar_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
  /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_index_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navbar_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "16ae":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _popper = __webpack_require__("f0bd");
+
+var _bvEvent = __webpack_require__("f8bb");
+
+var _noop = __webpack_require__("cab0");
+
+var _array = __webpack_require__("bb2f");
+
+var _dom = __webpack_require__("1611");
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var NAME = 'tooltip';
+var CLASS_PREFIX = 'bs-tooltip';
+var BS_CLASS_PREFIX_REGEX = new RegExp("\\b".concat(CLASS_PREFIX, "\\S+"), 'g');
+var TRANSITION_DURATION = 150; // Modal $root hidden event
+
+var MODAL_CLOSE_EVENT = 'bv::modal::hidden'; // Modal container for appending tooltip/popover
+
+var MODAL_CLASS = '.modal-content';
+var AttachmentMap = {
+  AUTO: 'auto',
+  TOP: 'top',
+  RIGHT: 'right',
+  BOTTOM: 'bottom',
+  LEFT: 'left',
+  TOPLEFT: 'top',
+  TOPRIGHT: 'top',
+  RIGHTTOP: 'right',
+  RIGHTBOTTOM: 'right',
+  BOTTOMLEFT: 'bottom',
+  BOTTOMRIGHT: 'bottom',
+  LEFTTOP: 'left',
+  LEFTBOTTOM: 'left'
+};
+var OffsetMap = {
+  AUTO: 0,
+  TOPLEFT: -1,
+  TOP: 0,
+  TOPRIGHT: +1,
+  RIGHTTOP: -1,
+  RIGHT: 0,
+  RIGHTBOTTOM: +1,
+  BOTTOMLEFT: -1,
+  BOTTOM: 0,
+  BOTTOMRIGHT: +1,
+  LEFTTOP: -1,
+  LEFT: 0,
+  LEFTBOTTOM: +1
+};
+var HoverState = {
+  SHOW: 'show',
+  OUT: 'out'
+};
+var ClassName = {
+  FADE: 'fade',
+  SHOW: 'show'
+};
+var Selector = {
+  TOOLTIP: '.tooltip',
+  TOOLTIP_INNER: '.tooltip-inner',
+  ARROW: '.arrow'
+};
+var Defaults = {
+  animation: true,
+  template: '<div class="tooltip" role="tooltip">' + '<div class="arrow"></div>' + '<div class="tooltip-inner"></div>' + '</div>',
+  trigger: 'hover focus',
+  title: '',
+  delay: 0,
+  html: false,
+  placement: 'top',
+  offset: 0,
+  arrowPadding: 6,
+  container: false,
+  fallbackPlacement: 'flip',
+  callbacks: {},
+  boundary: 'scrollParent' // Transition event names
+
+};
+var TransitionEndEvents = {
+  WebkitTransition: ['webkitTransitionEnd'],
+  MozTransition: ['transitionend'],
+  OTransition: ['otransitionend', 'oTransitionEnd'],
+  transition: ['transitionend'] // Client-side tip ID counter for aria-describedby attribute
+  // Each tooltip requires a unique client side ID
+
+};
+var NEXTID = 1;
+/* istanbul ignore next */
+
+var generateId = function generateId(name) {
+  return "__BV_".concat(name, "_").concat(NEXTID++, "__");
+};
+/*
+ * ToolTip class definition
+ */
+
+/* istanbul ignore next: difficult to test in Jest/JSDOM environment */
+
+
+var ToolTip =
+/*#__PURE__*/
+function () {
+  // Main constructor
+  function ToolTip(element, config, $root) {
+    _classCallCheck(this, ToolTip);
+
+    // New tooltip object
+    this.$isEnabled = true;
+    this.$fadeTimeout = null;
+    this.$hoverTimeout = null;
+    this.$visibleInterval = null;
+    this.$hoverState = '';
+    this.$activeTrigger = {};
+    this.$popper = null;
+    this.$element = element;
+    this.$tip = null;
+    this.$id = generateId(this.constructor.NAME);
+    this.$root = $root || null;
+    this.$routeWatcher = null; // We use a bound version of the following handlers for root/modal
+    // listeners to maintain the 'this' context
+
+    this.$forceHide = this.forceHide.bind(this);
+    this.$doHide = this.doHide.bind(this);
+    this.$doShow = this.doShow.bind(this);
+    this.$doDisable = this.doDisable.bind(this);
+    this.$doEnable = this.doEnable.bind(this);
+    this._noop = _noop.default.bind(this); // Set the configuration
+
+    this.updateConfig(config);
+  } // NOTE: Overridden by PopOver class
+
+
+  _createClass(ToolTip, [{
+    key: "updateConfig",
+    // Update config
+    value: function updateConfig(config) {
+      // Merge config into defaults. We use "this" here because PopOver overrides Default
+      var updatedConfig = _objectSpread({}, this.constructor.Default, config); // Sanitize delay
+
+
+      if (config.delay && typeof config.delay === 'number') {
+        updatedConfig.delay = {
+          show: config.delay,
+          hide: config.delay
+        };
+      } // Title for tooltip and popover
+
+
+      if (config.title && typeof config.title === 'number') {
+        updatedConfig.title = config.title.toString();
+      } // Content only for popover
+
+
+      if (config.content && typeof config.content === 'number') {
+        updatedConfig.content = config.content.toString();
+      } // Hide element original title if needed
+
+
+      this.fixTitle(); // Update the config
+
+      this.$config = updatedConfig; // Stop/Restart listening
+
+      this.unListen();
+      this.listen();
+    } // Destroy this instance
+
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      // Stop listening to trigger events
+      this.unListen(); // Disable while open listeners/watchers
+
+      this.setWhileOpenListeners(false); // Clear any timeouts
+
+      clearTimeout(this.$hoverTimeout);
+      this.$hoverTimeout = null;
+      clearTimeout(this.$fadeTimeout);
+      this.$fadeTimeout = null; // Remove popper
+
+      if (this.$popper) {
+        this.$popper.destroy();
+      }
+
+      this.$popper = null; // Remove tip from document
+
+      if (this.$tip && this.$tip.parentElement) {
+        this.$tip.parentElement.removeChild(this.$tip);
+      }
+
+      this.$tip = null; // Null out other properties
+
+      this.$id = null;
+      this.$isEnabled = null;
+      this.$root = null;
+      this.$element = null;
+      this.$config = null;
+      this.$hoverState = null;
+      this.$activeTrigger = null;
+      this.$forceHide = null;
+      this.$doHide = null;
+      this.$doShow = null;
+      this.$doDisable = null;
+      this.$doEnable = null;
+    }
+  }, {
+    key: "enable",
+    value: function enable() {
+      // Create a non-cancelable BvEvent
+      var enabledEvt = new _bvEvent.default('enabled', {
+        cancelable: false,
+        target: this.$element,
+        relatedTarget: null
+      });
+      this.$isEnabled = true;
+      this.emitEvent(enabledEvt);
+    }
+  }, {
+    key: "disable",
+    value: function disable() {
+      // Create a non-cancelable BvEvent
+      var disabledEvt = new _bvEvent.default('disabled', {
+        cancelable: false,
+        target: this.$element,
+        relatedTarget: null
+      });
+      this.$isEnabled = false;
+      this.emitEvent(disabledEvt);
+    } // Click toggler
+
+  }, {
+    key: "toggle",
+    value: function toggle(event) {
+      if (!this.$isEnabled) {
+        return;
+      }
+
+      if (event) {
+        this.$activeTrigger.click = !this.$activeTrigger.click;
+
+        if (this.isWithActiveTrigger()) {
+          this.enter(null);
+        } else {
+          this.leave(null);
+        }
+      } else {
+        if ((0, _dom.hasClass)(this.getTipElement(), ClassName.SHOW)) {
+          this.leave(null);
+        } else {
+          this.enter(null);
+        }
+      }
+    } // Show tooltip
+
+  }, {
+    key: "show",
+    value: function show() {
+      var _this = this;
+
+      if (!document.body.contains(this.$element) || !(0, _dom.isVisible)(this.$element)) {
+        // If trigger element isn't in the DOM or is not visible
+        return;
+      } // Build tooltip element (also sets this.$tip)
+
+
+      var tip = this.getTipElement();
+      this.fixTitle();
+      this.setContent(tip);
+
+      if (!this.isWithContent(tip)) {
+        // If no content, don't bother showing
+        this.$tip = null;
+        return;
+      } // Set ID on tip and aria-describedby on element
+
+
+      (0, _dom.setAttr)(tip, 'id', this.$id);
+      this.addAriaDescribedby(); // Set animation on or off
+
+      if (this.$config.animation) {
+        (0, _dom.addClass)(tip, ClassName.FADE);
+      } else {
+        (0, _dom.removeClass)(tip, ClassName.FADE);
+      }
+
+      var placement = this.getPlacement();
+      var attachment = this.constructor.getAttachment(placement);
+      this.addAttachmentClass(attachment); // Create a cancelable BvEvent
+
+      var showEvt = new _bvEvent.default('show', {
+        cancelable: true,
+        target: this.$element,
+        relatedTarget: tip
+      });
+      this.emitEvent(showEvt);
+
+      if (showEvt.defaultPrevented) {
+        // Don't show if event cancelled
+        this.$tip = null;
+        return;
+      } // Insert tooltip if needed
+
+
+      var container = this.getContainer();
+
+      if (!document.body.contains(tip)) {
+        container.appendChild(tip);
+      } // Refresh popper
+
+
+      this.removePopper();
+      this.$popper = new _popper.default(this.$element, tip, this.getPopperConfig(placement, tip)); // Transitionend callback
+
+      var complete = function complete() {
+        if (_this.$config.animation) {
+          _this.fixTransition(tip);
+        }
+
+        var prevHoverState = _this.$hoverState;
+        _this.$hoverState = null;
+
+        if (prevHoverState === HoverState.OUT) {
+          _this.leave(null);
+        } // Create a non-cancelable BvEvent
+
+
+        var shownEvt = new _bvEvent.default('shown', {
+          cancelable: false,
+          target: _this.$element,
+          relatedTarget: tip
+        });
+
+        _this.emitEvent(shownEvt);
+      }; // Enable while open listeners/watchers
+
+
+      this.setWhileOpenListeners(true); // Show tip
+
+      (0, _dom.addClass)(tip, ClassName.SHOW); // Start the transition/animation
+
+      this.transitionOnce(tip, complete);
+    } // Handler for periodic visibility check
+
+  }, {
+    key: "visibleCheck",
+    value: function visibleCheck(on) {
+      var _this2 = this;
+
+      clearInterval(this.$visibleInterval);
+      this.$visibleInterval = null;
+
+      if (on) {
+        this.$visibleInterval = setInterval(function () {
+          var tip = _this2.getTipElement();
+
+          if (tip && !(0, _dom.isVisible)(_this2.$element) && (0, _dom.hasClass)(tip, ClassName.SHOW)) {
+            // Element is no longer visible, so force-hide the tooltip
+            _this2.forceHide();
+          }
+        }, 100);
+      }
+    }
+  }, {
+    key: "setWhileOpenListeners",
+    value: function setWhileOpenListeners(on) {
+      // Modal close events
+      this.setModalListener(on); // Periodic $element visibility check
+      // For handling when tip is in <keepalive>, tabs, carousel, etc
+
+      this.visibleCheck(on); // Route change events
+
+      this.setRouteWatcher(on); // On-touch start listeners
+
+      this.setOnTouchStartListener(on);
+
+      if (on && /(focus|blur)/.test(this.$config.trigger)) {
+        // If focus moves between trigger element and tip container, don't close
+        (0, _dom.eventOn)(this.$tip, 'focusout', this);
+      } else {
+        (0, _dom.eventOff)(this.$tip, 'focusout', this);
+      }
+    } // Force hide of tip (internal method)
+
+  }, {
+    key: "forceHide",
+    value: function forceHide() {
+      if (!this.$tip || !(0, _dom.hasClass)(this.$tip, ClassName.SHOW)) {
+        return;
+      } // Disable while open listeners/watchers
+
+
+      this.setWhileOpenListeners(false); // Clear any hover enter/leave event
+
+      clearTimeout(this.$hoverTimeout);
+      this.$hoverTimeout = null;
+      this.$hoverState = ''; // Hide the tip
+
+      this.hide(null, true);
+    } // Hide tooltip
+
+  }, {
+    key: "hide",
+    value: function hide(callback, force) {
+      var _this3 = this;
+
+      var tip = this.$tip;
+
+      if (!tip) {
+        return;
+      } // Create a cancelable BvEvent
+
+
+      var hideEvt = new _bvEvent.default('hide', {
+        // We disable cancelling if force is true
+        cancelable: !force,
+        target: this.$element,
+        relatedTarget: tip
+      });
+      this.emitEvent(hideEvt);
+
+      if (hideEvt.defaultPrevented) {
+        // Don't hide if event cancelled
+        return;
+      } // Transitionend callback
+
+      /* istanbul ignore next */
+
+
+      var complete = function complete() {
+        if (_this3.$hoverState !== HoverState.SHOW && tip.parentNode) {
+          // Remove tip from DOM, and force recompile on next show
+          tip.parentNode.removeChild(tip);
+
+          _this3.removeAriaDescribedby();
+
+          _this3.removePopper();
+
+          _this3.$tip = null;
+        }
+
+        if (callback) {
+          callback();
+        } // Create a non-cancelable BvEvent
+
+
+        var hiddenEvt = new _bvEvent.default('hidden', {
+          cancelable: false,
+          target: _this3.$element,
+          relatedTarget: null
+        });
+
+        _this3.emitEvent(hiddenEvt);
+      }; // Disable while open listeners/watchers
+
+
+      this.setWhileOpenListeners(false); // If forced close, disable animation
+
+      if (force) {
+        (0, _dom.removeClass)(tip, ClassName.FADE);
+      } // Hide tip
+
+
+      (0, _dom.removeClass)(tip, ClassName.SHOW);
+      this.$activeTrigger.click = false;
+      this.$activeTrigger.focus = false;
+      this.$activeTrigger.hover = false; // Start the hide transition
+
+      this.transitionOnce(tip, complete);
+      this.$hoverState = '';
+    }
+  }, {
+    key: "emitEvent",
+    value: function emitEvent(evt) {
+      var evtName = evt.type;
+
+      if (this.$root && this.$root.$emit) {
+        // Emit an event on $root
+        this.$root.$emit("bv::".concat(this.constructor.NAME, "::").concat(evtName), evt);
+      }
+
+      var callbacks = this.$config.callbacks || {};
+
+      if (typeof callbacks[evtName] === 'function') {
+        callbacks[evtName](evt);
+      }
+    }
+  }, {
+    key: "getContainer",
+    value: function getContainer() {
+      var container = this.$config.container;
+      var body = document.body; // If we are in a modal, we append to the modal instead of body,
+      // unless a container is specified
+
+      return container === false ? (0, _dom.closest)(MODAL_CLASS, this.$element) || body : (0, _dom.select)(container, body) || body;
+    } // Will be overridden by PopOver if needed
+
+  }, {
+    key: "addAriaDescribedby",
+    value: function addAriaDescribedby() {
+      // Add aria-describedby on trigger element, without removing any other IDs
+      var desc = (0, _dom.getAttr)(this.$element, 'aria-describedby') || '';
+      desc = desc.split(/\s+/).concat(this.$id).join(' ').trim();
+      (0, _dom.setAttr)(this.$element, 'aria-describedby', desc);
+    } // Will be overridden by PopOver if needed
+
+  }, {
+    key: "removeAriaDescribedby",
+    value: function removeAriaDescribedby() {
+      var _this4 = this;
+
+      var desc = (0, _dom.getAttr)(this.$element, 'aria-describedby') || '';
+      desc = desc.split(/\s+/).filter(function (d) {
+        return d !== _this4.$id;
+      }).join(' ').trim();
+
+      if (desc) {
+        (0, _dom.setAttr)(this.$element, 'aria-describedby', desc);
+      } else {
+        (0, _dom.removeAttr)(this.$element, 'aria-describedby');
+      }
+    }
+  }, {
+    key: "removePopper",
+    value: function removePopper() {
+      if (this.$popper) {
+        this.$popper.destroy();
+      }
+
+      this.$popper = null;
+    }
+    /* istanbul ignore next */
+
+  }, {
+    key: "transitionOnce",
+    value: function transitionOnce(tip, complete) {
+      var _this5 = this;
+
+      var transEvents = this.getTransitionEndEvents();
+      var called = false;
+      clearTimeout(this.$fadeTimeout);
+      this.$fadeTimeout = null;
+
+      var fnOnce = function fnOnce() {
+        if (called) {
+          return;
+        }
+
+        called = true;
+        clearTimeout(_this5.$fadeTimeout);
+        _this5.$fadeTimeout = null;
+        transEvents.forEach(function (evtName) {
+          (0, _dom.eventOff)(tip, evtName, fnOnce);
+        }); // Call complete callback
+
+        complete();
+      };
+
+      if ((0, _dom.hasClass)(tip, ClassName.FADE)) {
+        transEvents.forEach(function (evtName) {
+          (0, _dom.eventOn)(tip, evtName, fnOnce);
+        }); // Fallback to setTimeout()
+
+        this.$fadeTimeout = setTimeout(fnOnce, TRANSITION_DURATION);
+      } else {
+        fnOnce();
+      }
+    } // What transitionend event(s) to use? (returns array of event names)
+
+  }, {
+    key: "getTransitionEndEvents",
+    value: function getTransitionEndEvents() {
+      for (var name in TransitionEndEvents) {
+        if (this.$element.style[name] !== undefined) {
+          return TransitionEndEvents[name];
+        }
+      } // Fallback
+
+
+      return [];
+    }
+  }, {
+    key: "update",
+    value: function update() {
+      if (this.$popper !== null) {
+        this.$popper.scheduleUpdate();
+      }
+    } // NOTE: Overridden by PopOver class
+
+  }, {
+    key: "isWithContent",
+    value: function isWithContent(tip) {
+      tip = tip || this.$tip;
+
+      if (!tip) {
+        return false;
+      }
+
+      return Boolean(((0, _dom.select)(Selector.TOOLTIP_INNER, tip) || {}).innerHTML);
+    } // NOTE: Overridden by PopOver class
+
+  }, {
+    key: "addAttachmentClass",
+    value: function addAttachmentClass(attachment) {
+      (0, _dom.addClass)(this.getTipElement(), "".concat(CLASS_PREFIX, "-").concat(attachment));
+    }
+  }, {
+    key: "getTipElement",
+    value: function getTipElement() {
+      if (!this.$tip) {
+        // Try and compile user supplied template, or fallback to default template
+        this.$tip = this.compileTemplate(this.$config.template) || this.compileTemplate(this.constructor.Default.template);
+      } // Add tab index so tip can be focused, and to allow it to be
+      // set as relatedTarget in focusin/out events
+
+
+      this.$tip.tabIndex = -1;
+      return this.$tip;
+    }
+  }, {
+    key: "compileTemplate",
+    value: function compileTemplate(html) {
+      if (!html || typeof html !== 'string') {
+        return null;
+      }
+
+      var div = document.createElement('div');
+      div.innerHTML = html.trim();
+      var node = div.firstElementChild ? div.removeChild(div.firstElementChild) : null;
+      div = null;
+      return node;
+    } // NOTE: Overridden by PopOver class
+
+  }, {
+    key: "setContent",
+    value: function setContent(tip) {
+      this.setElementContent((0, _dom.select)(Selector.TOOLTIP_INNER, tip), this.getTitle());
+      (0, _dom.removeClass)(tip, ClassName.FADE);
+      (0, _dom.removeClass)(tip, ClassName.SHOW);
+    }
+  }, {
+    key: "setElementContent",
+    value: function setElementContent(container, content) {
+      if (!container) {
+        // If container element doesn't exist, just return
+        return;
+      }
+
+      var allowHtml = this.$config.html;
+
+      if (_typeof(content) === 'object' && content.nodeType) {
+        // Content is a DOM node
+        if (allowHtml) {
+          if (content.parentElement !== container) {
+            container.innerHTML = '';
+            container.appendChild(content);
+          }
+        } else {
+          container.innerText = content.innerText;
+        }
+      } else {
+        // We have a plain HTML string or Text
+        container[allowHtml ? 'innerHTML' : 'innerText'] = content;
+      }
+    } // NOTE: Overridden by PopOver class
+
+  }, {
+    key: "getTitle",
+    value: function getTitle() {
+      var title = this.$config.title || '';
+
+      if (typeof title === 'function') {
+        // Call the function to get the title value
+        title = title(this.$element);
+      }
+
+      if (_typeof(title) === 'object' && title.nodeType && !title.innerHTML.trim()) {
+        // We have a DOM node, but without inner content,
+        // so just return empty string
+        title = '';
+      }
+
+      if (typeof title === 'string') {
+        title = title.trim();
+      }
+
+      if (!title) {
+        // If an explicit title is not given, try element's title attributes
+        title = (0, _dom.getAttr)(this.$element, 'title') || (0, _dom.getAttr)(this.$element, 'data-original-title') || '';
+        title = title.trim();
+      }
+
+      return title;
+    }
+  }, {
+    key: "listen",
+    value: function listen() {
+      var _this6 = this;
+
+      var triggers = this.$config.trigger.trim().split(/\s+/);
+      var el = this.$element; // Listen for global show/hide events
+
+      this.setRootListener(true); // Using 'this' as the handler will get automatically directed to
+      // this.handleEvent and maintain our binding to 'this'
+
+      triggers.forEach(function (trigger) {
+        if (trigger === 'click') {
+          (0, _dom.eventOn)(el, 'click', _this6);
+        } else if (trigger === 'focus') {
+          (0, _dom.eventOn)(el, 'focusin', _this6);
+          (0, _dom.eventOn)(el, 'focusout', _this6);
+        } else if (trigger === 'blur') {
+          // Used to close $tip when element looses focus
+          (0, _dom.eventOn)(el, 'focusout', _this6);
+        } else if (trigger === 'hover') {
+          (0, _dom.eventOn)(el, 'mouseenter', _this6);
+          (0, _dom.eventOn)(el, 'mouseleave', _this6);
+        }
+      }, this);
+    }
+  }, {
+    key: "unListen",
+    value: function unListen() {
+      var _this7 = this;
+
+      var events = ['click', 'focusin', 'focusout', 'mouseenter', 'mouseleave']; // Using "this" as the handler will get automatically directed to this.handleEvent
+
+      events.forEach(function (evt) {
+        (0, _dom.eventOff)(_this7.$element, evt, _this7);
+      }, this); // Stop listening for global show/hide/enable/disable events
+
+      this.setRootListener(false);
+    }
+  }, {
+    key: "handleEvent",
+    value: function handleEvent(e) {
+      // This special method allows us to use "this" as the event handlers
+      if ((0, _dom.isDisabled)(this.$element)) {
+        // If disabled, don't do anything. Note: If tip is shown before element gets
+        // disabled, then tip not close until no longer disabled or forcefully closed.
+        return;
+      }
+
+      if (!this.$isEnabled) {
+        // If not enable
+        return;
+      }
+
+      var type = e.type;
+      var target = e.target;
+      var relatedTarget = e.relatedTarget;
+      var $element = this.$element;
+      var $tip = this.$tip;
+
+      if (type === 'click') {
+        this.toggle(e);
+      } else if (type === 'focusin' || type === 'mouseenter') {
+        this.enter(e);
+      } else if (type === 'focusout') {
+        // target is the element which is loosing focus
+        // and relatedTarget is the element gaining focus
+        if ($tip && $element && $element.contains(target) && $tip.contains(relatedTarget)) {
+          // If focus moves from $element to $tip, don't trigger a leave
+          return;
+        }
+
+        if ($tip && $element && $tip.contains(target) && $element.contains(relatedTarget)) {
+          // If focus moves from $tip to $element, don't trigger a leave
+          return;
+        }
+
+        if ($tip && $tip.contains(target) && $tip.contains(relatedTarget)) {
+          // If focus moves within $tip, don't trigger a leave
+          return;
+        }
+
+        if ($element && $element.contains(target) && $element.contains(relatedTarget)) {
+          // If focus moves within $element, don't trigger a leave
+          return;
+        } // Otherwise trigger a leave
+
+
+        this.leave(e);
+      } else if (type === 'mouseleave') {
+        this.leave(e);
+      }
+    }
+    /* istanbul ignore next */
+
+  }, {
+    key: "setRouteWatcher",
+    value: function setRouteWatcher(on) {
+      var _this8 = this;
+
+      if (on) {
+        this.setRouteWatcher(false);
+
+        if (this.$root && Boolean(this.$root.$route)) {
+          this.$routeWatcher = this.$root.$watch('$route', function (newVal, oldVal) {
+            if (newVal === oldVal) {
+              return;
+            } // If route has changed, we force hide the tooltip/popover
+
+
+            _this8.forceHide();
+          });
+        }
+      } else {
+        if (this.$routeWatcher) {
+          // Cancel the route watcher by calling the stored reference
+          this.$routeWatcher();
+          this.$routeWatcher = null;
+        }
+      }
+    }
+    /* istanbul ignore next */
+
+  }, {
+    key: "setModalListener",
+    value: function setModalListener(on) {
+      var modal = (0, _dom.closest)(MODAL_CLASS, this.$element);
+
+      if (!modal) {
+        // If we are not in a modal, don't worry. be happy
+        return;
+      } // We can listen for modal hidden events on $root
+
+
+      if (this.$root) {
+        this.$root[on ? '$on' : '$off'](MODAL_CLOSE_EVENT, this.$forceHide);
+      }
+    }
+    /* istanbul ignore next */
+
+  }, {
+    key: "setRootListener",
+    value: function setRootListener(on) {
+      // Listen for global 'bv::{hide|show}::{tooltip|popover}' hide request event
+      if (this.$root) {
+        this.$root[on ? '$on' : '$off']("bv::hide::".concat(this.constructor.NAME), this.$doHide);
+        this.$root[on ? '$on' : '$off']("bv::show::".concat(this.constructor.NAME), this.$doShow);
+        this.$root[on ? '$on' : '$off']("bv::disable::".concat(this.constructor.NAME), this.$doDisable);
+        this.$root[on ? '$on' : '$off']("bv::enable::".concat(this.constructor.NAME), this.$doEnable);
+      }
+    }
+  }, {
+    key: "doHide",
+    value: function doHide(id) {
+      // Programmatically hide tooltip or popover
+      if (!id) {
+        // Close all tooltips or popovers
+        this.forceHide();
+      } else if (this.$element && this.$element.id && this.$element.id === id) {
+        // Close this specific tooltip or popover
+        this.hide();
+      }
+    }
+  }, {
+    key: "doShow",
+    value: function doShow(id) {
+      // Programmatically show tooltip or popover
+      if (!id) {
+        // Open all tooltips or popovers
+        this.show();
+      } else if (id && this.$element && this.$element.id && this.$element.id === id) {
+        // Show this specific tooltip or popover
+        this.show();
+      }
+    }
+  }, {
+    key: "doDisable",
+    value: function doDisable(id) {
+      // Programmatically disable tooltip or popover
+      if (!id) {
+        // Disable all tooltips or popovers
+        this.disable();
+      } else if (this.$element && this.$element.id && this.$element.id === id) {
+        // Disable this specific tooltip or popover
+        this.disable();
+      }
+    }
+  }, {
+    key: "doEnable",
+    value: function doEnable(id) {
+      // Programmatically enable tooltip or popover
+      if (!id) {
+        // Enable all tooltips or popovers
+        this.enable();
+      } else if (this.$element && this.$element.id && this.$element.id === id) {
+        // Enable this specific tooltip or popover
+        this.enable();
+      }
+    }
+    /* istanbul ignore next */
+
+  }, {
+    key: "setOnTouchStartListener",
+    value: function setOnTouchStartListener(on) {
+      var _this9 = this;
+
+      // If this is a touch-enabled device we add extra
+      // empty mouseover listeners to the body's immediate children
+      // Only needed because of broken event delegation on iOS
+      // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
+      if ('ontouchstart' in document.documentElement) {
+        (0, _array.from)(document.body.children).forEach(function (el) {
+          if (on) {
+            (0, _dom.eventOn)(el, 'mouseover', _this9._noop);
+          } else {
+            (0, _dom.eventOff)(el, 'mouseover', _this9._noop);
+          }
+        });
+      }
+    }
+  }, {
+    key: "fixTitle",
+    value: function fixTitle() {
+      var el = this.$element;
+
+      var titleType = _typeof((0, _dom.getAttr)(el, 'data-original-title'));
+
+      if ((0, _dom.getAttr)(el, 'title') || titleType !== 'string') {
+        (0, _dom.setAttr)(el, 'data-original-title', (0, _dom.getAttr)(el, 'title') || '');
+        (0, _dom.setAttr)(el, 'title', '');
+      }
+    } // Enter handler
+
+    /* istanbul ignore next */
+
+  }, {
+    key: "enter",
+    value: function enter(e) {
+      var _this10 = this;
+
+      if (e) {
+        this.$activeTrigger[e.type === 'focusin' ? 'focus' : 'hover'] = true;
+      }
+
+      if ((0, _dom.hasClass)(this.getTipElement(), ClassName.SHOW) || this.$hoverState === HoverState.SHOW) {
+        this.$hoverState = HoverState.SHOW;
+        return;
+      }
+
+      clearTimeout(this.$hoverTimeout);
+      this.$hoverState = HoverState.SHOW;
+
+      if (!this.$config.delay || !this.$config.delay.show) {
+        this.show();
+        return;
+      }
+
+      this.$hoverTimeout = setTimeout(function () {
+        if (_this10.$hoverState === HoverState.SHOW) {
+          _this10.show();
+        }
+      }, this.$config.delay.show);
+    } // Leave handler
+
+    /* istanbul ignore next */
+
+  }, {
+    key: "leave",
+    value: function leave(e) {
+      var _this11 = this;
+
+      if (e) {
+        this.$activeTrigger[e.type === 'focusout' ? 'focus' : 'hover'] = false;
+
+        if (e.type === 'focusout' && /blur/.test(this.$config.trigger)) {
+          // Special case for `blur`: we clear out the other triggers
+          this.$activeTrigger.click = false;
+          this.$activeTrigger.hover = false;
+        }
+      }
+
+      if (this.isWithActiveTrigger()) {
+        return;
+      }
+
+      clearTimeout(this.$hoverTimeout);
+      this.$hoverState = HoverState.OUT;
+
+      if (!this.$config.delay || !this.$config.delay.hide) {
+        this.hide();
+        return;
+      }
+
+      this.$hoverTimeout = setTimeout(function () {
+        if (_this11.$hoverState === HoverState.OUT) {
+          _this11.hide();
+        }
+      }, this.$config.delay.hide);
+    }
+  }, {
+    key: "getPopperConfig",
+    value: function getPopperConfig(placement, tip) {
+      var _this12 = this;
+
+      return {
+        placement: this.constructor.getAttachment(placement),
+        modifiers: {
+          offset: {
+            offset: this.getOffset(placement, tip)
+          },
+          flip: {
+            behavior: this.$config.fallbackPlacement
+          },
+          arrow: {
+            element: '.arrow'
+          },
+          preventOverflow: {
+            padding: this.$config.boundaryPadding,
+            boundariesElement: this.$config.boundary
+          }
+        },
+        onCreate: function onCreate(data) {
+          // Handle flipping arrow classes
+          if (data.originalPlacement !== data.placement) {
+            _this12.handlePopperPlacementChange(data);
+          }
+        },
+        onUpdate: function onUpdate(data) {
+          // Handle flipping arrow classes
+          _this12.handlePopperPlacementChange(data);
+        }
+      };
+    }
+  }, {
+    key: "getOffset",
+    value: function getOffset(placement, tip) {
+      if (!this.$config.offset) {
+        var arrow = (0, _dom.select)(Selector.ARROW, tip);
+        var arrowOffset = parseFloat((0, _dom.getCS)(arrow).width) + parseFloat(this.$config.arrowPadding);
+
+        switch (OffsetMap[placement.toUpperCase()]) {
+          case +1:
+            return "+50%p - ".concat(arrowOffset, "px");
+
+          case -1:
+            return "-50%p + ".concat(arrowOffset, "px");
+
+          default:
+            return 0;
+        }
+      }
+
+      return this.$config.offset;
+    }
+  }, {
+    key: "getPlacement",
+    value: function getPlacement() {
+      var placement = this.$config.placement;
+
+      if (typeof placement === 'function') {
+        return placement.call(this, this.$tip, this.$element);
+      }
+
+      return placement;
+    }
+  }, {
+    key: "isWithActiveTrigger",
+    value: function isWithActiveTrigger() {
+      for (var trigger in this.$activeTrigger) {
+        if (this.$activeTrigger[trigger]) {
+          return true;
+        }
+      }
+
+      return false;
+    } // NOTE: Overridden by PopOver class
+
+  }, {
+    key: "cleanTipClass",
+    value: function cleanTipClass() {
+      var tip = this.getTipElement();
+      var tabClass = tip.className.match(BS_CLASS_PREFIX_REGEX);
+
+      if (tabClass !== null && tabClass.length > 0) {
+        tabClass.forEach(function (cls) {
+          (0, _dom.removeClass)(tip, cls);
+        });
+      }
+    }
+  }, {
+    key: "handlePopperPlacementChange",
+    value: function handlePopperPlacementChange(data) {
+      this.cleanTipClass();
+      this.addAttachmentClass(this.constructor.getAttachment(data.placement));
+    }
+  }, {
+    key: "fixTransition",
+    value: function fixTransition(tip) {
+      var initConfigAnimation = this.$config.animation || false;
+
+      if ((0, _dom.getAttr)(tip, 'x-placement') !== null) {
+        return;
+      }
+
+      (0, _dom.removeClass)(tip, ClassName.FADE);
+      this.$config.animation = false;
+      this.hide();
+      this.show();
+      this.$config.animation = initConfigAnimation;
+    }
+  }], [{
+    key: "getAttachment",
+    value: function getAttachment(placement) {
+      return AttachmentMap[placement.toUpperCase()];
+    }
+  }, {
+    key: "Default",
+    get: function get() {
+      return Defaults;
+    } // NOTE: Overridden by PopOver class
+
+  }, {
+    key: "NAME",
+    get: function get() {
+      return NAME;
+    }
+  }]);
+
+  return ToolTip;
+}();
+
+var _default = ToolTip;
+exports.default = _default;
 
 /***/ }),
 
@@ -1021,6 +4050,33 @@ exports.computeHref = computeHref;
 
 /***/ }),
 
+/***/ "19fe":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _upperFirst = __webpack_require__("5540");
+
+/**
+ * Suffix can be a falsey value so nothing is appended to string.
+ * (helps when looping over props & some shouldn't change)
+ * Use data last parameters to allow for currying.
+ * @param {string} suffix
+ * @param {string} str
+ */
+var suffixPropName = function suffixPropName(suffix, str) {
+  return str + (suffix ? (0, _upperFirst.default)(suffix) : '');
+};
+
+var _default = suffixPropName;
+exports.default = _default;
+
+/***/ }),
+
 /***/ "1bc3":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1040,6 +4096,31 @@ module.exports = function (it, S) {
 
 /***/ }),
 
+/***/ "1bee":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _jumbotron = __webpack_require__("4c74");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BJumbotron: _jumbotron.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "1ec9":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1051,6 +4132,221 @@ module.exports = function (it) {
   return is ? document.createElement(it) : {};
 };
 
+
+/***/ }),
+
+/***/ "1fae":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _prefixPropName = __webpack_require__("e109");
+
+var _copyProps = __webpack_require__("0942");
+
+var _html = __webpack_require__("be11");
+
+var _cardMixin = __webpack_require__("45f0");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var props = _objectSpread({}, (0, _copyProps.default)(_cardMixin.default.props, _prefixPropName.default.bind(null, 'header')), {
+  header: {
+    type: String,
+    default: null
+  },
+  headerHtml: {
+    type: String,
+    default: null
+  },
+  headerClass: {
+    type: [String, Object, Array],
+    default: null
+  } // @vue/component
+
+});
+
+exports.props = props;
+var _default = {
+  name: 'BCardHeader',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var _ref2;
+
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h(props.headerTag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'card-header',
+      class: [props.headerClass, (_ref2 = {}, _defineProperty(_ref2, "bg-".concat(props.headerBgVariant), Boolean(props.headerBgVariant)), _defineProperty(_ref2, "border-".concat(props.headerBorderVariant), Boolean(props.headerBorderVariant)), _defineProperty(_ref2, "text-".concat(props.headerTextVariant), Boolean(props.headerTextVariant)), _ref2)]
+    }), children || [h('div', {
+      domProps: (0, _html.htmlOrText)(props.headerHtml, props.header)
+    })]);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "211d":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _config = __webpack_require__("eb60");
+
+var _pluckProps = __webpack_require__("9c97");
+
+var _link = __webpack_require__("4e40");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var NAME = 'BBadge';
+var linkProps = (0, _link.propsFactory)();
+delete linkProps.href.default;
+delete linkProps.to.default;
+
+var props = _objectSpread({}, linkProps, {
+  tag: {
+    type: String,
+    default: 'span'
+  },
+  variant: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'variant');
+    }
+  },
+  pill: {
+    type: Boolean,
+    default: false
+  } // @vue/component
+
+});
+
+exports.props = props;
+var _default2 = {
+  name: NAME,
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    var tag = !props.href && !props.to ? props.tag : _link.default;
+    var componentData = {
+      staticClass: 'badge',
+      class: ["badge-".concat(props.variant || (0, _config.getComponentConfig)(NAME, 'variant')), {
+        'badge-pill': Boolean(props.pill),
+        active: props.active,
+        disabled: props.disabled
+      }],
+      props: (0, _pluckProps.default)(linkProps, props)
+    };
+    return h(tag, (0, _vueFunctionalDataMerge.mergeData)(data, componentData), children);
+  }
+};
+exports.default = _default2;
+
+/***/ }),
+
+/***/ "2227":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = stringifyObjectValues;
+
+var _object = __webpack_require__("24e2");
+
+// Recursively stringifies the values of an object, space separated, in an
+// SSR safe deterministic way (keys are storted before stringification)
+//
+//   ex:
+//     { b: 3, c: { z: 'zzz', d: null, e: 2 }, d: [10, 12, 11], a: 'one' }
+//   becomes
+//     'one 3 2 zzz 10 12 11'
+//
+// Primatives (numbers/strings) are returned as-is
+// Null and undefined values are filtered out
+// Dates are converted to their native string format
+//
+function stringifyObjectValues(val) {
+  if (typeof val === 'undefined' || val === null) {
+    /* istanbul ignore next */
+    return '';
+  }
+
+  if (val instanceof Object && !(val instanceof Date)) {
+    // Arrays are also object, and keys just returns the array indexes
+    // Date objects we convert to strings
+    return (0, _object.keys)(val).sort()
+    /* sort to prevent SSR issues on pre-rendered sorted tables */
+    .filter(function (v) {
+      return v !== undefined && v !== null;
+    })
+    /* ignore undefined/null values */
+    .map(function (k) {
+      return stringifyObjectValues(val[k]);
+    }).join(' ');
+  }
+
+  return String(val);
+}
+
+/***/ }),
+
+/***/ "22dc":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _form = __webpack_require__("0596");
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var _default = {
+  name: 'BDropdownForm',
+  functional: true,
+  props: _objectSpread({}, _form.props),
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h(_form.default, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      props: props,
+      staticClass: 'b-dropdown-form'
+    }), children);
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -1068,6 +4364,300 @@ module.exports = function (it) {
 
 /***/ }),
 
+/***/ "23c9":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var props = {
+  src: {
+    type: String,
+    default: null,
+    required: true
+  },
+  alt: {
+    type: String,
+    default: null
+  },
+  top: {
+    type: Boolean,
+    default: false
+  },
+  bottom: {
+    type: Boolean,
+    default: false
+  },
+  left: {
+    type: Boolean,
+    default: false
+  },
+  start: {
+    type: Boolean,
+    default: false // alias of 'left'
+
+  },
+  right: {
+    type: Boolean,
+    default: false
+  },
+  end: {
+    type: Boolean,
+    default: false // alias of 'right'
+
+  },
+  height: {
+    type: String,
+    default: null
+  },
+  width: {
+    type: String,
+    default: null
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BCardImg',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data;
+    var baseClass = 'card-img';
+
+    if (props.top) {
+      baseClass += '-top';
+    } else if (props.right || props.end) {
+      baseClass += '-right';
+    } else if (props.bottom) {
+      baseClass += '-bottom';
+    } else if (props.left || props.start) {
+      baseClass += '-left';
+    }
+
+    return h('img', (0, _vueFunctionalDataMerge.mergeData)(data, {
+      class: [baseClass],
+      attrs: {
+        src: props.src,
+        alt: props.alt,
+        height: props.height,
+        width: props.width
+      }
+    }));
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "23f0":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _buttonClose = __webpack_require__("600b");
+
+var _config = __webpack_require__("eb60");
+
+var _dom = __webpack_require__("1611");
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var NAME = 'BAlert'; // @vue/component
+
+var _default2 = {
+  name: NAME,
+  components: {
+    BButtonClose: _buttonClose.default
+  },
+  model: {
+    prop: 'show',
+    event: 'input'
+  },
+  props: {
+    variant: {
+      type: String,
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'variant');
+      }
+    },
+    dismissible: {
+      type: Boolean,
+      default: false
+    },
+    dismissLabel: {
+      type: String,
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'dismissLabel');
+      }
+    },
+    show: {
+      type: [Boolean, Number],
+      default: false
+    },
+    fade: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data: function data() {
+    return {
+      countDownTimerId: null,
+      dismissed: false,
+      localShow: this.show,
+      showClass: this.fade && this.show
+    };
+  },
+  watch: {
+    show: function show(newVal) {
+      this.showChanged(newVal);
+    },
+    dismissed: function dismissed(newVal) {
+      if (newVal) {
+        this.localShow = false;
+        this.$emit('dismissed');
+      }
+    }
+  },
+  mounted: function mounted() {
+    this.showChanged(this.show);
+  },
+  destroyed
+  /* istanbul ignore next */
+  : function destroyed() {
+    this.clearCounter();
+  },
+  methods: {
+    dismiss: function dismiss() {
+      this.clearCounter();
+
+      if (typeof this.show === 'number') {
+        this.$emit('dismiss-count-down', 0);
+        this.$emit('input', 0);
+      } else {
+        this.$emit('input', false);
+      }
+
+      this.dismissed = true;
+    },
+    clearCounter: function clearCounter() {
+      if (this.countDownTimerId) {
+        clearInterval(this.countDownTimerId);
+        this.countDownTimerId = null;
+      }
+    },
+    showChanged: function showChanged(show) {
+      var _this = this;
+
+      // Reset counter status
+      this.clearCounter(); // Reset dismiss status
+
+      this.dismissed = false; // Set localShow state
+
+      this.localShow = Boolean(show); // No timer for boolean values
+
+      if (show === true || show === false || show === null || show === 0) {
+        return;
+      } // Start counter (ensure we have an integer value)
+
+
+      var dismissCountDown = parseInt(show, 10) || 1;
+      this.countDownTimerId = setInterval(function () {
+        if (dismissCountDown < 1) {
+          _this.dismiss();
+
+          return;
+        }
+
+        dismissCountDown--;
+
+        _this.$emit('dismiss-count-down', dismissCountDown);
+
+        _this.$emit('input', dismissCountDown);
+      }, 1000);
+    },
+    onBeforeEnter: function onBeforeEnter() {
+      var _this2 = this;
+
+      if (this.fade) {
+        // Add show class one frame after inserted, to make transitions work
+        (0, _dom.requestAF)(function () {
+          _this2.showClass = true;
+        });
+      }
+    },
+    onBeforeLeave: function onBeforeLeave()
+    /* istanbul ignore next: does not appear to be called in vue-test-utils */
+    {
+      this.showClass = false;
+    }
+  },
+  render: function render(h) {
+    var $slots = this.$slots;
+    var $alert = h(false);
+
+    if (this.localShow) {
+      var $dismissBtn = h(false);
+
+      if (this.dismissible) {
+        $dismissBtn = h('b-button-close', {
+          attrs: {
+            'aria-label': this.dismissLabel
+          },
+          on: {
+            click: this.dismiss
+          }
+        }, [$slots.dismiss]);
+      }
+
+      $alert = h('div', {
+        staticClass: 'alert',
+        class: _defineProperty({
+          fade: this.fade,
+          show: this.showClass,
+          'alert-dismissible': this.dismissible
+        }, "alert-".concat(this.variant), this.variant),
+        attrs: {
+          role: 'alert',
+          'aria-live': 'polite',
+          'aria-atomic': true
+        }
+      }, [$dismissBtn, $slots.default]);
+      $alert = [$alert];
+    }
+
+    return h('transition', {
+      props: {
+        mode: 'out-in',
+        // Disable use of built-in transition classes
+        'enter-class': '',
+        'enter-active-class': '',
+        'enter-to-class': '',
+        'leave-class': 'show',
+        'leave-active-class': '',
+        'leave-to-class': ''
+      },
+      on: {
+        beforeEnter: this.onBeforeEnter,
+        beforeLeave: this.onBeforeLeave
+      }
+    }, $alert);
+  }
+};
+exports.default = _default2;
+
+/***/ }),
+
 /***/ "241e":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1077,6 +4667,37 @@ module.exports = function (it) {
   return Object(defined(it));
 };
 
+
+/***/ }),
+
+/***/ "249f":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _tooltip = __webpack_require__("e93a");
+
+var _tooltip2 = __webpack_require__("2eee");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BTooltip: _tooltip.default
+};
+var plugins = {
+  BTooltipDirectivePlugin: _tooltip2.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components,
+    plugins: plugins
+  })
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -1223,6 +4844,37 @@ exports.readonlyDescriptor = readonlyDescriptor;
 
 /***/ }),
 
+/***/ "256b":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _modal = __webpack_require__("3a5b");
+
+var _modal2 = __webpack_require__("be8c");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BModal: _modal.default
+};
+var plugins = {
+  BModalDirectivePlugin: _modal2.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components,
+    plugins: plugins
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "25eb":
 /***/ (function(module, exports) {
 
@@ -1232,6 +4884,716 @@ module.exports = function (it) {
   return it;
 };
 
+
+/***/ }),
+
+/***/ "2635":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _img = __webpack_require__("4c76");
+
+var _imgLazy = __webpack_require__("294b");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BImg: _img.default,
+  BImgLazy: _imgLazy.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "282f":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _toString = __webpack_require__("40f6");
+
+var _get = __webpack_require__("b0df");
+
+var _keyCodes = __webpack_require__("06e4");
+
+var _array = __webpack_require__("bb2f");
+
+var _filterEvent = __webpack_require__("382a");
+
+var _textSelectionActive = __webpack_require__("c57f");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var _default = {
+  props: {
+    tbodyTrClass: {
+      type: [String, Array, Function],
+      default: null
+    }
+  },
+  methods: {
+    // Methods for computing classes, attributes and styles for table cells
+    tdClasses: function tdClasses(field, item) {
+      var cellVariant = '';
+
+      if (item._cellVariants && item._cellVariants[field.key]) {
+        cellVariant = "".concat(this.dark ? 'bg' : 'table', "-").concat(item._cellVariants[field.key]);
+      }
+
+      return [field.variant && !cellVariant ? "".concat(this.dark ? 'bg' : 'table', "-").concat(field.variant) : '', cellVariant, field.class ? field.class : '', this.getTdValues(item, field.key, field.tdClass, '')];
+    },
+    tdAttrs: function tdAttrs(field, item, colIndex) {
+      var attrs = {
+        role: 'cell',
+        'aria-colindex': String(colIndex + 1)
+      };
+
+      if (field.isRowHeader) {
+        attrs.scope = 'row';
+        attrs.role = 'rowheader';
+      }
+
+      if (this.isStacked) {
+        // Generate the "header cell" label content in stacked mode
+        attrs['data-label'] = field.label;
+      }
+
+      return _objectSpread({}, attrs, this.getTdValues(item, field.key, field.tdAttr, {}));
+    },
+    rowClasses: function rowClasses(item) {
+      return [item._rowVariant ? "".concat(this.dark ? 'bg' : 'table', "-").concat(item._rowVariant) : '', typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(item, 'row') : this.tbodyTrClass];
+    },
+    getTdValues: function getTdValues(item, key, tdValue, defValue) {
+      var parent = this.$parent;
+
+      if (tdValue) {
+        var value = (0, _get.default)(item, key, '');
+
+        if (typeof tdValue === 'function') {
+          return tdValue(value, key, item);
+        } else if (typeof tdValue === 'string' && typeof parent[tdValue] === 'function') {
+          return parent[tdValue](value, key, item);
+        }
+
+        return tdValue;
+      }
+
+      return defValue;
+    },
+    // Method to get the value for a field
+    getFormattedValue: function getFormattedValue(item, field) {
+      var key = field.key;
+      var formatter = field.formatter;
+      var parent = this.$parent;
+      var value = (0, _get.default)(item, key, null);
+
+      if (formatter) {
+        if (typeof formatter === 'function') {
+          value = formatter(value, key, item);
+        } else if (typeof formatter === 'string' && typeof parent[formatter] === 'function') {
+          value = parent[formatter](value, key, item);
+        }
+      }
+
+      return value === null || typeof value === 'undefined' ? '' : value;
+    },
+    tbodyRowKeydown: function tbodyRowKeydown(evt, item, rowIndex) {
+      var keyCode = evt.keyCode;
+      var target = evt.target;
+      var trs = this.$refs.itemRows;
+
+      if (this.stopIfBusy(evt)) {
+        // If table is busy (via provider) then don't propagate
+        return;
+      } else if (!(target && target.tagName === 'TR' && target === document.activeElement)) {
+        // Ignore if not the active tr element
+        return;
+      } else if (target.tabIndex !== 0) {
+        // Ignore if not focusable
+
+        /* istanbul ignore next */
+        return;
+      } else if (trs && trs.length === 0) {
+        /* istanbul ignore next */
+        return;
+      }
+
+      var index = trs.indexOf(target);
+
+      if (keyCode === _keyCodes.default.ENTER || keyCode === _keyCodes.default.SPACE) {
+        evt.stopPropagation();
+        evt.preventDefault(); // We also allow enter/space to trigger a click (when row is focused)
+        // We translate to a row-clicked event
+
+        this.rowClicked(evt, item, rowIndex);
+      } else if ((0, _array.arrayIncludes)([_keyCodes.default.UP, _keyCodes.default.DOWN, _keyCodes.default.HOME, _keyCodes.default.END], keyCode)) {
+        evt.stopPropagation();
+        evt.preventDefault();
+        var shift = evt.shiftKey;
+
+        if (keyCode === _keyCodes.default.HOME || shift && keyCode === _keyCodes.default.UP) {
+          // Focus first row
+          trs[0].focus();
+        } else if (keyCode === _keyCodes.default.END || shift && keyCode === _keyCodes.default.DOWN) {
+          // Focus last row
+          trs[trs.length - 1].focus();
+        } else if (keyCode === _keyCodes.default.UP && index > 0) {
+          // Focus previous row
+          trs[index - 1].focus();
+        } else if (keyCode === _keyCodes.default.DOWN && index < trs.length - 1) {
+          // Focus next row
+          trs[index + 1].focus();
+        }
+      }
+    },
+    // Row event handlers
+    rowClicked: function rowClicked(e, item, index) {
+      if (this.stopIfBusy(e)) {
+        // If table is busy (via provider) then don't propagate
+        return;
+      } else if ((0, _filterEvent.default)(e)) {
+        // clicked on a non-disabled control so ignore
+        return;
+      } else if ((0, _textSelectionActive.default)(this.$el)) {
+        // User is selecting text, so ignore
+
+        /* istanbul ignore next: JSDOM doesn't support getSelection() */
+        return;
+      }
+
+      this.$emit('row-clicked', item, index, e);
+    },
+    middleMouseRowClicked: function middleMouseRowClicked(e, item, index) {
+      if (this.stopIfBusy(e)) {
+        // If table is busy (via provider) then don't propagate
+        return;
+      }
+
+      this.$emit('row-middle-clicked', item, index, e);
+    },
+    rowDblClicked: function rowDblClicked(e, item, index) {
+      if (this.stopIfBusy(e)) {
+        // If table is busy (via provider) then don't propagate
+        return;
+      } else if ((0, _filterEvent.default)(e)) {
+        // clicked on a non-disabled control so ignore
+
+        /* istanbul ignore next: event filtering already tested via click handler */
+        return;
+      }
+
+      this.$emit('row-dblclicked', item, index, e);
+    },
+    rowHovered: function rowHovered(e, item, index) {
+      if (this.stopIfBusy(e)) {
+        // If table is busy (via provider) then don't propagate
+        return;
+      }
+
+      this.$emit('row-hovered', item, index, e);
+    },
+    rowUnhovered: function rowUnhovered(e, item, index) {
+      if (this.stopIfBusy(e)) {
+        // If table is busy (via provider) then don't propagate
+        return;
+      }
+
+      this.$emit('row-unhovered', item, index, e);
+    },
+    rowContextmenu: function rowContextmenu(e, item, index) {
+      if (this.stopIfBusy(e)) {
+        // If table is busy (via provider) then don't propagate
+        return;
+      }
+
+      this.$emit('row-contextmenu', item, index, e);
+    },
+    // Render helpers
+    renderTbodyRowCell: function renderTbodyRowCell(field, colIndex, item, rowIndex) {
+      var _this = this;
+
+      var h = this.$createElement; // Renders a TD or TH for a row's field
+
+      var $scoped = this.$scopedSlots;
+      var detailsSlot = $scoped['row-details'];
+      var rowSelected = this.selectedRows[rowIndex];
+      var formatted = this.getFormattedValue(item, field);
+      var data = {
+        // For the Vue key, we concatinate the column index and field key (as field keys can be duplicated)
+        key: "row-".concat(rowIndex, "-cell-").concat(colIndex, "-").concat(field.key),
+        class: this.tdClasses(field, item),
+        attrs: this.tdAttrs(field, item, colIndex)
+      };
+
+      var toggleDetailsFn = function toggleDetailsFn() {
+        if (detailsSlot) {
+          _this.$set(item, '_showDetails', !item._showDetails);
+        }
+      };
+
+      var slotScope = {
+        item: item,
+        index: rowIndex,
+        field: field,
+        unformatted: (0, _get.default)(item, field.key, ''),
+        value: formatted,
+        toggleDetails: toggleDetailsFn,
+        detailsShowing: Boolean(item._showDetails),
+        rowSelected: Boolean(rowSelected)
+      };
+      var $childNodes = $scoped[field.key] ? $scoped[field.key](slotScope) : (0, _toString.default)(formatted);
+
+      if (this.isStacked) {
+        // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
+        $childNodes = [h('div', {}, [$childNodes])];
+      } // Render either a td or th cell
+
+
+      return h(field.isRowHeader ? 'th' : 'td', data, [$childNodes]);
+    },
+    renderTbodyRow: function renderTbodyRow(item, rowIndex) {
+      var _this2 = this;
+
+      // Renders an item's row (or rows if details supported)
+      var h = this.$createElement;
+      var $scoped = this.$scopedSlots;
+      var fields = this.computedFields;
+      var tableStriped = this.striped;
+      var hasRowClickHandler = this.$listeners['row-clicked'] || this.selectable;
+      var $detailsSlot = $scoped['row-details'];
+      var rowShowDetails = Boolean(item._showDetails && $detailsSlot); // We can return more than one TR if rowDetails enabled
+
+      var $rows = []; // Details ID needed for aria-describedby when details showing
+
+      var detailsId = rowShowDetails ? this.safeId("_details_".concat(rowIndex, "_")) : null;
+
+      var toggleDetailsFn = function toggleDetailsFn() {
+        if ($detailsSlot) {
+          _this2.$set(item, '_showDetails', !item._showDetails);
+        }
+      }; // For each item data field in row
+
+
+      var $tds = fields.map(function (field, colIndex) {
+        return _this2.renderTbodyRowCell(field, colIndex, item, rowIndex);
+      }); // Calculate the row number in the dataset (indexed from 1)
+
+      var ariaRowIndex = null;
+
+      if (this.currentPage && this.perPage && this.perPage > 0) {
+        ariaRowIndex = String((this.currentPage - 1) * this.perPage + rowIndex + 1);
+      } // Create a unique :key to help ensure that sub components are re-rendered rather than
+      // re-used, which can cause issues. If a primary key is not provided we use the rendered
+      // rows index within the tbody.
+      // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/2410
+
+
+      var primaryKey = this.primaryKey;
+      var rowKey = primaryKey && item[primaryKey] !== undefined && item[primaryKey] !== null ? (0, _toString.default)(item[primaryKey]) : String(rowIndex); // If primary key is provided, use it to generate a unique ID on each tbody > tr
+      // In the format of '{tableId}__row_{primaryKeyValue}'
+
+      var rowId = primaryKey && item[primaryKey] !== undefined && item[primaryKey] !== null ? this.safeId("_row_".concat(item[primaryKey])) : null;
+      var handlers = {};
+
+      if (hasRowClickHandler) {
+        handlers['click'] = function (evt) {
+          _this2.rowClicked(evt, item, rowIndex);
+        };
+
+        handlers['keydown'] = function (evt) {
+          _this2.tbodyRowKeydown(evt, item, rowIndex);
+        };
+      } // Add the item row
+
+
+      $rows.push(h('tr', {
+        key: "__b-table-row-".concat(rowKey, "__"),
+        ref: 'itemRows',
+        refInFor: true,
+        class: [this.rowClasses(item), this.selectableRowClasses(rowIndex), {
+          'b-table-has-details': rowShowDetails
+        }],
+        attrs: _objectSpread({
+          id: rowId,
+          tabindex: hasRowClickHandler ? '0' : null,
+          'data-pk': rowId ? String(item[primaryKey]) : null,
+          'aria-describedby': detailsId,
+          'aria-owns': detailsId,
+          'aria-rowindex': ariaRowIndex,
+          role: 'row'
+        }, this.selectableRowAttrs(rowIndex)),
+        on: _objectSpread({}, handlers, {
+          // TODO: instatiate the following handlers only if we have registered
+          //       listeners i.e. this.$listeners['row-middle-clicked'], etc.
+          auxclick: function auxclick(evt) {
+            if (evt.which === 2) {
+              _this2.middleMouseRowClicked(evt, item, rowIndex);
+            }
+          },
+          contextmenu: function contextmenu(evt) {
+            _this2.rowContextmenu(evt, item, rowIndex);
+          },
+          // Note: these events are not accessibility friendly!
+          dblclick: function dblclick(evt) {
+            _this2.rowDblClicked(evt, item, rowIndex);
+          },
+          mouseenter: function mouseenter(evt) {
+            _this2.rowHovered(evt, item, rowIndex);
+          },
+          mouseleave: function mouseleave(evt) {
+            _this2.rowUnhovered(evt, item, rowIndex);
+          }
+        })
+      }, $tds)); // Row Details slot
+
+      if (rowShowDetails) {
+        var tdAttrs = {
+          colspan: String(fields.length),
+          role: 'cell'
+        };
+        var trAttrs = {
+          id: detailsId,
+          role: 'row' // Render the details slot
+
+        };
+        var $details = h('td', {
+          attrs: tdAttrs
+        }, [$detailsSlot({
+          item: item,
+          index: rowIndex,
+          fields: fields,
+          toggleDetails: toggleDetailsFn
+        })]); // Add a hidden row to keep table row striping consistent when details showing
+
+        if (tableStriped) {
+          $rows.push(h('tr', {
+            key: "__b-table-details-".concat(rowIndex, "-stripe__"),
+            staticClass: 'd-none',
+            attrs: {
+              'aria-hidden': 'true',
+              role: 'presentation'
+            }
+          }));
+        } // Add the actual details row
+
+
+        $rows.push(h('tr', {
+          key: "__b-table-details-".concat(rowIndex, "__"),
+          staticClass: 'b-table-details',
+          class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(item, 'row-details') : this.tbodyTrClass],
+          attrs: trAttrs
+        }, [$details]));
+      } else if ($detailsSlot) {
+        // Only add the placeholder if a the table has a row-details slot defined (but not shown)
+        $rows.push(h(false));
+
+        if (tableStriped) {
+          // add extra placeholder if table is striped
+          $rows.push(h(false));
+        }
+      } // Return the row(s)
+
+
+      return $rows;
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "2839":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+/**
+ * @param {string} str
+ */
+var lowerFirst = function lowerFirst(str) {
+  str = String(str);
+  return str.charAt(0).toLowerCase() + str.slice(1);
+};
+
+var _default = lowerFirst;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "294b":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _img = __webpack_require__("4c76");
+
+var _dom = __webpack_require__("1611");
+
+var _config = __webpack_require__("eb60");
+
+var NAME = 'BImgLazy';
+var THROTTLE = 100;
+var EventOptions = {
+  passive: true,
+  capture: false // @vue/component
+
+};
+var _default2 = {
+  name: NAME,
+  components: {
+    BImg: _img.default
+  },
+  props: {
+    src: {
+      type: String,
+      default: null,
+      required: true
+    },
+    alt: {
+      type: String,
+      default: null
+    },
+    width: {
+      type: [Number, String],
+      default: null
+    },
+    height: {
+      type: [Number, String],
+      default: null
+    },
+    blankSrc: {
+      // If null, a blank image is generated
+      type: String,
+      default: null
+    },
+    blankColor: {
+      type: String,
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'blankColor');
+      }
+    },
+    blankWidth: {
+      type: [Number, String],
+      default: null
+    },
+    blankHeight: {
+      type: [Number, String],
+      default: null
+    },
+    show: {
+      type: Boolean,
+      default: false
+    },
+    fluid: {
+      type: Boolean,
+      default: false
+    },
+    fluidGrow: {
+      type: Boolean,
+      default: false
+    },
+    block: {
+      type: Boolean,
+      default: false
+    },
+    thumbnail: {
+      type: Boolean,
+      default: false
+    },
+    rounded: {
+      type: [Boolean, String],
+      default: false
+    },
+    left: {
+      type: Boolean,
+      default: false
+    },
+    right: {
+      type: Boolean,
+      default: false
+    },
+    center: {
+      type: Boolean,
+      default: false
+    },
+    offset: {
+      type: [Number, String],
+      default: 360
+    },
+    throttle: {
+      type: [Number, String],
+      default: THROTTLE
+    }
+  },
+  data: function data() {
+    return {
+      isShown: false,
+      scrollTimeout: null
+    };
+  },
+  computed: {
+    computedSrc: function computedSrc() {
+      return !this.blankSrc || this.isShown ? this.src : this.blankSrc;
+    },
+    computedBlank: function computedBlank() {
+      return !(this.isShown || this.blankSrc);
+    },
+    computedWidth: function computedWidth() {
+      return this.isShown ? this.width : this.blankWidth || this.width;
+    },
+    computedHeight: function computedHeight() {
+      return this.isShown ? this.height : this.blankHeight || this.height;
+    }
+  },
+  watch: {
+    show: function show(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.isShown = newVal;
+
+        if (!newVal) {
+          // Make sure listeners are re-enabled if img is force set to blank
+          this.setListeners(true);
+        }
+      }
+    },
+    isShown: function isShown(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        // Update synched show prop
+        this.$emit('update:show', newVal);
+      }
+    }
+  },
+  created: function created() {
+    this.isShown = this.show;
+  },
+  mounted: function mounted() {
+    if (this.isShown) {
+      this.setListeners(false);
+    } else {
+      this.setListeners(true);
+      this.$nextTick(this.checkView);
+    }
+  },
+  activated: function activated()
+  /* istanbul ignore next */
+  {
+    if (!this.isShown) {
+      this.setListeners(true);
+      this.$nextTick(this.checkView);
+    }
+  },
+  deactivated: function deactivated()
+  /* istanbul ignore next */
+  {
+    this.setListeners(false);
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.setListeners(false);
+  },
+  methods: {
+    setListeners: function setListeners(on) {
+      if (this.scrollTimeout) {
+        clearTimeout(this.scrollTimeout);
+        this.scrollTimeout = null;
+      }
+
+      var root = window;
+
+      if (on) {
+        (0, _dom.eventOn)(this.$el, 'load', this.checkView);
+        (0, _dom.eventOn)(root, 'scroll', this.onScroll, EventOptions);
+        (0, _dom.eventOn)(root, 'resize', this.onScroll, EventOptions);
+        (0, _dom.eventOn)(root, 'orientationchange', this.onScroll, EventOptions);
+        (0, _dom.eventOn)(document, 'transitionend', this.onScroll, EventOptions);
+      } else {
+        (0, _dom.eventOff)(this.$el, 'load', this.checkView);
+        (0, _dom.eventOff)(root, 'scroll', this.onScroll, EventOptions);
+        (0, _dom.eventOff)(root, 'resize', this.onScroll, EventOptions);
+        (0, _dom.eventOff)(root, 'orientationchange', this.onScroll, EventOptions);
+        (0, _dom.eventOff)(document, 'transitionend', this.onScroll, EventOptions);
+      }
+    },
+    checkView: function checkView() {
+      // check bounding box + offset to see if we should show
+      if (this.isShown) {
+        this.setListeners(false);
+        return;
+      }
+
+      var offset = parseInt(this.offset, 10) || 0;
+      var docElement = document.documentElement;
+      var view = {
+        l: 0 - offset,
+        t: 0 - offset,
+        b: docElement.clientHeight + offset,
+        r: docElement.clientWidth + offset
+        /* istanbul ignore next */
+
+      };
+      var box = (0, _dom.getBCR)(this.$el);
+      /* istanbul ignore next: can't test getBoundingClientRect in JSDOM */
+
+      if (box.right >= view.l && box.bottom >= view.t && box.left <= view.r && box.top <= view.b) {
+        // image is in view (or about to be in view)
+        this.isShown = true;
+        this.setListeners(false);
+      }
+    },
+    onScroll: function onScroll() {
+      if (this.isShown) {
+        this.setListeners(false);
+      } else {
+        clearTimeout(this.scrollTimeout);
+        this.scrollTimeout = setTimeout(this.checkView, parseInt(this.throttle, 10) || THROTTLE);
+      }
+    }
+  },
+  render: function render(h) {
+    return h('b-img', {
+      props: {
+        src: this.computedSrc,
+        alt: this.alt,
+        blank: this.computedBlank,
+        blankColor: this.blankColor,
+        width: this.computedWidth,
+        height: this.computedHeight,
+        fluid: this.fluid,
+        fluidGrow: this.fluidGrow,
+        block: this.block,
+        thumbnail: this.thumbnail,
+        rounded: this.rounded,
+        left: this.left,
+        right: this.right,
+        center: this.center
+      }
+    });
+  }
+};
+exports.default = _default2;
 
 /***/ }),
 
@@ -1353,11 +5715,114 @@ $exports.store = store;
 
 /***/ }),
 
+/***/ "2c38":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _id = __webpack_require__("eae0");
+
+var _form = __webpack_require__("5f07");
+
+var _formState = __webpack_require__("41fb");
+
+var _formSize = __webpack_require__("6e1b");
+
+var _formRadioCheck = __webpack_require__("4fe1");
+
+var _looseEqual = __webpack_require__("96cd");
+
+// @vue/component
+var _default = {
+  name: 'BFormRadio',
+  mixins: [_id.default, _formRadioCheck.default, // Includes shared render function
+  _form.default, _formSize.default, _formState.default],
+  inject: {
+    bvGroup: {
+      from: 'bvRadioGroup',
+      default: false
+    }
+  },
+  props: {
+    checked: {
+      // v-model
+      type: [String, Object, Number, Boolean],
+      default: null
+    }
+  },
+  computed: {
+    // Radio Groups can only have a single value, so determining if checked is simple
+    is_Checked: function is_Checked() {
+      return (0, _looseEqual.default)(this.value, this.computedLocalChecked);
+    },
+    // Flags for form-radio-check mixin
+    is_Radio: function is_Radio() {
+      return true;
+    },
+    is_Check: function is_Check() {
+      return false;
+    }
+  },
+  watch: {
+    // Radio Groups can only have a single value, so our watchers are simple
+    computedLocalChecked: function computedLocalChecked(newVal, oldVal) {
+      this.$emit('input', this.computedLocalChecked);
+    }
+  },
+  methods: {
+    handleChange: function handleChange(_ref) {
+      var checked = _ref.target.checked;
+      var value = this.value;
+      this.computedLocalChecked = value; // Change is only emitted on user interaction
+
+      this.$emit('change', checked ? value : null); // If this is a child of form-radio-group, we emit a change event on it as well
+
+      if (this.is_Group) {
+        this.bvGroup.$emit('change', checked ? value : null);
+      }
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "2d00":
 /***/ (function(module, exports) {
 
 module.exports = false;
 
+
+/***/ }),
+
+/***/ "2d8d":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _looseEqual = __webpack_require__("96cd");
+
+var looseIndexOf = function looseIndexOf(arr, val) {
+  // Assumes that the first argument is an array
+  for (var i = 0; i < arr.length; i++) {
+    if ((0, _looseEqual.default)(arr[i], val)) {
+      return i;
+    }
+  }
+
+  return -1;
+};
+
+var _default = looseIndexOf;
+exports.default = _default;
 
 /***/ }),
 
@@ -1373,6 +5838,173 @@ module.exports = function (it) {
 
 /***/ }),
 
+/***/ "2e08":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var props = {
+  vertical: {
+    type: Boolean,
+    default: false
+  },
+  size: {
+    type: String,
+    default: null
+  },
+  tag: {
+    type: String,
+    default: 'div'
+  },
+  ariaRole: {
+    type: String,
+    default: 'group'
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BButtonGroup',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      class: _defineProperty({
+        'btn-group': !props.vertical,
+        'btn-group-vertical': props.vertical
+      }, "btn-group-".concat(props.size), Boolean(props.size)),
+      attrs: {
+        role: props.ariaRole
+      }
+    }), children);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "2e50":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+/*
+ * Consistent and stable sort function across JavaScript platforms
+ *
+ * Inconsistent sorts can cause SSR problems between client and server
+ * such as in <b-table> if sortBy is applied to the data on server side render.
+ * Chrome and V8 native sorts are inconsistent/unstable
+ *
+ * This function uses native sort with fallback to index compare when the a and b
+ * compare returns 0
+ *
+ * Algorithm based on:
+ * https://stackoverflow.com/questions/1427608/fast-stable-sorting-algorithm-implementation-in-javascript/45422645#45422645
+ *
+ * @param {array} array to sort
+ * @param {function} sort compare function
+ * @return {array}
+ */
+var stableSort = function stableSort(array, compareFn) {
+  // Using `.bind(compareFn)` on the wrapped anonymous function improves
+  // performance by avoiding the function call setup. We don't use an arrow
+  // function here as it binds `this` to the `stableSort` context rather than
+  // the `compareFn` context, which wouldn't give us the performance increase.
+  return array.map(function (a, index) {
+    return [index, a];
+  }).sort(function (a, b) {
+    return this(a[1], b[1]) || a[0] - b[0];
+  }.bind(compareFn)).map(function (e) {
+    return e[1];
+  });
+};
+
+var _default = stableSort;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "2eee":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _tooltip = __webpack_require__("91b6");
+
+var _plugins = __webpack_require__("0a8d");
+
+var directives = {
+  BTooltip: _tooltip.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    directives: directives
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "3098":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+/**
+ * Converts a string, including strings in camelCase or snake_case, into Start Case (a variant
+ * of Title Case where all words start with a capital letter), it keeps original single quote
+ * and hyphen in the word.
+ *
+ * Copyright (c) 2017 Compass (MIT)
+ * https://github.com/UrbanCompass/to-start-case
+ * @author Zhuoyuan Zhang <https://github.com/drawyan>
+ * @author Wei Wang <https://github.com/onlywei>
+ *
+ *
+ *   'management_companies' to 'Management Companies'
+ *   'managementCompanies' to 'Management Companies'
+ *   `hell's kitchen` to `Hell's Kitchen`
+ *   `co-op` to `Co-op`
+ *
+ * @param {String} str
+ * @returns {String}
+ */
+var startCase = function startCase(str) {
+  return str.replace(/_/g, ' ').replace(/([a-z])([A-Z])/g, function (str, $1, $2) {
+    return $1 + ' ' + $2;
+  }).replace(/(\s|^)(\w)/g, function (str, $1, $2) {
+    return $1 + $2.toUpperCase();
+  });
+};
+
+var _default = startCase;
+exports.default = _default;
+
+/***/ }),
+
 /***/ "30db":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1381,6 +6013,36 @@ module.exports = function (it) {
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_index_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Modal_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_index_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Modal_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
  /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_index_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Modal_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "3110":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _formRadio = __webpack_require__("2c38");
+
+var _formRadioGroup = __webpack_require__("679b");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BFormRadio: _formRadio.default,
+  BRadio: _formRadio.default,
+  BFormRadioGroup: _formRadioGroup.default,
+  BRadioGroup: _formRadioGroup.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -1412,6 +6074,31 @@ module.exports = __webpack_require__("9e1e") ? function (object, key, value) {
   return object;
 };
 
+
+/***/ }),
+
+/***/ "32ec":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _embed = __webpack_require__("cc37");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BEmbed: _embed.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -1456,6 +6143,177 @@ module.exports = function (it) {
 
 /***/ }),
 
+/***/ "377c":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+// @vue/component
+var _default = {
+  props: {
+    plain: {
+      type: Boolean,
+      default: false
+    }
+  },
+  computed: {
+    custom: function custom() {
+      return !this.plain;
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "382a":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = filterEvent;
+
+var _dom = __webpack_require__("1611");
+
+var _constants = __webpack_require__("3ed8");
+
+// Returns true of we should ignore the click/dbclick/keypress event
+// Avoids having the user need to use @click.stop on the form control
+function filterEvent(evt) {
+  if (!evt || !evt.target) {
+    /* istanbul ignore next */
+    return;
+  }
+
+  var el = evt.target;
+
+  if (el.tagName === 'TD' || el.tagName === 'TH' || el.tagName === 'TR' || el.disabled) {
+    // Shortut all the following tests for efficiency
+    return false;
+  }
+
+  if ((0, _dom.closest)('.dropdown-menu', el)) {
+    // Click was in a dropdown menu, so ignore
+    return true;
+  }
+
+  var label = el.tagName === 'LABEL' ? el : (0, _dom.closest)('label', el);
+
+  if (label && label.control && !label.control.disabled) {
+    // If the label's form control is not disabled then we don't propagate evt
+    return true;
+  } // Else check to see if the event target matches one of the selectors in the event filter
+  // i.e. anchors, non disabled inputs, etc. Return true if we should ignore the event.
+
+
+  return (0, _dom.matches)(el, _constants.EVENT_FILTER);
+}
+
+/***/ }),
+
+/***/ "3888":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _mixinTbodyRow = __webpack_require__("282f");
+
+var _mixinEmpty = __webpack_require__("0b34");
+
+var _mixinTopRow = __webpack_require__("621e");
+
+var _mixinBottomRow = __webpack_require__("1106");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// busy mixin is imported in main table.js as it is used by multiple mixins
+var _default = {
+  mixins: [_mixinTbodyRow.default, _mixinEmpty.default, _mixinTopRow.default, _mixinBottomRow.default],
+  props: {
+    tbodyClass: {
+      type: [String, Array],
+      default: null
+    },
+    tbodyTransitionProps: {
+      type: Object // default: undefined
+
+    },
+    tbodyTransitionHandlers: {
+      type: Object // default: undefined
+
+    }
+  },
+  methods: {
+    renderTbody: function renderTbody() {
+      var _this = this;
+
+      // Render the tbody element and children
+      var h = this.$createElement;
+      var items = this.computedItems; // Prepare the tbody rows
+
+      var $rows = []; // Add the item data rows or the busy slot
+
+      var $busy = this.renderBusy();
+
+      if ($busy) {
+        // If table is busy and a busy slot, then return only the busy "row" indicator
+        $rows.push($busy);
+      } else {
+        // Table isn't bsuy, or we don't have a busy slot
+        // Add static Top Row slot (hidden in visibly stacked mode as we can't control the data-label)
+        $rows.push(this.renderTopRow()); // render the rows
+
+        items.forEach(function (item, rowIndex) {
+          // Render the individual item row (rows if details slot)
+          $rows.push(_this.renderTbodyRow(item, rowIndex));
+        }); // Empty Items / Empty Filtered Row slot (only shows if items.length < -
+
+        $rows.push(this.renderEmpty()); // Static bottom row slot (hidden in visibly stacked mode as we can't control the data-label)
+
+        $rows.push(this.renderBottomRow());
+      } // If tbody transition enabled
+
+
+      var isTransGroup = this.tbodyTransitionProps || this.tbodyTransitionHandlers;
+      var tbodyProps = {};
+      var tbodyOn = {};
+
+      if (isTransGroup) {
+        tbodyOn = this.tbodyTransitionHandlers || {};
+        tbodyProps = _objectSpread({}, this.tbodyTransitionProps || {}, {
+          tag: 'tbody'
+        });
+      } // Assemble rows into the tbody
+
+
+      var $tbody = h(isTransGroup ? 'transition-group' : 'tbody', {
+        props: tbodyProps,
+        on: tbodyOn,
+        class: [this.tbodyClass],
+        attrs: {
+          role: 'rowgroup'
+        }
+      }, $rows); // Return the assembled tbody
+
+      return $tbody;
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "38fd":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1473,6 +6331,199 @@ module.exports = Object.getPrototypeOf || function (O) {
   } return O instanceof Object ? ObjectProto : null;
 };
 
+
+/***/ }),
+
+/***/ "3966":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _looseEqual = __webpack_require__("96cd");
+
+var _array = __webpack_require__("bb2f");
+
+var _sanitizeRow = __webpack_require__("b40f");
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var _default = {
+  props: {
+    selectable: {
+      type: Boolean,
+      default: false
+    },
+    selectMode: {
+      type: String,
+      default: 'multi'
+    },
+    selectedVariant: {
+      type: String,
+      default: 'primary'
+    }
+  },
+  data: function data() {
+    return {
+      selectedRows: [],
+      selectedLastRow: -1
+    };
+  },
+  computed: {
+    selectableTableClasses: function selectableTableClasses() {
+      var _ref;
+
+      var selectable = this.selectable;
+      var isSelecting = selectable && this.selectedRows && this.selectedRows.some(Boolean);
+      return _ref = {
+        'b-table-selectable': selectable
+      }, _defineProperty(_ref, "b-table-select-".concat(this.selectMode), selectable), _defineProperty(_ref, 'b-table-selecting', isSelecting), _ref;
+    },
+    selectableTableAttrs: function selectableTableAttrs() {
+      return {
+        'aria-multiselectable': this.selectableIsMultiSelect
+      };
+    },
+    selectableIsMultiSelect: function selectableIsMultiSelect() {
+      if (this.selectable) {
+        return (0, _array.arrayIncludes)(['range', 'multi'], this.selectMode) ? 'true' : 'false';
+      } else {
+        return null;
+      }
+    }
+  },
+  watch: {
+    computedItems: function computedItems(newVal, oldVal) {
+      // Reset for selectable
+      // TODO: Should selectedLastClicked be reset here?
+      //       As changes to _showDetails would trigger it to reset
+      this.selectedLastRow = -1;
+      var equal = false;
+
+      if (this.selectable && this.selectedRows.length > 0) {
+        // Quick check against array length
+        equal = (0, _array.isArray)(newVal) && (0, _array.isArray)(oldVal) && newVal.length === oldVal.length;
+
+        for (var i = 0; equal && i < newVal.length; i++) {
+          // Look for the first non-loosely equal row, after ignoring reserved fields
+          equal = (0, _looseEqual.default)((0, _sanitizeRow.default)(newVal[i]), (0, _sanitizeRow.default)(oldVal[i]));
+        }
+      }
+
+      if (!equal) {
+        this.clearSelected();
+      }
+    },
+    selectable: function selectable(newVal, oldVal) {
+      this.clearSelected();
+      this.setSelectionHandlers(newVal);
+    },
+    selectMode: function selectMode(newVal, oldVal) {
+      this.clearSelected();
+    },
+    selectedRows: function selectedRows(_selectedRows, oldVal) {
+      var _this = this;
+
+      if (this.selectable && !(0, _looseEqual.default)(_selectedRows, oldVal)) {
+        var items = []; // forEach skips over non-existant indicies (on sparse arrays)
+
+        _selectedRows.forEach(function (v, idx) {
+          if (v) {
+            items.push(_this.computedItems[idx]);
+          }
+        });
+
+        this.$emit('row-selected', items);
+      }
+    }
+  },
+  beforeMount: function beforeMount() {
+    // Set up handlers
+    if (this.selectable) {
+      this.setSelectionHandlers(true);
+    }
+  },
+  methods: {
+    isRowSelected: function isRowSelected(idx) {
+      return Boolean(this.selectedRows[idx]);
+    },
+    selectableRowClasses: function selectableRowClasses(idx) {
+      var rowSelected = this.isRowSelected(idx);
+      var base = this.dark ? 'bg' : 'table';
+      var variant = this.selectedVariant;
+      return _defineProperty({
+        'b-table-row-selected': this.selectable && rowSelected
+      }, "".concat(base, "-").concat(variant), this.selectable && rowSelected && variant);
+    },
+    selectableRowAttrs: function selectableRowAttrs(idx) {
+      return {
+        'aria-selected': !this.selectable ? null : this.isRowSelected(idx) ? 'true' : 'false'
+      };
+    },
+    clearSelected: function clearSelected() {
+      var hasSelection = this.selectedRows.reduce(function (prev, v) {
+        return prev || v;
+      }, false);
+
+      if (hasSelection) {
+        this.selectedLastClicked = -1;
+        this.selectedRows = [];
+      }
+    },
+    setSelectionHandlers: function setSelectionHandlers(on) {
+      var method = on ? '$on' : '$off'; // Handle row-clicked event
+
+      this[method]('row-clicked', this.selectionHandler); // Clear selection on filter, pagination, and sort changes
+
+      this[method]('filtered', this.clearSelected);
+      this[method]('context-changed', this.clearSelected);
+    },
+    selectionHandler: function selectionHandler(item, index, evt) {
+      /* istanbul ignore if: should never happen */
+      if (!this.selectable) {
+        // Don't do anything if table is not in selectable mode
+
+        /* istanbul ignore next: should never happen */
+        this.clearSelected();
+        /* istanbul ignore next: should never happen */
+
+        return;
+      }
+
+      var selectedRows = this.selectedRows.slice();
+      var selected = !selectedRows[index];
+      var mode = this.selectMode; // Note 'multi' mode needs no special handling
+
+      if (mode === 'single') {
+        selectedRows = [];
+      } else if (mode === 'range') {
+        if (this.selectedLastRow > -1 && evt.shiftKey) {
+          // range
+          for (var idx = Math.min(this.selectedLastRow, index); idx <= Math.max(this.selectedLastRow, index); idx++) {
+            selectedRows[idx] = true;
+          }
+
+          selected = true;
+        } else {
+          if (!(evt.ctrlKey || evt.metaKey)) {
+            // clear range selection if any
+            selectedRows = [];
+            selected = true;
+          }
+
+          this.selectedLastRow = selected ? index : -1;
+        }
+      }
+
+      selectedRows[index] = selected;
+      this.selectedRows = selectedRows;
+    }
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -2585,6 +7636,836 @@ exports.default = _default2;
 
 /***/ }),
 
+/***/ "3b14":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = stringifyRecordValues;
+
+var _sanitizeRow = __webpack_require__("b40f");
+
+var _stringifyObjectValues = __webpack_require__("2227");
+
+// Stringifies the values of a record, ignoring any special top level field keys
+// TODO: add option to strigify formatted/scopedSlot items, and only specific fields
+function stringifyRecordValues(row) {
+  /* istanbul ignore else */
+  if (row instanceof Object) {
+    return (0, _stringifyObjectValues.default)((0, _sanitizeRow.default)(row));
+  } else {
+    /* istanbul ignore next */
+    return '';
+  }
+}
+
+/***/ }),
+
+/***/ "3b34":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _link = __webpack_require__("4e40");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BLink: _link.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "3baf":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _mediaBody = __webpack_require__("7a5e");
+
+var _mediaAside = __webpack_require__("7b63");
+
+var props = {
+  tag: {
+    type: String,
+    default: 'div'
+  },
+  rightAlign: {
+    type: Boolean,
+    default: false
+  },
+  verticalAlign: {
+    type: String,
+    default: 'top'
+  },
+  noBody: {
+    type: Boolean,
+    default: false
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BMedia',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        slots = _ref.slots,
+        children = _ref.children;
+    var childNodes = props.noBody ? children : [];
+    var $slots = slots();
+
+    if (!props.noBody) {
+      if ($slots.aside && !props.rightAlign) {
+        childNodes.push(h(_mediaAside.default, {
+          staticClass: 'mr-3',
+          props: {
+            verticalAlign: props.verticalAlign
+          }
+        }, $slots.aside));
+      }
+
+      childNodes.push(h(_mediaBody.default, $slots.default));
+
+      if ($slots.aside && props.rightAlign) {
+        childNodes.push(h(_mediaAside.default, {
+          staticClass: 'ml-3',
+          props: {
+            verticalAlign: props.verticalAlign
+          }
+        }, $slots.aside));
+      }
+    }
+
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'media'
+    }), childNodes);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "3ed8":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.EVENT_FILTER = exports.IGNORED_FIELD_KEYS = void 0;
+// Constants used by table helpers
+// Object of item keys that should be ignored for headers and stringification and filter events
+var IGNORED_FIELD_KEYS = {
+  _rowVariant: true,
+  _cellVariants: true,
+  _showDetails: true // Filter CSS Selector for click/dblclick/etc events
+  // If any of these selectors match the clicked element, we ignore the event
+
+};
+exports.IGNORED_FIELD_KEYS = IGNORED_FIELD_KEYS;
+var EVENT_FILTER = ['a', 'a *', // include content inside links
+'button', 'button *', // include content inside buttons
+'input:not(.disabled):not([disabled])', 'select:not(.disabled):not([disabled])', 'textarea:not(.disabled):not([disabled])', '[role="link"]', '[role="link"] *', '[role="button"]', '[role="button"] *', '[tabindex]:not(.disabled):not([disabled])'].join(',');
+exports.EVENT_FILTER = EVENT_FILTER;
+
+/***/ }),
+
+/***/ "4034":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var props = {
+  tag: {
+    type: String,
+    default: 'div'
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BDropdownDivider',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data;
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'dropdown-divider',
+      attrs: {
+        role: 'separator'
+      }
+    }));
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "40bb":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _link = __webpack_require__("4e40");
+
+var _keyCodes = __webpack_require__("06e4");
+
+var _observeDom = __webpack_require__("bf9c");
+
+var _id = __webpack_require__("eae0");
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// Private Helper component
+// @vue/component
+var BTabButtonHelper = {
+  name: 'BTabButtonHelper',
+  inject: {
+    bvTabs: {
+      default: function _default()
+      /* istanbul ignore next */
+      {
+        return {};
+      }
+    }
+  },
+  props: {
+    // Reference to the child b-tab instance
+    tab: {
+      default: null
+    },
+    tabs: {
+      type: Array,
+      default: function _default() {
+        return [];
+      }
+    },
+    id: {
+      type: String,
+      default: null
+    },
+    controls: {
+      type: String,
+      default: null
+    },
+    tabIndex: {
+      type: Number,
+      default: null
+    },
+    posInSet: {
+      type: Number,
+      default: null
+    },
+    setSize: {
+      type: Number,
+      default: null
+    },
+    noKeyNav: {
+      type: Boolean,
+      default: false
+    }
+  },
+  methods: {
+    focus: function focus() {
+      if (this.$refs && this.$refs.link && this.$refs.link.focus) {
+        this.$refs.link.focus();
+      }
+    },
+    handleEvt: function handleEvt(evt) {
+      function stop() {
+        evt.preventDefault();
+        evt.stopPropagation();
+      }
+
+      if (this.tab.disabled) {
+        /* istanbul ignore next */
+        return;
+      }
+
+      var type = evt.type;
+      var key = evt.keyCode;
+      var shift = evt.shiftKey;
+
+      if (type === 'click') {
+        stop();
+        this.$emit('click', evt);
+      } else if (type === 'keydown' && !this.noKeyNav && key === _keyCodes.default.SPACE) {
+        // In keynav mode, SPACE press will also trigger a click/select
+        stop();
+        this.$emit('click', evt);
+      } else if (type === 'keydown' && !this.noKeyNav) {
+        // For keyboard navigation
+        if (key === _keyCodes.default.UP || key === _keyCodes.default.LEFT || key === _keyCodes.default.HOME) {
+          stop();
+
+          if (shift || key === _keyCodes.default.HOME) {
+            this.$emit('first', evt);
+          } else {
+            this.$emit('prev', evt);
+          }
+        } else if (key === _keyCodes.default.DOWN || key === _keyCodes.default.RIGHT || key === _keyCodes.default.END) {
+          stop();
+
+          if (shift || key === _keyCodes.default.END) {
+            this.$emit('last', evt);
+          } else {
+            this.$emit('next', evt);
+          }
+        }
+      }
+    }
+  },
+  render: function render(h) {
+    var link = h(_link.default, {
+      ref: 'link',
+      staticClass: 'nav-link',
+      class: [{
+        active: this.tab.localActive && !this.tab.disabled,
+        disabled: this.tab.disabled
+      }, this.tab.titleLinkClass],
+      props: {
+        href: this.tab.href,
+        // To be deprecated to always be '#'
+        disabled: this.tab.disabled
+      },
+      attrs: {
+        role: 'tab',
+        id: this.id,
+        // Roving tab index when keynav enabled
+        tabindex: this.tabIndex,
+        'aria-selected': this.tab.localActive && !this.tab.disabled ? 'true' : 'false',
+        'aria-setsize': this.setSize,
+        'aria-posinset': this.posInSet,
+        'aria-controls': this.controls
+      },
+      on: {
+        click: this.handleEvt,
+        keydown: this.handleEvt
+      }
+    }, [this.tab.$slots.title || this.tab.title]);
+    return h('li', {
+      staticClass: 'nav-item',
+      class: [this.tab.titleItemClass],
+      attrs: {
+        role: 'presentation'
+      }
+    }, [link]);
+  }
+}; // Filter function to filter out disabled tabs
+
+function notDisabled(tab) {
+  return !tab.disabled;
+} // @vue/component
+
+
+var _default2 = {
+  name: 'BTabs',
+  mixins: [_id.default],
+  provide: function provide() {
+    return {
+      bvTabs: this
+    };
+  },
+  model: {
+    prop: 'value',
+    event: 'input'
+  },
+  props: {
+    tag: {
+      type: String,
+      default: 'div'
+    },
+    card: {
+      type: Boolean,
+      default: false
+    },
+    small: {
+      type: Boolean,
+      default: false
+    },
+    pills: {
+      type: Boolean,
+      default: false
+    },
+    vertical: {
+      type: Boolean,
+      default: false
+    },
+    bottom: {
+      type: Boolean,
+      default: false
+    },
+    end: {
+      // Synonym for 'bottom'
+      type: Boolean,
+      default: false
+    },
+    noFade: {
+      type: Boolean,
+      default: false
+    },
+    noNavStyle: {
+      type: Boolean,
+      default: false
+    },
+    noKeyNav: {
+      type: Boolean,
+      default: false
+    },
+    lazy: {
+      // This prop is sniffed by the tab child
+      type: Boolean,
+      default: false
+    },
+    contentClass: {
+      type: [String, Array, Object],
+      default: null
+    },
+    navClass: {
+      type: [String, Array, Object],
+      default: null
+    },
+    navWrapperClass: {
+      type: [String, Array, Object],
+      default: null
+    },
+    value: {
+      // v-model
+      type: Number,
+      default: null
+    }
+  },
+  data: function data() {
+    var tabIdx = parseInt(this.value, 10);
+    tabIdx = isNaN(tabIdx) ? -1 : tabIdx;
+    return {
+      // Index of current tab
+      currentTab: tabIdx,
+      // Array of direct child b-tab instances
+      tabs: []
+    };
+  },
+  computed: {
+    fade: function fade() {
+      // This computed prop is sniffed by the tab child
+      return !this.noFade;
+    },
+    navStyle: function navStyle() {
+      return this.pills ? 'pills' : 'tabs';
+    }
+  },
+  watch: {
+    currentTab: function currentTab(val, old) {
+      var index = -1; // Ensure only one tab is active at most
+
+      this.tabs.forEach(function (tab, idx) {
+        if (val === idx && !tab.disabled) {
+          tab.localActive = true;
+          index = idx;
+        } else {
+          tab.localActive = false;
+        }
+      }); // Update the v-model
+
+      this.$emit('input', index);
+    },
+    value: function value(val, old) {
+      if (val !== old) {
+        val = parseInt(val, 10);
+        val = isNaN(val) ? -1 : val;
+        old = parseInt(old, 10) || 0;
+        var tabs = this.tabs;
+
+        if (tabs[val] && !tabs[val].disabled) {
+          this.currentTab = val;
+        } else {
+          // Try next or prev tabs
+          if (val < old) {
+            this.previousTab();
+          } else {
+            this.nextTab();
+          }
+        }
+      }
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    var tabIdx = parseInt(this.value, 10);
+    this.currentTab = isNaN(tabIdx) ? -1 : tabIdx; // Create private non-reactive prop
+
+    this._bvObserver = null; // For SSR and to make sure only a single tab is shown on mount
+    // We wrap this in a `$nextTick()` to ensure the child tabs have been created
+
+    this.$nextTick(function () {
+      _this.updateTabs();
+    });
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    this.$nextTick(function () {
+      // Call updateTabs jsut in case....
+      _this2.updateTabs(); // Observe Child changes so we can update list of tabs
+
+
+      _this2.setObserver(true);
+    });
+  },
+  deactivated: function deactivated()
+  /* istanbul ignore next */
+  {
+    this.setObserver(false);
+  },
+  activated: function activated()
+  /* istanbul ignore next */
+  {
+    var _this3 = this;
+
+    var tabIdx = parseInt(this.value, 10);
+    this.currentTab = isNaN(tabIdx) ? -1 : tabIdx;
+    this.$nextTick(function () {
+      _this3.updateTabs();
+
+      _this3.setObserver(true);
+    });
+  },
+  beforeDestroy: function beforeDestroy()
+  /* istanbul ignore next */
+  {
+    this.setObserver(false);
+  },
+  methods: {
+    setObserver: function setObserver(on) {
+      if (on) {
+        // Make sure no existing observer running
+        this.setObserver(false); // Watch for changes to b-tab sub components
+
+        this._bvObserver = (0, _observeDom.default)(this.$refs.tabsContainer, this.updateTabs.bind(this), {
+          childList: true,
+          subtree: false,
+          attributes: true,
+          attributeFilter: ['style', 'class']
+        });
+      } else {
+        if (this._bvObserver && this._bvObserver.disconnect) {
+          this._bvObserver.disconnect();
+        }
+
+        this._bvObserver = null;
+      }
+    },
+    getTabs: function getTabs() {
+      return (this.$slots.default || []).map(function (vnode) {
+        return vnode.componentInstance;
+      }).filter(function (tab) {
+        return tab && tab._isTab;
+      });
+    },
+    // Update list of b-tab children
+    updateTabs: function updateTabs() {
+      // Probe tabs
+      var tabs = this.getTabs(); // Find *last* active non-disabled tab in current tabs
+      // We trust tab state over currentTab, in case tabs were added/removed/re-ordered
+
+      var tabIndex = tabs.indexOf(tabs.slice().reverse().find(function (tab) {
+        return tab.localActive && !tab.disabled;
+      })); // Else try setting to currentTab
+
+      if (tabIndex < 0) {
+        var currentTab = this.currentTab;
+
+        if (currentTab >= tabs.length) {
+          // Handle last tab being removed, so find the last non-disabled tab
+          tabIndex = tabs.indexOf(tabs.slice().reverse().find(notDisabled));
+        } else if (tabs[currentTab] && !tabs[currentTab].disabled) {
+          // Current tab is not disabled
+          tabIndex = currentTab;
+        }
+      } // Else find *first* non-disabled tab in current tabs
+
+
+      if (tabIndex < 0) {
+        tabIndex = tabs.indexOf(tabs.find(notDisabled));
+      } // Set the current tab state to active
+
+
+      tabs.forEach(function (tab, idx) {
+        // tab.localActive = idx === tabIndex && !tab.disabled
+        tab.localActive = false;
+      });
+
+      if (tabs[tabIndex]) {
+        tabs[tabIndex].localActive = true;
+      } // Update the array of tab children
+
+
+      this.tabs = tabs; // Set the currentTab index (can be -1 if no non-disabled tabs)
+
+      this.currentTab = tabIndex;
+    },
+    // Find a button that controls a tab, given the tab reference
+    // Returns the button vm instance
+    getButtonForTab: function getButtonForTab(tab) {
+      return (this.$refs.buttons || []).find(function (btn) {
+        return btn.tab === tab;
+      });
+    },
+    // Force a button to re-render it's content, given a b-tab instance
+    // Called by b-tab on update()
+    updateButton: function updateButton(tab) {
+      var button = this.getButtonForTab(tab);
+
+      if (button && button.$forceUpdate) {
+        button.$forceUpdate();
+      }
+    },
+    // Activate a tab given a b-tab instance
+    // Also accessed by b-tab
+    activateTab: function activateTab(tab) {
+      var result = false;
+
+      if (tab) {
+        var index = this.tabs.indexOf(tab);
+
+        if (!tab.disabled && index > -1) {
+          result = true;
+          this.currentTab = index;
+        }
+      }
+
+      if (!result) {
+        // Couldn't set tab, so ensure v-model is set to this.currentTab
+
+        /* istanbul ignore next: should rarely happen */
+        this.$emit('input', this.currentTab);
+      }
+
+      return result;
+    },
+    // Deactivate a tab given a b-tab instance
+    // Accessed by b-tab
+    deactivateTab: function deactivateTab(tab) {
+      if (tab) {
+        // Find first non-disabled tab that isn't the one being deactivated
+        // If no available tabs, then don't deactivate current tab
+        return this.activateTab(this.tabs.filter(function (t) {
+          return t !== tab;
+        }).find(notDisabled));
+      } else {
+        // No tab specified
+
+        /* istanbull ignore next: should never happen */
+        return false;
+      }
+    },
+    // Focus a tab button given it's b-tab instance
+    focusButton: function focusButton(tab) {
+      var _this4 = this;
+
+      // Wrap in nextTick to ensure DOM has completed rendering/updating before focusing
+      this.$nextTick(function () {
+        var button = _this4.getButtonForTab(tab);
+
+        if (button && button.focus) {
+          button.focus();
+        }
+      });
+    },
+    // Emit a click event on a specified b-tab component instance
+    emitTabClick: function emitTabClick(tab, evt) {
+      if (evt && evt instanceof Event && tab && tab.$emit && !tab.disabled) {
+        tab.$emit('click', evt);
+      }
+    },
+    // Click Handler
+    clickTab: function clickTab(tab, evt) {
+      this.activateTab(tab);
+      this.emitTabClick(tab, evt);
+    },
+    // Move to first non-disabled tab
+    firstTab: function firstTab(focus) {
+      var tab = this.tabs.find(notDisabled);
+
+      if (this.activateTab(tab) && focus) {
+        this.focusButton(tab);
+        this.emitTabClick(tab, focus);
+      }
+    },
+    // Move to previous non-disabled tab
+    previousTab: function previousTab(focus) {
+      var currentIndex = Math.max(this.currentTab, 0);
+      var tab = this.tabs.slice(0, currentIndex).reverse().find(notDisabled);
+
+      if (this.activateTab(tab) && focus) {
+        this.focusButton(tab);
+        this.emitTabClick(tab, focus);
+      }
+    },
+    // Move to next non-disabled tab
+    nextTab: function nextTab(focus) {
+      var currentIndex = Math.max(this.currentTab, -1);
+      var tab = this.tabs.slice(currentIndex + 1).find(notDisabled);
+
+      if (this.activateTab(tab) && focus) {
+        this.focusButton(tab);
+        this.emitTabClick(tab, focus);
+      }
+    },
+    // Move to last non-disabled tab
+    lastTab: function lastTab(focus) {
+      var tab = this.tabs.slice().reverse().find(notDisabled);
+
+      if (this.activateTab(tab) && focus) {
+        this.focusButton(tab);
+        this.emitTabClick(tab, focus);
+      }
+    }
+  },
+  render: function render(h) {
+    var _this5 = this,
+        _ref;
+
+    var tabs = this.tabs; // Currently active tab
+
+    var activeTab = tabs.find(function (tab) {
+      return tab.localActive && !tab.disabled;
+    }); // Tab button to allow focusing when no active tab found (keynav only)
+
+    var fallbackTab = tabs.find(function (tab) {
+      return !tab.disabled;
+    }); // For each <b-tab> found create the tab buttons
+
+    var buttons = tabs.map(function (tab, index) {
+      var tabIndex = null; // Ensure at least one tab button is focusable when keynav enabled (if possible)
+
+      if (!_this5.noKeyNav) {
+        // Buttons are not in tab index unless active, or a fallback tab
+        tabIndex = -1;
+
+        if (activeTab === tab || !activeTab && fallbackTab === tab) {
+          // Place tab button in tab sequence
+          tabIndex = null;
+        }
+      }
+
+      return h(BTabButtonHelper, {
+        key: tab._uid || index,
+        ref: 'buttons',
+        // Needed to make this.$refs.buttons an array
+        refInFor: true,
+        props: {
+          tab: tab,
+          tabs: tabs,
+          id: tab.controlledBy || (_this5.tab && _this5.tab.safeId ? _this5.tab.safeId("_BV_tab_button_") : null),
+          controls: _this5.tab && _this5.tab.safeId ? _this5.tab.safeId() : null,
+          tabIndex: tabIndex,
+          setSize: tabs.length,
+          posInSet: index + 1,
+          noKeyNav: _this5.noKeyNav
+        },
+        on: {
+          click: function click(evt) {
+            _this5.clickTab(tab, evt);
+          },
+          first: _this5.firstTab,
+          prev: _this5.previousTab,
+          next: _this5.nextTab,
+          last: _this5.lastTab
+        }
+      });
+    }); // Nav 'button' wrapper
+
+    var navs = h('ul', {
+      ref: 'navs',
+      class: ['nav', (_ref = {}, _defineProperty(_ref, "nav-".concat(this.navStyle), !this.noNavStyle), _defineProperty(_ref, "card-header-".concat(this.navStyle), this.card && !this.vertical), _defineProperty(_ref, 'card-header', this.card && this.vertical), _defineProperty(_ref, 'h-100', this.card && this.vertical), _defineProperty(_ref, 'flex-column', this.vertical), _defineProperty(_ref, 'border-bottom-0', this.vertical), _defineProperty(_ref, 'rounded-0', this.vertical), _defineProperty(_ref, "small", this.small), _ref), this.navClass],
+      attrs: {
+        role: 'tablist',
+        id: this.safeId('_BV_tab_controls_')
+      }
+    }, [buttons, this.$slots.tabs]);
+    navs = h('div', {
+      key: 'bv-tabs-navs',
+      class: [{
+        'card-header': this.card && !this.vertical && !(this.end || this.bottom),
+        'card-footer': this.card && !this.vertical && (this.end || this.bottom),
+        'col-auto': this.vertical
+      }, this.navWrapperClass]
+    }, [navs]);
+    var empty = h(false);
+
+    if (!tabs || tabs.length === 0) {
+      empty = h('div', {
+        key: 'empty-tab',
+        class: ['tab-pane', 'active', {
+          'card-body': this.card
+        }]
+      }, this.$slots.empty);
+    } // Main content section
+    // TODO: This container should be a helper component
+
+
+    var content = h('div', {
+      ref: 'tabsContainer',
+      key: 'bv-tabs-container',
+      staticClass: 'tab-content',
+      class: [{
+        col: this.vertical
+      }, this.contentClass],
+      attrs: {
+        id: this.safeId('_BV_tab_container_')
+      }
+    }, [this.$slots.default, empty]); // Render final output
+
+    return h(this.tag, {
+      staticClass: 'tabs',
+      class: {
+        row: this.vertical,
+        'no-gutters': this.vertical && this.card
+      },
+      attrs: {
+        id: this.safeId()
+      }
+    }, [this.end || this.bottom ? content : h(false), [navs], this.end || this.bottom ? h(false) : content]);
+  }
+};
+exports.default = _default2;
+
+/***/ }),
+
 /***/ "40f6":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2632,6 +8513,299 @@ module.exports = function (Constructor, NAME, next) {
 
 /***/ }),
 
+/***/ "41cd":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _listenOnRoot = __webpack_require__("edbc");
+
+// @vue/component
+var _default = {
+  name: 'BNavbarToggle',
+  mixins: [_listenOnRoot.default],
+  props: {
+    label: {
+      type: String,
+      default: 'Toggle navigation'
+    },
+    target: {
+      type: String,
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      toggleState: false
+    };
+  },
+  created: function created() {
+    this.listenOnRoot('bv::collapse::state', this.handleStateEvt);
+  },
+  methods: {
+    onClick: function onClick(evt) {
+      this.$emit('click', evt);
+      /* istanbul ignore next */
+
+      if (!evt.defaultPrevented) {
+        this.$root.$emit('bv::toggle::collapse', this.target);
+      }
+    },
+    handleStateEvt: function handleStateEvt(id, state) {
+      if (id === this.target) {
+        this.toggleState = state;
+      }
+    }
+  },
+  render: function render(h) {
+    return h('button', {
+      class: ['navbar-toggler'],
+      attrs: {
+        type: 'button',
+        'aria-label': this.label,
+        'aria-controls': this.target,
+        'aria-expanded': this.toggleState ? 'true' : 'false'
+      },
+      on: {
+        click: this.onClick
+      }
+    }, [this.$slots.default || h('span', {
+      class: ['navbar-toggler-icon']
+    })]);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "41fb":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+/* Form control contextual state class computation
+ *
+ * Returned class is either 'is-valid' or 'is-invalid' based on the 'state' prop
+ * state can be one of five values:
+ *  - true or 'valid' for is-valid
+ *  - false or 'invalid' for is-invalid
+ *  - null (or empty string) for no contextual state
+ */
+// @vue/component
+var _default = {
+  props: {
+    state: {
+      // true/'valid', false/'invalid', '',null
+      // The order must be String first, then Boolean!
+      type: [String, Boolean],
+      default: null
+    }
+  },
+  computed: {
+    computedState: function computedState() {
+      var state = this.state;
+
+      if (state === '') {
+        return null;
+      } else if (state === true || state === 'valid') {
+        return true;
+      } else if (state === false || state === 'invalid') {
+        return false;
+      }
+
+      return null;
+    },
+    stateClass: function stateClass() {
+      var state = this.computedState;
+
+      if (state === true) {
+        return 'is-valid';
+      } else if (state === false) {
+        return 'is-invalid';
+      }
+
+      return null;
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "4216":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _id = __webpack_require__("eae0");
+
+var _form = __webpack_require__("5f07");
+
+var _formSize = __webpack_require__("6e1b");
+
+var _formState = __webpack_require__("41fb");
+
+var _formText = __webpack_require__("c01c");
+
+var _formSelection = __webpack_require__("10fc");
+
+var _formValidity = __webpack_require__("b965");
+
+var _array = __webpack_require__("bb2f");
+
+var _dom = __webpack_require__("1611");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// Valid supported input types
+var TYPES = ['text', 'password', 'email', 'number', 'url', 'tel', 'search', 'range', 'color', 'date', 'time', 'datetime', 'datetime-local', 'month', 'week']; // @vue/component
+
+var _default = {
+  name: 'BFormInput',
+  mixins: [_id.default, _form.default, _formSize.default, _formState.default, _formText.default, _formSelection.default, _formValidity.default],
+  props: {
+    // value prop defined in form-text mixin
+    // value: { },
+    type: {
+      type: String,
+      default: 'text',
+      validator: function validator(type) {
+        return (0, _array.arrayIncludes)(TYPES, type);
+      }
+    },
+    noWheel: {
+      // Disable mousewheel to prevent wheel from changing values (i.e. number/date).
+      type: Boolean,
+      default: false
+    },
+    min: {
+      type: [String, Number],
+      default: null
+    },
+    max: {
+      type: [String, Number],
+      default: null
+    },
+    step: {
+      type: [String, Number],
+      default: null
+    },
+    list: {
+      type: String,
+      default: null
+    }
+  },
+  computed: {
+    localType: function localType() {
+      // We only allow certain types
+      return (0, _array.arrayIncludes)(TYPES, this.type) ? this.type : 'text';
+    }
+  },
+  watch: {
+    noWheel: function noWheel(newVal) {
+      this.setWheelStopper(newVal);
+    }
+  },
+  mounted: function mounted() {
+    this.setWheelStopper(this.noWheel);
+  },
+  deactivated: function deactivated() {
+    // Turn off listeners when keep-alive component deactivated
+
+    /* istanbul ignore next */
+    this.setWheelStopper(false);
+  },
+  activated: function activated() {
+    // Turn on listeners (if no-wheel) when keep-alive component activated
+
+    /* istanbul ignore next */
+    this.setWheelStopper(this.noWheel);
+  },
+  beforeDestroy: function beforeDestroy() {
+    /* istanbul ignore next */
+    this.setWheelStopper(false);
+  },
+  methods: {
+    setWheelStopper: function setWheelStopper(on) {
+      var input = this.$el; // We use native events, so that we don't interfere with propgation
+
+      if (on) {
+        (0, _dom.eventOn)(input, 'focus', this.onWheelFocus);
+        (0, _dom.eventOn)(input, 'blur', this.onWheelBlur);
+      } else {
+        (0, _dom.eventOff)(input, 'focus', this.onWheelFocus);
+        (0, _dom.eventOff)(input, 'blur', this.onWheelBlur);
+        (0, _dom.eventOff)(document, 'wheel', this.stopWheel);
+      }
+    },
+    onWheelFocus: function onWheelFocus(evt) {
+      (0, _dom.eventOn)(document, 'wheel', this.stopWheel);
+    },
+    onWheelBlur: function onWheelBlur(evt) {
+      (0, _dom.eventOff)(document, 'wheel', this.stopWheel);
+    },
+    stopWheel: function stopWheel(evt) {
+      evt.preventDefault();
+      this.$el.blur();
+    }
+  },
+  render: function render(h) {
+    var self = this;
+    return h('input', {
+      ref: 'input',
+      class: self.computedClass,
+      directives: [{
+        name: 'model',
+        rawName: 'v-model',
+        value: self.localValue,
+        expression: 'localValue'
+      }],
+      attrs: {
+        id: self.safeId(),
+        name: self.name,
+        form: self.form || null,
+        type: self.localType,
+        disabled: self.disabled,
+        placeholder: self.placeholder,
+        required: self.required,
+        autocomplete: self.autocomplete || null,
+        readonly: self.readonly || self.plaintext,
+        min: self.min,
+        max: self.max,
+        step: self.step,
+        list: self.localType !== 'password' ? self.list : null,
+        'aria-required': self.required ? 'true' : null,
+        'aria-invalid': self.computedAriaInvalid
+      },
+      domProps: {
+        value: self.localValue
+      },
+      on: _objectSpread({}, self.$listeners, {
+        input: self.onInput,
+        change: self.onChange,
+        blur: self.onBlur
+      })
+    });
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "4362":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2666,6 +8840,81 @@ exports.uptime = exports.memoryUsage =
 exports.uvCounters = function() {};
 exports.features = {};
 
+
+/***/ }),
+
+/***/ "4399":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _normalizeFields = __webpack_require__("4d86");
+
+var _array = __webpack_require__("bb2f");
+
+var _default2 = {
+  props: {
+    items: {
+      type: [Array, Function],
+      default: function _default()
+      /* istanbul ignore next */
+      {
+        return [];
+      }
+    },
+    fields: {
+      // Object format is deprecated and should be avoided
+      type: [Array, Object],
+      default: null
+    },
+    primaryKey: {
+      // Primary key for record.
+      // If provided the value in each row must be unique!!!
+      type: String,
+      default: null
+    }
+  },
+  data: function data() {
+    return {
+      // Our local copy of the items. Must be an array
+      localItems: (0, _array.isArray)(this.items) ? this.items.slice() : []
+    };
+  },
+  computed: {
+    computedFields: function computedFields() {
+      // We normalize fields into an array of objects
+      // [ { key:..., label:..., ...}, {...}, ..., {..}]
+      return (0, _normalizeFields.default)(this.fields, this.localItems);
+    },
+    computedFieldsObj: function computedFieldsObj()
+    /* istanbul ignore next: not using at the moment */
+    {
+      // Fields as a simple lookup hash object
+      // Mainly for scopedSlots for convenience
+      return this.computedFields.reduce(function (f, obj) {
+        obj[f.key] = f;
+        return obj;
+      }, {});
+    }
+  },
+  watch: {
+    items: function items(newItems) {
+      /* istanbul ignore else */
+      if ((0, _array.isArray)(newItems)) {
+        // Set localItems/filteredItems to a copy of the provided array
+        this.localItems = newItems.slice();
+      } else if (newItems === null || newItems === undefined) {
+        /* istanbul ignore next */
+        this.localItems = [];
+      }
+    }
+  }
+};
+exports.default = _default2;
 
 /***/ }),
 
@@ -2708,6 +8957,143 @@ module.exports = function (it) {
   return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
 };
 
+
+/***/ }),
+
+/***/ "45f0":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+// @vue/component
+var _default = {
+  props: {
+    tag: {
+      type: String,
+      default: 'div'
+    },
+    bgVariant: {
+      type: String,
+      default: null
+    },
+    borderVariant: {
+      type: String,
+      default: null
+    },
+    textVariant: {
+      type: String,
+      default: null
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "461c":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _array = __webpack_require__("bb2f");
+
+var _object = __webpack_require__("24e2");
+
+var _html = __webpack_require__("be11");
+
+function isObject(obj) {
+  return obj && {}.toString.call(obj) === '[object Object]';
+} // @vue/component
+
+
+var _default2 = {
+  props: {
+    options: {
+      type: [Array, Object],
+      default: function _default() {
+        return [];
+      }
+    },
+    valueField: {
+      type: String,
+      default: 'value'
+    },
+    textField: {
+      type: String,
+      default: 'text'
+    },
+    htmlField: {
+      type: String,
+      default: 'html'
+    },
+    disabledField: {
+      type: String,
+      default: 'disabled'
+    }
+  },
+  computed: {
+    formOptions: function formOptions() {
+      var options = this.options;
+      var valueField = this.valueField;
+      var textField = this.textField;
+      var htmlField = this.htmlField;
+      var disabledField = this.disabledField;
+
+      if ((0, _array.isArray)(options)) {
+        // Normalize flat-ish arrays to Array of Objects
+        return options.map(function (option) {
+          if (isObject(option)) {
+            var value = option[valueField];
+            var text = String(option[textField]);
+            return {
+              value: typeof value === 'undefined' ? text : value,
+              text: (0, _html.stripTags)(text),
+              html: option[htmlField],
+              disabled: Boolean(option[disabledField])
+            };
+          }
+
+          return {
+            value: option,
+            text: (0, _html.stripTags)(String(option)),
+            disabled: false
+          };
+        });
+      } else {
+        // options is Object
+        // Normalize Objects to Array of Objects
+        return (0, _object.keys)(options).map(function (key) {
+          var option = options[key] || {};
+
+          if (isObject(option)) {
+            var value = option[valueField];
+            var text = option[textField];
+            return {
+              value: typeof value === 'undefined' ? key : value,
+              text: typeof text === 'undefined' ? (0, _html.stripTags)(String(key)) : (0, _html.stripTags)(String(text)),
+              html: option[htmlField],
+              disabled: Boolean(option[disabledField])
+            };
+          }
+
+          return {
+            value: key,
+            text: (0, _html.stripTags)(String(option)),
+            disabled: false
+          };
+        });
+      }
+    }
+  }
+};
+exports.default = _default2;
 
 /***/ }),
 
@@ -2836,6 +9222,291 @@ module.exports = function (it) {
 
 /***/ }),
 
+/***/ "4c74":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _html = __webpack_require__("be11");
+
+var _container = __webpack_require__("1520");
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var props = {
+  fluid: {
+    type: Boolean,
+    default: false
+  },
+  containerFluid: {
+    type: Boolean,
+    default: false
+  },
+  header: {
+    type: String,
+    default: null
+  },
+  headerHtml: {
+    type: String,
+    default: null
+  },
+  headerTag: {
+    type: String,
+    default: 'h1'
+  },
+  headerLevel: {
+    type: [Number, String],
+    default: '3'
+  },
+  lead: {
+    type: String,
+    default: null
+  },
+  leadHtml: {
+    type: String,
+    default: null
+  },
+  leadTag: {
+    type: String,
+    default: 'p'
+  },
+  tag: {
+    type: String,
+    default: 'div'
+  },
+  bgVariant: {
+    type: String,
+    default: null
+  },
+  borderVariant: {
+    type: String,
+    default: null
+  },
+  textVariant: {
+    type: String,
+    default: null
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BJumbotron',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var _class2;
+
+    var props = _ref.props,
+        data = _ref.data,
+        slots = _ref.slots;
+    // The order of the conditionals matter.
+    // We are building the component markup in order.
+    var childNodes = [];
+    var $slots = slots(); // Header
+
+    if (props.header || $slots.header || props.headerHtml) {
+      childNodes.push(h(props.headerTag, {
+        class: _defineProperty({}, "display-".concat(props.headerLevel), Boolean(props.headerLevel))
+      }, $slots.header || props.headerHtml || (0, _html.stripTags)(props.header)));
+    } // Lead
+
+
+    if (props.lead || $slots.lead || props.leadHtml) {
+      childNodes.push(h(props.leadTag, {
+        staticClass: 'lead'
+      }, $slots.lead || props.leadHtml || (0, _html.stripTags)(props.lead)));
+    } // Default slot
+
+
+    if ($slots.default) {
+      childNodes.push($slots.default);
+    } // If fluid, wrap content in a container/container-fluid
+
+
+    if (props.fluid) {
+      // Children become a child of a container
+      childNodes = [h(_container.default, {
+        props: {
+          fluid: props.containerFluid
+        }
+      }, childNodes)];
+    } // Return the jumbotron
+
+
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'jumbotron',
+      class: (_class2 = {
+        'jumbotron-fluid': props.fluid
+      }, _defineProperty(_class2, "text-".concat(props.textVariant), Boolean(props.textVariant)), _defineProperty(_class2, "bg-".concat(props.bgVariant), Boolean(props.bgVariant)), _defineProperty(_class2, "border-".concat(props.borderVariant), Boolean(props.borderVariant)), _defineProperty(_class2, "border", Boolean(props.borderVariant)), _class2)
+    }), childNodes);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "4c76":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _config = __webpack_require__("eb60");
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var NAME = 'BImg'; // Blank image with fill template
+
+var BLANK_TEMPLATE = '<svg width="%{w}" height="%{h}" ' + 'xmlns="http://www.w3.org/2000/svg" ' + 'viewBox="0 0 %{w} %{h}" preserveAspectRatio="none">' + '<rect width="100%" height="100%" style="fill:%{f};"></rect>' + '</svg>';
+
+function makeBlankImgSrc(width, height, color) {
+  var src = encodeURIComponent(BLANK_TEMPLATE.replace('%{w}', String(width)).replace('%{h}', String(height)).replace('%{f}', color));
+  return "data:image/svg+xml;charset=UTF-8,".concat(src);
+}
+
+var props = {
+  src: {
+    type: String,
+    default: null
+  },
+  alt: {
+    type: String,
+    default: null
+  },
+  width: {
+    type: [Number, String],
+    default: null
+  },
+  height: {
+    type: [Number, String],
+    default: null
+  },
+  block: {
+    type: Boolean,
+    default: false
+  },
+  fluid: {
+    type: Boolean,
+    default: false
+  },
+  fluidGrow: {
+    // Gives fluid images class `w-100` to make them grow to fit container
+    type: Boolean,
+    default: false
+  },
+  rounded: {
+    // rounded can be:
+    //   false: no rounding of corners
+    //   true: slightly rounded corners
+    //   'top': top corners rounded
+    //   'right': right corners rounded
+    //   'bottom': bottom corners rounded
+    //   'left': left corners rounded
+    //   'circle': circle/oval
+    //   '0': force rounding off
+    type: [Boolean, String],
+    default: false
+  },
+  thumbnail: {
+    type: Boolean,
+    default: false
+  },
+  left: {
+    type: Boolean,
+    default: false
+  },
+  right: {
+    type: Boolean,
+    default: false
+  },
+  center: {
+    type: Boolean,
+    default: false
+  },
+  blank: {
+    type: Boolean,
+    default: false
+  },
+  blankColor: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'blankColor');
+    }
+  } // @vue/component
+
+};
+exports.props = props;
+var _default2 = {
+  name: 'BImg',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var _class;
+
+    var props = _ref.props,
+        data = _ref.data;
+    var src = props.src;
+    var width = parseInt(props.width, 10) ? parseInt(props.width, 10) : null;
+    var height = parseInt(props.height, 10) ? parseInt(props.height, 10) : null;
+    var align = null;
+    var block = props.block;
+
+    if (props.blank) {
+      if (!height && Boolean(width)) {
+        height = width;
+      } else if (!width && Boolean(height)) {
+        width = height;
+      }
+
+      if (!width && !height) {
+        width = 1;
+        height = 1;
+      } // Make a blank SVG image
+
+
+      src = makeBlankImgSrc(width, height, props.blankColor || 'transparent');
+    }
+
+    if (props.left) {
+      align = 'float-left';
+    } else if (props.right) {
+      align = 'float-right';
+    } else if (props.center) {
+      align = 'mx-auto';
+      block = true;
+    }
+
+    return h('img', (0, _vueFunctionalDataMerge.mergeData)(data, {
+      attrs: {
+        src: src,
+        alt: props.alt,
+        width: width ? String(width) : null,
+        height: height ? String(height) : null
+      },
+      class: (_class = {
+        'img-thumbnail': props.thumbnail,
+        'img-fluid': props.fluid || props.fluidGrow,
+        'w-100': props.fluidGrow,
+        rounded: props.rounded === '' || props.rounded === true
+      }, _defineProperty(_class, "rounded-".concat(props.rounded), typeof props.rounded === 'string' && props.rounded !== ''), _defineProperty(_class, align, Boolean(align)), _defineProperty(_class, 'd-block', block), _class)
+    }));
+  }
+};
+exports.default = _default2;
+
+/***/ }),
+
 /***/ "4d00":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2881,6 +9552,127 @@ var _default = {
   }
 };
 exports.default = _default;
+
+/***/ }),
+
+/***/ "4d86":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = normalizeFields;
+
+var _startcase = __webpack_require__("3098");
+
+var _object = __webpack_require__("24e2");
+
+var _array = __webpack_require__("bb2f");
+
+var _constants = __webpack_require__("3ed8");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+// private function to massage field entry into common object format
+function processField(key, value) {
+  var field = null;
+
+  if (typeof value === 'string') {
+    // Label shortcut
+    field = {
+      key: key,
+      label: value
+    };
+  } else if (typeof value === 'function') {
+    // Formatter shortcut
+    field = {
+      key: key,
+      formatter: value
+    };
+  } else if (_typeof(value) === 'object') {
+    field = _objectSpread({}, value);
+    field.key = field.key || key;
+  } else if (value !== false) {
+    // Fallback to just key
+
+    /* istanbul ignore next */
+    field = {
+      key: key
+    };
+  }
+
+  return field;
+} // We normalize fields into an array of objects
+// [ { key:..., label:..., ...}, {...}, ..., {..}]
+
+
+function normalizeFields(origFields, items) {
+  var fields = [];
+
+  if ((0, _array.isArray)(origFields)) {
+    // Normalize array Form
+    origFields.filter(function (f) {
+      return f;
+    }).forEach(function (f) {
+      if (typeof f === 'string') {
+        fields.push({
+          key: f,
+          label: (0, _startcase.default)(f)
+        });
+      } else if (_typeof(f) === 'object' && f.key && typeof f.key === 'string') {
+        // Full object definition. We use assign so that we don't mutate the original
+        fields.push(_objectSpread({}, f));
+      } else if (_typeof(f) === 'object' && (0, _object.keys)(f).length === 1) {
+        // Shortcut object (i.e. { 'foo_bar': 'This is Foo Bar' }
+        var key = (0, _object.keys)(f)[0];
+        var field = processField(key, f[key]);
+
+        if (field) {
+          fields.push(field);
+        }
+      }
+    });
+  } else if (origFields && _typeof(origFields) === 'object' && (0, _object.keys)(origFields).length > 0) {
+    // Normalize object Form (deprecated)
+    (0, _object.keys)(origFields).forEach(function (key) {
+      var field = processField(key, origFields[key]);
+
+      if (field) {
+        fields.push(field);
+      }
+    });
+  } // If no field provided, take a sample from first record (if exits)
+
+
+  if (fields.length === 0 && (0, _array.isArray)(items) && items.length > 0) {
+    var sample = items[0];
+    (0, _object.keys)(sample).forEach(function (k) {
+      if (!_constants.IGNORED_FIELD_KEYS[k]) {
+        fields.push({
+          key: k,
+          label: (0, _startcase.default)(k)
+        });
+      }
+    });
+  } // Ensure we have a unique array of fields and that they have String labels
+
+
+  var memo = {};
+  return fields.filter(function (f) {
+    if (!memo[f.key]) {
+      memo[f.key] = true;
+      f.label = typeof f.label === 'string' ? f.label : (0, _startcase.default)(f.key);
+      return true;
+    }
+
+    return false;
+  });
+}
 
 /***/ }),
 
@@ -3101,11 +9893,570 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "4fe1":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// @vue/component
+var _default = {
+  model: {
+    prop: 'checked',
+    event: 'input'
+  },
+  props: {
+    value: {// Value when checked
+      // type: Object,
+      // default: undefined
+    },
+    checked: {// This is the v-model
+      // type: Object,
+      // default: undefined
+    },
+    inline: {
+      type: Boolean,
+      default: false
+    },
+    plain: {
+      type: Boolean,
+      default: false
+    },
+    button: {
+      // Only applicable in standalone mode (non group)
+      type: Boolean,
+      default: false
+    },
+    buttonVariant: {
+      // Only applicable when rendered with button style
+      type: String,
+      default: null
+    },
+    ariaLabel: {
+      // Placed on the input if present.
+      type: String,
+      default: null
+    }
+  },
+  data: function data() {
+    return {
+      localChecked: this.is_Group ? this.bvGroup.checked : this.checked,
+      hasFocus: false
+    };
+  },
+  computed: {
+    computedLocalChecked: {
+      get: function get() {
+        return this.is_Group ? this.bvGroup.localChecked : this.localChecked;
+      },
+      set: function set(val) {
+        if (this.is_Group) {
+          this.bvGroup.localChecked = val;
+        } else {
+          this.localChecked = val;
+        }
+      }
+    },
+    is_Group: function is_Group() {
+      // Is this check/radio a child of check-group or radio-group?
+      return Boolean(this.bvGroup);
+    },
+    is_BtnMode: function is_BtnMode() {
+      // Support button style in single input mode
+      return this.is_Group ? this.bvGroup.buttons : this.button;
+    },
+    is_Plain: function is_Plain() {
+      return this.is_BtnMode ? false : this.is_Group ? this.bvGroup.plain : this.plain;
+    },
+    is_Custom: function is_Custom() {
+      return this.is_BtnMode ? false : !this.is_Plain;
+    },
+    is_Switch: function is_Switch() {
+      // Custom switch styling (checkboxes only)
+      return this.is_BtnMode || this.is_Radio || this.is_Plain ? false : this.is_Group ? this.bvGroup.switches : this.switch;
+    },
+    is_Inline: function is_Inline() {
+      return this.is_Group ? this.bvGroup.inline : this.inline;
+    },
+    is_Disabled: function is_Disabled() {
+      // Child can be disabled while parent isn't, but is always disabled if group is
+      return this.is_Group ? this.bvGroup.disabled || this.disabled : this.disabled;
+    },
+    is_Required: function is_Required() {
+      // Required only works when a name is provided for the input(s)
+      // Child can only be required when parent is
+      // Groups will always have a name (either user supplied or auto generated)
+      return Boolean(this.get_Name && (this.is_Group ? this.bvGroup.required : this.required));
+    },
+    get_Name: function get_Name() {
+      // Group name preferred over local name
+      return (this.is_Group ? this.bvGroup.groupName : this.name) || null;
+    },
+    get_Form: function get_Form() {
+      return (this.is_Group ? this.bvGroup.form : this.form) || null;
+    },
+    get_Size: function get_Size() {
+      return (this.is_Group ? this.bvGroup.size : this.size) || '';
+    },
+    get_State: function get_State() {
+      return this.is_Group ? this.bvGroup.computedState : this.computedState;
+    },
+    get_ButtonVariant: function get_ButtonVariant() {
+      // Local variant preferred over group variant
+      if (this.buttonVariant) {
+        return this.buttonVariant;
+      } else if (this.is_Group && this.bvGroup.buttonVariant) {
+        return this.bvGroup.buttonVariant;
+      } // default variant
+
+
+      return 'secondary';
+    },
+    buttonClasses: function buttonClasses() {
+      // Same for radio & check
+      return ['btn', "btn-".concat(this.get_ButtonVariant), this.get_Size ? "btn-".concat(this.get_Size) : '', // 'disabled' class makes "button" look disabled
+      this.is_Disabled ? 'disabled' : '', // 'active' class makes "button" look pressed
+      this.is_Checked ? 'active' : '', // Focus class makes button look focused
+      this.hasFocus ? 'focus' : ''];
+    }
+  },
+  watch: {
+    checked: function checked(newVal, oldVal) {
+      this.computedLocalChecked = newVal;
+    }
+  },
+  methods: {
+    handleFocus: function handleFocus(evt) {
+      // When in buttons mode, we need to add 'focus' class to label when input focused
+      // As it is the hidden input which has actual focus
+      if (evt.target) {
+        if (evt.type === 'focus') {
+          this.hasFocus = true;
+        } else if (evt.type === 'blur') {
+          this.hasFocus = false;
+        }
+      }
+    },
+    // Convenience methods for focusing the input
+    focus: function focus() {
+      if (!this.is_Disabled && this.$refs.input && this.$refs.input.focus) {
+        this.$refs.input.focus();
+      }
+    },
+    blur: function blur() {
+      if (!this.is_Disabled && this.$refs.input && this.$refs.input.blur) {
+        this.$refs.input.blur();
+      }
+    }
+  },
+  render: function render(h) {
+    var defaultSlot = this.$slots.default; // Generate the input element
+
+    var on = {
+      change: this.handleChange
+    };
+
+    if (this.is_BtnMode) {
+      // Handlers for focus styling when in button mode
+      on.focus = on.blur = this.handleFocus;
+    }
+
+    var input = h('input', {
+      ref: 'input',
+      key: 'input',
+      on: on,
+      class: {
+        'form-check-input': this.is_Plain,
+        'custom-control-input': this.is_Custom,
+        'is-valid': this.get_State === true && !this.is_BtnMode,
+        'is-invalid': this.get_State === false && !this.is_BtnMode,
+        // https://github.com/bootstrap-vue/bootstrap-vue/issues/2911
+        'position-static': this.is_Plain && !defaultSlot
+      },
+      directives: [{
+        name: 'model',
+        rawName: 'v-model',
+        value: this.computedLocalChecked,
+        expression: 'computedLocalChecked'
+      }],
+      attrs: {
+        id: this.safeId(),
+        type: this.is_Radio ? 'radio' : 'checkbox',
+        name: this.get_Name,
+        form: this.get_Form,
+        disabled: this.is_Disabled,
+        required: this.is_Required,
+        autocomplete: 'off',
+        'aria-required': this.is_Required || null,
+        'aria-label': this.ariaLabel || null
+      },
+      domProps: {
+        value: this.value,
+        checked: this.is_Checked
+      }
+    });
+
+    if (this.is_BtnMode) {
+      // Button mode
+      var button = h('label', {
+        class: this.buttonClasses
+      }, [input, defaultSlot]);
+
+      if (!this.is_Group) {
+        // Standalone button mode, so wrap in 'btn-group-toggle'
+        // and flag it as inline-block to mimic regular buttons
+        button = h('div', {
+          class: ['btn-group-toggle', 'd-inline-block']
+        }, [button]);
+      }
+
+      return button;
+    } else {
+      // Not button mode
+      var label = h(false); // If no label content in plain mode we dont render the label
+      // https://github.com/bootstrap-vue/bootstrap-vue/issues/2911
+
+      if (!(this.is_Plain && !defaultSlot)) {
+        label = h('label', {
+          class: {
+            'form-check-label': this.is_Plain,
+            'custom-control-label': this.is_Custom
+          },
+          attrs: {
+            for: this.safeId()
+          }
+        }, defaultSlot);
+      } // Wrap it in a div
+
+
+      return h('div', {
+        class: _defineProperty({
+          'form-check': this.is_Plain,
+          'form-check-inline': this.is_Plain && this.is_Inline,
+          'custom-control': this.is_Custom,
+          'custom-control-inline': this.is_Custom && this.is_Inline,
+          'custom-checkbox': this.is_Custom && this.is_Check && !this.is_Switch,
+          'custom-switch': this.is_Switch,
+          'custom-radio': this.is_Custom && this.is_Radio
+        }, "form-control-".concat(this.get_Size), Boolean(this.get_Size && !this.is_BtnMode))
+      }, [input, label]);
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "50b2":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _html = __webpack_require__("be11");
+
+var _default = {
+  props: {
+    caption: {
+      type: String,
+      default: null
+    },
+    captionHtml: {
+      type: String
+    },
+    captionTop: {
+      type: Boolean,
+      default: false
+    }
+  },
+  computed: {
+    captionClasses: function captionClasses() {
+      return {
+        'b-table-caption-top': this.captionTop
+      };
+    },
+    captionId: function captionId() {
+      // Even though this.safeId looks like a method, it is a computed prop
+      // that returns a new function if the underlying ID changes
+      return this.isStacked ? this.safeId('_caption_') : null;
+    }
+  },
+  methods: {
+    renderCaption: function renderCaption() {
+      var h = this.$createElement; // Build the caption
+
+      var $captionSlot = this.normalizeSlot('table-caption', {});
+      var $caption = h(false);
+
+      if ($captionSlot || this.caption || this.captionHtml) {
+        var data = {
+          key: 'caption',
+          class: this.captionClasses,
+          attrs: {
+            id: this.captionId
+          }
+        };
+
+        if (!$captionSlot) {
+          data.domProps = (0, _html.htmlOrText)(this.captionHtml, this.caption);
+        }
+
+        $caption = h('caption', data, [$captionSlot]);
+      }
+
+      return $caption;
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "5106":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _img = __webpack_require__("4c76");
+
+var _id = __webpack_require__("eae0");
+
+var _env = __webpack_require__("4565");
+
+var _html = __webpack_require__("be11");
+
+// @vue/component
+var _default2 = {
+  name: 'BCarouselSlide',
+  components: {
+    BImg: _img.default
+  },
+  mixins: [_id.default],
+  inject: {
+    bvCarousel: {
+      default: function _default() {
+        return {
+          // Explicitly disable touch if not a child of carousel
+          noTouch: true
+        };
+      }
+    }
+  },
+  props: {
+    imgSrc: {
+      type: String // default: undefined
+
+    },
+    imgAlt: {
+      type: String // default: undefined
+
+    },
+    imgWidth: {
+      type: [Number, String] // default: undefined
+
+    },
+    imgHeight: {
+      type: [Number, String] // default: undefined
+
+    },
+    imgBlank: {
+      type: Boolean,
+      default: false
+    },
+    imgBlankColor: {
+      type: String,
+      default: 'transparent'
+    },
+    contentVisibleUp: {
+      type: String
+    },
+    contentTag: {
+      type: String,
+      default: 'div'
+    },
+    caption: {
+      type: String
+    },
+    captionHtml: {
+      type: String
+    },
+    captionTag: {
+      type: String,
+      default: 'h3'
+    },
+    text: {
+      type: String
+    },
+    textHtml: {
+      type: String
+    },
+    textTag: {
+      type: String,
+      default: 'p'
+    },
+    background: {
+      type: String
+    }
+  },
+  data: function data() {
+    return {};
+  },
+  computed: {
+    contentClasses: function contentClasses() {
+      return [this.contentVisibleUp ? 'd-none' : '', this.contentVisibleUp ? "d-".concat(this.contentVisibleUp, "-block") : ''];
+    },
+    computedWidth: function computedWidth() {
+      // Use local width, or try parent width
+      return this.imgWidth || this.bvCarousel.imgWidth || null;
+    },
+    computedHeight: function computedHeight() {
+      // Use local height, or try parent height
+      return this.imgHeight || this.bvCarousel.imgHeight || null;
+    }
+  },
+  render: function render(h) {
+    var $slots = this.$slots;
+    var noDrag = !this.bvCarousel.noTouch && _env.hasTouchSupport;
+    var img = $slots.img;
+
+    if (!img && (this.imgSrc || this.imgBlank)) {
+      img = h('b-img', {
+        props: {
+          fluidGrow: true,
+          block: true,
+          src: this.imgSrc,
+          blank: this.imgBlank,
+          blankColor: this.imgBlankColor,
+          width: this.computedWidth,
+          height: this.computedHeight,
+          alt: this.imgAlt
+        },
+        // Touch support event handler
+        on: noDrag ? {
+          dragstart: function dragstart(e) {
+            /* istanbul ignore next: difficult to test in JSDOM */
+            e.preventDefault();
+          }
+        } : {}
+      });
+    }
+
+    if (!img) {
+      img = h(false);
+    }
+
+    var content = h(this.contentTag, {
+      staticClass: 'carousel-caption',
+      class: this.contentClasses
+    }, [this.caption || this.captionHtml ? h(this.captionTag, {
+      domProps: (0, _html.htmlOrText)(this.captionHtml, this.caption)
+    }) : h(false), this.text || this.textHtml ? h(this.textTag, {
+      domProps: (0, _html.htmlOrText)(this.textHtml, this.text)
+    }) : h(false), $slots.default]);
+    return h('div', {
+      staticClass: 'carousel-item',
+      style: {
+        background: this.background || this.bvCarousel.background || null
+      },
+      attrs: {
+        id: this.safeId(),
+        role: 'listitem'
+      }
+    }, [img, content]);
+  }
+};
+exports.default = _default2;
+
+/***/ }),
+
+/***/ "5279":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _breadcrumbLink = __webpack_require__("12d3");
+
+// @vue/component
+var _default = {
+  name: 'BBreadcrumbItem',
+  functional: true,
+  props: _breadcrumbLink.props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h('li', (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'breadcrumb-item',
+      class: {
+        active: props.active
+      },
+      attrs: {
+        role: 'presentation'
+      }
+    }), [h(_breadcrumbLink.default, {
+      props: props
+    }, children)]);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "52a7":
 /***/ (function(module, exports) {
 
 exports.f = {}.propertyIsEnumerable;
 
+
+/***/ }),
+
+/***/ "532a":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _normalizeSlot2 = __webpack_require__("9de7");
+
+var _array = __webpack_require__("bb2f");
+
+var _default = {
+  methods: {
+    hasNormalizedSlot: function hasNormalizedSlot(name) {
+      // Returns true if the either a $scopedSlot or $slot exists with the specified name
+      return Boolean(this.$scopedSlots[name] || this.$slots[name]);
+    },
+    normalizeSlot: function normalizeSlot(name) {
+      var scope = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      // Returns an array of rendered vNodes if slot found.
+      // Returns undefined if not found.
+      var vNodes = (0, _normalizeSlot2.default)(name, scope, this.$scopedSlots, this.$slots);
+      return vNodes ? (0, _array.concat)(vNodes) : vNodes;
+    }
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -3128,6 +10479,32 @@ var store = global[SHARED] || (global[SHARED] = {});
 
 /***/ }),
 
+/***/ "5540":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+/**
+ * @param {string} str
+ */
+var upperFirst = function upperFirst(str) {
+  if (typeof str !== 'string') {
+    str = String(str);
+  }
+
+  str = str.trim();
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
+var _default = upperFirst;
+exports.default = _default;
+
+/***/ }),
+
 /***/ "5559":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3140,12 +10517,346 @@ module.exports = function (key) {
 
 /***/ }),
 
+/***/ "5764":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _popper = __webpack_require__("f0bd");
+
+var _popover = __webpack_require__("daa8");
+
+var _env = __webpack_require__("4565");
+
+var _object = __webpack_require__("24e2");
+
+var _warn = __webpack_require__("93e0");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+// Key which we use to store tooltip object on element
+var BV_POPOVER = '__BV_PopOver__'; // Valid event triggers
+
+var validTriggers = {
+  focus: true,
+  hover: true,
+  click: true,
+  blur: true // Build a PopOver config based on bindings (if any)
+  // Arguments and modifiers take precedence over passed value config object
+
+  /* istanbul ignore next: not easy to test */
+
+};
+
+var parseBindings = function parseBindings(bindings)
+/* istanbul ignore next: not easy to test */
+{
+  // We start out with a blank config
+  var config = {}; // Process bindings.value
+
+  if (typeof bindings.value === 'string') {
+    // Value is popover content (html optionally supported)
+    config.content = bindings.value;
+  } else if (typeof bindings.value === 'function') {
+    // Content generator function
+    config.content = bindings.value;
+  } else if (_typeof(bindings.value) === 'object') {
+    // Value is config object, so merge
+    config = _objectSpread({}, config, bindings.value);
+  } // If argument, assume element ID of container element
+
+
+  if (bindings.arg) {
+    // Element ID specified as arg
+    // We must prepend '#' to become a CSS selector
+    config.container = "#".concat(bindings.arg);
+  } // Process modifiers
+
+
+  (0, _object.keys)(bindings.modifiers).forEach(function (mod) {
+    if (/^html$/.test(mod)) {
+      // Title allows HTML
+      config.html = true;
+    } else if (/^nofade$/.test(mod)) {
+      // no animation
+      config.animation = false;
+    } else if (/^(auto|top(left|right)?|bottom(left|right)?|left(top|bottom)?|right(top|bottom)?)$/.test(mod)) {
+      // placement of popover
+      config.placement = mod;
+    } else if (/^(window|viewport)$/.test(mod)) {
+      // Boundary of popover
+      config.boundary = mod;
+    } else if (/^d\d+$/.test(mod)) {
+      // Delay value
+      var delay = parseInt(mod.slice(1), 10) || 0;
+
+      if (delay) {
+        config.delay = delay;
+      }
+    } else if (/^o-?\d+$/.test(mod)) {
+      // Offset value (negative allowed)
+      var offset = parseInt(mod.slice(1), 10) || 0;
+
+      if (offset) {
+        config.offset = offset;
+      }
+    }
+  }); // Special handling of event trigger modifiers trigger is
+  // a space separated list
+
+  var selectedTriggers = {}; // Parse current config object trigger
+
+  var triggers = typeof config.trigger === 'string' ? config.trigger.trim().split(/\s+/) : [];
+  triggers.forEach(function (trigger) {
+    if (validTriggers[trigger]) {
+      selectedTriggers[trigger] = true;
+    }
+  }); // Parse modifiers for triggers
+
+  (0, _object.keys)(validTriggers).forEach(function (trigger) {
+    if (bindings.modifiers[trigger]) {
+      selectedTriggers[trigger] = true;
+    }
+  }); // Sanitize triggers
+
+  config.trigger = (0, _object.keys)(selectedTriggers).join(' ');
+
+  if (config.trigger === 'blur') {
+    // Blur by itself is useless, so convert it to focus
+    config.trigger = 'focus';
+  }
+
+  if (!config.trigger) {
+    // Remove trigger config
+    delete config.trigger;
+  }
+
+  return config;
+}; // Add or update PopOver on our element
+
+
+var applyPopover = function applyPopover(el, bindings, vnode) {
+  if (!_env.inBrowser) {
+    /* istanbul ignore next */
+    return;
+  } // Popper is required for PopOvers to work
+
+
+  if (!_popper.default) {
+    /* istanbul ignore next */
+    (0, _warn.default)('v-b-popover: Popper.js is required for PopOvers to work');
+    /* istanbul ignore next */
+
+    return;
+  }
+
+  var config = parseBindings(bindings);
+
+  if (el[BV_POPOVER]) {
+    el[BV_POPOVER].updateConfig(config);
+  } else {
+    el[BV_POPOVER] = new _popover.default(el, config, vnode.context.$root);
+  }
+}; // Remove PopOver on our element
+
+
+var removePopover = function removePopover(el) {
+  if (el[BV_POPOVER]) {
+    el[BV_POPOVER].destroy();
+    el[BV_POPOVER] = null;
+    delete el[BV_POPOVER];
+  }
+};
+/*
+ * Export our directive
+ */
+
+
+var _default = {
+  bind: function bind(el, bindings, vnode) {
+    applyPopover(el, bindings, vnode);
+  },
+  inserted: function inserted(el, bindings, vnode) {
+    applyPopover(el, bindings, vnode);
+  },
+  update: function update(el, bindings, vnode)
+  /* istanbul ignore next: not easy to test */
+  {
+    if (bindings.value !== bindings.oldValue) {
+      applyPopover(el, bindings, vnode);
+    }
+  },
+  componentUpdated: function componentUpdated(el, bindings, vnode)
+  /* istanbul ignore next: not easy to test */
+  {
+    if (bindings.value !== bindings.oldValue) {
+      applyPopover(el, bindings, vnode);
+    }
+  },
+  unbind: function unbind(el) {
+    removePopover(el);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "584a":
 /***/ (function(module, exports) {
 
 var core = module.exports = { version: '2.6.5' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
+
+/***/ }),
+
+/***/ "5a5e":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var props = {
+  tag: {
+    type: String,
+    default: 'div'
+  },
+  flush: {
+    type: Boolean,
+    default: false
+  },
+  horizontal: {
+    type: [Boolean, String],
+    default: false
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BListGroup',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    var horizontal = props.horizontal === '' ? true : props.horizontal;
+    horizontal = props.flush ? false : horizontal;
+    var componentData = {
+      staticClass: 'list-group',
+      class: _defineProperty({
+        'list-group-flush': props.flush,
+        'list-group-horizontal': horizontal === true
+      }, "list-group-horizontal-".concat(horizontal), typeof horizontal === 'string')
+    };
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, componentData), children);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "5ac8":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _pluckProps = __webpack_require__("9c97");
+
+var _array = __webpack_require__("bb2f");
+
+var _link = __webpack_require__("4e40");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var actionTags = ['a', 'router-link', 'button', 'b-link'];
+var linkProps = (0, _link.propsFactory)();
+delete linkProps.href.default;
+delete linkProps.to.default;
+
+var props = _objectSpread({
+  tag: {
+    type: String,
+    default: 'div'
+  },
+  action: {
+    type: Boolean,
+    default: null
+  },
+  button: {
+    type: Boolean,
+    default: null
+  },
+  variant: {
+    type: String,
+    default: null
+  }
+}, linkProps); // @vue/component
+
+
+exports.props = props;
+var _default = {
+  name: 'BListGroupItem',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var _class;
+
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    var tag = props.button ? 'button' : !props.href && !props.to ? props.tag : _link.default;
+    var isAction = Boolean(props.href || props.to || props.action || props.button || (0, _array.arrayIncludes)(actionTags, props.tag));
+    var attrs = {};
+    var itemProps = {};
+
+    if (tag === 'button') {
+      if (!data.attrs || !data.attrs.type) {
+        // Add a type for button is one not provided in passed attributes
+        attrs.type = 'button';
+      }
+
+      if (props.disabled) {
+        // Set disabled attribute if button and disabled
+        attrs.disabled = true;
+      }
+    } else {
+      itemProps = (0, _pluckProps.default)(linkProps, props);
+    }
+
+    var componentData = {
+      attrs: attrs,
+      props: itemProps,
+      staticClass: 'list-group-item',
+      class: (_class = {}, _defineProperty(_class, "list-group-item-".concat(props.variant), Boolean(props.variant)), _defineProperty(_class, 'list-group-item-action', isAction), _defineProperty(_class, "active", props.active), _defineProperty(_class, "disabled", props.disabled), _class)
+    };
+    return h(tag, (0, _vueFunctionalDataMerge.mergeData)(data, componentData), children);
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -3176,6 +10887,150 @@ module.exports = function (IS_INCLUDES) {
   };
 };
 
+
+/***/ }),
+
+/***/ "5c02":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _html = __webpack_require__("be11");
+
+// @vue/component
+var _default = {
+  model: {
+    prop: 'checked',
+    event: 'input'
+  },
+  props: {
+    validated: {
+      type: Boolean,
+      default: false
+    },
+    ariaInvalid: {
+      type: [Boolean, String],
+      default: false
+    },
+    stacked: {
+      type: Boolean,
+      default: false
+    },
+    plain: {
+      type: Boolean,
+      default: false
+    },
+    buttons: {
+      // Render as button style
+      type: Boolean,
+      default: false
+    },
+    buttonVariant: {
+      // Only applicable when rendered with button style
+      type: String,
+      default: 'secondary'
+    }
+  },
+  computed: {
+    inline: function inline() {
+      return !this.stacked;
+    },
+    groupName: function groupName() {
+      // Checks/Radios tied to the same model must have the same name,
+      // especially for ARIA accessibility.
+      return this.name || this.safeId();
+    },
+    groupClasses: function groupClasses() {
+      if (this.buttons) {
+        return ['btn-group-toggle', this.inline ? 'btn-group' : 'btn-group-vertical', this.size ? "btn-group-".concat(this.size) : '', this.validated ? "was-validated" : ''];
+      }
+
+      return [this.validated ? "was-validated" : ''];
+    },
+    computedAriaInvalid: function computedAriaInvalid() {
+      var ariaInvalid = this.ariaInvalid;
+
+      if (ariaInvalid === true || ariaInvalid === 'true' || ariaInvalid === '') {
+        return 'true';
+      }
+
+      return this.computedState === false ? 'true' : null;
+    }
+  },
+  watch: {
+    checked: function checked(newVal, oldVal) {
+      this.localChecked = newVal;
+    },
+    localChecked: function localChecked(newVal, oldVal) {
+      this.$emit('input', newVal);
+    }
+  },
+  render: function render(h) {
+    var _this = this;
+
+    var $slots = this.$slots;
+    var inputs = this.formOptions.map(function (option, idx) {
+      var uid = "_BV_option_".concat(idx, "_");
+      return h(_this.is_RadioGroup ? 'b-form-radio' : 'b-form-checkbox', {
+        key: uid,
+        props: {
+          id: _this.safeId(uid),
+          value: option.value,
+          // Individual radios or checks can be disabled in a group
+          disabled: option.disabled || false // We don't need to include these, since the input's will know they are inside here
+          // name: this.groupName,
+          // form: this.form || null,
+          // required: Boolean(this.name && this.required)
+
+        }
+      }, [h('span', {
+        domProps: (0, _html.htmlOrText)(option.html, option.text)
+      })]);
+    });
+    return h('div', {
+      class: this.groupClasses,
+      attrs: {
+        id: this.safeId(),
+        role: this.is_RadioGroup ? 'radiogroup' : 'group',
+        // Tabindex to allow group to be focused if needed
+        tabindex: '-1',
+        'aria-required': this.required ? 'true' : null,
+        'aria-invalid': this.computedAriaInvalid
+      }
+    }, [$slots.first, inputs, $slots.default]);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "5c3f":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _buttonToolbar = __webpack_require__("bb0c");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BButtonToolbar: _buttonToolbar.default,
+  BBtnToolbar: _buttonToolbar.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -3229,6 +11084,77 @@ module.exports = $export;
 
 /***/ }),
 
+/***/ "5d69":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _array = __webpack_require__("bb2f");
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var COMMON_ALIGNMENT = ['start', 'end', 'center'];
+var props = {
+  tag: {
+    type: String,
+    default: 'div'
+  },
+  noGutters: {
+    type: Boolean,
+    default: false
+  },
+  alignV: {
+    type: String,
+    default: null,
+    validator: function validator(str) {
+      return (0, _array.arrayIncludes)(COMMON_ALIGNMENT.concat(['baseline', 'stretch']), str);
+    }
+  },
+  alignH: {
+    type: String,
+    default: null,
+    validator: function validator(str) {
+      return (0, _array.arrayIncludes)(COMMON_ALIGNMENT.concat(['between', 'around']), str);
+    }
+  },
+  alignContent: {
+    type: String,
+    default: null,
+    validator: function validator(str) {
+      return (0, _array.arrayIncludes)(COMMON_ALIGNMENT.concat(['between', 'around', 'stretch']), str);
+    }
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BRow',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var _class;
+
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'row',
+      class: (_class = {
+        'no-gutters': props.noGutters
+      }, _defineProperty(_class, "align-items-".concat(props.alignV), props.alignV), _defineProperty(_class, "justify-content-".concat(props.alignH), props.alignH), _defineProperty(_class, "align-content-".concat(props.alignContent), props.alignContent), _class)
+    }), children);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "5dbc":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3242,6 +11168,158 @@ module.exports = function (that, target, C) {
   } return that;
 };
 
+
+/***/ }),
+
+/***/ "5df9":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var props = {
+  active: {
+    type: Boolean,
+    default: false
+  },
+  activeClass: {
+    type: String,
+    default: 'active'
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BDropdownItemButton',
+  inject: {
+    bvDropdown: {
+      default: null
+    }
+  },
+  props: props,
+  methods: {
+    closeDropdown: function closeDropdown() {
+      if (this.bvDropdown) {
+        this.bvDropdown.hide(true);
+      }
+    },
+    onClick: function onClick(evt) {
+      this.$emit('click', evt);
+      this.closeDropdown();
+    }
+  },
+  render: function render(h) {
+    return h('button', {
+      staticClass: 'dropdown-item',
+      class: _defineProperty({}, this.activeClass, this.active),
+      attrs: {
+        role: 'menuitem',
+        type: 'button',
+        disabled: this.disabled
+      },
+      on: {
+        click: this.onClick
+      }
+    }, this.$slots.default);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "5e8f":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _formOptions = __webpack_require__("461c");
+
+var _html = __webpack_require__("be11");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// @vue/component
+var _default = {
+  name: 'BFormDatalist',
+  mixins: [_formOptions.default],
+  props: {
+    id: {
+      type: String,
+      default: null,
+      required: true
+    }
+  },
+  render: function render(h) {
+    var options = this.formOptions.map(function (option, index) {
+      return h('option', {
+        key: "option_".concat(index, "_opt"),
+        attrs: {
+          disabled: option.disabled
+        },
+        domProps: _objectSpread({}, (0, _html.htmlOrText)(option.html, option.text), {
+          value: option.value
+        })
+      });
+    });
+    return h('datalist', {
+      attrs: {
+        id: this.id
+      }
+    }, [options, this.$slots.default]);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "5f07":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+// @vue/component
+var _default = {
+  props: {
+    name: {
+      type: String // default: undefined
+
+    },
+    id: {
+      type: String // default: undefined
+
+    },
+    disabled: {
+      type: Boolean
+    },
+    required: {
+      type: Boolean,
+      default: false
+    },
+    form: {
+      type: String,
+      default: null
+    }
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -3354,6 +11432,43 @@ module.exports = function (key) {
 
 /***/ }),
 
+/***/ "621e":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+var _default = {
+  methods: {
+    renderTopRow: function renderTopRow() {
+      var h = this.$createElement; // Add static Top Row slot (hidden in visibly stacked mode as we can't control the data-label)
+      // If in always stacked mode, we don't bother rendering the row
+
+      if (!this.hasNormalizedSlot('top-row') || this.isStacked === true) {
+        return h(false);
+      }
+
+      var fields = this.computedFields;
+      return h('tr', {
+        key: 'top-row',
+        staticClass: 'b-table-top-row',
+        class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-top') : this.tbodyTrClass],
+        attrs: {
+          role: 'row'
+        }
+      }, [this.normalizeSlot('top-row', {
+        columns: fields.length,
+        fields: fields
+      })]);
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "626a":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3448,6 +11563,175 @@ module.exports = $export;
 
 /***/ }),
 
+/***/ "6423":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _nav = __webpack_require__("92e4");
+
+var _navItem = __webpack_require__("eee9");
+
+var _navText = __webpack_require__("e599");
+
+var _navForm = __webpack_require__("a07b");
+
+var _navItemDropdown = __webpack_require__("485d");
+
+var _dropdown = __webpack_require__("c7b9");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BNav: _nav.default,
+  BNavItem: _navItem.default,
+  BNavText: _navText.default,
+  BNavForm: _navForm.default,
+  BNavItemDropdown: _navItemDropdown.default,
+  BNavItemDd: _navItemDropdown.default,
+  BNavDropdown: _navItemDropdown.default,
+  BNavDd: _navItemDropdown.default
+};
+var plugins = {
+  DropdownPlugin: _dropdown.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components,
+    plugins: plugins
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "64bb":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _object = __webpack_require__("24e2");
+
+var memoize = function memoize(fn) {
+  var cache = (0, _object.create)(null);
+  return function () {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    var argsKey = JSON.stringify(args);
+    return cache[argsKey] = cache[argsKey] || fn.apply(null, args);
+  };
+};
+
+var _default = memoize;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "6780":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _inputGroupAddon = __webpack_require__("9d25");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// @vue/component
+var _default = {
+  name: 'BInputGroupAppend',
+  functional: true,
+  props: _inputGroupAddon.commonProps,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    // pass all our props/attrs down to child, and set`append` to true
+    return h(_inputGroupAddon.default, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      props: _objectSpread({}, props, {
+        append: true
+      })
+    }), children);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "679b":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _id = __webpack_require__("eae0");
+
+var _form = __webpack_require__("5f07");
+
+var _formOptions = __webpack_require__("461c");
+
+var _formRadioCheckGroup = __webpack_require__("5c02");
+
+var _formSize = __webpack_require__("6e1b");
+
+var _formState = __webpack_require__("41fb");
+
+var _formRadio = __webpack_require__("2c38");
+
+// @vue/component
+var _default = {
+  name: 'BFormRadioGroup',
+  components: {
+    BFormRadio: _formRadio.default
+  },
+  mixins: [_id.default, _form.default, _formRadioCheckGroup.default, // Includes render function
+  _formOptions.default, _formSize.default, _formState.default],
+  provide: function provide() {
+    return {
+      bvRadioGroup: this
+    };
+  },
+  props: {
+    checked: {
+      type: [String, Object, Number, Boolean],
+      default: null
+    }
+  },
+  data: function data() {
+    return {
+      localChecked: this.checked
+    };
+  },
+  computed: {
+    is_RadioGroup: function is_RadioGroup() {
+      return true;
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "6821":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3469,6 +11753,38 @@ module.exports = function (it, key) {
   return hasOwnProperty.call(it, key);
 };
 
+
+/***/ }),
+
+/***/ "6a0e":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+var _default = {
+  methods: {
+    renderColgroup: function renderColgroup() {
+      var h = this.$createElement;
+      var fields = this.computedFields;
+      var $colgroup = h(false);
+
+      if (this.hasNormalizedSlot('table-colgroup')) {
+        $colgroup = h('colgroup', {
+          key: 'colgroup'
+        }, [this.normalizeSlot('table-colgroup', {
+          columns: fields.length,
+          fields: fields
+        })]);
+      }
+
+      return $colgroup;
+    }
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -3500,6 +11816,175 @@ module.exports = function (it) {
   return toString.call(it).slice(8, -1);
 };
 
+
+/***/ }),
+
+/***/ "6def":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _breadcrumb = __webpack_require__("f4fc");
+
+var _breadcrumbItem = __webpack_require__("5279");
+
+var _breadcrumbLink = __webpack_require__("12d3");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BBreadcrumb: _breadcrumb.default,
+  BBreadcrumbItem: _breadcrumbItem.default,
+  BBreadcrumbLink: _breadcrumbLink.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "6e1b":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+// @vue/component
+var _default = {
+  props: {
+    size: {
+      type: String,
+      default: null
+    }
+  },
+  computed: {
+    sizeFormClass: function sizeFormClass() {
+      return [this.size ? "form-control-".concat(this.size) : null];
+    },
+    sizeBtnClass: function sizeBtnClass()
+    /* istanbul ignore next: don't think this is used */
+    {
+      return [this.size ? "btn-".concat(this.size) : null];
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "6f77":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _prefixPropName = __webpack_require__("e109");
+
+var _copyProps = __webpack_require__("0942");
+
+var _html = __webpack_require__("be11");
+
+var _cardMixin = __webpack_require__("45f0");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var props = _objectSpread({}, (0, _copyProps.default)(_cardMixin.default.props, _prefixPropName.default.bind(null, 'footer')), {
+  footer: {
+    type: String,
+    default: null
+  },
+  footerHtml: {
+    type: String,
+    default: null
+  },
+  footerClass: {
+    type: [String, Object, Array],
+    default: null
+  } // @vue/component
+
+});
+
+exports.props = props;
+var _default = {
+  name: 'BCardFooter',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var _ref2;
+
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h(props.footerTag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'card-footer',
+      class: [props.footerClass, (_ref2 = {}, _defineProperty(_ref2, "bg-".concat(props.footerBgVariant), Boolean(props.footerBgVariant)), _defineProperty(_ref2, "border-".concat(props.footerBorderVariant), Boolean(props.footerBorderVariant)), _defineProperty(_ref2, "text-".concat(props.footerTextVariant), Boolean(props.footerTextVariant)), _ref2)]
+    }), children || [h('div', {
+      domProps: (0, _html.htmlOrText)(props.footerHtml, props.footer)
+    })]);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "711a":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+var _default = {
+  props: {
+    footClone: {
+      type: Boolean,
+      default: false
+    },
+    footVariant: {
+      type: String,
+      default: ''
+    },
+    tfootClass: {
+      type: [String, Array, Object],
+      default: null
+    },
+    tfootTrClass: {
+      type: [String, Array, Object],
+      default: null
+    }
+  },
+  computed: {
+    footClasses: function footClasses() {
+      var variant = this.footVariant || this.headVariant || null;
+      return [variant ? 'thead-' + variant : '', this.tfootClass];
+    }
+  },
+  methods: {
+    renderTfoot: function renderTfoot() {
+      var h = this.$createElement; // Passing true to renderThead will make it render a tfoot
+
+      return this.footClone ? this.renderThead(true) : h(false);
+    }
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -3632,6 +12117,515 @@ module.exports = function (exec) {
 
 /***/ }),
 
+/***/ "7a5c":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _formGroup = __webpack_require__("d239");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BFormGroup: _formGroup.default,
+  BFormFieldset: _formGroup.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "7a5e":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var props = {
+  tag: {
+    type: String,
+    default: 'div'
+  }
+};
+exports.props = props;
+var _default = {
+  name: 'BMediaBody',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'media-body'
+    }), children);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "7b38":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _alert = __webpack_require__("9e25");
+
+exports.Alert = _alert.default;
+
+var _badge = __webpack_require__("7cb0");
+
+exports.Badge = _badge.default;
+
+var _breadcrumb = __webpack_require__("6def");
+
+exports.Breadcrumb = _breadcrumb.default;
+
+var _button = __webpack_require__("0866");
+
+exports.Button = _button.default;
+
+var _buttonGroup = __webpack_require__("8b96");
+
+exports.ButtonGroup = _buttonGroup.default;
+
+var _buttonToolbar = __webpack_require__("5c3f");
+
+exports.ButtonToolbar = _buttonToolbar.default;
+
+var _inputGroup = __webpack_require__("00df");
+
+exports.InputGroup = _inputGroup.default;
+
+var _card = __webpack_require__("c4bd");
+
+exports.Card = _card.default;
+
+var _carousel = __webpack_require__("a88f");
+
+exports.Carousel = _carousel.default;
+
+var _layout = __webpack_require__("9d37");
+
+exports.Layout = _layout.default;
+
+var _collapse = __webpack_require__("f3fa");
+
+exports.Collapse = _collapse.default;
+
+var _dropdown = __webpack_require__("c7b9");
+
+exports.Dropdown = _dropdown.default;
+
+var _embed = __webpack_require__("32ec");
+
+exports.Embed = _embed.default;
+
+var _form = __webpack_require__("7d54");
+
+exports.Form = _form.default;
+
+var _formGroup = __webpack_require__("7a5c");
+
+exports.FormGroup = _formGroup.default;
+
+var _formCheckbox = __webpack_require__("efe3");
+
+exports.FormCheckbox = _formCheckbox.default;
+
+var _formRadio = __webpack_require__("3110");
+
+exports.FormRadio = _formRadio.default;
+
+var _formInput = __webpack_require__("b407");
+
+exports.FormInput = _formInput.default;
+
+var _formTextarea = __webpack_require__("a05c");
+
+exports.FormTextarea = _formTextarea.default;
+
+var _formFile = __webpack_require__("a60a");
+
+exports.FormFile = _formFile.default;
+
+var _formSelect = __webpack_require__("8b08");
+
+exports.FormSelect = _formSelect.default;
+
+var _image = __webpack_require__("2635");
+
+exports.Image = _image.default;
+
+var _jumbotron = __webpack_require__("1bee");
+
+exports.Jumbotron = _jumbotron.default;
+
+var _link = __webpack_require__("3b34");
+
+exports.Link = _link.default;
+
+var _listGroup = __webpack_require__("057b");
+
+exports.ListGroup = _listGroup.default;
+
+var _media = __webpack_require__("d71d");
+
+exports.Media = _media.default;
+
+var _modal = __webpack_require__("256b");
+
+exports.Modal = _modal.default;
+
+var _nav = __webpack_require__("6423");
+
+exports.Nav = _nav.default;
+
+var _navbar = __webpack_require__("edd0");
+
+exports.Navbar = _navbar.default;
+
+var _pagination = __webpack_require__("887d");
+
+exports.Pagination = _pagination.default;
+
+var _paginationNav = __webpack_require__("f8d0");
+
+exports.PaginationNav = _paginationNav.default;
+
+var _popover = __webpack_require__("f38f");
+
+exports.Popover = _popover.default;
+
+var _progress = __webpack_require__("b528");
+
+exports.Progress = _progress.default;
+
+var _spinner = __webpack_require__("076e");
+
+exports.Spinner = _spinner.default;
+
+var _table = __webpack_require__("b740");
+
+exports.Table = _table.default;
+
+var _tabs = __webpack_require__("1018");
+
+exports.Tabs = _tabs.default;
+
+var _tooltip = __webpack_require__("249f");
+
+exports.Tooltip = _tooltip.default;
+
+/***/ }),
+
+/***/ "7b63":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var props = {
+  tag: {
+    type: String,
+    default: 'div'
+  },
+  verticalAlign: {
+    type: String,
+    default: 'top'
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BMediaAside',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'd-flex',
+      class: _defineProperty({}, "align-self-".concat(props.verticalAlign), props.verticalAlign)
+    }), children);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "7cb0":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _badge = __webpack_require__("211d");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BBadge: _badge.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "7d02":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _memoize = __webpack_require__("64bb");
+
+var _suffixPropName = __webpack_require__("19fe");
+
+var _object = __webpack_require__("24e2");
+
+var _array = __webpack_require__("bb2f");
+
+var _config = __webpack_require__("eb60");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+/**
+ * Generates a prop object with a type of
+ * [Boolean, String, Number]
+ */
+function boolStrNum() {
+  return {
+    type: [Boolean, String, Number],
+    default: false
+  };
+}
+/**
+ * Generates a prop object with a type of
+ * [String, Number]
+ */
+
+
+function strNum() {
+  return {
+    type: [String, Number],
+    default: null
+  };
+} // Async (lazy) component
+// So that we can generate breakpoint specific props once the config has been updated.
+//
+// See: https://vuejs.org/v2/guide/components-dynamic-async.html#Async-Components
+
+
+var _default = function _default(resolve, reject) {
+  // Grab the breakpoints from the config (exclude the '' (xs) breakpoint)
+  var breakpoints = (0, _config.getBreakpointsUp)().filter(Boolean); // Memoized function for better performance on generating class names
+
+  var computeBkPtClass = (0, _memoize.default)(function computeBkPt(type, breakpoint, val) {
+    var className = type;
+
+    if (val === false || val === null || val === undefined) {
+      return undefined;
+    }
+
+    if (breakpoint) {
+      className += "-".concat(breakpoint);
+    } // Handling the boolean style prop when accepting [Boolean, String, Number]
+    // means Vue will not convert <b-col sm></b-col> to sm: true for us.
+    // Since the default is false, an empty string indicates the prop's presence.
+
+
+    if (type === 'col' && (val === '' || val === true)) {
+      // .col-md
+      return className.toLowerCase();
+    } // .order-md-6
+
+
+    className += "-".concat(val);
+    return className.toLowerCase();
+  }); // Supports classes like: .col-sm, .col-md-6, .col-lg-auto
+
+  var breakpointCol = breakpoints.reduce(function (propMap, breakpoint) {
+    if (breakpoint) {
+      // We filter out the '' breakpoint (xs), as making a prop name ''
+      // would not work. The `cols` prop is used for `xs`
+      propMap[breakpoint] = boolStrNum();
+    }
+
+    return propMap;
+  }, (0, _object.create)(null)); // Supports classes like: .offset-md-1, .offset-lg-12
+
+  var breakpointOffset = breakpoints.reduce(function (propMap, breakpoint) {
+    propMap[(0, _suffixPropName.default)(breakpoint, 'offset')] = strNum();
+    return propMap;
+  }, (0, _object.create)(null)); // Supports classes like: .order-md-1, .order-lg-12
+
+  var breakpointOrder = breakpoints.reduce(function (propMap, breakpoint) {
+    propMap[(0, _suffixPropName.default)(breakpoint, 'order')] = strNum();
+    return propMap;
+  }, (0, _object.create)(null)); // For loop doesn't need to check hasOwnProperty
+  // when using an object created from null
+
+  var breakpointPropMap = (0, _object.assign)((0, _object.create)(null), {
+    col: (0, _object.keys)(breakpointCol),
+    offset: (0, _object.keys)(breakpointOffset),
+    order: (0, _object.keys)(breakpointOrder)
+  });
+  /**
+   * We need ".col" to default in when no other props are passed,
+   * but always render when col=true.
+   */
+  // @vue/component
+
+  var BCol = {
+    name: 'BCol',
+    functional: true,
+    props: _objectSpread({
+      // Generic flexbox .col (xs)
+      col: {
+        type: Boolean,
+        default: false
+      },
+      // .col-[1-12]|auto  (xs)
+      cols: strNum()
+    }, breakpointCol, {
+      offset: strNum()
+    }, breakpointOffset, {
+      order: strNum()
+    }, breakpointOrder, {
+      // Flex alignment
+      alignSelf: {
+        type: String,
+        default: null,
+        validator: function validator(str) {
+          return (0, _array.arrayIncludes)(['auto', 'start', 'end', 'center', 'baseline', 'stretch'], str);
+        }
+      },
+      tag: {
+        type: String,
+        default: 'div'
+      }
+    }),
+    render: function render(h, _ref) {
+      var _classList$push;
+
+      var props = _ref.props,
+          data = _ref.data,
+          children = _ref.children;
+      var classList = []; // Loop through `col`, `offset`, `order` breakpoint props
+
+      for (var type in breakpointPropMap) {
+        // Returns colSm, offset, offsetSm, orderMd, etc.
+        var _keys = breakpointPropMap[type];
+
+        for (var i = 0; i < _keys.length; i++) {
+          // computeBkPt(col, colSm => Sm, value=[String, Number, Boolean])
+          var c = computeBkPtClass(type, _keys[i].replace(type, ''), props[_keys[i]]); // If a class is returned, push it onto the array.
+
+          if (c) {
+            classList.push(c);
+          }
+        }
+      }
+
+      classList.push((_classList$push = {
+        // Default to .col if no other classes generated nor `cols` specified.
+        col: props.col || classList.length === 0 && !props.cols
+      }, _defineProperty(_classList$push, "col-".concat(props.cols), props.cols), _defineProperty(_classList$push, "offset-".concat(props.offset), props.offset), _defineProperty(_classList$push, "order-".concat(props.order), props.order), _defineProperty(_classList$push, "align-self-".concat(props.alignSelf), props.alignSelf), _classList$push));
+      return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+        class: classList
+      }), children);
+    }
+  }; // Return the config on demand
+
+  resolve(BCol);
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "7d54":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _form = __webpack_require__("0596");
+
+var _formDatalist = __webpack_require__("5e8f");
+
+var _formRow = __webpack_require__("a198");
+
+var _formText = __webpack_require__("0903");
+
+var _formInvalidFeedback = __webpack_require__("ebd1");
+
+var _formValidFeedback = __webpack_require__("ad48");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BForm: _form.default,
+  BFormDatalist: _formDatalist.default,
+  BDatalist: _formDatalist.default,
+  BFormRow: _formRow.default,
+  BFormText: _formText.default,
+  BFormInvalidFeedback: _formInvalidFeedback.default,
+  BFormFeedback: _formInvalidFeedback.default,
+  BFormValidFeedback: _formValidFeedback.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "7f20":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3643,6 +12637,83 @@ module.exports = function (it, tag, stat) {
   if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
 };
 
+
+/***/ }),
+
+/***/ "7f6b":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+var _default = {
+  props: {
+    busy: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data: function data() {
+    return {
+      localBusy: false
+    };
+  },
+  computed: {
+    computedBusy: function computedBusy() {
+      return this.busy || this.localBusy;
+    }
+  },
+  watch: {
+    localBusy: function localBusy(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.$emit('update:busy', newVal);
+      }
+    }
+  },
+  methods: {
+    // Event handler helper
+    stopIfBusy: function stopIfBusy(evt) {
+      if (this.computedBusy) {
+        // If table is busy (via provider) then don't propagate
+        evt.preventDefault();
+        evt.stopPropagation();
+        return true;
+      }
+
+      return false;
+    },
+    // Renter the busy indecator or return null if not busy
+    renderBusy: function renderBusy() {
+      var h = this.$createElement; // Return a busy indicator row, or null if not busy
+
+      if (this.computedBusy && this.hasNormalizedSlot('table-busy')) {
+        // Show the busy slot
+        var trAttrs = {
+          role: this.isStacked ? 'row' : null
+        };
+        var tdAttrs = {
+          colspan: String(this.computedFields.length),
+          role: this.isStacked ? 'cell' : null
+        };
+        return h('tr', {
+          key: 'table-busy-slot',
+          staticClass: 'b-table-busy-slot',
+          class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'table-busy') : this.tbodyTrClass],
+          attrs: trAttrs
+        }, [h('td', {
+          attrs: tdAttrs
+        }, [this.normalizeSlot('table-busy', {})])]);
+      } else {
+        // We return null here so that we can determine if we need to
+        // render the table items rows or not.
+        return null;
+      }
+    }
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -3669,6 +12740,718 @@ NAME in FProto || __webpack_require__("9e1e") && dP(FProto, NAME, {
 
 /***/ }),
 
+/***/ "8146":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _warn = __webpack_require__("93e0");
+
+var _range = __webpack_require__("db63");
+
+var _keyCodes = __webpack_require__("06e4");
+
+var _dom = __webpack_require__("1611");
+
+var _toString = __webpack_require__("40f6");
+
+var _normalizeSlot = __webpack_require__("532a");
+
+var _link = __webpack_require__("4e40");
+
+/*
+ * Comon props, computed, data, render function, and methods for b-pagination and b-pagination-nav
+ */
+// Threshold of limit size when we start/stop showing ellipsis
+var ELLIPSIS_THRESHOLD = 3; // Default # of buttons limit
+
+var DEFAULT_LIMIT = 5; // Make an array of N to N+X
+
+function makePageArray(startNum, numPages) {
+  return (0, _range.default)(numPages).map(function (value, index) {
+    return {
+      number: index + startNum,
+      classes: null
+    };
+  });
+} // Sanitize the provided Limit value (converting to a number)
+
+
+function sanitizeLimit(value) {
+  var limit = parseInt(value, 10) || 1;
+  return limit < 1 ? DEFAULT_LIMIT : limit;
+} // Sanitize the provided current page number (converting to a number)
+
+
+function sanitizeCurPage(value, numPages) {
+  var page = parseInt(value, 10) || 1;
+  return page > numPages ? numPages : page < 1 ? 1 : page;
+} // Links don't normally respond to SPACE, so we add that functionality via this handler
+
+
+function onSpaceKey(evt) {
+  if (evt.keyCode === _keyCodes.default.SPACE) {
+    evt.preventDefault(); // Stop page from scrolling
+
+    evt.stopImmediatePropagation();
+    evt.stopPropagation(); // Trigger the click event on the link
+
+    evt.currentTarget.click();
+    return false;
+  }
+} // Props object
+
+
+var props = {
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  value: {
+    type: [Number, String],
+    default: null,
+    validator: function validator(value) {
+      var num = parseInt(value, 10);
+      /* istanbul ignore if */
+
+      if (value !== null && (isNaN(num) || num < 1)) {
+        (0, _warn.default)('pagination: v-model value must be a number greater than 0');
+        return false;
+      }
+
+      return true;
+    }
+  },
+  limit: {
+    type: [Number, String],
+    default: DEFAULT_LIMIT,
+    validator: function validator(value) {
+      var num = parseInt(value, 10);
+      /* istanbul ignore if */
+
+      if (isNaN(num) || num < 1) {
+        (0, _warn.default)('pagination: prop "limit" must be a number greater than 0');
+        return false;
+      }
+
+      return true;
+    }
+  },
+  size: {
+    type: String,
+    default: 'md'
+  },
+  align: {
+    type: String,
+    default: 'left'
+  },
+  hideGotoEndButtons: {
+    type: Boolean,
+    default: false
+  },
+  ariaLabel: {
+    type: String,
+    default: 'Pagination'
+  },
+  labelFirstPage: {
+    type: String,
+    default: 'Go to first page'
+  },
+  firstText: {
+    type: String,
+    default: '«'
+  },
+  labelPrevPage: {
+    type: String,
+    default: 'Go to previous page'
+  },
+  prevText: {
+    type: String,
+    default: '‹'
+  },
+  labelNextPage: {
+    type: String,
+    default: 'Go to next page'
+  },
+  nextText: {
+    type: String,
+    default: '›'
+  },
+  labelLastPage: {
+    type: String,
+    default: 'Go to last page'
+  },
+  lastText: {
+    type: String,
+    default: '»'
+  },
+  labelPage: {
+    type: [String, Function],
+    default: 'Go to page'
+  },
+  hideEllipsis: {
+    type: Boolean,
+    default: false
+  },
+  ellipsisText: {
+    type: String,
+    default: '…'
+  } // @vue/component
+
+};
+var _default = {
+  components: {
+    BLink: _link.default
+  },
+  mixins: [_normalizeSlot.default],
+  model: {
+    prop: 'value',
+    event: 'input'
+  },
+  props: props,
+  data: function data() {
+    var curr = parseInt(this.value, 10);
+    return {
+      // -1 signifies no page initially selected
+      currentPage: curr > 0 ? curr : -1,
+      localNumPages: 1,
+      localLimit: DEFAULT_LIMIT
+    };
+  },
+  computed: {
+    btnSize: function btnSize() {
+      return this.size ? "pagination-".concat(this.size) : '';
+    },
+    alignment: function alignment() {
+      var align = this.align;
+
+      if (align === 'center') {
+        return 'justify-content-center';
+      } else if (align === 'end' || align === 'right') {
+        return 'justify-content-end';
+      } else if (align === 'fill') {
+        // The page-items will also have 'flex-fill' added.
+        // We ad text centering to make the button appearance better in fill mode.
+        return 'text-center';
+      }
+
+      return '';
+    },
+    computedCurrentPage: function computedCurrentPage() {
+      return sanitizeCurPage(this.currentPage, this.localNumPages);
+    },
+    paginationParams: function paginationParams() {
+      // Determine if we should show the the ellipsis
+      var limit = this.limit;
+      var numPages = this.localNumPages;
+      var curPage = this.computedCurrentPage;
+      var hideEllipsis = this.hideEllipsis;
+      var showFirstDots = false;
+      var showLastDots = false;
+      var numLinks = limit;
+      var startNum = 1;
+
+      if (numPages <= limit) {
+        // Special Case: Less pages available than the limit of displayed pages
+        numLinks = numPages;
+      } else if (curPage < limit - 1 && limit > ELLIPSIS_THRESHOLD) {
+        // We are near the beginning of the page list
+        if (!hideEllipsis) {
+          showLastDots = true;
+          numLinks = limit - 1;
+        }
+      } else if (numPages - curPage + 2 < limit && limit > ELLIPSIS_THRESHOLD) {
+        // We are near the end of the list
+        if (!hideEllipsis) {
+          numLinks = limit - 1;
+          showFirstDots = true;
+        }
+
+        startNum = numPages - numLinks + 1;
+      } else {
+        // We are somewhere in the middle of the page list
+        if (limit > ELLIPSIS_THRESHOLD && !hideEllipsis) {
+          numLinks = limit - 2;
+          showFirstDots = showLastDots = true;
+        }
+
+        startNum = curPage - Math.floor(numLinks / 2);
+      } // Sanity checks
+
+
+      if (startNum < 1) {
+        /* istanbul ignore next */
+        startNum = 1;
+      } else if (startNum > numPages - numLinks) {
+        startNum = numPages - numLinks + 1;
+      }
+
+      return {
+        showFirstDots: showFirstDots,
+        showLastDots: showLastDots,
+        numLinks: numLinks,
+        startNum: startNum
+      };
+    },
+    pageList: function pageList() {
+      // Generates the pageList array
+      var _this$paginationParam = this.paginationParams,
+          numLinks = _this$paginationParam.numLinks,
+          startNum = _this$paginationParam.startNum;
+      var currPage = this.computedCurrentPage; // Generate list of page numbers
+
+      var pages = makePageArray(startNum, numLinks); // We limit to a total of 3 page buttons on XS screens
+      // So add classes to page links to hide them for XS breakpoint
+      // Note: Ellipsis will also be hidden on XS screens
+      // TODO: Make this visual limit configurable based on breakpoint(s)
+
+      if (pages.length > 3) {
+        var idx = currPage - startNum; // THe following is a bootstrap-vue custom utility class
+
+        var classes = 'bv-d-xs-down-none';
+
+        if (idx === 0) {
+          // Keep leftmost 3 buttons visible when current page is first page
+          for (var i = 3; i < pages.length; i++) {
+            pages[i].classes = classes;
+          }
+        } else if (idx === pages.length - 1) {
+          // Keep rightmost 3 buttons visible when current page is last page
+          for (var _i = 0; _i < pages.length - 3; _i++) {
+            pages[_i].classes = classes;
+          }
+        } else {
+          // Hide all except current page, current page - 1 and current page + 1
+          for (var _i2 = 0; _i2 < idx - 1; _i2++) {
+            // hide some left button(s)
+            pages[_i2].classes = classes;
+          }
+
+          for (var _i3 = pages.length - 1; _i3 > idx + 1; _i3--) {
+            // hide some right button(s)
+            pages[_i3].classes = classes;
+          }
+        }
+      }
+
+      return pages;
+    }
+  },
+  watch: {
+    value: function value(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.currentPage = sanitizeCurPage(newValue, this.localNumPages);
+      }
+    },
+    currentPage: function currentPage(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        // Emit null if no page selected
+        this.$emit('input', newValue > 0 ? newValue : null);
+      }
+    },
+    limit: function limit(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.localLimit = sanitizeLimit(newValue);
+      }
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    // Set our default values in data
+    this.localLimit = sanitizeLimit(this.limit);
+    this.$nextTick(function () {
+      // Sanity check
+      _this.currentPage = _this.currentPage > _this.localNumPages ? _this.localNumPages : _this.currentPage;
+    });
+  },
+  methods: {
+    getButtons: function getButtons() {
+      // Return only buttons that are visible
+      return (0, _dom.selectAll)('a.page-link', this.$el).filter(function (btn) {
+        return (0, _dom.isVisible)(btn);
+      });
+    },
+    setBtnFocus: function setBtnFocus(btn) {
+      btn.focus();
+    },
+    focusCurrent: function focusCurrent() {
+      var _this2 = this;
+
+      // We do this in next tick to ensure buttons have finished rendering
+      this.$nextTick(function () {
+        var btn = _this2.getButtons().find(function (el) {
+          return parseInt((0, _dom.getAttr)(el, 'aria-posinset'), 10) === _this2.computedCurrentPage;
+        });
+
+        if (btn && btn.focus) {
+          _this2.setBtnFocus(btn);
+        } else {
+          // Fallback if current page is not in button list
+          _this2.focusFirst();
+        }
+      });
+    },
+    focusFirst: function focusFirst() {
+      var _this3 = this;
+
+      // We do this in next tick to ensure buttons have finished rendering
+      this.$nextTick(function () {
+        var btn = _this3.getButtons().find(function (el) {
+          return !(0, _dom.isDisabled)(el);
+        });
+
+        if (btn && btn.focus && btn !== document.activeElement) {
+          _this3.setBtnFocus(btn);
+        }
+      });
+    },
+    focusLast: function focusLast() {
+      var _this4 = this;
+
+      // We do this in next tick to ensure buttons have finished rendering
+      this.$nextTick(function () {
+        var btn = _this4.getButtons().reverse().find(function (el) {
+          return !(0, _dom.isDisabled)(el);
+        });
+
+        if (btn && btn.focus && btn !== document.activeElement) {
+          _this4.setBtnFocus(btn);
+        }
+      });
+    },
+    focusPrev: function focusPrev() {
+      var _this5 = this;
+
+      // We do this in next tick to ensure buttons have finished rendering
+      this.$nextTick(function () {
+        var buttons = _this5.getButtons();
+
+        var idx = buttons.indexOf(document.activeElement);
+
+        if (idx > 0 && !(0, _dom.isDisabled)(buttons[idx - 1]) && buttons[idx - 1].focus) {
+          _this5.setBtnFocus(buttons[idx - 1]);
+        }
+      });
+    },
+    focusNext: function focusNext() {
+      var _this6 = this;
+
+      // We do this in next tick to ensure buttons have finished rendering
+      this.$nextTick(function () {
+        var buttons = _this6.getButtons();
+
+        var idx = buttons.indexOf(document.activeElement);
+        var cnt = buttons.length - 1;
+
+        if (idx < cnt && !(0, _dom.isDisabled)(buttons[idx + 1]) && buttons[idx + 1].focus) {
+          _this6.setBtnFocus(buttons[idx + 1]);
+        }
+      });
+    }
+  },
+  render: function render(h) {
+    var _this7 = this;
+
+    var buttons = [];
+    var numberOfPages = this.localNumPages;
+    var disabled = this.disabled;
+    var _this$paginationParam2 = this.paginationParams,
+        showFirstDots = _this$paginationParam2.showFirstDots,
+        showLastDots = _this$paginationParam2.showLastDots;
+    var currPage = this.computedCurrentPage;
+    var fill = this.align === 'fill'; // Helper function and flag
+
+    var isActivePage = function isActivePage(pageNum) {
+      return pageNum === currPage;
+    };
+
+    var noCurrPage = this.currentPage < 1; // Factory function for prev/next/first/last buttons
+
+    var makeEndBtn = function makeEndBtn(linkTo, ariaLabel, btnSlot, btnText, pageTest, key) {
+      var isDisabled = disabled || isActivePage(pageTest) || noCurrPage || linkTo < 1 || linkTo > numberOfPages;
+      var pageNum = linkTo < 1 ? 1 : linkTo > numberOfPages ? numberOfPages : linkTo;
+      var scope = {
+        disabled: isDisabled,
+        page: pageNum,
+        index: pageNum - 1
+      };
+      var btnContent = _this7.normalizeSlot(btnSlot, scope) || (0, _toString.default)(btnText) || h(false);
+      var inner = h(isDisabled ? 'span' : 'b-link', {
+        staticClass: 'page-link',
+        props: isDisabled ? {} : _this7.linkProps(linkTo),
+        attrs: {
+          role: 'menuitem',
+          tabindex: isDisabled ? null : '-1',
+          'aria-label': ariaLabel,
+          'aria-controls': _this7.ariaControls || null,
+          'aria-disabled': isDisabled ? 'true' : null
+        },
+        on: isDisabled ? {} : {
+          click: function click(evt) {
+            _this7.onClick(linkTo, evt);
+          },
+          keydown: onSpaceKey
+        }
+      }, [btnContent]);
+      return h('li', {
+        key: key,
+        staticClass: 'page-item',
+        class: {
+          disabled: isDisabled,
+          'flex-fill': fill
+        },
+        attrs: {
+          role: 'none presentation',
+          'aria-hidden': isDisabled ? 'true' : null
+        }
+      }, [inner]);
+    }; // Ellipsis factory
+
+
+    var makeEllipsis = function makeEllipsis(isLast) {
+      return h('li', {
+        key: "elipsis-".concat(isLast ? 'last' : 'first'),
+        staticClass: 'page-item',
+        class: ['disabled', 'bv-d-xs-down-none', fill ? 'flex-fill' : ''],
+        attrs: {
+          role: 'separator'
+        }
+      }, [h('span', {
+        staticClass: 'page-link'
+      }, [_this7.normalizeSlot('ellipsis-text', {}) || (0, _toString.default)(_this7.ellipsisText) || h(false)])]);
+    }; // Goto First Page button bookend
+
+
+    buttons.push(this.hideGotoEndButtons ? h(false) : makeEndBtn(1, this.labelFirstPage, 'first-text', this.firstText, 1, 'bookend-goto-first')); // Goto Previous page button bookend
+
+    buttons.push(makeEndBtn(currPage - 1, this.labelPrevPage, 'prev-text', this.prevText, 1, 'bookend-goto-prev')); // First Ellipsis Bookend
+
+    buttons.push(showFirstDots ? makeEllipsis(false) : h(false)); // Individual Page links
+
+    this.pageList.forEach(function (page, idx) {
+      var active = isActivePage(page.number) && !noCurrPage; // Active page will have tabindex of 0, or if no current page and first page button
+
+      var tabIndex = disabled ? null : active || noCurrPage && idx === 0 ? '0' : '-1';
+      var attrs = {
+        role: 'menuitemradio',
+        'aria-disabled': disabled ? 'true' : null,
+        'aria-controls': _this7.ariaControls || null,
+        'aria-label': typeof _this7.labelPage === 'function' ? _this7.labelPage(page.number) : "".concat(_this7.labelPage, " ").concat(page.number),
+        'aria-checked': active ? 'true' : 'false',
+        'aria-posinset': page.number,
+        'aria-setsize': numberOfPages,
+        // ARIA "roving tabindex" method
+        tabindex: tabIndex
+      };
+      var btnContent = (0, _toString.default)(_this7.makePage(page.number));
+      var scope = {
+        page: page.number,
+        index: page.number - 1,
+        content: btnContent,
+        active: active,
+        disabled: disabled
+      };
+      var inner = h(disabled ? 'span' : 'b-link', {
+        props: disabled ? {} : _this7.linkProps(page.number),
+        staticClass: 'page-link',
+        attrs: attrs,
+        on: disabled ? {} : {
+          click: function click(evt) {
+            _this7.onClick(page.number, evt);
+          },
+          keydown: onSpaceKey
+        }
+      }, [_this7.normalizeSlot('page', scope) || btnContent]);
+      buttons.push(h('li', {
+        key: "page-".concat(page.number),
+        staticClass: 'page-item',
+        class: [{
+          disabled: disabled,
+          active: active,
+          'flex-fill': fill
+        }, page.classes],
+        attrs: {
+          role: 'none presentation'
+        }
+      }, [inner]));
+    }); // Last Ellipsis Bookend
+
+    buttons.push(showLastDots ? makeEllipsis(true) : h(false)); // Goto Next page button bookend
+
+    buttons.push(makeEndBtn(currPage + 1, this.labelNextPage, 'next-text', this.nextText, numberOfPages, 'bookend-goto-next')); // Goto Last Page button bookend
+
+    buttons.push(this.hideGotoEndButtons ? h(false) : makeEndBtn(numberOfPages, this.labelLastPage, 'last-text', this.lastText, numberOfPages, 'bookend-goto-last')); // Assemble the paginatiom buttons
+
+    var pagination = h('ul', {
+      ref: 'ul',
+      staticClass: 'pagination',
+      class: ['b-pagination', this.btnSize, this.alignment],
+      attrs: {
+        role: 'menubar',
+        'aria-disabled': disabled ? 'true' : 'false',
+        'aria-label': this.ariaLabel || null
+      },
+      on: {
+        keydown: function keydown(evt) {
+          var keyCode = evt.keyCode;
+          var shift = evt.shiftKey;
+
+          if (keyCode === _keyCodes.default.LEFT) {
+            evt.preventDefault();
+            shift ? _this7.focusFirst() : _this7.focusPrev();
+          } else if (keyCode === _keyCodes.default.RIGHT) {
+            evt.preventDefault();
+            shift ? _this7.focusLast() : _this7.focusNext();
+          }
+        }
+      }
+    }, buttons); // if we are pagination-nav, wrap in '<nav>' wrapper
+
+    if (this.isNav) {
+      return h('nav', {
+        attrs: {
+          'aria-disabled': disabled ? 'true' : null,
+          'aria-hidden': disabled ? 'true' : 'false'
+        }
+      }, [pagination]);
+    } else {
+      return pagination;
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "8339":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _pagination = __webpack_require__("8146");
+
+var _dom = __webpack_require__("1611");
+
+var DEFAULT_PER_PAGE = 20;
+var DEFAULT_TOTAL_ROWS = 0;
+
+function sanitizePerPage(value) {
+  var perPage = parseInt(value, 10) || DEFAULT_PER_PAGE;
+  return perPage < 1 ? 1 : perPage;
+}
+
+function sanitizeTotalRows(value) {
+  var totalRows = parseInt(value, 10) || DEFAULT_TOTAL_ROWS;
+  return totalRows < 0 ? 0 : totalRows;
+}
+
+var props = {
+  perPage: {
+    type: [Number, String],
+    default: DEFAULT_PER_PAGE
+  },
+  totalRows: {
+    type: [Number, String],
+    default: DEFAULT_TOTAL_ROWS
+  },
+  ariaControls: {
+    type: String,
+    default: null
+  } // Our render function is brought in from the pagination mixin
+  // @vue/component
+
+};
+var _default = {
+  name: 'BPagination',
+  mixins: [_pagination.default],
+  props: props,
+  computed: {
+    numberOfPages: function numberOfPages() {
+      var result = Math.ceil(sanitizeTotalRows(this.totalRows) / sanitizePerPage(this.perPage));
+      return result < 1 ? 1 : result;
+    }
+  },
+  watch: {
+    numberOfPages: function numberOfPages(newVal, OldVal) {
+      this.localNumPages = newVal;
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    // Set the initial page count
+    this.localNumPages = this.numberOfPages; // Set the initial page value
+
+    var curr = parseInt(this.value, 10) || 0;
+
+    if (curr > 0) {
+      this.currentPage = curr;
+    } else {
+      this.$nextTick(function () {
+        // If this value parses to NaN or a value less than 1
+        // Trigger an initial emit of 'null' if no page specified
+        _this.currentPage = 0;
+      });
+    }
+  },
+  mounted: function mounted() {
+    // Set the initial page count
+    this.localNumPages = this.numberOfPages;
+  },
+  methods: {
+    // These methods are used by the render function
+    onClick: function onClick(num, evt) {
+      var _this2 = this;
+
+      // Handle edge cases where number of pages has changed (i.e. if perPage changes)
+      // This should normally not happen, but just in case.
+      if (num > this.numberOfPages) {
+        /* istanbul ignore next */
+        num = this.numberOfPages;
+      } else if (num < 1) {
+        /* istanbul ignore next */
+        num = 1;
+      } // Update the v-model
+
+
+      this.currentPage = num; // Emit event triggered by user interaction
+
+      this.$emit('change', this.currentPage);
+      this.$nextTick(function () {
+        // Keep the current button focused if possible
+        var target = evt.target;
+
+        if ((0, _dom.isVisible)(target) && _this2.$el.contains(target) && target.focus) {
+          target.focus();
+        } else {
+          _this2.focusCurrent();
+        }
+      });
+    },
+    makePage: function makePage(pageNum) {
+      return pageNum;
+    },
+    linkProps: function linkProps(pageNum) {
+      // Always '#' for pagination component
+      return {
+        href: '#'
+      };
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "8378":
 /***/ (function(module, exports) {
 
@@ -3683,6 +13466,81 @@ if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 module.exports = {};
 
+
+/***/ }),
+
+/***/ "8597":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _popover = __webpack_require__("daa8");
+
+var _warn = __webpack_require__("93e0");
+
+var _toolpop = __webpack_require__("c542");
+
+// @vue/component
+var _default = {
+  name: 'BPopover',
+  mixins: [_toolpop.default],
+  props: {
+    title: {
+      type: String,
+      default: ''
+    },
+    content: {
+      type: String,
+      default: ''
+    },
+    triggers: {
+      type: [String, Array],
+      default: 'click'
+    },
+    placement: {
+      type: String,
+      default: 'right'
+    }
+  },
+  data: function data() {
+    return {};
+  },
+  methods: {
+    createToolpop: function createToolpop() {
+      // getTarget is in toolpop mixin
+      var target = this.getTarget();
+
+      if (target) {
+        this._toolpop = new _popover.default(target, this.getConfig(), this.$root);
+      } else {
+        this._toolpop = null;
+        (0, _warn.default)("b-popover: 'target' element not found!");
+      }
+
+      return this._toolpop;
+    }
+  },
+  render: function render(h) {
+    return h('div', {
+      class: ['d-none'],
+      style: {
+        display: 'none'
+      },
+      attrs: {
+        'aria-hidden': true
+      }
+    }, [h('div', {
+      ref: 'title'
+    }, this.$slots.title), h('div', {
+      ref: 'content'
+    }, this.$slots.default)]);
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -3709,12 +13567,490 @@ exports.f = __webpack_require__("9e1e") ? Object.defineProperty : function defin
 
 /***/ }),
 
+/***/ "886b":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _config = __webpack_require__("eb60");
+
+var NAME = 'BCardSubTitle';
+var props = {
+  subTitle: {
+    type: String,
+    default: ''
+  },
+  subTitleTag: {
+    type: String,
+    default: 'h6'
+  },
+  subTitleTextVariant: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'subTitleTextVariant');
+    }
+  } // @vue/component
+
+};
+exports.props = props;
+var _default2 = {
+  name: NAME,
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h(props.subTitleTag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'card-subtitle',
+      class: [props.subTitleTextVariant ? "text-".concat(props.subTitleTextVariant) : null]
+    }), children || props.subTitle);
+  }
+};
+exports.default = _default2;
+
+/***/ }),
+
+/***/ "887d":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _pagination = __webpack_require__("8339");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BPagination: _pagination.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "8934":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _warn = __webpack_require__("93e0");
+
+var _looseEqual = __webpack_require__("96cd");
+
+var _toString = __webpack_require__("40f6");
+
+var _dom = __webpack_require__("1611");
+
+var _env = __webpack_require__("4565");
+
+var _object = __webpack_require__("24e2");
+
+var _array = __webpack_require__("bb2f");
+
+var _router = __webpack_require__("185a");
+
+var _pagination = __webpack_require__("8146");
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+// TODO: move this to an instance method in pagination mixin
+function sanitizeNumPages(value) {
+  var num = parseInt(value, 10) || 1;
+  return num < 1 ? 1 : num;
+} // Props object
+
+
+var props = {
+  // pagination-nav specific props
+  numberOfPages: {
+    type: [Number, String],
+    default: 1,
+    validator: function validator(value) {
+      var num = parseInt(value, 10);
+      /* istanbul ignore if */
+
+      if (isNaN(num) || num < 1) {
+        (0, _warn.default)('b-pagination: prop "number-of-pages" must be a number greater than 0');
+        return false;
+      }
+
+      return true;
+    }
+  },
+  baseUrl: {
+    type: String,
+    default: '/'
+  },
+  useRouter: {
+    type: Boolean,
+    default: false
+  },
+  linkGen: {
+    type: Function,
+    default: null
+  },
+  pageGen: {
+    type: Function,
+    default: null
+  },
+  pages: {
+    // Optional array of page links
+    type: Array,
+    default: null
+  },
+  noPageDetect: {
+    // Disable auto page number detection if true
+    type: Boolean,
+    default: false
+  },
+  // router-link specific props
+  activeClass: {
+    type: String // default: undefined
+
+  },
+  exact: {
+    type: Boolean,
+    default: false
+  },
+  exactActiveClass: {
+    type: String // default: undefined
+
+  },
+  // nuxt-link specific prop(s)
+  noPrefetch: {
+    type: Boolean,
+    default: false
+  } // Our render function is brought in via the pagination mixin
+  // @vue/component
+
+};
+var _default = {
+  name: 'BPaginationNav',
+  mixins: [_pagination.default],
+  props: props,
+  computed: {
+    // Used by render function to trigger wrapping in '<nav>' element
+    isNav: function isNav() {
+      return true;
+    },
+    computedValue: function computedValue() {
+      // Returns the value prop as a number or `null` if undefined or < 1
+      var val = parseInt(this.value, 10);
+      return isNaN(val) || val < 1 ? null : val;
+    }
+  },
+  watch: {
+    numberOfPages: function numberOfPages(newVal, oldVal) {
+      var _this = this;
+
+      this.$nextTick(function () {
+        _this.setNumPages();
+      });
+    },
+    pages: function pages(newVal, oldVal) {
+      var _this2 = this;
+
+      this.$nextTick(function () {
+        _this2.setNumPages();
+      });
+    }
+  },
+  created: function created() {
+    var _this3 = this;
+
+    this.setNumPages(); // For SSR, assuming a page URL can be detected
+
+    this.$nextTick(function () {
+      _this3.guessCurrentPage();
+    });
+  },
+  mounted: function mounted() {
+    var _this4 = this;
+
+    if (this.$router) {
+      // We only add the watcher if vue router is detected
+      this.$watch('$route', function (to, from) {
+        _this4.$nextTick(function () {
+          (0, _dom.requestAF)(function () {
+            _this4.guessCurrentPage();
+          });
+        });
+      });
+    }
+  },
+  methods: {
+    setNumPages: function setNumPages() {
+      if ((0, _array.isArray)(this.pages) && this.pages.length > 0) {
+        this.localNumPages = this.pages.length;
+      } else {
+        this.localNumPages = sanitizeNumPages(this.numberOfPages);
+      }
+    },
+    onClick: function onClick(pageNum, evt) {
+      var _this5 = this;
+
+      // Dont do anything if clicking the current active page
+      if (pageNum === this.currentPage) {
+        return;
+      }
+
+      (0, _dom.requestAF)(function () {
+        // Update the v-model
+        // Done in in requestAF() to allow browser to complete the
+        // native browser click handling of a link
+        _this5.currentPage = pageNum;
+
+        _this5.$emit('change', pageNum);
+      });
+      this.$nextTick(function () {
+        // Done in a nextTick() to ensure rendering complete
+        try {
+          // Emulate native link click page reloading behaviour by blurring the
+          // paginator and returning focus to the document
+          var target = evt.currentTarget || evt.target;
+          target.blur();
+        } catch (e) {}
+      });
+    },
+    getPageInfo: function getPageInfo(pageNum) {
+      if (!(0, _array.isArray)(this.pages) || this.pages.length === 0 || this.pages[pageNum - 1] === undefined) {
+        var link = "".concat(this.baseUrl).concat(pageNum);
+        return {
+          link: this.useRouter ? {
+            path: link
+          } : link,
+          text: (0, _toString.default)(pageNum)
+        };
+      }
+
+      var info = this.pages[pageNum - 1];
+
+      if ((0, _object.isObject)(info)) {
+        var _link = info.link;
+        return {
+          // Mormalize link for router use
+          link: (0, _object.isObject)(_link) ? _link : this.useRouter ? {
+            path: _link
+          } : _link,
+          // Make sure text has a value
+          text: (0, _toString.default)(info.text || pageNum)
+        };
+      } else {
+        return {
+          link: (0, _toString.default)(info),
+          text: (0, _toString.default)(pageNum)
+        };
+      }
+    },
+    makePage: function makePage(pageNum) {
+      var info = this.getPageInfo(pageNum);
+
+      if (this.pageGen && typeof this.pageGen === 'function') {
+        return this.pageGen(pageNum, info);
+      }
+
+      return info.text;
+    },
+    makeLink: function makeLink(pageNum) {
+      var info = this.getPageInfo(pageNum);
+
+      if (this.linkGen && typeof this.linkGen === 'function') {
+        return this.linkGen(pageNum, info);
+      }
+
+      return info.link;
+    },
+    linkProps: function linkProps(pageNum) {
+      var link = this.makeLink(pageNum);
+      var props = {
+        target: this.target || null,
+        rel: this.rel || null,
+        disabled: this.disabled,
+        // The following props are only used if BLink detects router
+        exact: this.exact,
+        activeClass: this.activeClass,
+        exactActiveClass: this.exactActiveClass,
+        append: this.append,
+        replace: this.replace,
+        // nuxt-link specific prop
+        noPrefetch: this.noPrefetch
+      };
+
+      if (this.useRouter || _typeof(link) === 'object') {
+        props.to = link;
+      } else {
+        props.href = link;
+      }
+
+      return props;
+    },
+    resolveLink: function resolveLink() {
+      var to = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+      // Given a to (or href string), convert to normalized route-like structure
+      // Works only client side!!
+      try {
+        var link = document.createElement('a'); // Convert the `to` to a HREF via a temporary `a` tag
+
+        link.href = (0, _router.computeHref)({
+          to: to
+        }, 'a', '/', '/'); // Once href is assigned, the returned href will be normalized to the full URL bits
+
+        return {
+          path: link.pathname,
+          hash: link.hash,
+          query: (0, _router.parseQuery)(link.search)
+        };
+      } catch (e) {
+        /* istanbul ignore next */
+        return {};
+      }
+    },
+    resolveRoute: function resolveRoute() {
+      var to = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+      // Given a to (or href string), convert to normalized route location structure
+      // works only when router available!!
+      try {
+        var route = this.$router.resolve(to, this.$route).route;
+        return {
+          path: route.path,
+          hash: route.hash,
+          query: route.query
+        };
+      } catch (e) {
+        /* istanbul ignore next */
+        return {};
+      }
+    },
+    guessCurrentPage: function guessCurrentPage() {
+      var guess = this.computedValue;
+      var $router = this.$router;
+      var $route = this.$route; // This section only occurs if we are client side, or server-side with $router
+
+      /* istanbul ignore else */
+
+      if (!this.noPageDetect && !guess && (_env.inBrowser || !_env.inBrowser && $router)) {
+        // Current route (if router available)
+        var currRoute = $router ? {
+          path: $route.path,
+          hash: $route.hash,
+          query: $route.query
+        } : {}; // Current page full HREF (if client side). Can't be done as a computed prop!
+
+        var loc = _env.inBrowser ? window.location || document.location : null;
+        var currLink = loc ? {
+          path: loc.pathname,
+          hash: loc.hash,
+          query: (0, _router.parseQuery)(loc.search)
+        } : {}; // Loop through the possible pages looking for a match until found
+
+        for (var page = 1; !guess && page <= this.localNumPages; page++) {
+          var to = this.makeLink(page);
+
+          if ($router && ((0, _object.isObject)(to) || this.useRouter)) {
+            // Resolve the page via the $router
+            guess = (0, _looseEqual.default)(this.resolveRoute(to), currRoute) ? page : null;
+          } else if (_env.inBrowser) {
+            // If no $router available (or !this.useRouter when `to` is a string)
+            // we compare using parsed URIs
+            guess = (0, _looseEqual.default)(this.resolveLink(to), currLink) ? page : null;
+          } else {
+            // probably SSR, but no $router so we can't guess, so lets break out of loop
+
+            /* istanbul ignore next */
+            guess = -1;
+          }
+        }
+      } // We set currentPage to 0 to trigger an $emit('input', null)
+      // As the default for this.currentPage is -1 when no value is specified
+      // And valid page numbers are greater than 0
+
+
+      this.currentPage = guess > 0 ? guess : 0;
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "8aae":
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__("32a6");
 module.exports = __webpack_require__("584a").Object.keys;
 
+
+/***/ }),
+
+/***/ "8b08":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _formSelect = __webpack_require__("ff35");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BFormSelect: _formSelect.default,
+  BSelect: _formSelect.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "8b96":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _buttonGroup = __webpack_require__("2e08");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BButtonGroup: _buttonGroup.default,
+  BBtnGroup: _buttonGroup.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -3782,10 +14118,369 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 /***/ }),
 
+/***/ "90a3":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _imgLazy = __webpack_require__("294b");
+
+var _object = __webpack_require__("24e2");
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// Copy of `<b-img-lazy>` props, and remove conflicting/non-applicable props
+// The `omit()` util creates a new object, so we can just pass the original props
+var lazyProps = (0, _object.omit)(_imgLazy.default.props, ['left', 'right', 'center', 'block', 'rounded', 'thumbnail', 'fluid', 'fluidGrow']);
+
+var props = _objectSpread({}, lazyProps, {
+  top: {
+    type: Boolean,
+    default: false
+  },
+  bottom: {
+    type: Boolean,
+    default: false
+  },
+  left: {
+    type: Boolean,
+    default: false
+  },
+  start: {
+    type: Boolean,
+    default: false // alias of 'left'
+
+  },
+  right: {
+    type: Boolean,
+    default: false
+  },
+  end: {
+    type: Boolean,
+    default: false // alias of 'right'
+
+  } // @vue/component
+
+});
+
+exports.props = props;
+var _default = {
+  name: 'BCardImgLazy',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data;
+    var baseClass = 'card-img';
+
+    if (props.top) {
+      baseClass += '-top';
+    } else if (props.right || props.end) {
+      baseClass += '-right';
+    } else if (props.bottom) {
+      baseClass += '-bottom';
+    } else if (props.left || props.start) {
+      baseClass += '-left';
+    } // False out the left/center/right props before passing to b-img-lazy
+
+
+    var lazyProps = _objectSpread({}, props, {
+      left: false,
+      right: false,
+      center: false
+    });
+
+    return h(_imgLazy.default, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      class: [baseClass],
+      props: lazyProps
+    }));
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "91b6":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _popper = __webpack_require__("f0bd");
+
+var _tooltip = __webpack_require__("16ae");
+
+var _env = __webpack_require__("4565");
+
+var _object = __webpack_require__("24e2");
+
+var _warn = __webpack_require__("93e0");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+// Key which we use to store tooltip object on element
+var BV_TOOLTIP = '__BV_ToolTip__'; // Valid event triggers
+
+var validTriggers = {
+  focus: true,
+  hover: true,
+  click: true,
+  blur: true // Build a ToolTip config based on bindings (if any)
+  // Arguments and modifiers take precedence over passed value config object
+
+  /* istanbul ignore next: not easy to test */
+
+};
+
+var parseBindings = function parseBindings(bindings)
+/* istanbul ignore next: not easy to test */
+{
+  // We start out with a blank config
+  var config = {}; // Process bindings.value
+
+  if (typeof bindings.value === 'string') {
+    // Value is tooltip content (html optionally supported)
+    config.title = bindings.value;
+  } else if (typeof bindings.value === 'function') {
+    // Title generator function
+    config.title = bindings.value;
+  } else if (_typeof(bindings.value) === 'object') {
+    // Value is config object, so merge
+    config = _objectSpread({}, config, bindings.value);
+  } // If argument, assume element ID of container element
+
+
+  if (bindings.arg) {
+    // Element ID specified as arg
+    // We must prepend '#' to become a CSS selector
+    config.container = "#".concat(bindings.arg);
+  } // Process modifiers
+
+
+  (0, _object.keys)(bindings.modifiers).forEach(function (mod) {
+    if (/^html$/.test(mod)) {
+      // Title allows HTML
+      config.html = true;
+    } else if (/^nofade$/.test(mod)) {
+      // No animation
+      config.animation = false;
+    } else if (/^(auto|top(left|right)?|bottom(left|right)?|left(top|bottom)?|right(top|bottom)?)$/.test(mod)) {
+      // Placement of tooltip
+      config.placement = mod;
+    } else if (/^(window|viewport)$/.test(mod)) {
+      // Boundary of tooltip
+      config.boundary = mod;
+    } else if (/^d\d+$/.test(mod)) {
+      // Delay value
+      var delay = parseInt(mod.slice(1), 10) || 0;
+
+      if (delay) {
+        config.delay = delay;
+      }
+    } else if (/^o-?\d+$/.test(mod)) {
+      // Offset value, negative allowed
+      var offset = parseInt(mod.slice(1), 10) || 0;
+
+      if (offset) {
+        config.offset = offset;
+      }
+    }
+  }); // Special handling of event trigger modifiers trigger is
+  // a space separated list
+
+  var selectedTriggers = {}; // Parse current config object trigger
+
+  var triggers = typeof config.trigger === 'string' ? config.trigger.trim().split(/\s+/) : [];
+  triggers.forEach(function (trigger) {
+    if (validTriggers[trigger]) {
+      selectedTriggers[trigger] = true;
+    }
+  }); // Parse modifiers for triggers
+
+  (0, _object.keys)(validTriggers).forEach(function (trigger) {
+    if (bindings.modifiers[trigger]) {
+      selectedTriggers[trigger] = true;
+    }
+  }); // Sanitize triggers
+
+  config.trigger = (0, _object.keys)(selectedTriggers).join(' ');
+
+  if (config.trigger === 'blur') {
+    // Blur by itself is useless, so convert it to 'focus'
+    config.trigger = 'focus';
+  }
+
+  if (!config.trigger) {
+    // Remove trigger config
+    delete config.trigger;
+  }
+
+  return config;
+}; // Add or update ToolTip on our element
+
+
+var applyTooltip = function applyTooltip(el, bindings, vnode) {
+  if (!_env.inBrowser) {
+    /* istanbul ignore next */
+    return;
+  }
+
+  if (!_popper.default) {
+    // Popper is required for ToolTips to work
+
+    /* istanbul ignore next */
+    (0, _warn.default)('v-b-tooltip: Popper.js is required for ToolTips to work');
+    /* istanbul ignore next */
+
+    return;
+  }
+
+  var config = parseBindings(bindings);
+
+  if (el[BV_TOOLTIP]) {
+    el[BV_TOOLTIP].updateConfig(config);
+  } else {
+    el[BV_TOOLTIP] = new _tooltip.default(el, config, vnode.context.$root);
+  }
+}; // Remove ToolTip on our element
+
+
+var removeTooltip = function removeTooltip(el) {
+  if (el[BV_TOOLTIP]) {
+    el[BV_TOOLTIP].destroy();
+    el[BV_TOOLTIP] = null;
+    delete el[BV_TOOLTIP];
+  }
+};
+/*
+ * Export our directive
+ */
+
+
+var _default = {
+  bind: function bind(el, bindings, vnode) {
+    applyTooltip(el, bindings, vnode);
+  },
+  inserted: function inserted(el, bindings, vnode) {
+    applyTooltip(el, bindings, vnode);
+  },
+  update: function update(el, bindings, vnode)
+  /* istanbul ignore next: not easy to test */
+  {
+    if (bindings.value !== bindings.oldValue) {
+      applyTooltip(el, bindings, vnode);
+    }
+  },
+  componentUpdated: function componentUpdated(el, bindings, vnode)
+  /* istanbul ignore next: not easy to test */
+  {
+    if (bindings.value !== bindings.oldValue) {
+      applyTooltip(el, bindings, vnode);
+    }
+  },
+  unbind: function unbind(el) {
+    removeTooltip(el);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "9299":
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "92e4":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _warn = __webpack_require__("93e0");
+
+var props = {
+  tag: {
+    type: String,
+    default: 'ul'
+  },
+  fill: {
+    type: Boolean,
+    default: false
+  },
+  justified: {
+    type: Boolean,
+    default: false
+  },
+  tabs: {
+    type: Boolean,
+    default: false
+  },
+  pills: {
+    type: Boolean,
+    default: false
+  },
+  vertical: {
+    type: Boolean,
+    default: false
+  },
+  isNavBar: {
+    type: Boolean,
+    default: false
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BNav',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+
+    if (props.isNavBar) {
+      /* istanbul ignore next */
+      (0, _warn.default)("b-nav: Prop 'is-nav-bar' is deprecated. Please use component '<b-navbar-nav>' instead.");
+    }
+
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      class: {
+        nav: !props.isNavBar,
+        'navbar-nav': props.isNavBar,
+        'nav-tabs': props.tabs && !props.isNavBar,
+        'nav-pills': props.pills && !props.isNavBar,
+        'flex-column': props.vertical && !props.isNavBar,
+        'nav-fill': props.fill,
+        'nav-justified': props.justified
+      }
+    }), children);
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -3813,6 +14508,141 @@ var warn = function warn(message) {
 };
 
 var _default = warn;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "9668":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var props = {
+  id: {
+    type: String,
+    default: null
+  },
+  tag: {
+    type: String,
+    default: 'h6'
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BDropdownHeader',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'dropdown-header',
+      attrs: {
+        id: props.id || null
+      }
+    }), children);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "96cd":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _array = __webpack_require__("bb2f");
+
+var _object = __webpack_require__("24e2");
+
+var isDate = function isDate(obj) {
+  return obj instanceof Date;
+}; // Assumes both a and b are arrays!
+// Handles when arrays are "sparse" (array.every(...) doesn't handle sparse)
+
+
+var compareArrays = function compareArrays(a, b) {
+  if (a.length !== b.length) {
+    return false;
+  }
+
+  var equal = true;
+
+  for (var i = 0; equal && i < a.length; i++) {
+    equal = looseEqual(a[i], b[i]);
+  }
+
+  return equal;
+};
+/**
+ * Check if two values are loosely equal - that is,
+ * if they are plain objects, do they have the same shape?
+ * Returns boolean true or false
+ */
+
+
+var looseEqual = function looseEqual(a, b) {
+  if (a === b) {
+    return true;
+  }
+
+  var aValidType = isDate(a);
+  var bValidType = isDate(b);
+
+  if (aValidType || bValidType) {
+    return aValidType && bValidType ? a.getTime() === b.getTime() : false;
+  }
+
+  aValidType = (0, _array.isArray)(a);
+  bValidType = (0, _array.isArray)(b);
+
+  if (aValidType || bValidType) {
+    return aValidType && bValidType ? compareArrays(a, b) : false;
+  }
+
+  aValidType = (0, _object.isObject)(a);
+  bValidType = (0, _object.isObject)(b);
+
+  if (aValidType || bValidType) {
+    /* istanbul ignore if: this if will probably never be called */
+    if (!aValidType || !bValidType) {
+      return false;
+    }
+
+    var aKeysCount = (0, _object.keys)(a).length;
+    var bKeysCount = (0, _object.keys)(b).length;
+
+    if (aKeysCount !== bKeysCount) {
+      return false;
+    }
+
+    for (var key in a) {
+      var aHasKey = a.hasOwnProperty(key);
+      var bHasKey = b.hasOwnProperty(key);
+
+      if (aHasKey && !bHasKey || !aHasKey && bHasKey || !looseEqual(a[key], b[key])) {
+        return false;
+      }
+    }
+  }
+
+  return String(a) === String(b);
+};
+
+var _default = looseEqual;
 exports.default = _default;
 
 /***/ }),
@@ -3858,6 +14688,78 @@ module.exports = function (key) {
 
 /***/ }),
 
+/***/ "9c6f":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// @vue/component
+var _default = {
+  name: 'BSpinner',
+  functional: true,
+  props: {
+    type: {
+      type: String,
+      default: 'border' // SCSS currently supports 'border' or 'grow'
+
+    },
+    label: {
+      type: String,
+      default: null
+    },
+    variant: {
+      type: String,
+      default: null
+    },
+    small: {
+      type: Boolean,
+      default: false
+    },
+    role: {
+      type: String,
+      default: 'status'
+    },
+    tag: {
+      type: String,
+      default: 'span'
+    }
+  },
+  render: function render(h, _ref) {
+    var _class;
+
+    var props = _ref.props,
+        data = _ref.data,
+        slots = _ref.slots;
+    var label = h(false);
+    var hasLabel = slots().label || props.label;
+
+    if (hasLabel) {
+      label = h('span', {
+        staticClass: 'sr-only'
+      }, hasLabel);
+    }
+
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      attrs: {
+        role: hasLabel ? props.role || 'status' : null,
+        'aria-hidden': hasLabel ? null : 'true'
+      },
+      class: (_class = {}, _defineProperty(_class, "spinner-".concat(props.type), Boolean(props.type)), _defineProperty(_class, "spinner-".concat(props.type, "-sm"), props.small), _defineProperty(_class, "text-".concat(props.variant), Boolean(props.variant)), _class)
+    }), [label]);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "9c97":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3896,6 +14798,167 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "9d25":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.commonProps = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _inputGroupText = __webpack_require__("df74");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var commonProps = {
+  id: {
+    type: String,
+    default: null
+  },
+  tag: {
+    type: String,
+    default: 'div'
+  },
+  isText: {
+    type: Boolean,
+    default: false
+  } // @vue/component
+
+};
+exports.commonProps = commonProps;
+var _default = {
+  name: 'BInputGroupAddon',
+  functional: true,
+  props: _objectSpread({}, commonProps, {
+    append: {
+      type: Boolean,
+      default: false
+    }
+  }),
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      class: {
+        'input-group-append': props.append,
+        'input-group-prepend': !props.append
+      },
+      attrs: {
+        id: props.id
+      }
+    }), props.isText ? [h(_inputGroupText.default, children)] : children);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "9d37":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _container = __webpack_require__("1520");
+
+var _row = __webpack_require__("5d69");
+
+var _col = __webpack_require__("7d02");
+
+var _formRow = __webpack_require__("1665");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BContainer: _container.default,
+  BRow: _row.default,
+  BCol: _col.default,
+  BFormRow: _formRow.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "9d3f":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _default = {
+  name: 'BDropdownText',
+  functional: true,
+  props: {
+    tag: {
+      type: String,
+      default: 'p'
+    }
+  },
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      props: props,
+      staticClass: 'b-dropdown-text'
+    }), children);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "9de7":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+/**
+ * Returns vNodes for named slot either scoped or unscoped
+ *
+ * @param {String} name
+ * @param {String} scope
+ * @param {Object} scopedSlots
+ * @param {Object} slots
+ * @returns {Array|undefined} vNodes
+ */
+var normalizeSlot = function normalizeSlot(name) {
+  var scope = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var $scopedSlots = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var $slots = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+  // Note: in Vue 2.6.x, all names slots are also scoped slots
+  var slot = $scopedSlots[name] || $slots[name];
+  return typeof slot === 'function' ? slot(scope) : slot;
+};
+
+var _default = normalizeSlot;
+exports.default = _default;
+
+/***/ }),
+
 /***/ "9def":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3920,6 +14983,707 @@ module.exports = !__webpack_require__("79e5")(function () {
 
 /***/ }),
 
+/***/ "9e25":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _alert = __webpack_require__("23f0");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BAlert: _alert.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "9e3e":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _inputGroupAddon = __webpack_require__("9d25");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// @vue/component
+var _default = {
+  name: 'BInputGroupPrepend',
+  functional: true,
+  props: _inputGroupAddon.commonProps,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    // pass all our props/attrs down to child, and set`append` to false
+    return h(_inputGroupAddon.default, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      props: _objectSpread({}, props, {
+        append: false
+      })
+    }), children);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "9e84":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _prefixPropName = __webpack_require__("e109");
+
+var _unprefixPropName = __webpack_require__("12b6");
+
+var _copyProps = __webpack_require__("0942");
+
+var _pluckProps = __webpack_require__("9c97");
+
+var _cardMixin = __webpack_require__("45f0");
+
+var _cardBody = __webpack_require__("b967");
+
+var _cardHeader = __webpack_require__("1fae");
+
+var _cardFooter = __webpack_require__("6f77");
+
+var _cardImg = __webpack_require__("23c9");
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var cardImgProps = (0, _copyProps.default)(_cardImg.props, _prefixPropName.default.bind(null, 'img'));
+cardImgProps.imgSrc.required = false;
+
+var props = _objectSpread({}, _cardBody.props, _cardHeader.props, _cardFooter.props, cardImgProps, (0, _copyProps.default)(_cardMixin.default.props), {
+  align: {
+    type: String,
+    default: null
+  },
+  noBody: {
+    type: Boolean,
+    default: false
+  } // @vue/component
+
+});
+
+exports.props = props;
+var _default = {
+  name: 'BCard',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var _class;
+
+    var props = _ref.props,
+        data = _ref.data,
+        slots = _ref.slots;
+    var $slots = slots(); // Create placeholder elements for each section
+
+    var imgFirst = h(false);
+    var header = h(false);
+    var content = h(false);
+    var footer = h(false);
+    var imgLast = h(false);
+
+    if (props.imgSrc) {
+      var img = h(_cardImg.default, {
+        props: (0, _pluckProps.default)(cardImgProps, props, _unprefixPropName.default.bind(null, 'img'))
+      });
+
+      if (props.imgBottom) {
+        imgLast = img;
+      } else {
+        imgFirst = img;
+      }
+    }
+
+    if (props.header || $slots.header) {
+      header = h(_cardHeader.default, {
+        props: (0, _pluckProps.default)(_cardHeader.props, props)
+      }, $slots.header);
+    }
+
+    if (props.noBody) {
+      content = $slots.default || [];
+    } else {
+      // Wrap content in card-body
+      content = [h(_cardBody.default, {
+        props: (0, _pluckProps.default)(_cardBody.props, props)
+      }, $slots.default)];
+    }
+
+    if (props.footer || $slots.footer) {
+      footer = h(_cardFooter.default, {
+        props: (0, _pluckProps.default)(_cardFooter.props, props)
+      }, $slots.footer);
+    }
+
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'card',
+      class: (_class = {
+        'flex-row': props.imgLeft || props.imgStart,
+        'flex-row-reverse': (props.imgRight || props.imgEnd) && !(props.imgLeft || props.imgStart)
+      }, _defineProperty(_class, "text-".concat(props.align), Boolean(props.align)), _defineProperty(_class, "bg-".concat(props.bgVariant), Boolean(props.bgVariant)), _defineProperty(_class, "border-".concat(props.borderVariant), Boolean(props.borderVariant)), _defineProperty(_class, "text-".concat(props.textVariant), Boolean(props.textVariant)), _class)
+    }), [imgFirst, header].concat(_toConsumableArray(content), [footer, imgLast]));
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "a05c":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _formTextarea = __webpack_require__("0c40");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BFormTextarea: _formTextarea.default,
+  BTextarea: _formTextarea.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "a07b":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _form = __webpack_require__("0596");
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+// @vue/component
+var _default = {
+  name: 'BNavForm',
+  functional: true,
+  props: {
+    id: {
+      type: String,
+      default: null
+    }
+  },
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h(_form.default, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      attrs: {
+        id: props.id
+      },
+      props: {
+        inline: true
+      }
+    }), children);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "a198":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _formRow = __webpack_require__("1665");
+
+var _default = _formRow.default;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "a212":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _id = __webpack_require__("eae0");
+
+var _dom = __webpack_require__("1611");
+
+// @vue/component
+var _default2 = {
+  name: 'BTab',
+  mixins: [_id.default],
+  inject: {
+    bvTabs: {
+      default: function _default() {
+        return {
+          // Don't set a tab index if not rendered inside `<b-tabs>`
+          noKeyNav: true
+        };
+      }
+    }
+  },
+  props: {
+    active: {
+      type: Boolean,
+      default: false
+    },
+    tag: {
+      type: String,
+      default: 'div'
+    },
+    buttonId: {
+      type: String,
+      default: ''
+    },
+    title: {
+      type: String,
+      default: ''
+    },
+    titleItemClass: {
+      // Sniffed by tabs.js and added to nav 'li.nav-item'
+      type: [String, Array, Object],
+      default: null
+    },
+    titleLinkClass: {
+      // Sniffed by tabs.js and added to nav 'a.nav-link'
+      type: [String, Array, Object],
+      default: null
+    },
+    headHtml: {
+      // Is this actually ever used?
+      type: String,
+      default: null
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    noBody: {
+      type: Boolean,
+      default: false
+    },
+    href: {
+      // This should be deprecated, as tabs are not navigation (URL) based
+      // <b-nav> + <b-card> + <router-view>/<nuxt-child> should be used instead
+      // And we dont support router-links here
+      type: String,
+      default: '#'
+    },
+    lazy: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data: function data() {
+    return {
+      localActive: this.active && !this.disabled,
+      show: false
+    };
+  },
+  computed: {
+    tabClasses: function tabClasses() {
+      return [this.bvTabs.card && !this.noBody ? 'card-body' : '', this.show ? 'show' : '', this.computedFade ? 'fade' : '', this.disabled ? 'disabled' : '', this.localActive ? 'active' : ''];
+    },
+    controlledBy: function controlledBy() {
+      return this.buttonId || this.safeId('__BV_tab_button__');
+    },
+    computedFade: function computedFade() {
+      return this.bvTabs.fade || false;
+    },
+    computedLazy: function computedLazy() {
+      return this.bvTabs.lazy || this.lazy;
+    },
+    _isTab: function _isTab() {
+      // For parent sniffing of child
+      return true;
+    }
+  },
+  watch: {
+    localActive: function localActive(newVal, oldVal) {
+      // Make 'active' prop work with `.sync` modifier
+      this.$emit('update:active', newVal);
+    },
+    active: function active(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        if (newVal) {
+          // If activated post mount
+          this.activate();
+        } else {
+          if (!this.deactivate()) {
+            // Tab couldn't be deactivated, so we reset the synced active prop
+            // Deactivation will fail if no other tabs to activate.
+            this.$emit('update:active', this.localActive);
+          }
+        }
+      }
+    },
+    disabled: function disabled(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        if (newVal && this.localActive && this.bvTabs.firstTab) {
+          this.localActive = false;
+          this.bvTabs.firstTab();
+        }
+      }
+    }
+  },
+  mounted: function mounted() {
+    // Initially show on mount if active and not disabled
+    this.show = this.localActive;
+  },
+  updated: function updated() {
+    // Force the tab button content to update (since slots are not reactive)
+    // Only done if we have a title slot, as the title prop is reactive
+    if (this.$slots.title && this.bvTabs.updateButton) {
+      this.bvTabs.updateButton(this);
+    }
+  },
+  methods: {
+    // Transition handlers
+    beforeEnter: function beforeEnter() {
+      var _this = this;
+
+      // change opacity (add 'show' class) 1 frame after display
+      // otherwise css transition won't happen
+      (0, _dom.requestAF)(function () {
+        _this.show = true;
+      });
+    },
+    beforeLeave: function beforeLeave() {
+      // Remove the 'show' class
+      this.show = false;
+    },
+    // Public methods
+    activate: function activate() {
+      if (this.bvTabs.activateTab && !this.disabled) {
+        return this.bvTabs.activateTab(this);
+      } else {
+        // Not inside a b-tabs component or tab is disabled
+        return false;
+      }
+    },
+    deactivate: function deactivate() {
+      if (this.bvTabs.deactivateTab && this.localActive) {
+        return this.bvTabs.deactivateTab(this);
+      } else {
+        // Not inside a b-tabs component or not active to begin with
+        return false;
+      }
+    }
+  },
+  render: function render(h) {
+    var content = h(this.tag, {
+      ref: 'panel',
+      staticClass: 'tab-pane',
+      class: this.tabClasses,
+      directives: [// TODO: convert to style object in render
+      {
+        name: 'show',
+        rawName: 'v-show',
+        value: this.localActive,
+        expression: 'localActive'
+      }],
+      attrs: {
+        role: 'tabpanel',
+        id: this.safeId(),
+        tabindex: this.localActive && !this.bvTabs.noKeyNav ? '0' : null,
+        'aria-hidden': this.localActive ? 'false' : 'true',
+        'aria-expanded': this.localActive ? 'true' : 'false',
+        'aria-labelledby': this.controlledBy || null
+      }
+    }, // Render content lazily if requested
+    [this.localActive || !this.computedLazy ? this.$slots.default : h(false)]);
+    return h('transition', {
+      props: {
+        mode: 'out-in',
+        // Disable use of built-in transition classes
+        'enter-class': '',
+        'enter-active-class': '',
+        'enter-to-class': '',
+        'leave-class': '',
+        'leave-active-class': '',
+        'leave-to-class': ''
+      },
+      on: {
+        beforeEnter: this.beforeEnter,
+        beforeLeave: this.beforeLeave
+      }
+    }, [content]);
+  }
+};
+exports.default = _default2;
+
+/***/ }),
+
+/***/ "a306":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _stringifyRecordValues = __webpack_require__("3b14");
+
+var _looseEqual = __webpack_require__("96cd");
+
+var _warn = __webpack_require__("93e0");
+
+var DEPRECATION_MSG = 'Supplying a function to prop "filter" is deprecated. Use "filter-function" instead.';
+var _default = {
+  props: {
+    filter: {
+      // Pasing a function to filter is deprecated and should be avoided
+      type: [String, RegExp, Object, Array, Function],
+      default: null,
+      deprecated: DEPRECATION_MSG
+    },
+    filterFunction: {
+      type: Function,
+      default: null
+    }
+  },
+  data: function data() {
+    return {
+      // Flag for displaying which empty slot to show, and for some event triggering.
+      isFiltered: false
+    };
+  },
+  computed: {
+    localFiltering: function localFiltering() {
+      return this.hasProvider ? !!this.noProviderFiltering : true;
+    },
+    filteredCheck: function filteredCheck() {
+      // For watching changes to filteredItems vs localItems
+      return {
+        filteredItems: this.filteredItems,
+        localItems: this.localItems,
+        localFilter: this.localFilter
+      };
+    },
+    localFilter: function localFilter() {
+      // Returns a sanitized/normalized version of filter prop
+      if (typeof this.filter === 'function') {
+        // this.localFilterFn will contain the correct function ref.
+        // Deprecate setting prop filter to a function
+
+        /* istanbul ignore next */
+        return '';
+      } else if (typeof this.filterFunction !== 'function' && !(typeof this.filter === 'string' || this.filter instanceof RegExp)) {
+        // Using internal filter function, which only accepts string or regexp at the moment
+        return '';
+      } else {
+        // Could be a string, object or array, as needed by external filter function
+        return this.filter;
+      }
+    },
+    localFilterFn: function localFilterFn() {
+      var filter = this.filter;
+      var filterFn = this.filterFunction; // Sanitized/normalize filter-function prop
+
+      if (typeof filterFn === 'function') {
+        return filterFn;
+      } else if (typeof filter === 'function') {
+        // Deprecate setting prop filter to a function
+
+        /* istanbul ignore next */
+        (0, _warn.default)("b-table: ".concat(DEPRECATION_MSG));
+        /* istanbul ignore next */
+
+        return filter;
+      } else {
+        // no filterFunction, so signal to use internal filter function
+        return null;
+      }
+    },
+    filteredItems: function filteredItems() {
+      // Returns the records in localItems that match the filter criteria.
+      // Returns the original localItems array if not sorting
+      var items = this.localItems || [];
+      var criteria = this.localFilter;
+      var filterFn = this.filterFnFactory(this.localFilterFn, criteria) || this.defaultFilterFnFactory(criteria); // We only do local filtering if requested, and if the are records to filter and
+      // if a filter criteria was specified
+
+      if (this.localFiltering && filterFn && items.length > 0) {
+        items = items.filter(filterFn);
+      }
+
+      return items;
+    }
+  },
+  watch: {
+    // Watch for changes to the filter criteria and filtered items vs localItems).
+    // And set visual state and emit events as required
+    filteredCheck: function filteredCheck(_ref) {
+      var filteredItems = _ref.filteredItems,
+          localItems = _ref.localItems,
+          localFilter = _ref.localFilter;
+      // Determine if the dataset is filtered or not
+      var isFiltered;
+
+      if (!localFilter) {
+        // If filter criteria is falsey
+        isFiltered = false;
+      } else if ((0, _looseEqual.default)(localFilter, []) || (0, _looseEqual.default)(localFilter, {})) {
+        // If filter criteria is an empty array or object
+        isFiltered = false;
+      } else if (localFilter) {
+        // if Filter criteria is truthy
+        isFiltered = true;
+      } else {
+        /* istanbul ignore next: rare chance of reaching this else */
+        isFiltered = false;
+      }
+
+      if (isFiltered) {
+        this.$emit('filtered', filteredItems, filteredItems.length);
+      }
+
+      this.isFiltered = isFiltered;
+    },
+    isFiltered: function isFiltered(newVal, oldVal) {
+      if (newVal === false && oldVal === true) {
+        // We need to emit a filtered event if isFiltered transitions from true to
+        // false so that users can update their pagination controls.
+        this.$emit('filtered', this.localItems, this.localItems.length);
+      }
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    // Set the initial filtered state.
+    // In a nextTick so that we trigger a filtered event if needed
+    this.$nextTick(function () {
+      _this.isFiltered = Boolean(_this.localFilter);
+    });
+  },
+  methods: {
+    // Filter Function factories
+    filterFnFactory: function filterFnFactory(filterFn, criteria) {
+      // Wrapper factory for external filter functions.
+      // Wrap the provided filter-function and return a new function.
+      // Returns null if no filter-function defined or if criteria is falsey.
+      // Rather than directly grabbing this.computedLocalFilterFn or this.filterFunction
+      // we have it passed, so that the caller computed prop will be reactive to changes
+      // in the original filter-function (as this routine is a method)
+      if (!filterFn || typeof filterFn !== 'function' || !criteria || (0, _looseEqual.default)(criteria, []) || (0, _looseEqual.default)(criteria, {})) {
+        return null;
+      } // Build the wrapped filter test function, passing the criteria to the provided function
+
+
+      var fn = function fn(item) {
+        // Generated function returns true if the criteria matches part
+        // of the serialized data, otherwise false
+        return filterFn(item, criteria);
+      }; // Return the wrapped function
+
+
+      return fn;
+    },
+    defaultFilterFnFactory: function defaultFilterFnFactory(criteria) {
+      // Generates the default filter function, using the given filter criteria
+      if (!criteria || !(typeof criteria === 'string' || criteria instanceof RegExp)) {
+        // Built in filter can only support strings or RegExp criteria (at the moment)
+        return null;
+      } // Build the regexp needed for filtering
+
+
+      var regexp = criteria;
+
+      if (typeof regexp === 'string') {
+        // Escape special RegExp characters in the string and convert contiguous
+        // whitespace to \s+ matches
+        var pattern = criteria.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&').replace(/[\s\uFEFF\xA0]+/g, '\\s+'); // Build the RegExp (no need for global flag, as we only need
+        // to find the value once in the string)
+
+        regexp = new RegExp(".*".concat(pattern, ".*"), 'i');
+      } // Generate the wrapped filter test function to use
+
+
+      var fn = function fn(item) {
+        // This searches all row values (and sub property values) in the entire (excluding
+        // special _ prefixed keys), because we convert the record to a space-separated
+        // string containing all the value properties (recursively), even ones that are
+        // not visible (not specified in this.fields).
+        //
+        // TODO: Enable searching on formatted fields and scoped slots
+        // TODO: Should we filter only on visible fields (i.e. ones in this.fields) by default?
+        // TODO: Allow for searching on specific fields/key, this could be combined with the previous TODO
+        // TODO: Give stringifyRecordValues extra options for filtering (i.e. passing the
+        //       fields definition and a reference to $scopedSlots)
+        //
+        // Generated function returns true if the criteria matches part of
+        // the serialized data, otherwise false
+        // We set lastIndex = 0 on regex in case someone uses the /g global flag
+        regexp.lastIndex = 0;
+        return regexp.test((0, _stringifyRecordValues.default)(item));
+      }; // Return the generated function
+
+
+      return fn;
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "a4bb":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3931,6 +15695,870 @@ module.exports = __webpack_require__("8aae");
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "a596":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _dom = __webpack_require__("1611");
+
+var _env = __webpack_require__("4565");
+
+var _target = __webpack_require__("f347");
+
+// Target listen types
+var listenTypes = {
+  click: true // Property key for handler storage
+
+};
+var BV_TOGGLE = '__BV_toggle__';
+var BV_TOGGLE_STATE = '__BV_toggle_STATE__';
+var BV_TOGGLE_CONTROLS = '__BV_toggle_CONTROLS__'; // Emitted control event for collapse (emitted to collapse)
+
+var EVENT_TOGGLE = 'bv::toggle::collapse'; // Listen to event for toggle state update (emitted by collapse)
+
+var EVENT_STATE = 'bv::collapse::state'; // Reset and remove a property from the provided element
+
+var resetProp = function resetProp(el, prop) {
+  el[prop] = null;
+  delete el[prop];
+}; // Handle directive updates
+
+/* istanbul ignore next: not easy to test */
+
+
+var handleUpdate = function handleUpdate(el, binding, vnode) {
+  if (!_env.inBrowser) {
+    return;
+  } // Ensure the collapse class and aria-* attributes persist
+  // after element is updated (either by parent re-rendering
+  // or changes to this element or it's contents
+
+
+  if (el[BV_TOGGLE_STATE] === true) {
+    (0, _dom.addClass)(el, 'collapsed');
+    (0, _dom.setAttr)(el, 'aria-expanded', 'true');
+  } else if (el[BV_TOGGLE_STATE] === false) {
+    (0, _dom.removeClass)(el, 'collapsed');
+    (0, _dom.setAttr)(el, 'aria-expanded', 'false');
+  }
+
+  (0, _dom.setAttr)(el, 'aria-controls', el[BV_TOGGLE_CONTROLS]);
+};
+/*
+ * Export our directive
+ */
+
+
+var _default = {
+  bind: function bind(el, binding, vnode) {
+    var targets = (0, _target.bindTargets)(vnode, binding, listenTypes, function (_ref) {
+      var targets = _ref.targets,
+          vnode = _ref.vnode;
+      targets.forEach(function (target) {
+        vnode.context.$root.$emit(EVENT_TOGGLE, target);
+      });
+    });
+
+    if (_env.inBrowser && vnode.context && targets.length > 0) {
+      // Add aria attributes to element
+      el[BV_TOGGLE_CONTROLS] = targets.join(' '); // State is initially collapsed until we receive a state event
+
+      el[BV_TOGGLE_STATE] = false;
+      (0, _dom.setAttr)(el, 'aria-controls', el[BV_TOGGLE_CONTROLS]);
+      (0, _dom.setAttr)(el, 'aria-expanded', 'false'); // If element is not a button, we add `role="button"` for accessibility
+
+      if (el.tagName !== 'BUTTON') {
+        (0, _dom.setAttr)(el, 'role', 'button');
+      } // Toggle state handler, stored on element
+
+
+      el[BV_TOGGLE] = function toggleDirectiveHandler(id, state) {
+        if (targets.indexOf(id) !== -1) {
+          // Set aria-expanded state
+          (0, _dom.setAttr)(el, 'aria-expanded', state ? 'true' : 'false'); // Set/Clear 'collapsed' class state
+
+          el[BV_TOGGLE_STATE] = state;
+
+          if (state) {
+            (0, _dom.removeClass)(el, 'collapsed');
+          } else {
+            (0, _dom.addClass)(el, 'collapsed');
+          }
+        }
+      }; // Listen for toggle state changes
+
+
+      vnode.context.$root.$on(EVENT_STATE, el[BV_TOGGLE]);
+    }
+  },
+  componentUpdated: handleUpdate,
+  updated: handleUpdate,
+  unbind: function unbind(el, binding, vnode)
+  /* istanbul ignore next */
+  {
+    (0, _target.unbindTargets)(vnode, binding, listenTypes); // Remove our $root listener
+
+    if (el[BV_TOGGLE]) {
+      vnode.context.$root.$off(EVENT_STATE, el[BV_TOGGLE]);
+    } // Reset custom  props
+
+
+    resetProp(el, BV_TOGGLE);
+    resetProp(el, BV_TOGGLE_STATE);
+    resetProp(el, BV_TOGGLE_CONTROLS); // Reset classes/attrs
+
+    (0, _dom.removeClass)(el, 'collapsed');
+    (0, _dom.removeAttr)(el, 'aria-expanded');
+    (0, _dom.removeAttr)(el, 'aria-controls');
+    (0, _dom.removeAttr)(el, 'role');
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "a60a":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _formFile = __webpack_require__("07b5");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BFormFile: _formFile.default,
+  BFile: _formFile.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "a85f":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _observeDom = __webpack_require__("bf9c");
+
+var _keyCodes = __webpack_require__("06e4");
+
+var _noop = __webpack_require__("cab0");
+
+var _dom = __webpack_require__("1611");
+
+var _env = __webpack_require__("4565");
+
+var _id = __webpack_require__("eae0");
+
+// Slide directional classes
+var DIRECTION = {
+  next: {
+    dirClass: 'carousel-item-left',
+    overlayClass: 'carousel-item-next'
+  },
+  prev: {
+    dirClass: 'carousel-item-right',
+    overlayClass: 'carousel-item-prev'
+  } // Fallback Transition duration (with a little buffer) in ms
+
+};
+var TRANS_DURATION = 600 + 50; // Time for mouse compat events to fire after touch
+
+var TOUCH_EVENT_COMPAT_WAIT = 500; // Number of pixels to consider touch move a swipe
+
+var SWIPE_THRESHOLD = 40; // PointerEvent pointer types
+
+var PointerType = {
+  TOUCH: 'touch',
+  PEN: 'pen' // Transition Event names
+
+};
+var TransitionEndEvents = {
+  WebkitTransition: 'webkitTransitionEnd',
+  MozTransition: 'transitionend',
+  OTransition: 'otransitionend oTransitionEnd',
+  transition: 'transitionend'
+};
+var EventOptions = {
+  passive: true,
+  capture: false // Return the browser specific transitionEnd event name
+
+};
+
+function getTransitionEndEvent(el) {
+  for (var name in TransitionEndEvents) {
+    if (el.style[name] !== undefined) {
+      return TransitionEndEvents[name];
+    }
+  } // fallback
+
+  /* istanbul ignore next */
+
+
+  return null;
+} // @vue/component
+
+
+var _default = {
+  name: 'BCarousel',
+  mixins: [_id.default],
+  provide: function provide() {
+    return {
+      bvCarousel: this
+    };
+  },
+  model: {
+    prop: 'value',
+    event: 'input'
+  },
+  props: {
+    labelPrev: {
+      type: String,
+      default: 'Previous Slide'
+    },
+    labelNext: {
+      type: String,
+      default: 'Next Slide'
+    },
+    labelGotoSlide: {
+      type: String,
+      default: 'Goto Slide'
+    },
+    labelIndicators: {
+      type: String,
+      default: 'Select a slide to display'
+    },
+    interval: {
+      type: Number,
+      default: 5000
+    },
+    indicators: {
+      type: Boolean,
+      default: false
+    },
+    controls: {
+      type: Boolean,
+      default: false
+    },
+    noAnimation: {
+      // Disable slide/fade animation
+      type: Boolean,
+      default: false
+    },
+    fade: {
+      // Enable cross-fade animation instead of slide animation
+      type: Boolean,
+      default: false
+    },
+    noTouch: {
+      // Sniffed by carousel-slide
+      type: Boolean,
+      default: false
+    },
+    noHoverPause: {
+      // Disable pause on hover
+      type: Boolean,
+      default: false
+    },
+    imgWidth: {
+      // Sniffed by carousel-slide
+      type: [Number, String] // default: undefined
+
+    },
+    imgHeight: {
+      // Sniffed by carousel-slide
+      type: [Number, String] // default: undefined
+
+    },
+    background: {
+      type: String // default: undefined
+
+    },
+    value: {
+      type: Number,
+      default: 0
+    }
+  },
+  data: function data() {
+    return {
+      index: this.value || 0,
+      isSliding: false,
+      transitionEndEvent: null,
+      slides: [],
+      direction: null,
+      isPaused: !(parseInt(this.interval, 10) > 0),
+      // Touch event handling values
+      touchStartX: 0,
+      touchDeltaX: 0
+    };
+  },
+  watch: {
+    value: function value(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.setSlide(newVal);
+      }
+    },
+    interval: function interval(newVal, oldVal) {
+      if (newVal === oldVal) {
+        /* istanbul ignore next */
+        return;
+      }
+
+      if (!newVal) {
+        // Pausing slide show
+        this.pause(false);
+      } else {
+        // Restarting or Changing interval
+        this.pause(true);
+        this.start(false);
+      }
+    },
+    isPaused: function isPaused(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.$emit(newVal ? 'paused' : 'unpaused');
+      }
+    },
+    index: function index(to, from) {
+      if (to === from || this.isSliding) {
+        /* istanbul ignore next */
+        return;
+      }
+
+      this.doSlide(to, from);
+    }
+  },
+  created: function created() {
+    // Create private non-reactive props
+    this._intervalId = null;
+    this._animationTimeout = null;
+    this._touchTimeout = null; // Set initial paused state
+
+    this.isPaused = !(parseInt(this.interval, 10) > 0);
+  },
+  mounted: function mounted() {
+    // Cache current browser transitionend event name
+    this.transitionEndEvent = getTransitionEndEvent(this.$el) || null; // Get all slides
+
+    this.updateSlides(); // Observe child changes so we can update slide list
+
+    (0, _observeDom.default)(this.$refs.inner, this.updateSlides.bind(this), {
+      subtree: false,
+      childList: true,
+      attributes: true,
+      attributeFilter: ['id']
+    });
+  },
+  beforeDestroy: function beforeDestroy()
+  /* istanbul ignore next: difficult to test */
+  {
+    clearTimeout(this._animationTimeout);
+    clearTimeout(this._touchTimeout);
+    clearInterval(this._intervalId);
+    this._intervalId = null;
+    this._animationTimeout = null;
+    this._touchTimeout = null;
+  },
+  methods: {
+    // Set slide
+    setSlide: function setSlide(slide) {
+      var _this = this;
+
+      var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+      // Don't animate when page is not visible
+
+      /* istanbul ignore if: difficult to test */
+      if (_env.inBrowser && document.visibilityState && document.hidden) {
+        return;
+      }
+
+      var len = this.slides.length; // Don't do anything if nothing to slide to
+
+      if (len === 0) {
+        return;
+      } // Don't change slide while transitioning, wait until transition is done
+
+
+      if (this.isSliding) {
+        // Schedule slide after sliding complete
+        this.$once('sliding-end', function () {
+          return _this.setSlide(slide, direction);
+        });
+        return;
+      }
+
+      this.direction = direction; // Make sure we have an integer (you never know!)
+
+      slide = Math.floor(slide); // Set new slide index. Wrap around if necessary
+
+      this.index = slide >= len ? 0 : slide >= 0 ? slide : len - 1;
+    },
+    // Previous slide
+    prev: function prev() {
+      this.setSlide(this.index - 1, 'prev');
+    },
+    // Next slide
+    next: function next() {
+      this.setSlide(this.index + 1, 'next');
+    },
+    // Pause auto rotation
+    pause: function pause(evt) {
+      if (!evt) {
+        this.isPaused = true;
+      }
+
+      if (this._intervalId) {
+        clearInterval(this._intervalId);
+        this._intervalId = null;
+      }
+    },
+    // Start auto rotate slides
+    start: function start(evt) {
+      if (!evt) {
+        this.isPaused = false;
+      }
+      /* istanbul ignore next: most likely will never happen, but just in case */
+
+
+      if (this._intervalId) {
+        clearInterval(this._intervalId);
+        this._intervalId = null;
+      } // Don't start if no interval, or less than 2 slides
+
+
+      if (this.interval && this.slides.length > 1) {
+        this._intervalId = setInterval(this.next, Math.max(1000, this.interval));
+      }
+    },
+    // Restart auto rotate slides when focus/hover leaves the carousel
+    restart: function restart(evt) {
+      /* istanbul ignore if: difficult to test */
+      if (!this.$el.contains(document.activeElement)) {
+        this.start();
+      }
+    },
+    doSlide: function doSlide(to, from) {
+      var _this2 = this;
+
+      var isCycling = Boolean(this.interval); // Determine sliding direction
+
+      var direction = this.calcDirection(this.direction, from, to);
+      var overlayClass = direction.overlayClass;
+      var dirClass = direction.dirClass; // Determine current and next slides
+
+      var currentSlide = this.slides[from];
+      var nextSlide = this.slides[to]; // Don't do anything if there aren't any slides to slide to
+
+      if (!currentSlide || !nextSlide) {
+        /* istanbul ignore next */
+        return;
+      } // Start animating
+
+
+      this.isSliding = true;
+
+      if (isCycling) {
+        this.pause(false);
+      }
+
+      this.$emit('sliding-start', to); // Update v-model
+
+      this.$emit('input', this.index);
+
+      if (this.noAnimation) {
+        (0, _dom.addClass)(nextSlide, 'active');
+        (0, _dom.removeClass)(currentSlide, 'active');
+        this.isSliding = false; // Notify ourselves that we're done sliding (slid)
+
+        this.$nextTick(function () {
+          return _this2.$emit('sliding-end', to);
+        });
+      } else {
+        (0, _dom.addClass)(nextSlide, overlayClass); // Trigger a reflow of next slide
+
+        (0, _dom.reflow)(nextSlide);
+        (0, _dom.addClass)(currentSlide, dirClass);
+        (0, _dom.addClass)(nextSlide, dirClass); // Transition End handler
+
+        var called = false;
+        /* istanbul ignore next: difficult to test */
+
+        var onceTransEnd = function onceTransEnd(evt) {
+          if (called) {
+            return;
+          }
+
+          called = true;
+          /* istanbul ignore if: transition events cant be tested in JSDOM */
+
+          if (_this2.transitionEndEvent) {
+            var events = _this2.transitionEndEvent.split(/\s+/);
+
+            events.forEach(function (evt) {
+              return (0, _dom.eventOff)(currentSlide, evt, onceTransEnd, EventOptions);
+            });
+          }
+
+          _this2._animationTimeout = null;
+          (0, _dom.removeClass)(nextSlide, dirClass);
+          (0, _dom.removeClass)(nextSlide, overlayClass);
+          (0, _dom.addClass)(nextSlide, 'active');
+          (0, _dom.removeClass)(currentSlide, 'active');
+          (0, _dom.removeClass)(currentSlide, dirClass);
+          (0, _dom.removeClass)(currentSlide, overlayClass);
+          (0, _dom.setAttr)(currentSlide, 'aria-current', 'false');
+          (0, _dom.setAttr)(nextSlide, 'aria-current', 'true');
+          (0, _dom.setAttr)(currentSlide, 'aria-hidden', 'true');
+          (0, _dom.setAttr)(nextSlide, 'aria-hidden', 'false');
+          _this2.isSliding = false;
+          _this2.direction = null; // Notify ourselves that we're done sliding (slid)
+
+          _this2.$nextTick(function () {
+            return _this2.$emit('sliding-end', to);
+          });
+        }; // Set up transitionend handler
+
+        /* istanbul ignore if: transition events cant be tested in JSDOM */
+
+
+        if (this.transitionEndEvent) {
+          var events = this.transitionEndEvent.split(/\s+/);
+          events.forEach(function (event) {
+            return (0, _dom.eventOn)(currentSlide, event, onceTransEnd, EventOptions);
+          });
+        } // Fallback to setTimeout()
+
+
+        this._animationTimeout = setTimeout(onceTransEnd, TRANS_DURATION);
+      }
+
+      if (isCycling) {
+        this.start(false);
+      }
+    },
+    // Update slide list
+    updateSlides: function updateSlides() {
+      this.pause(true); // Get all slides as DOM elements
+
+      this.slides = (0, _dom.selectAll)('.carousel-item', this.$refs.inner);
+      var numSlides = this.slides.length; // Keep slide number in range
+
+      var index = Math.max(0, Math.min(Math.floor(this.index), numSlides - 1));
+      this.slides.forEach(function (slide, idx) {
+        var n = idx + 1;
+
+        if (idx === index) {
+          (0, _dom.addClass)(slide, 'active');
+          (0, _dom.setAttr)(slide, 'aria-current', 'true');
+        } else {
+          (0, _dom.removeClass)(slide, 'active');
+          (0, _dom.setAttr)(slide, 'aria-current', 'false');
+        }
+
+        (0, _dom.setAttr)(slide, 'aria-posinset', String(n));
+        (0, _dom.setAttr)(slide, 'aria-setsize', String(numSlides));
+      }); // Set slide as active
+
+      this.setSlide(index);
+      this.start(this.isPaused);
+    },
+    calcDirection: function calcDirection() {
+      var direction = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var curIndex = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      var nextIndex = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+
+      if (!direction) {
+        return nextIndex > curIndex ? DIRECTION.next : DIRECTION.prev;
+      }
+
+      return DIRECTION[direction];
+    },
+    handleClick: function handleClick(evt, fn) {
+      var keyCode = evt.keyCode;
+
+      if (evt.type === 'click' || keyCode === _keyCodes.default.SPACE || keyCode === _keyCodes.default.ENTER) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        fn();
+      }
+    },
+    handleSwipe: function handleSwipe()
+    /* istanbul ignore next: JSDOM doesn't support touch events */
+    {
+      var absDeltaX = Math.abs(this.touchDeltaX);
+
+      if (absDeltaX <= SWIPE_THRESHOLD) {
+        return;
+      }
+
+      var direction = absDeltaX / this.touchDeltaX;
+
+      if (direction > 0) {
+        // Swipe left
+        this.prev();
+      } else if (direction < 0) {
+        // Swipe right
+        this.next();
+      }
+    },
+    touchStart: function touchStart(evt)
+    /* istanbul ignore next: JSDOM doesn't support touch events */
+    {
+      if (_env.hasPointerEvent && PointerType[evt.pointerType.toUpperCase()]) {
+        this.touchStartX = evt.clientX;
+      } else if (!_env.hasPointerEvent) {
+        this.touchStartX = evt.touches[0].clientX;
+      }
+    },
+    touchMove: function touchMove(evt)
+    /* istanbul ignore next: JSDOM doesn't support touch events */
+    {
+      // Ensure swiping with one touch and not pinching
+      if (evt.touches && evt.touches.length > 1) {
+        this.touchDeltaX = 0;
+      } else {
+        this.touchDeltaX = evt.touches[0].clientX - this.touchStartX;
+      }
+    },
+    touchEnd: function touchEnd(evt)
+    /* istanbul ignore next: JSDOM doesn't support touch events */
+    {
+      if (_env.hasPointerEvent && PointerType[evt.pointerType.toUpperCase()]) {
+        this.touchDeltaX = evt.clientX - this.touchStartX;
+      }
+
+      this.handleSwipe(); // If it's a touch-enabled device, mouseenter/leave are fired as
+      // part of the mouse compatibility events on first tap - the carousel
+      // would stop cycling until user tapped out of it;
+      // here, we listen for touchend, explicitly pause the carousel
+      // (as if it's the second time we tap on it, mouseenter compat event
+      // is NOT fired) and after a timeout (to allow for mouse compatibility
+      // events to fire) we explicitly restart cycling
+
+      this.pause(false);
+
+      if (this._touchTimeout) {
+        clearTimeout(this._touchTimeout);
+      }
+
+      this._touchTimeout = setTimeout(this.start, TOUCH_EVENT_COMPAT_WAIT + Math.max(1000, this.interval));
+    }
+  },
+  render: function render(h) {
+    var _this3 = this;
+
+    // Wrapper for slides
+    var inner = h('div', {
+      ref: 'inner',
+      class: ['carousel-inner'],
+      attrs: {
+        id: this.safeId('__BV_inner_'),
+        role: 'list'
+      }
+    }, [this.$slots.default]); // Prev and next controls
+
+    var controls = h(false);
+
+    if (this.controls) {
+      controls = [h('a', {
+        class: ['carousel-control-prev'],
+        attrs: {
+          href: '#',
+          role: 'button',
+          'aria-controls': this.safeId('__BV_inner_')
+        },
+        on: {
+          click: function click(evt) {
+            _this3.handleClick(evt, _this3.prev);
+          },
+          keydown: function keydown(evt) {
+            _this3.handleClick(evt, _this3.prev);
+          }
+        }
+      }, [h('span', {
+        class: ['carousel-control-prev-icon'],
+        attrs: {
+          'aria-hidden': 'true'
+        }
+      }), h('span', {
+        class: ['sr-only']
+      }, [this.labelPrev])]), h('a', {
+        class: ['carousel-control-next'],
+        attrs: {
+          href: '#',
+          role: 'button',
+          'aria-controls': this.safeId('__BV_inner_')
+        },
+        on: {
+          click: function click(evt) {
+            _this3.handleClick(evt, _this3.next);
+          },
+          keydown: function keydown(evt) {
+            _this3.handleClick(evt, _this3.next);
+          }
+        }
+      }, [h('span', {
+        class: ['carousel-control-next-icon'],
+        attrs: {
+          'aria-hidden': 'true'
+        }
+      }), h('span', {
+        class: ['sr-only']
+      }, [this.labelNext])])];
+    } // Indicators
+
+
+    var indicators = h('ol', {
+      class: ['carousel-indicators'],
+      directives: [{
+        name: 'show',
+        rawName: 'v-show',
+        value: this.indicators,
+        expression: 'indicators'
+      }],
+      attrs: {
+        id: this.safeId('__BV_indicators_'),
+        'aria-hidden': this.indicators ? 'false' : 'true',
+        'aria-label': this.labelIndicators,
+        'aria-owns': this.safeId('__BV_inner_')
+      }
+    }, this.slides.map(function (slide, n) {
+      return h('li', {
+        key: "slide_".concat(n),
+        class: {
+          active: n === _this3.index
+        },
+        attrs: {
+          role: 'button',
+          id: _this3.safeId("__BV_indicator_".concat(n + 1, "_")),
+          tabindex: _this3.indicators ? '0' : '-1',
+          'aria-current': n === _this3.index ? 'true' : 'false',
+          'aria-label': "".concat(_this3.labelGotoSlide, " ").concat(n + 1),
+          'aria-describedby': _this3.slides[n].id || null,
+          'aria-controls': _this3.safeId('__BV_inner_')
+        },
+        on: {
+          click: function click(evt) {
+            _this3.handleClick(evt, function () {
+              _this3.setSlide(n);
+            });
+          },
+          keydown: function keydown(evt) {
+            _this3.handleClick(evt, function () {
+              _this3.setSlide(n);
+            });
+          }
+        }
+      });
+    }));
+    var on = {
+      mouseenter: this.noHoverPause ? _noop.default : this.pause,
+      mouseleave: this.noHoverPause ? _noop.default : this.restart,
+      focusin: this.pause,
+      focusout: this.restart,
+      keydown: function keydown(evt) {
+        if (/input|textarea/i.test(evt.target.tagName)) {
+          /* istanbul ignore next */
+          return;
+        }
+
+        var keyCode = evt.keyCode;
+
+        if (keyCode === _keyCodes.default.LEFT || keyCode === _keyCodes.default.RIGHT) {
+          evt.preventDefault();
+          evt.stopPropagation();
+
+          _this3[keyCode === _keyCodes.default.LEFT ? 'prev' : 'next']();
+        }
+      } // Touch support event handlers for environment
+
+    };
+
+    if (!this.noTouch && _env.hasTouchSupport) {
+      // Attach appropriate listeners (passive mode)
+
+      /* istanbul ignore next: JSDOM doesn't support touch events */
+      if (_env.hasPointerEvent) {
+        on['&pointerdown'] = this.touchStart;
+        on['&pointerup'] = this.touchEnd;
+      } else {
+        on['&touchstart'] = this.touchStart;
+        on['&touchmove'] = this.touchMove;
+        on['&touchend'] = this.touchEnd;
+      }
+    } // Return the carousel
+
+
+    return h('div', {
+      staticClass: 'carousel',
+      class: {
+        slide: !this.noAnimation,
+        'carousel-fade': !this.noAnimation && this.fade,
+        'pointer-event': !this.noTouch && _env.hasTouchSupport && _env.hasPointerEvent
+      },
+      style: {
+        background: this.background
+      },
+      attrs: {
+        role: 'region',
+        id: this.safeId(),
+        'aria-busy': this.isSliding ? 'true' : 'false'
+      },
+      on: on
+    }, [inner, controls, indicators]);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "a88f":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _carousel = __webpack_require__("a85f");
+
+var _carouselSlide = __webpack_require__("5106");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BCarousel: _carousel.default,
+  BCarouselSlide: _carouselSlide.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -3968,6 +16596,42 @@ var trim = exporter.trim = function (string, TYPE) {
 
 module.exports = exporter;
 
+
+/***/ }),
+
+/***/ "aafb":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var props = {
+  textTag: {
+    type: String,
+    default: 'p'
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BCardText',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h(props.textTag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'card-text'
+    }), children);
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -4033,6 +16697,66 @@ for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++
   }
 }
 
+
+/***/ }),
+
+/***/ "ad48":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var props = {
+  id: {
+    type: String,
+    default: null
+  },
+  tag: {
+    type: String,
+    default: 'div'
+  },
+  tooltip: {
+    type: Boolean,
+    default: false
+  },
+  forceShow: {
+    type: Boolean,
+    default: false
+  },
+  state: {
+    type: [Boolean, String],
+    default: null
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BFormValidFeedback',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    var show = props.forceShow === true || props.state === true || props.state === 'valid';
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      class: {
+        'valid-feedback': !props.tooltip,
+        'valid-tooltip': props.tooltip,
+        'd-block': show
+      },
+      attrs: {
+        id: props.id
+      }
+    }), children);
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -4108,6 +16832,60 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "b407":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _formInput = __webpack_require__("4216");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BFormInput: _formInput.default,
+  BInput: _formInput.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "b40f":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = sanitizeRow;
+
+var _object = __webpack_require__("24e2");
+
+var _constants = __webpack_require__("3ed8");
+
+// Return a copy of a row after all reserved fields have been filtered out
+// TODO: add option to specify which fields to include
+function sanitizeRow(row) {
+  return (0, _object.keys)(row).reduce(function (obj, key) {
+    // Ignore special fields that start with _
+    if (!_constants.IGNORED_FIELD_KEYS[key]) {
+      obj[key] = row[key];
+    }
+
+    return obj;
+  }, {});
+}
+
+/***/ }),
+
 /***/ "b42e":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4130,6 +16908,34 @@ module.exports = function (it) {
   return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
 };
 
+
+/***/ }),
+
+/***/ "b528":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _progress = __webpack_require__("c4c4");
+
+var _progressBar = __webpack_require__("cf15");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BProgress: _progress.default,
+  BProgressBar: _progressBar.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -4339,11 +17145,510 @@ exports.default = _default2;
 
 /***/ }),
 
+/***/ "b6bd":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _looseEqual = __webpack_require__("96cd");
+
+var _array = __webpack_require__("bb2f");
+
+var _warn = __webpack_require__("93e0");
+
+var _listenOnRoot = __webpack_require__("edbc");
+
+var _default = {
+  mixins: [_listenOnRoot.default],
+  props: {
+    noProviderPaging: {
+      type: Boolean,
+      default: false
+    },
+    noProviderSorting: {
+      type: Boolean,
+      default: false
+    },
+    noProviderFiltering: {
+      type: Boolean,
+      default: false
+    },
+    apiUrl: {
+      // Passthrough prop. Passed to the context object. Not used by b-table directly
+      type: String,
+      default: ''
+    }
+  },
+  computed: {
+    hasProvider: function hasProvider() {
+      return this.items instanceof Function;
+    },
+    providerTriggerContext: function providerTriggerContext() {
+      // Used to trigger the provider function via a watcher. Only the fields that
+      // are needed for triggering a provider update are included. Note that the
+      // regular this.context is sent to the provider during fetches though, as they
+      // may neeed all the prop info.
+      var ctx = {
+        apiUrl: this.apiUrl
+      };
+
+      if (!this.noProviderFiltering) {
+        // Either a string, or could be an object or array.
+        ctx.filter = this.localFilter;
+      }
+
+      if (!this.noProviderSorting) {
+        ctx.sortBy = this.localSortBy;
+        ctx.sortDesc = this.localSortDesc;
+      }
+
+      if (!this.noProviderPaging) {
+        ctx.perPage = this.perPage;
+        ctx.currentPage = this.currentPage;
+      }
+
+      return ctx;
+    }
+  },
+  watch: {
+    // Provider update triggering
+    items: function items(newVal, oldVal) {
+      // If a new provider has been specified, trigger an update
+      if (this.hasProvider || newVal instanceof Function) {
+        this.$nextTick(this._providerUpdate);
+      }
+    },
+    providerTriggerContext: function providerTriggerContext(newVal, oldVal) {
+      // Trigger the provider to update as the relevant context values have changed.
+      if (!(0, _looseEqual.default)(newVal, oldVal)) {
+        this.$nextTick(this._providerUpdate);
+      }
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    // Call the items provider if necessary
+    if (this.hasProvider && (!this.localItems || this.localItems.length === 0)) {
+      // Fetch on mount if localItems is empty
+      this._providerUpdate();
+    } // Listen for global messages to tell us to force refresh the table
+
+
+    this.listenOnRoot('bv::refresh::table', function (id) {
+      if (id === _this.id || id === _this) {
+        _this.refresh();
+      }
+    });
+  },
+  methods: {
+    refresh: function refresh() {
+      // Public Method: Force a refresh of the provider function
+      this.$off('refreshed', this.refresh);
+
+      if (this.computedBusy) {
+        // Can't force an update when forced busy by user (busy prop === true)
+        if (this.localBusy && this.hasProvider) {
+          // But if provider running (localBusy), re-schedule refresh once `refreshed` emitted
+          this.$on('refreshed', this.refresh);
+        }
+      } else {
+        this.clearSelected();
+
+        if (this.hasProvider) {
+          this.$nextTick(this._providerUpdate);
+        } else {
+          /* istanbul ignore next */
+          this.localItems = (0, _array.isArray)(this.items) ? this.items.slice() : [];
+        }
+      }
+    },
+    // Provider related methods
+    _providerSetLocal: function _providerSetLocal(items) {
+      this.localItems = (0, _array.isArray)(items) ? items.slice() : [];
+      this.localBusy = false;
+      this.$emit('refreshed'); // New root emit
+
+      if (this.id) {
+        this.emitOnRoot('bv::table::refreshed', this.id);
+      }
+    },
+    _providerUpdate: function _providerUpdate() {
+      // Refresh the provider function items.
+      if (!this.hasProvider) {
+        // Do nothing if no provider
+        return;
+      } // If table is busy, wait until refereshed before calling again
+
+
+      if (this.computedBusy) {
+        // Schedule a new refresh once `refreshed` is emitted
+        this.$nextTick(this.refresh);
+        return;
+      } // Set internal busy state
+
+
+      this.localBusy = true; // Call provider function with context and optional callback after DOM is fully updated
+
+      this.$nextTick(function () {
+        var _this2 = this;
+
+        try {
+          // Call provider function passing it the context and optional callback
+          var data = this.items(this.context, this._providerSetLocal);
+
+          if (data && data.then && typeof data.then === 'function') {
+            // Provider returned Promise
+            data.then(function (items) {
+              // Provider resolved with items
+              _this2._providerSetLocal(items);
+            });
+          } else if ((0, _array.isArray)(data)) {
+            // Provider returned Array data
+            this._providerSetLocal(data);
+          } else if (this.items.length !== 2) {
+            // Check number of arguments provider function requested
+            // Provider not using callback (didn't request second argument), so we clear
+            // busy state as most likely there was an error in the provider function
+
+            /* istanbul ignore next */
+            (0, _warn.default)("b-table provider function didn't request calback and did not return a promise or data");
+            /* istanbul ignore next */
+
+            this.localBusy = false;
+          }
+        } catch (e)
+        /* istanbul ignore next */
+        {
+          // Provider function borked on us, so we spew out a warning
+          // and clear the busy state
+          (0, _warn.default)("b-table provider function error [".concat(e.name, "] ").concat(e.message));
+          this.localBusy = false;
+          this.$off('refreshed', this.refresh);
+        }
+      });
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "b740":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _table = __webpack_require__("07d0");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BTable: _table.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "b8e3":
 /***/ (function(module, exports) {
 
 module.exports = true;
 
+
+/***/ }),
+
+/***/ "b965":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+// @vue/component
+var _default = {
+  computed: {
+    validity: {
+      // Expose validity property
+      cache: false,
+      get: function get()
+      /* istanbul ignore next */
+      {
+        return this.$refs.input.validity;
+      }
+    },
+    validationMessage: {
+      // Expose validationMessage property
+      cache: false,
+      get: function get()
+      /* istanbul ignore next */
+      {
+        return this.$refs.input.validationMessage;
+      }
+    },
+    willValidate: {
+      // Expose willValidate property
+      cache: false,
+      get: function get()
+      /* istanbul ignore next */
+      {
+        return this.$refs.input.willValidate;
+      }
+    }
+  },
+  methods: {
+    setCustomValidity: function setCustomValidity()
+    /* istanbul ignore next */
+    {
+      var _this$$refs$input;
+
+      // For external handler that may want a setCustomValidity(...) method
+      return (_this$$refs$input = this.$refs.input).setCustomValidity.apply(_this$$refs$input, arguments);
+    },
+    checkValidity: function checkValidity()
+    /* istanbul ignore next */
+    {
+      var _this$$refs$input2;
+
+      // For external handler that may want a checkValidity(...) method
+      return (_this$$refs$input2 = this.$refs.input).checkValidity.apply(_this$$refs$input2, arguments);
+    },
+    reportValidity: function reportValidity()
+    /* istanbul ignore next */
+    {
+      var _this$$refs$input3;
+
+      // For external handler that may want a reportValidity(...) method
+      return (_this$$refs$input3 = this.$refs.input).reportValidity.apply(_this$$refs$input3, arguments);
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "b967":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _prefixPropName = __webpack_require__("e109");
+
+var _copyProps = __webpack_require__("0942");
+
+var _pluckProps = __webpack_require__("9c97");
+
+var _cardMixin = __webpack_require__("45f0");
+
+var _cardTitle = __webpack_require__("cf89");
+
+var _cardSubTitle = __webpack_require__("886b");
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var props = _objectSpread({}, (0, _copyProps.default)(_cardMixin.default.props, _prefixPropName.default.bind(null, 'body')), {
+  bodyClass: {
+    type: [String, Object, Array],
+    default: null
+  }
+}, _cardTitle.props, _cardSubTitle.props, {
+  overlay: {
+    type: Boolean,
+    default: false
+  } // @vue/component
+
+});
+
+exports.props = props;
+var _default = {
+  name: 'BCardBody',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var _ref2;
+
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    var cardTitle = h(false);
+    var cardSubTitle = h(false);
+    var cardContent = children || [h(false)];
+
+    if (props.title) {
+      cardTitle = h(_cardTitle.default, {
+        props: (0, _pluckProps.default)(_cardTitle.props, props)
+      });
+    }
+
+    if (props.subTitle) {
+      cardSubTitle = h(_cardSubTitle.default, {
+        props: (0, _pluckProps.default)(_cardSubTitle.props, props),
+        class: ['mb-2']
+      });
+    }
+
+    return h(props.bodyTag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'card-body',
+      class: [(_ref2 = {
+        'card-img-overlay': props.overlay
+      }, _defineProperty(_ref2, "bg-".concat(props.bodyBgVariant), Boolean(props.bodyBgVariant)), _defineProperty(_ref2, "border-".concat(props.bodyBorderVariant), Boolean(props.bodyBorderVariant)), _defineProperty(_ref2, "text-".concat(props.bodyTextVariant), Boolean(props.bodyTextVariant)), _ref2), props.bodyClass || {}]
+    }), [cardTitle, cardSubTitle].concat(_toConsumableArray(cardContent)));
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "bb0c":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _dom = __webpack_require__("1611");
+
+var _keyCodes = __webpack_require__("06e4");
+
+var ITEM_SELECTOR = ['.btn:not(.disabled):not([disabled]):not(.dropdown-item)', '.form-control:not(.disabled):not([disabled])', 'select:not(.disabled):not([disabled])', 'input[type="checkbox"]:not(.disabled)', 'input[type="radio"]:not(.disabled)'].join(','); // @vue/component
+
+var _default = {
+  name: 'BButtonToolbar',
+  props: {
+    justify: {
+      type: Boolean,
+      default: false
+    },
+    keyNav: {
+      type: Boolean,
+      default: false
+    }
+  },
+  mounted: function mounted() {
+    if (this.keyNav) {
+      // Pre-set the tabindexes if the markup does not include tabindex="-1" on the toolbar items
+      this.getItems();
+    }
+  },
+  methods: {
+    onFocusin: function onFocusin(evt) {
+      if (evt.target === this.$el) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        this.focusFirst(evt);
+      }
+    },
+    stop: function stop(evt) {
+      evt.preventDefault();
+      evt.stopPropagation();
+    },
+    onKeydown: function onKeydown(evt) {
+      if (!this.keyNav) {
+        /* istanbul ignore next: should never happen */
+        return;
+      }
+
+      var key = evt.keyCode;
+      var shift = evt.shiftKey;
+
+      if (key === _keyCodes.default.UP || key === _keyCodes.default.LEFT) {
+        this.stop(evt);
+        shift ? this.focusFirst(evt) : this.focusPrev(evt);
+      } else if (key === _keyCodes.default.DOWN || key === _keyCodes.default.RIGHT) {
+        this.stop(evt);
+        shift ? this.focusLast(evt) : this.focusNext(evt);
+      }
+    },
+    setItemFocus: function setItemFocus(item) {
+      item && item.focus && item.focus();
+    },
+    focusFirst: function focusFirst(evt) {
+      var items = this.getItems();
+      this.setItemFocus(items[0]);
+    },
+    focusPrev: function focusPrev(evt) {
+      var items = this.getItems();
+      var index = items.indexOf(evt.target);
+
+      if (index > -1) {
+        items = items.slice(0, index).reverse();
+        this.setItemFocus(items[0]);
+      }
+    },
+    focusNext: function focusNext(evt) {
+      var items = this.getItems();
+      var index = items.indexOf(evt.target);
+
+      if (index > -1) {
+        items = items.slice(index + 1);
+        this.setItemFocus(items[0]);
+      }
+    },
+    focusLast: function focusLast(evt) {
+      var items = this.getItems().reverse();
+      this.setItemFocus(items[0]);
+    },
+    getItems: function getItems() {
+      var items = (0, _dom.selectAll)(ITEM_SELECTOR, this.$el);
+      items.forEach(function (item) {
+        // Ensure tabfocus is -1 on any new elements
+        item.tabIndex = -1;
+      });
+      return items.filter(function (el) {
+        return (0, _dom.isVisible)(el);
+      });
+    }
+  },
+  render: function render(h) {
+    return h('div', {
+      staticClass: 'btn-toolbar',
+      class: {
+        'justify-content-between': this.justify
+      },
+      attrs: {
+        role: 'toolbar',
+        tabindex: this.keyNav ? '0' : null
+      },
+      on: this.keyNav ? {
+        focusin: this.onFocusin,
+        keydown: this.onKeydown
+      } : {}
+    }, [this.$slots.default]);
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -4531,6 +17836,154 @@ exports.concat = concat;
 
 /***/ }),
 
+/***/ "bdb1":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _id = __webpack_require__("eae0");
+
+var _formRadioCheck = __webpack_require__("4fe1");
+
+var _form = __webpack_require__("5f07");
+
+var _formSize = __webpack_require__("6e1b");
+
+var _formState = __webpack_require__("41fb");
+
+var _array = __webpack_require__("bb2f");
+
+var _looseEqual = __webpack_require__("96cd");
+
+var _looseIndexOf = __webpack_require__("2d8d");
+
+// @vue/component
+var _default = {
+  name: 'BFormCheckbox',
+  mixins: [_formRadioCheck.default, // Includes shared render function
+  _id.default, _form.default, _formSize.default, _formState.default],
+  inject: {
+    bvGroup: {
+      from: 'bvCheckGroup',
+      default: false
+    }
+  },
+  props: {
+    value: {
+      // type: [Object, Boolean],
+      default: true
+    },
+    uncheckedValue: {
+      // type: [Object, Boolean],
+      // Not applicable in multi-check mode
+      default: false
+    },
+    indeterminate: {
+      // Not applicable in multi-check mode
+      type: Boolean,
+      default: false
+    },
+    switch: {
+      // Custom switch styling
+      type: Boolean,
+      default: false
+    },
+    checked: {
+      // v-model
+      type: [String, Number, Object, Array, Boolean],
+      default: null
+    }
+  },
+  computed: {
+    is_Checked: function is_Checked() {
+      var checked = this.computedLocalChecked;
+      var value = this.value;
+
+      if ((0, _array.isArray)(checked)) {
+        return (0, _looseIndexOf.default)(checked, value) > -1;
+      } else {
+        return (0, _looseEqual.default)(checked, value);
+      }
+    },
+    is_Radio: function is_Radio() {
+      return false;
+    },
+    is_Check: function is_Check() {
+      return true;
+    }
+  },
+  watch: {
+    computedLocalChecked: function computedLocalChecked(newVal, oldVal) {
+      this.$emit('input', newVal);
+
+      if (this.$refs && this.$refs.input) {
+        this.$emit('update:indeterminate', this.$refs.input.indeterminate);
+      }
+    },
+    indeterminate: function indeterminate(newVal, oldVal) {
+      this.setIndeterminate(newVal);
+    }
+  },
+  mounted: function mounted() {
+    // Set initial indeterminate state
+    this.setIndeterminate(this.indeterminate);
+  },
+  methods: {
+    handleChange: function handleChange(_ref) {
+      var _ref$target = _ref.target,
+          checked = _ref$target.checked,
+          indeterminate = _ref$target.indeterminate;
+      var localChecked = this.computedLocalChecked;
+      var value = this.value;
+      var isArr = (0, _array.isArray)(localChecked);
+      var uncheckedValue = isArr ? null : this.uncheckedValue; // Update computedLocalChecked
+
+      if (isArr) {
+        var idx = (0, _looseIndexOf.default)(localChecked, value);
+
+        if (checked && idx < 0) {
+          // Add value to array
+          localChecked = localChecked.concat(value);
+        } else if (!checked && idx > -1) {
+          // Remove value from array
+          localChecked = localChecked.slice(0, idx).concat(localChecked.slice(idx + 1));
+        }
+      } else {
+        localChecked = checked ? value : uncheckedValue;
+      }
+
+      this.computedLocalChecked = localChecked; // Change is only emitted on user interaction
+
+      this.$emit('change', checked ? value : uncheckedValue); // If this is a child of form-checkbox-group, we emit a change event on it as well
+
+      if (this.is_Group) {
+        this.bvGroup.$emit('change', localChecked);
+      }
+
+      this.$emit('update:indeterminate', indeterminate);
+    },
+    setIndeterminate: function setIndeterminate(state) {
+      // Indeterminate only supported in single checkbox mode
+      if ((0, _array.isArray)(this.computedLocalChecked)) {
+        state = false;
+      }
+
+      if (this.$refs && this.$refs.input) {
+        this.$refs.input.indeterminate = state; // Emit update event to prop
+
+        this.$emit('update:indeterminate', state);
+      }
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "be11":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4570,6 +18023,31 @@ module.exports = function (it) {
   return it;
 };
 
+
+/***/ }),
+
+/***/ "be8c":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _modal = __webpack_require__("f429");
+
+var _plugins = __webpack_require__("0a8d");
+
+var directives = {
+  BModal: _modal.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    directives: directives
+  })
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -4675,6 +18153,212 @@ var observeDom = function observeDom(el, callback, opts)
 };
 
 var _default = observeDom;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "c01c":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+// @vue/component
+var _default = {
+  model: {
+    prop: 'value',
+    event: 'update'
+  },
+  props: {
+    value: {
+      type: [String, Number],
+      default: ''
+    },
+    ariaInvalid: {
+      type: [Boolean, String],
+      default: false
+    },
+    readonly: {
+      type: Boolean,
+      default: false
+    },
+    plaintext: {
+      type: Boolean,
+      default: false
+    },
+    autocomplete: {
+      type: String,
+      default: null
+    },
+    placeholder: {
+      type: String,
+      default: null
+    },
+    formatter: {
+      type: Function,
+      default: null
+    },
+    trim: {
+      type: Boolean,
+      default: false
+    },
+    number: {
+      type: Boolean,
+      default: false
+    },
+    lazyFormatter: {
+      type: Boolean,
+      value: false
+    }
+  },
+  data: function data() {
+    return {
+      localValue: this.stringifyValue(this.value)
+    };
+  },
+  computed: {
+    computedClass: function computedClass() {
+      return [{
+        // Range input needs class custom-range
+        'custom-range': this.type === 'range',
+        // plaintext not supported by type=range or type=color
+        'form-control-plaintext': this.plaintext && this.type !== 'range' && this.type !== 'color',
+        // form-control not used by type=range or plaintext. Always used by type=color
+        'form-control': !this.plaintext && this.type !== 'range' || this.type === 'color'
+      }, this.sizeFormClass, this.stateClass];
+    },
+    computedAriaInvalid: function computedAriaInvalid() {
+      if (!this.ariaInvalid || this.ariaInvalid === 'false') {
+        // this.ariaInvalid is null or false or 'false'
+        return this.computedState === false ? 'true' : null;
+      }
+
+      if (this.ariaInvalid === true) {
+        // User wants explicit aria-invalid=true
+        return 'true';
+      } // Most likely a string value (which could be the string 'true')
+
+
+      return this.ariaInvalid;
+    }
+  },
+  watch: {
+    value: function value(newVal, oldVal) {
+      if (newVal !== oldVal && newVal !== this.localValue) {
+        this.localValue = this.stringifyValue(newVal);
+      }
+    }
+  },
+  mounted: function mounted() {
+    var value = this.stringifyValue(this.value);
+
+    if (value !== this.localValue) {
+      /* istanbul ignore next */
+      this.localValue = value;
+    }
+  },
+  methods: {
+    stringifyValue: function stringifyValue(value) {
+      return value === null || typeof value === 'undefined' ? '' : String(value);
+    },
+    getFormatted: function getFormatted(value, event) {
+      var force = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+      value = this.stringifyValue(value);
+
+      if ((!this.lazyFormatter || force) && typeof this.formatter === 'function') {
+        value = this.formatter(value, event);
+      }
+
+      return value;
+    },
+    updateValue: function updateValue(value) {
+      value = this.stringifyValue(value);
+
+      if (this.localValue !== value) {
+        // keep the input set to the value before modifiers
+        this.localValue = value;
+
+        if (this.number) {
+          // Emulate .number modifier behaviour
+          var num = parseFloat(value);
+          value = isNaN(num) ? value : num;
+        } else if (this.trim) {
+          // Emulate .trim modifier behaviour
+          value = value.trim();
+        } // Update the v-model
+
+
+        this.$emit('update', value);
+      }
+    },
+    onInput: function onInput(evt) {
+      // evt.target.composing is set by Vue
+      // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
+
+      /* istanbul ignore if: hard to test composition events */
+      if (evt.target.composing) {
+        return;
+      }
+
+      var formatted = this.getFormatted(evt.target.value, evt);
+
+      if (formatted === false || evt.defaultPrevented) {
+        evt.preventDefault();
+        return;
+      }
+
+      this.updateValue(formatted);
+      this.$emit('input', formatted);
+    },
+    onChange: function onChange(evt) {
+      // evt.target.composing is set by Vue
+      // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
+
+      /* istanbul ignore if: hard to test composition events */
+      if (evt.target.composing) {
+        return;
+      }
+
+      var formatted = this.getFormatted(evt.target.value, evt);
+
+      if (formatted === false) {
+        return;
+      }
+
+      this.updateValue(formatted);
+      this.$emit('change', formatted);
+    },
+    onBlur: function onBlur(evt) {
+      // lazy formatter
+      if (this.lazyFormatter) {
+        var formatted = this.getFormatted(evt.target.value, evt, true);
+
+        if (formatted === false) {
+          return;
+        }
+
+        this.updateValue(formatted);
+      } // Emit native blur event
+
+
+      this.$emit('blur', evt);
+    },
+    focus: function focus() {
+      // For external handler that may want a focus method
+      if (!this.disabled) {
+        this.$el.focus();
+      }
+    },
+    blur: function blur() {
+      // For external handler that may want a blur method
+      if (!this.disabled) {
+        this.$el.blur();
+      }
+    }
+  }
+};
 exports.default = _default;
 
 /***/ }),
@@ -5209,6 +18893,155 @@ module.exports = Object.keys || function keys(O) {
 
 /***/ }),
 
+/***/ "c4bd":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _card = __webpack_require__("9e84");
+
+var _cardHeader = __webpack_require__("1fae");
+
+var _cardBody = __webpack_require__("b967");
+
+var _cardTitle = __webpack_require__("cf89");
+
+var _cardSubTitle = __webpack_require__("886b");
+
+var _cardFooter = __webpack_require__("6f77");
+
+var _cardImg = __webpack_require__("23c9");
+
+var _cardImgLazy = __webpack_require__("90a3");
+
+var _cardText = __webpack_require__("aafb");
+
+var _cardGroup = __webpack_require__("e6c9");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BCard: _card.default,
+  BCardHeader: _cardHeader.default,
+  BCardBody: _cardBody.default,
+  BCardTitle: _cardTitle.default,
+  BCardSubTitle: _cardSubTitle.default,
+  BCardFooter: _cardFooter.default,
+  BCardImg: _cardImg.default,
+  BCardImgLazy: _cardImgLazy.default,
+  BCardText: _cardText.default,
+  BCardGroup: _cardGroup.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "c4c4":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _progressBar = __webpack_require__("cf15");
+
+// @vue/component
+var _default = {
+  name: 'BProgress',
+  components: {
+    BProgressBar: _progressBar.default
+  },
+  provide: function provide() {
+    return {
+      bvProgress: this
+    };
+  },
+  props: {
+    // These props can be inherited via the child b-progress-bar(s)
+    variant: {
+      type: String,
+      default: null
+    },
+    striped: {
+      type: Boolean,
+      default: false
+    },
+    animated: {
+      type: Boolean,
+      default: false
+    },
+    height: {
+      type: String,
+      default: null
+    },
+    precision: {
+      type: Number,
+      default: 0
+    },
+    showProgress: {
+      type: Boolean,
+      default: false
+    },
+    showValue: {
+      type: Boolean,
+      default: false
+    },
+    max: {
+      type: Number,
+      default: 100
+    },
+    // This prop is not inherited by child b-progress-bar(s)
+    value: {
+      type: Number,
+      default: 0
+    }
+  },
+  computed: {
+    progressHeight: function progressHeight() {
+      return {
+        height: this.height || null
+      };
+    }
+  },
+  render: function render(h) {
+    var childNodes = this.$slots.default;
+
+    if (!childNodes) {
+      childNodes = h('b-progress-bar', {
+        props: {
+          value: this.value,
+          max: this.max,
+          precision: this.precision,
+          variant: this.variant,
+          animated: this.animated,
+          striped: this.striped,
+          showProgress: this.showProgress,
+          showValue: this.showValue
+        }
+      });
+    }
+
+    return h('div', {
+      class: ['progress'],
+      style: this.progressHeight
+    }, [childNodes]);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "c52a":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5258,6 +19091,418 @@ var _default = {
   }
 };
 exports.default = _default;
+
+/***/ }),
+
+/***/ "c542":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _array = __webpack_require__("bb2f");
+
+var _dom = __webpack_require__("1611");
+
+var _ssr = __webpack_require__("c900");
+
+var _observeDom = __webpack_require__("bf9c");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var PLACEMENTS = {
+  top: 'top',
+  topleft: 'topleft',
+  topright: 'topright',
+  right: 'right',
+  righttop: 'righttop',
+  rightbottom: 'rightbottom',
+  bottom: 'bottom',
+  bottomleft: 'bottomleft',
+  bottomright: 'bottomright',
+  left: 'left',
+  lefttop: 'lefttop',
+  leftbottom: 'leftbottom',
+  auto: 'auto'
+};
+var OBSERVER_CONFIG = {
+  subtree: true,
+  childList: true,
+  characterData: true,
+  attributes: true,
+  attributeFilter: ['class', 'style'] // @vue/component
+
+};
+var _default = {
+  props: {
+    target: {
+      // String ID of element, or element/component reference
+      type: [String, Object, _ssr.HTMLElement, Function] // default: undefined
+
+    },
+    delay: {
+      type: [Number, Object, String],
+      default: 0
+    },
+    offset: {
+      type: [Number, String],
+      default: 0
+    },
+    noFade: {
+      type: Boolean,
+      default: false
+    },
+    container: {
+      // String ID of container, if null body is used (default)
+      type: String,
+      default: null
+    },
+    boundary: {
+      // String: scrollParent, window, or viewport
+      // Element: element reference
+      type: [String, _ssr.HTMLElement],
+      default: 'scrollParent'
+    },
+    boundaryPadding: {
+      type: Number,
+      default: 5
+    },
+    show: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    }
+  },
+  computed: {
+    baseConfig: function baseConfig() {
+      var cont = this.container;
+      var delay = _typeof(this.delay) === 'object' ? this.delay : parseInt(this.delay, 10) || 0;
+      return {
+        // Title prop
+        title: (this.title || '').trim() || '',
+        // Contnt prop (if popover)
+        content: (this.content || '').trim() || '',
+        // Tooltip/Popover placement
+        placement: PLACEMENTS[this.placement] || 'auto',
+        // Container curently needs to be an ID with '#' prepended, if null then body is used
+        container: cont ? /^#/.test(cont) ? cont : "#".concat(cont) : false,
+        // boundariesElement passed to popper
+        boundary: this.boundary,
+        // boundariesElement padding passed to popper
+        boundaryPadding: this.boundaryPadding,
+        // Show/Hide delay
+        delay: delay || 0,
+        // Offset can be css distance. if no units, pixels are assumed
+        offset: this.offset || 0,
+        // Disable fade Animation?
+        animation: !this.noFade,
+        // Open/Close Trigger(s)
+        trigger: (0, _array.isArray)(this.triggers) ? this.triggers.join(' ') : this.triggers,
+        // Callbacks so we can trigger events on component
+        callbacks: {
+          show: this.onShow,
+          shown: this.onShown,
+          hide: this.onHide,
+          hidden: this.onHidden,
+          enabled: this.onEnabled,
+          disabled: this.onDisabled
+        }
+      };
+    }
+  },
+  watch: {
+    show: function show(_show, old) {
+      /* istanbul ignore if */
+      if (_show === old) {
+        /* istanbul ignore next */
+        return;
+      }
+
+      _show ? this.onOpen() : this.onClose();
+    },
+    disabled: function disabled(_disabled, old) {
+      /* istanbul ignore if */
+      if (_disabled === old) {
+        /* istanbul ignore next */
+        return;
+      }
+
+      _disabled ? this.onDisable() : this.onEnable();
+    }
+  },
+  created: function created() {
+    // Create non-reactive property
+    this._toolpop = null;
+    this._obs_title = null;
+    this._obs_content = null;
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    // We do this in a next tick to ensure DOM has rendered first
+    this.$nextTick(function () {
+      // Instantiate ToolTip/PopOver on target
+      // The createToolpop method must exist in main component
+      if (_this.createToolpop()) {
+        if (_this.disabled) {
+          // Initially disabled
+          _this.onDisable();
+        } // Listen to open signals from others
+
+
+        _this.$on('open', _this.onOpen); // Listen to close signals from others
+
+
+        _this.$on('close', _this.onClose); // Listen to disable signals from others
+
+
+        _this.$on('disable', _this.onDisable); // Listen to disable signals from others
+
+
+        _this.$on('enable', _this.onEnable); // Observe content Child changes so we can notify popper of possible size change
+
+
+        _this.setObservers(true); // Set intially open state
+
+
+        if (_this.show) {
+          _this.onOpen();
+        }
+      }
+    });
+  },
+  updated: function updated() {
+    // If content/props changes, etc
+
+    /* istanbul ignore next: can't test in JSDOM */
+    if (this._toolpop) {
+      this._toolpop.updateConfig(this.getConfig());
+    }
+  },
+  activated: function activated() {
+    // Called when component is inside a <keep-alive> and component brought offline
+
+    /* istanbul ignore next: can't test in JSDOM */
+    this.setObservers(true);
+  },
+  deactivated: function deactivated() {
+    // Called when component is inside a <keep-alive> and component taken offline
+
+    /* istanbul ignore next: can't test in JSDOM */
+    if (this._toolpop) {
+      this.setObservers(false);
+
+      this._toolpop.hide();
+    }
+  },
+  beforeDestroy: function beforeDestroy()
+  /* istanbul ignore next: not easy to test */
+  {
+    // Shutdown our local event listeners
+    this.$off('open', this.onOpen);
+    this.$off('close', this.onClose);
+    this.$off('disable', this.onDisable);
+    this.$off('enable', this.onEnable);
+    this.setObservers(false); // bring our content back if needed
+
+    this.bringItBack();
+
+    if (this._toolpop) {
+      this._toolpop.destroy();
+
+      this._toolpop = null;
+    }
+  },
+  methods: {
+    getConfig: function getConfig() {
+      var cfg = _objectSpread({}, this.baseConfig);
+
+      if (this.$refs.title && this.$refs.title.innerHTML.trim()) {
+        // If slot has content, it overrides 'title' prop
+        // We use the DOM node as content to allow components!
+        cfg.title = this.$refs.title;
+        cfg.html = true;
+      }
+
+      if (this.$refs.content && this.$refs.content.innerHTML.trim()) {
+        // If slot has content, it overrides 'content' prop
+        // We use the DOM node as content to allow components!
+        cfg.content = this.$refs.content;
+        cfg.html = true;
+      }
+
+      return cfg;
+    },
+    onOpen: function onOpen() {
+      if (this._toolpop) {
+        this._toolpop.show();
+      }
+    },
+    onClose: function onClose(callback) {
+      if (this._toolpop) {
+        this._toolpop.hide(callback);
+      } else if (typeof callback === 'function') {
+        callback();
+      }
+    },
+    onDisable: function onDisable() {
+      /* istanbul ignore next: can't test in JSDOM */
+      if (this._toolpop) {
+        this._toolpop.disable();
+      }
+    },
+    onEnable: function onEnable() {
+      /* istanbul ignore next: can't test in JSDOM */
+      if (this._toolpop) {
+        this._toolpop.enable();
+      }
+    },
+    updatePosition: function updatePosition() {
+      /* istanbul ignore next: can't test in JSDOM */
+      if (this._toolpop) {
+        // Instruct popper to reposition popover if necessary
+        this._toolpop.update();
+      }
+    },
+    getTarget: function getTarget() {
+      var target = this.target;
+
+      if (typeof target === 'function') {
+        target = target();
+      }
+
+      if (typeof target === 'string') {
+        // Assume ID of element
+        return (0, _dom.getById)(target);
+      } else if (_typeof(target) === 'object' && (0, _dom.isElement)(target.$el)) {
+        // Component reference
+        return target.$el;
+      } else if (_typeof(target) === 'object' && (0, _dom.isElement)(target)) {
+        // Element reference
+        return target;
+      }
+
+      return null;
+    },
+    onShow: function onShow(evt) {
+      this.$emit('show', evt);
+    },
+    onShown: function onShown(evt) {
+      this.setObservers(true);
+      this.$emit('update:show', true);
+      this.$emit('shown', evt);
+    },
+    onHide: function onHide(evt) {
+      this.$emit('hide', evt);
+    },
+    onHidden: function onHidden(evt) {
+      this.setObservers(false); // bring our content back if needed to keep Vue happy
+      // Tooltip class will move it back to tip when shown again
+
+      this.bringItBack();
+      this.$emit('update:show', false);
+      this.$emit('hidden', evt);
+    },
+    onEnabled: function onEnabled(evt) {
+      if (!evt || evt.type !== 'enabled') {
+        // Prevent possible endless loop if user mistakienly fires enabled instead of enable
+        return;
+      }
+
+      this.$emit('update:disabled', false);
+      this.$emit('disabled');
+    },
+    onDisabled: function onDisabled(evt) {
+      if (!evt || evt.type !== 'disabled') {
+        // Prevent possible endless loop if user mistakienly fires disabled instead of disable
+        return;
+      }
+
+      this.$emit('update:disabled', true);
+      this.$emit('enabled');
+    },
+    bringItBack: function bringItBack() {
+      // bring our content back if needed to keep Vue happy
+      if (this.$el && this.$refs.title) {
+        this.$el.appendChild(this.$refs.title);
+      }
+
+      if (this.$el && this.$refs.content) {
+        this.$el.appendChild(this.$refs.content);
+      }
+    },
+    setObservers: function setObservers(on)
+    /* istanbul ignore next: can't test in JSDOM */
+    {
+      if (on) {
+        if (this.$refs.title) {
+          this._obs_title = (0, _observeDom.default)(this.$refs.title, this.updatePosition.bind(this), OBSERVER_CONFIG);
+        }
+
+        if (this.$refs.content) {
+          this._obs_content = (0, _observeDom.default)(this.$refs.content, this.updatePosition.bind(this), OBSERVER_CONFIG);
+        }
+      } else {
+        if (this._obs_title) {
+          this._obs_title.disconnect();
+
+          this._obs_title = null;
+        }
+
+        if (this._obs_content) {
+          this._obs_content.disconnect();
+
+          this._obs_content = null;
+        }
+      }
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "c57f":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = textSelectionActive;
+
+var _dom = __webpack_require__("1611");
+
+// Helper to determine if a there is an active text selection on the document page.
+// Used to filter out click events caused by the mouse up at end of selection
+//
+// Accepts an element as only argument to test to see if selection overlaps or is
+// contained within the element
+function textSelectionActive() {
+  var el = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document;
+  var win = window;
+  /* istanbul ignore if: JSDOM doesn't support getSelection */
+
+  if (win && win.getSelection && win.getSelection().toString() !== '' && (0, _dom.isElement)(el)) {
+    /* istanbul ignore next: JSDOM doesn't support getSelection */
+    var sel = win.getSelection();
+    /* istanbul ignore next: JSDOM doesn't support getSelection */
+
+    return sel.containsNode ? sel.containsNode(el, true) : false;
+  } else {
+    return false;
+  }
+}
 
 /***/ }),
 
@@ -5352,6 +19597,58 @@ module.exports = !__webpack_require__("9e1e") && !__webpack_require__("79e5")(fu
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "c7b9":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _dropdown = __webpack_require__("e14e");
+
+var _dropdownItem = __webpack_require__("0096");
+
+var _dropdownItemButton = __webpack_require__("5df9");
+
+var _dropdownHeader = __webpack_require__("9668");
+
+var _dropdownDivider = __webpack_require__("4034");
+
+var _dropdownForm = __webpack_require__("22dc");
+
+var _dropdownText = __webpack_require__("9d3f");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BDropdown: _dropdown.default,
+  BDd: _dropdown.default,
+  BDropdownItem: _dropdownItem.default,
+  BDdItem: _dropdownItem.default,
+  BDropdownItemButton: _dropdownItemButton.default,
+  BDropdownItemBtn: _dropdownItemButton.default,
+  BDdItemButton: _dropdownItemButton.default,
+  BDdItemBtn: _dropdownItemButton.default,
+  BDropdownHeader: _dropdownHeader.default,
+  BDdHeader: _dropdownHeader.default,
+  BDropdownDivider: _dropdownDivider.default,
+  BDdDivider: _dropdownDivider.default,
+  BDropdownForm: _dropdownForm.default,
+  BDdForm: _dropdownForm.default,
+  BDropdownText: _dropdownText.default,
+  BDdText: _dropdownText.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -8029,6 +22326,21 @@ module.exports = g;
 
 /***/ }),
 
+/***/ "c900":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.HTMLElement = void 0;
+// Polyfills for SSR
+var isSSR = typeof window === 'undefined';
+var HTMLElement = isSSR ? Object : window.HTMLElement;
+exports.HTMLElement = HTMLElement;
+
+/***/ }),
+
 /***/ "ca5a":
 /***/ (function(module, exports) {
 
@@ -8038,6 +22350,22 @@ module.exports = function (key) {
   return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
 };
 
+
+/***/ }),
+
+/***/ "cab0":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var noop = function noop() {};
+
+var _default = noop;
+exports.default = _default;
 
 /***/ }),
 
@@ -8095,6 +22423,62 @@ module.exports = function (it) {
 
 /***/ }),
 
+/***/ "cc37":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _array = __webpack_require__("bb2f");
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var props = {
+  type: {
+    type: String,
+    default: 'iframe',
+    validator: function validator(str) {
+      return (0, _array.arrayIncludes)(['iframe', 'embed', 'video', 'object', 'img', 'b-img', 'b-img-lazy'], str);
+    }
+  },
+  tag: {
+    type: String,
+    default: 'div'
+  },
+  aspect: {
+    type: String,
+    default: '16by9'
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BEmbed',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h(props.tag, {
+      ref: data.ref,
+      staticClass: 'embed-responsive',
+      class: _defineProperty({}, "embed-responsive-".concat(props.aspect), Boolean(props.aspect))
+    }, [h(props.type, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      ref: '',
+      staticClass: 'embed-responsive-item'
+    }), children)]);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "ce10":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8136,6 +22520,654 @@ module.exports = function (KEY, exec) {
 
 /***/ }),
 
+/***/ "cf15":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _html = __webpack_require__("be11");
+
+// @vue/component
+var _default2 = {
+  name: 'BProgressBar',
+  inject: {
+    bvProgress: {
+      default: function _default()
+      /* istanbul ignore next */
+      {
+        return {};
+      }
+    }
+  },
+  props: {
+    value: {
+      type: Number,
+      default: 0
+    },
+    label: {
+      type: String,
+      default: null
+    },
+    labelHtml: {
+      type: String
+    },
+    // $parent (this.bvProgress) prop values may take precedence over the following props
+    // Which is why they are defaulted to null
+    max: {
+      type: Number,
+      default: null
+    },
+    precision: {
+      type: Number,
+      default: null
+    },
+    variant: {
+      type: String,
+      default: null
+    },
+    striped: {
+      type: Boolean,
+      default: null
+    },
+    animated: {
+      type: Boolean,
+      default: null
+    },
+    showProgress: {
+      type: Boolean,
+      default: null
+    },
+    showValue: {
+      type: Boolean,
+      default: null
+    }
+  },
+  computed: {
+    progressBarClasses: function progressBarClasses() {
+      return [this.computedVariant ? "bg-".concat(this.computedVariant) : '', this.computedStriped || this.computedAnimated ? 'progress-bar-striped' : '', this.computedAnimated ? 'progress-bar-animated' : ''];
+    },
+    progressBarStyles: function progressBarStyles() {
+      return {
+        width: 100 * (this.value / this.computedMax) + '%'
+      };
+    },
+    computedProgress: function computedProgress() {
+      var p = Math.pow(10, this.computedPrecision);
+      return Math.round(100 * p * this.value / this.computedMax) / p;
+    },
+    computedMax: function computedMax() {
+      // Prefer our max over parent setting
+      return typeof this.max === 'number' ? this.max : this.bvProgress.max || 100;
+    },
+    computedVariant: function computedVariant() {
+      // Prefer our variant over parent setting
+      return this.variant || this.bvProgress.variant;
+    },
+    computedPrecision: function computedPrecision() {
+      // Prefer our precision over parent setting
+      return typeof this.precision === 'number' ? this.precision : this.bvProgress.precision || 0;
+    },
+    computedStriped: function computedStriped() {
+      // Prefer our striped over parent setting
+      return typeof this.striped === 'boolean' ? this.striped : this.bvProgress.striped || false;
+    },
+    computedAnimated: function computedAnimated() {
+      // Prefer our animated over parent setting
+      return typeof this.animated === 'boolean' ? this.animated : this.bvProgress.animated || false;
+    },
+    computedShowProgress: function computedShowProgress() {
+      // Prefer our showProgress over parent setting
+      return typeof this.showProgress === 'boolean' ? this.showProgress : this.bvProgress.showProgress || false;
+    },
+    computedShowValue: function computedShowValue() {
+      // Prefer our showValue over parent setting
+      return typeof this.showValue === 'boolean' ? this.showValue : this.bvProgress.showValue || false;
+    }
+  },
+  render: function render(h) {
+    var childNodes = h(false);
+
+    if (this.$slots.default) {
+      childNodes = this.$slots.default;
+    } else if (this.label || this.labelHtml) {
+      childNodes = h('span', {
+        domProps: (0, _html.htmlOrText)(this.labelHtml, this.label)
+      });
+    } else if (this.computedShowProgress) {
+      childNodes = this.computedProgress.toFixed(this.computedPrecision);
+    } else if (this.computedShowValue) {
+      childNodes = this.value.toFixed(this.computedPrecision);
+    }
+
+    return h('div', {
+      staticClass: 'progress-bar',
+      class: this.progressBarClasses,
+      style: this.progressBarStyles,
+      attrs: {
+        role: 'progressbar',
+        'aria-valuemin': '0',
+        'aria-valuemax': this.computedMax.toString(),
+        'aria-valuenow': this.value.toFixed(this.computedPrecision)
+      }
+    }, [childNodes]);
+  }
+};
+exports.default = _default2;
+
+/***/ }),
+
+/***/ "cf89":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var props = {
+  title: {
+    type: String,
+    default: ''
+  },
+  titleTag: {
+    type: String,
+    default: 'h4'
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BCardTitle',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h(props.titleTag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'card-title'
+    }), children || props.title);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "d239":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _id = __webpack_require__("eae0");
+
+var _formState = __webpack_require__("41fb");
+
+var _config = __webpack_require__("eb60");
+
+var _upperFirst = __webpack_require__("5540");
+
+var _memoize = __webpack_require__("64bb");
+
+var _warn = __webpack_require__("93e0");
+
+var _dom = __webpack_require__("1611");
+
+var _array = __webpack_require__("bb2f");
+
+var _object = __webpack_require__("24e2");
+
+var _formRow = __webpack_require__("1665");
+
+var _col = __webpack_require__("7d02");
+
+var _formText = __webpack_require__("0903");
+
+var _formInvalidFeedback = __webpack_require__("ebd1");
+
+var _formValidFeedback = __webpack_require__("ad48");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// Selector for finding first input in the form-group
+var SELECTOR = 'input:not(:disabled),textarea:not(:disabled),select:not(:disabled)'; // Memoize this function to return cached values to save time in computed functions
+
+var makePropName = (0, _memoize.default)(function () {
+  var breakpoint = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  var prefix = arguments.length > 1 ? arguments[1] : undefined;
+  return "".concat(prefix).concat((0, _upperFirst.default)(breakpoint));
+});
+var DEPRECATED_MSG = 'Props "horizontal" and "breakpoint" are deprecated. Use "label-cols(-{breakpoint})" props instead.'; // render helper functions (here rather than polluting the instance with more methods)
+
+function renderInvalidFeedback(h, ctx) {
+  var content = ctx.$slots['invalid-feedback'] || ctx.invalidFeedback;
+  var invalidFeedback = h(false);
+
+  if (content) {
+    invalidFeedback = h('b-form-invalid-feedback', {
+      props: {
+        id: ctx.invalidFeedbackId,
+        // If state is explicitly false, always show the feedback
+        state: ctx.computedState,
+        tooltip: ctx.tooltip
+      },
+      attrs: {
+        tabindex: content ? '-1' : null,
+        role: 'alert',
+        'aria-live': 'assertive',
+        'aria-atomic': 'true'
+      }
+    }, [content]);
+  }
+
+  return invalidFeedback;
+}
+
+function renderValidFeedback(h, ctx) {
+  var content = ctx.$slots['valid-feedback'] || ctx.validFeedback;
+  var validFeedback = h(false);
+
+  if (content) {
+    validFeedback = h('b-form-valid-feedback', {
+      props: {
+        id: ctx.validFeedbackId,
+        // If state is explicitly true, always show the feedback
+        state: ctx.computedState,
+        tooltip: ctx.tooltip
+      },
+      attrs: {
+        tabindex: '-1',
+        role: 'alert',
+        'aria-live': 'assertive',
+        'aria-atomic': 'true'
+      }
+    }, [content]);
+  }
+
+  return validFeedback;
+}
+
+function renderHelpText(h, ctx) {
+  // Form help text (description)
+  var content = ctx.$slots['description'] || ctx.description;
+  var description = h(false);
+
+  if (content) {
+    description = h('b-form-text', {
+      attrs: {
+        id: ctx.descriptionId,
+        tabindex: '-1'
+      }
+    }, [content]);
+  }
+
+  return description;
+}
+
+function renderLabel(h, ctx) {
+  // render label/legend inside b-col if necessary
+  var content = ctx.$slots['label'] || ctx.label;
+  var labelFor = ctx.labelFor;
+  var isLegend = !labelFor;
+  var isHorizontal = ctx.isHorizontal;
+  var labelTag = isLegend ? 'legend' : 'label';
+
+  if (!content && !isHorizontal) {
+    return h(false);
+  } else if (ctx.labelSrOnly) {
+    var label = h(false);
+
+    if (content) {
+      label = h(labelTag, {
+        class: 'sr-only',
+        attrs: {
+          id: ctx.labelId,
+          for: labelFor || null
+        }
+      }, [content]);
+    }
+
+    return h(isHorizontal ? 'b-col' : 'div', {
+      props: isHorizontal ? ctx.labelColProps : {}
+    }, [label]);
+  } else {
+    return h(isHorizontal ? 'b-col' : labelTag, {
+      on: isLegend ? {
+        click: ctx.legendClick
+      } : {},
+      props: isHorizontal ? _objectSpread({
+        tag: labelTag
+      }, ctx.labelColProps) : {},
+      attrs: {
+        id: ctx.labelId,
+        for: labelFor || null,
+        // We add a tab index to legend so that screen readers will properly read the aria-labelledby in IE.
+        tabindex: isLegend ? '-1' : null
+      },
+      class: [// When horizontal or if a legend is rendered, add col-form-label for correct sizing
+      // as Bootstrap has inconsitent font styling for legend in non-horiontal form-groups.
+      // See: https://github.com/twbs/bootstrap/issues/27805
+      isHorizontal || isLegend ? 'col-form-label' : '', // Emulate label padding top of 0 on legend when not horizontal
+      !isHorizontal && isLegend ? 'pt-0' : '', // If not horizontal and not a legend, we add d-block to label so that label-align works
+      !isHorizontal && !isLegend ? 'd-block' : '', ctx.labelSize ? "col-form-label-".concat(ctx.labelSize) : '', ctx.labelAlignClasses, ctx.labelClass]
+    }, [content]);
+  }
+} //
+// Async (lazy) component for BFormGroup
+// Needed so that the breakpoint specific props can be computed once hte config is created
+//
+
+
+var _default = function _default(resolve, reject) {
+  // Grab the current config for breakpoints
+  var BREAKPOINTS = (0, _config.getBreakpointsUp)(); // Generate the labelCol breakpoint props
+
+  var bpLabelColProps = BREAKPOINTS.reduce(function (props, breakpoint) {
+    // i.e. label-cols, label-cols-sm, label-cols-md, ...
+    props[makePropName(breakpoint, 'labelCols')] = {
+      type: [Number, String, Boolean],
+      default: breakpoint ? false : null
+    };
+    return props;
+  }, (0, _object.create)(null)); // Generate the labelAlign breakpoint props
+
+  var bpLabelAlignProps = BREAKPOINTS.reduce(function (props, breakpoint) {
+    // label-align, label-align-sm, label-align-md, ...
+    props[makePropName(breakpoint, 'labelAlign')] = {
+      type: String,
+      // left, right, center
+      default: null
+    };
+    return props;
+  }, (0, _object.create)(null)); // @vue/component
+
+  var BFormGroup = {
+    name: 'BFormGroup',
+    components: {
+      BFormRow: _formRow.default,
+      BCol: _col.default,
+      BFormInvalidFeedback: _formInvalidFeedback.default,
+      BFormValidFeedback: _formValidFeedback.default,
+      BFormText: _formText.default
+    },
+    mixins: [_id.default, _formState.default],
+    props: _objectSpread({
+      label: {
+        type: String,
+        default: null
+      },
+      labelFor: {
+        type: String,
+        default: null
+      },
+      labelSize: {
+        type: String,
+        default: null
+      },
+      labelSrOnly: {
+        type: Boolean,
+        default: false
+      }
+    }, bpLabelColProps, bpLabelAlignProps, {
+      labelClass: {
+        type: [String, Array, Object],
+        default: null
+      },
+      description: {
+        type: String,
+        default: null
+      },
+      invalidFeedback: {
+        type: String,
+        default: null
+      },
+      validFeedback: {
+        type: String,
+        default: null
+      },
+      tooltip: {
+        // Enable tooltip style feedback
+        type: Boolean,
+        default: false
+      },
+      validated: {
+        type: Boolean,
+        default: false
+      },
+      disabled: {
+        type: Boolean,
+        default: false
+      },
+      horizontal: {
+        // Deprecated
+        type: Boolean,
+        default: false,
+        deprecated: DEPRECATED_MSG
+      },
+      breakpoint: {
+        // Deprecated (ignored if horizontal is not true)
+        type: String,
+        default: null,
+        // legacy value 'sm',
+        deprecated: DEPRECATED_MSG
+      }
+    }),
+    computed: {
+      labelColProps: function labelColProps() {
+        var _this = this;
+
+        var props = {};
+        /* istanbul ignore next: deprecated */
+
+        if (this.horizontal) {
+          // Deprecated setting of horizontal/breakpoint props
+
+          /* istanbul ignore next */
+          (0, _warn.default)("b-form-group: ".concat(DEPRECATED_MSG)); // Legacy default is breakpoint sm and cols 3
+
+          var bp = this.breakpoint || BREAKPOINTS[1]; // 'sm'
+
+          var cols = parseInt(this.labelCols, 10) || 3;
+          props[bp] = cols > 0 ? cols : 3; // We then return the single breakpoint prop for legacy compatability
+
+          return props;
+        }
+
+        BREAKPOINTS.forEach(function (breakpoint) {
+          // Grab the value if the label column breakpoint prop
+          var propVal = _this[makePropName(breakpoint, 'labelCols')]; // Handle case where the prop's value is an empty string, which represents true
+
+
+          propVal = propVal === '' ? true : propVal || false;
+
+          if (typeof propVal !== 'boolean') {
+            // Convert to column size to number
+            propVal = parseInt(propVal, 10) || 0; // Ensure column size is greater than 0
+
+            propVal = propVal > 0 ? propVal : false;
+          }
+
+          if (propVal) {
+            // Add the prop to the list of props to give to b-col.
+            // if breakpoint is '' (labelCols=true), then we use the col prop to make equal width at xs
+            var bColPropName = breakpoint || (typeof propVal === 'boolean' ? 'col' : 'cols'); // Add it to the props
+
+            props[bColPropName] = propVal;
+          }
+        });
+        return props;
+      },
+      labelAlignClasses: function labelAlignClasses() {
+        var _this2 = this;
+
+        var classes = [];
+        BREAKPOINTS.forEach(function (breakpoint) {
+          // assemble the label column breakpoint align classes
+          var propVal = _this2[makePropName(breakpoint, 'labelAlign')] || null;
+
+          if (propVal) {
+            var className = breakpoint ? "text-".concat(breakpoint, "-").concat(propVal) : "text-".concat(propVal);
+            classes.push(className);
+          }
+        });
+        return classes;
+      },
+      isHorizontal: function isHorizontal() {
+        // Determine if the resultant form-group will be rendered
+        // horizontal (meaning it has label-col breakpoints)
+        return (0, _object.keys)(this.labelColProps).length > 0;
+      },
+      labelId: function labelId() {
+        return this.$slots['label'] || this.label ? this.safeId('_BV_label_') : null;
+      },
+      descriptionId: function descriptionId() {
+        return this.$slots['description'] || this.description ? this.safeId('_BV_description_') : null;
+      },
+      hasInvalidFeedback: function hasInvalidFeedback() {
+        // used for computing aria-describedby
+        var $slots = this.$slots;
+        return this.computedState === false && ($slots['invalid-feedback'] || this.invalidFeedback);
+      },
+      invalidFeedbackId: function invalidFeedbackId() {
+        return this.hasInvalidFeedback ? this.safeId('_BV_feedback_invalid_') : null;
+      },
+      hasValidFeedback: function hasValidFeedback() {
+        // used for computing aria-describedby
+        return this.computedState === true && (this.$slots['valid-feedback'] || this.validFeedback);
+      },
+      validFeedbackId: function validFeedbackId() {
+        return this.hasValidFeedback ? this.safeId('_BV_feedback_valid_') : null;
+      },
+      describedByIds: function describedByIds() {
+        // Screen readers will read out any content linked to by aria-describedby
+        // even if the content is hidden with 'display: none', hence we only include
+        // feedback IDs if the form-group's state is explicitly valid or invalid.
+        return [this.descriptionId, this.invalidFeedbackId, this.validFeedbackId].filter(function (i) {
+          return i;
+        }).join(' ') || null;
+      }
+    },
+    watch: {
+      describedByIds: function describedByIds(add, remove) {
+        if (add !== remove) {
+          this.setInputDescribedBy(add, remove);
+        }
+      }
+    },
+    mounted: function mounted() {
+      var _this3 = this;
+
+      this.$nextTick(function () {
+        // Set the adia-describedby IDs on the input specified by label-for
+        // We do this in a nextTick to ensure the children have finished rendering
+        _this3.setInputDescribedBy(_this3.describedByIds);
+      });
+    },
+    methods: {
+      legendClick: function legendClick(evt) {
+        if (this.labelFor) {
+          // don't do anything if labelFor is set
+
+          /* istanbul ignore next: clicking a label will focus the input, so no need to test */
+          return;
+        }
+
+        var tagName = evt.target ? evt.target.tagName : '';
+
+        if (/^(input|select|textarea|label|button|a)$/i.test(tagName)) {
+          // If clicked an interactive element inside legend, we just let the default happen
+
+          /* istanbul ignore next */
+          return;
+        }
+
+        var inputs = (0, _dom.selectAll)(SELECTOR, this.$refs.content).filter(_dom.isVisible);
+
+        if (inputs && inputs.length === 1 && inputs[0].focus) {
+          // if only a single input, focus it, emulating label behaviour
+          inputs[0].focus();
+        }
+      },
+      setInputDescribedBy: function setInputDescribedBy(add, remove) {
+        // Sets the `aria-describedby` attribute on the input if label-for is set.
+        // Optionally accepts a string of IDs to remove as the second parameter
+        if (this.labelFor && typeof document !== 'undefined') {
+          var input = (0, _dom.select)("#".concat(this.labelFor), this.$refs.content);
+
+          if (input) {
+            var adb = 'aria-describedby';
+            var ids = ((0, _dom.getAttr)(input, adb) || '').split(/\s+/);
+            remove = (remove || '').split(/\s+/); // Update ID list, preserving any original IDs
+
+            ids = ids.filter(function (id) {
+              return !(0, _array.arrayIncludes)(remove, id);
+            }).concat(add || '').join(' ').trim();
+
+            if (ids) {
+              (0, _dom.setAttr)(input, adb, ids);
+            } else {
+              // No IDs, so remove the attribute
+              (0, _dom.removeAttr)(input, adb);
+            }
+          }
+        }
+      }
+    },
+    render: function render(h) {
+      var isFieldset = !this.labelFor;
+      var isHorizontal = this.isHorizontal; // Generate the label
+
+      var label = renderLabel(h, this); // Generate the content
+
+      var content = h(isHorizontal ? 'b-col' : 'div', {
+        ref: 'content',
+        attrs: {
+          tabindex: isFieldset ? '-1' : null,
+          role: isFieldset ? 'group' : null,
+          'aria-labelledby': isFieldset ? this.labelId : null,
+          'aria-describedby': isFieldset ? this.ariaDescribedBy : null
+        }
+      }, [this.$slots['default'] || h(false), renderInvalidFeedback(h, this), renderValidFeedback(h, this), renderHelpText(h, this)]); // Create the form-group
+
+      var data = {
+        staticClass: 'form-group',
+        class: [this.validated ? 'was-validated' : null, this.stateClass],
+        attrs: {
+          id: this.safeId(),
+          disabled: isFieldset ? this.disabled : null,
+          role: isFieldset ? null : 'group',
+          'aria-invalid': this.computedState === false ? 'true' : null,
+          'aria-labelledby': this.labelId || null,
+          'aria-describedby': this.describedByIds || null
+        } // Return it wrapped in a form-group.
+        // Note: fieldsets do not support adding `row` or `form-row` directly to them
+        // due to browser specific render issues, so we move the form-row to an
+        // inner wrapper div when horizontal and using a fieldset
+
+      };
+      return h(isFieldset ? 'fieldset' : isHorizontal ? 'b-form-row' : 'div', data, isHorizontal && isFieldset ? [h('b-form-row', {}, [label, content])] : [label, content]);
+    }
+  }; // Return the componwent options reference
+
+  resolve(BFormGroup);
+};
+
+exports.default = _default;
+
+/***/ }),
+
 /***/ "d3f4":
 /***/ (function(module, exports) {
 
@@ -8146,6 +23178,31 @@ module.exports = function (it) {
 
 /***/ }),
 
+/***/ "d4a9":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _toggle = __webpack_require__("a596");
+
+var _plugins = __webpack_require__("0a8d");
+
+var directives = {
+  BToggle: _toggle.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    directives: directives
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "d53b":
 /***/ (function(module, exports) {
 
@@ -8153,6 +23210,62 @@ module.exports = function (done, value) {
   return { value: value, done: !!done };
 };
 
+
+/***/ }),
+
+/***/ "d670":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _popover = __webpack_require__("5764");
+
+var _plugins = __webpack_require__("0a8d");
+
+var directives = {
+  BPopover: _popover.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    directives: directives
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "d71d":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _media = __webpack_require__("3baf");
+
+var _mediaAside = __webpack_require__("7b63");
+
+var _mediaBody = __webpack_require__("7a5e");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BMedia: _media.default,
+  BMediaAside: _mediaAside.default,
+  BMediaBody: _mediaBody.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -8217,6 +23330,223 @@ exports.f = __webpack_require__("8e60") ? Object.defineProperty : function defin
 
 /***/ }),
 
+/***/ "daa8":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _tooltip = __webpack_require__("16ae");
+
+var _dom = __webpack_require__("1611");
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var NAME = 'popover';
+var CLASS_PREFIX = 'bs-popover';
+var BS_CLASS_PREFIX_REGEX = new RegExp("\\b".concat(CLASS_PREFIX, "\\S+"), 'g');
+
+var Defaults = _objectSpread({}, _tooltip.default.Default, {
+  placement: 'right',
+  trigger: 'click',
+  content: '',
+  template: '<div class="popover" role="tooltip">' + '<div class="arrow"></div>' + '<h3 class="popover-header"></h3>' + '<div class="popover-body"></div></div>'
+});
+
+var ClassName = {
+  FADE: 'fade',
+  SHOW: 'show'
+};
+var Selector = {
+  TITLE: '.popover-header',
+  CONTENT: '.popover-body'
+  /* istanbul ignore next: dificult to test in Jest/JSDOM environment */
+
+};
+
+var PopOver =
+/*#__PURE__*/
+function (_ToolTip) {
+  _inherits(PopOver, _ToolTip);
+
+  function PopOver() {
+    _classCallCheck(this, PopOver);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(PopOver).apply(this, arguments));
+  }
+
+  _createClass(PopOver, [{
+    key: "isWithContent",
+    // Method overrides
+    value: function isWithContent(tip)
+    /* istanbul ignore next */
+    {
+      tip = tip || this.$tip;
+
+      if (!tip) {
+        return false;
+      }
+
+      var hasTitle = Boolean(((0, _dom.select)(Selector.TITLE, tip) || {}).innerHTML);
+      var hasContent = Boolean(((0, _dom.select)(Selector.CONTENT, tip) || {}).innerHTML);
+      return hasTitle || hasContent;
+    }
+  }, {
+    key: "addAttachmentClass",
+    value: function addAttachmentClass(attachment)
+    /* istanbul ignore next */
+    {
+      (0, _dom.addClass)(this.getTipElement(), "".concat(CLASS_PREFIX, "-").concat(attachment));
+    }
+  }, {
+    key: "setContent",
+    value: function setContent(tip)
+    /* istanbul ignore next */
+    {
+      // we use append for html objects to maintain js events/components
+      this.setElementContent((0, _dom.select)(Selector.TITLE, tip), this.getTitle());
+      this.setElementContent((0, _dom.select)(Selector.CONTENT, tip), this.getContent());
+      (0, _dom.removeClass)(tip, ClassName.FADE);
+      (0, _dom.removeClass)(tip, ClassName.SHOW);
+    } // This method may look identical to ToolTip version, but it uses a different RegEx defined above
+
+  }, {
+    key: "cleanTipClass",
+    value: function cleanTipClass()
+    /* istanbul ignore next */
+    {
+      var tip = this.getTipElement();
+      var tabClass = tip.className.match(BS_CLASS_PREFIX_REGEX);
+
+      if (tabClass !== null && tabClass.length > 0) {
+        tabClass.forEach(function (cls) {
+          (0, _dom.removeClass)(tip, cls);
+        });
+      }
+    }
+  }, {
+    key: "getTitle",
+    value: function getTitle()
+    /* istanbul ignore next */
+    {
+      var title = this.$config.title || '';
+
+      if (typeof title === 'function') {
+        title = title(this.$element);
+      }
+
+      if (_typeof(title) === 'object' && title.nodeType && !title.innerHTML.trim()) {
+        // We have a dom node, but without inner content, so just return an empty string
+        title = '';
+      }
+
+      if (typeof title === 'string') {
+        title = title.trim();
+      }
+
+      if (!title) {
+        // Try and grab element's title attribute
+        title = (0, _dom.getAttr)(this.$element, 'title') || (0, _dom.getAttr)(this.$element, 'data-original-title') || '';
+        title = title.trim();
+      }
+
+      return title;
+    } // New methods
+
+  }, {
+    key: "getContent",
+    value: function getContent()
+    /* istanbul ignore next */
+    {
+      var content = this.$config.content || '';
+
+      if (typeof content === 'function') {
+        content = content(this.$element);
+      }
+
+      if (_typeof(content) === 'object' && content.nodeType && !content.innerHTML.trim()) {
+        // We have a dom node, but without inner content, so just return an empty string
+        content = '';
+      }
+
+      if (typeof content === 'string') {
+        content = content.trim();
+      }
+
+      return content;
+    }
+  }], [{
+    key: "Default",
+    // Getter overrides
+    get: function get()
+    /* istanbul ignore next */
+    {
+      return Defaults;
+    }
+  }, {
+    key: "NAME",
+    get: function get()
+    /* istanbul ignore next */
+    {
+      return NAME;
+    }
+  }]);
+
+  return PopOver;
+}(_tooltip.default);
+
+var _default = PopOver;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "db63":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+/**
+ * @param {number} length
+ * @return {Array}
+ */
+var range = function range(length) {
+  return Array.apply(null, {
+    length: length
+  });
+};
+
+var _default = range;
+exports.default = _default;
+
+/***/ }),
+
 /***/ "dbdb":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8233,6 +23563,42 @@ var store = global[SHARED] || (global[SHARED] = {});
   copyright: '© 2019 Denis Pushkarev (zloirock.ru)'
 });
 
+
+/***/ }),
+
+/***/ "df74":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var props = {
+  tag: {
+    type: String,
+    default: 'div'
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BInputGroupText',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'input-group-text'
+    }), children);
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -8465,6 +23831,30 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("4362")))
+
+/***/ }),
+
+/***/ "e109":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _upperFirst = __webpack_require__("5540");
+
+/**
+ * @param {string} prefix
+ * @param {string} value
+ */
+var prefixPropName = function prefixPropName(prefix, value) {
+  return prefix + (0, _upperFirst.default)(value);
+};
+
+var _default = prefixPropName;
+exports.default = _default;
 
 /***/ }),
 
@@ -8773,6 +24163,252 @@ module.exports = function (it) {
 
 /***/ }),
 
+/***/ "e4c5":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _listenOnRoot = __webpack_require__("edbc");
+
+var _env = __webpack_require__("4565");
+
+var _dom = __webpack_require__("1611");
+
+// Events we emit on $root
+var EVENT_STATE = 'bv::collapse::state';
+var EVENT_ACCORDION = 'bv::collapse::accordion'; // Events we listen to on $root
+
+var EVENT_TOGGLE = 'bv::toggle::collapse'; // Event Listener options
+
+var EventOptions = {
+  passive: true,
+  capture: false // @vue/component
+
+};
+var _default = {
+  name: 'BCollapse',
+  mixins: [_listenOnRoot.default],
+  model: {
+    prop: 'visible',
+    event: 'input'
+  },
+  props: {
+    id: {
+      type: String,
+      required: true
+    },
+    isNav: {
+      type: Boolean,
+      default: false
+    },
+    accordion: {
+      type: String,
+      default: null
+    },
+    visible: {
+      type: Boolean,
+      default: false
+    },
+    tag: {
+      type: String,
+      default: 'div'
+    }
+  },
+  data: function data() {
+    return {
+      show: this.visible,
+      transitioning: false
+    };
+  },
+  computed: {
+    classObject: function classObject() {
+      return {
+        'navbar-collapse': this.isNav,
+        collapse: !this.transitioning,
+        show: this.show && !this.transitioning
+      };
+    }
+  },
+  watch: {
+    visible: function visible(newVal) {
+      if (newVal !== this.show) {
+        this.show = newVal;
+      }
+    },
+    show: function show(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.emitState();
+      }
+    }
+  },
+  created: function created() {
+    // Listen for toggle events to open/close us
+    this.listenOnRoot(EVENT_TOGGLE, this.handleToggleEvt); // Listen to other collapses for accordion events
+
+    this.listenOnRoot(EVENT_ACCORDION, this.handleAccordionEvt);
+  },
+  mounted: function mounted() {
+    if (this.isNav && _env.inBrowser) {
+      // Set up handlers
+      this.setWindowEvents(true);
+      this.handleResize();
+    }
+
+    this.emitState();
+  },
+  deactivated: function deactivated()
+  /* istanbul ignore next */
+  {
+    if (this.isNav && _env.inBrowser) {
+      this.setWindowEvents(false);
+    }
+  },
+  activated: function activated()
+  /* istanbul ignore next */
+  {
+    if (this.isNav && _env.inBrowser) {
+      this.setWindowEvents(true);
+    }
+  },
+  beforeDestroy: function beforeDestroy()
+  /* istanbul ignore next */
+  {
+    // Trigger state emit if needed
+    this.show = false;
+
+    if (this.isNav && _env.inBrowser) {
+      this.setWindowEvents(false);
+    }
+  },
+  methods: {
+    setWindowEvents: function setWindowEvents(on) {
+      var method = on ? _dom.eventOn : _dom.eventOff;
+      method(window, 'resize', this.handleResize, EventOptions);
+      method(window, 'orientationchange', this.handleResize, EventOptions);
+    },
+    toggle: function toggle() {
+      this.show = !this.show;
+    },
+    onEnter: function onEnter(el) {
+      el.style.height = 0;
+      (0, _dom.reflow)(el);
+      el.style.height = el.scrollHeight + 'px';
+      this.transitioning = true; // This should be moved out so we can add cancellable events
+
+      this.$emit('show');
+    },
+    onAfterEnter: function onAfterEnter(el) {
+      el.style.height = null;
+      this.transitioning = false;
+      this.$emit('shown');
+    },
+    onLeave: function onLeave(el) {
+      el.style.height = 'auto';
+      el.style.display = 'block';
+      el.style.height = (0, _dom.getBCR)(el).height + 'px';
+      (0, _dom.reflow)(el);
+      this.transitioning = true;
+      el.style.height = 0; // This should be moved out so we can add cancellable events
+
+      this.$emit('hide');
+    },
+    onAfterLeave: function onAfterLeave(el) {
+      el.style.height = null;
+      this.transitioning = false;
+      this.$emit('hidden');
+    },
+    emitState: function emitState() {
+      this.$emit('input', this.show); // Let v-b-toggle know the state of this collapse
+
+      this.$root.$emit(EVENT_STATE, this.id, this.show);
+
+      if (this.accordion && this.show) {
+        // Tell the other collapses in this accordion to close
+        this.$root.$emit(EVENT_ACCORDION, this.id, this.accordion);
+      }
+    },
+    clickHandler: function clickHandler(evt) {
+      // If we are in a nav/navbar, close the collapse when non-disabled link clicked
+      var el = evt.target;
+
+      if (!this.isNav || !el || (0, _dom.getCS)(this.$el).display !== 'block') {
+        /* istanbul ignore next: can't test getComputedStyle in JSDOM */
+        return;
+      }
+
+      if ((0, _dom.matches)(el, '.nav-link,.dropdown-item') || (0, _dom.closest)('.nav-link,.dropdown-item', el)) {
+        this.show = false;
+      }
+    },
+    handleToggleEvt: function handleToggleEvt(target) {
+      if (target !== this.id) {
+        return;
+      }
+
+      this.toggle();
+    },
+    handleAccordionEvt: function handleAccordionEvt(openedId, accordion) {
+      if (!this.accordion || accordion !== this.accordion) {
+        return;
+      }
+
+      if (openedId === this.id) {
+        // Open this collapse if not shown
+        if (!this.show) {
+          this.toggle();
+        }
+      } else {
+        // Close this collapse if shown
+        if (this.show) {
+          this.toggle();
+        }
+      }
+    },
+    handleResize: function handleResize() {
+      // Handler for orientation/resize to set collapsed state in nav/navbar
+      this.show = (0, _dom.getCS)(this.$el).display === 'block';
+    }
+  },
+  render: function render(h) {
+    var content = h(this.tag, {
+      class: this.classObject,
+      directives: [{
+        name: 'show',
+        value: this.show
+      }],
+      attrs: {
+        id: this.id || null
+      },
+      on: {
+        click: this.clickHandler
+      }
+    }, [this.$slots.default]);
+    return h('transition', {
+      props: {
+        enterClass: '',
+        enterActiveClass: 'collapsing',
+        enterToClass: '',
+        leaveClass: '',
+        leaveActiveClass: 'collapsing',
+        leaveToClass: ''
+      },
+      on: {
+        enter: this.onEnter,
+        afterEnter: this.onAfterEnter,
+        leave: this.onLeave,
+        afterLeave: this.onAfterLeave
+      }
+    }, [content]);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "e53d":
 /***/ (function(module, exports) {
 
@@ -8783,6 +24419,42 @@ var global = module.exports = typeof window != 'undefined' && window.Math == Mat
   : Function('return this')();
 if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
+
+/***/ }),
+
+/***/ "e599":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var props = {
+  tag: {
+    type: String,
+    default: 'span'
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BNavText',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'navbar-text'
+    }), children);
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -8861,6 +24533,58 @@ exports = module.exports = {
 
 /***/ }),
 
+/***/ "e6c9":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var props = {
+  tag: {
+    type: String,
+    default: 'div'
+  },
+  deck: {
+    type: Boolean,
+    default: false
+  },
+  columns: {
+    type: Boolean,
+    default: false
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BCardGroup',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    var baseClass = 'card-group';
+
+    if (props.deck) {
+      baseClass = 'card-deck';
+    } else if (props.columns) {
+      baseClass = 'card-columns';
+    }
+
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      class: baseClass
+    }), children);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "e6f3":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8882,6 +24606,363 @@ module.exports = function (object, names) {
   return result;
 };
 
+
+/***/ }),
+
+/***/ "e8c7":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _stableSort = __webpack_require__("2e50");
+
+var _startcase = __webpack_require__("3098");
+
+var _array = __webpack_require__("bb2f");
+
+var _defaultSortCompare = __webpack_require__("fc47");
+
+var _default = {
+  props: {
+    sortBy: {
+      type: String,
+      default: null
+    },
+    sortDesc: {
+      // To Do: Make this tri-state: true, false, null
+      type: Boolean,
+      default: false
+    },
+    sortDirection: {
+      // This prop is named incorrectly.
+      // It should be initialSortDirection
+      // As it is a bit misleading (not to mention screws up
+      // the Aria Label on the headers)
+      type: String,
+      default: 'asc',
+      validator: function validator(direction) {
+        return (0, _array.arrayIncludes)(['asc', 'desc', 'last'], direction);
+      }
+    },
+    sortCompare: {
+      type: Function,
+      default: null
+    },
+    noSortReset: {
+      // Another prop that should have had a better name.
+      // It should be noSortClear (on non-sortable headers).
+      // We will need to make sure the documentation is clear on what
+      // this prop does (as well as in the code for future reference)
+      type: Boolean,
+      default: false
+    },
+    labelSortAsc: {
+      type: String,
+      default: 'Click to sort Ascending'
+    },
+    labelSortDesc: {
+      type: String,
+      default: 'Click to sort Descending'
+    },
+    labelSortClear: {
+      type: String,
+      default: 'Click to clear sorting'
+    },
+    noLocalSorting: {
+      type: Boolean,
+      default: false
+    },
+    noFooterSorting: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data: function data() {
+    return {
+      localSortBy: this.sortBy || '',
+      localSortDesc: this.sortDesc || false
+    };
+  },
+  computed: {
+    localSorting: function localSorting() {
+      return this.hasProvider ? !!this.noProviderSorting : !this.noLocalSorting;
+    },
+    isSortable: function isSortable() {
+      return this.computedFields.some(function (f) {
+        return f.sortable;
+      });
+    },
+    sortedItems: function sortedItems() {
+      // Sorts the filtered items and returns a new array of the sorted items
+      // or the original items array if not sorted.
+      var items = (this.filteredItems || []).slice();
+      var sortBy = this.localSortBy;
+      var sortDesc = this.localSortDesc;
+      var sortCompare = this.sortCompare;
+      var localSorting = this.localSorting;
+
+      if (sortBy && localSorting) {
+        // stableSort returns a new array, and leaves the original array intact
+        return (0, _stableSort.default)(items, function (a, b) {
+          var result = null;
+
+          if (typeof sortCompare === 'function') {
+            // Call user provided sortCompare routine
+            result = sortCompare(a, b, sortBy, sortDesc);
+          }
+
+          if (result === null || result === undefined || result === false) {
+            // Fallback to built-in defaultSortCompare if sortCompare
+            // is not defined or returns null/false
+            result = (0, _defaultSortCompare.default)(a, b, sortBy);
+          } // Negate result if sorting in descending order
+
+
+          return (result || 0) * (sortDesc ? -1 : 1);
+        });
+      }
+
+      return items;
+    }
+  },
+  watch: {
+    isSortable: function isSortable(newVal, oldVal)
+    /* istanbul ignore next: pain in the butt to test */
+    {
+      if (newVal) {
+        if (this.isSortable) {
+          this.$on('head-clicked', this.handleSort);
+        }
+      } else {
+        this.$off('head-clicked', this.handleSort);
+      }
+    },
+    sortDesc: function sortDesc(newVal, oldVal) {
+      if (newVal === this.localSortDesc) {
+        /* istanbul ignore next */
+        return;
+      }
+
+      this.localSortDesc = newVal || false;
+    },
+    sortBy: function sortBy(newVal, oldVal) {
+      if (newVal === this.localSortBy) {
+        /* istanbul ignore next */
+        return;
+      }
+
+      this.localSortBy = newVal || null;
+    },
+    // Update .sync props
+    localSortDesc: function localSortDesc(newVal, oldVal) {
+      // Emit update to sort-desc.sync
+      if (newVal !== oldVal) {
+        this.$emit('update:sortDesc', newVal);
+      }
+    },
+    localSortBy: function localSortBy(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.$emit('update:sortBy', newVal);
+      }
+    }
+  },
+  created: function created() {
+    if (this.isSortable) {
+      this.$on('head-clicked', this.handleSort);
+    }
+  },
+  methods: {
+    // Handlers
+    // Need to move from thead-mixin
+    handleSort: function handleSort(key, field, evt, isFoot) {
+      var _this = this;
+
+      if (!this.isSortable) {
+        /* istanbul ignore next */
+        return;
+      }
+
+      if (isFoot && this.noFooterSorting) {
+        return;
+      } // TODO: make this tri-state sorting
+      // cycle desc => asc => none => desc => ...
+
+
+      var sortChanged = false;
+
+      var toggleLocalSortDesc = function toggleLocalSortDesc() {
+        var sortDirection = field.sortDirection || _this.sortDirection;
+
+        if (sortDirection === 'asc') {
+          _this.localSortDesc = false;
+        } else if (sortDirection === 'desc') {
+          _this.localSortDesc = true;
+        } else {// sortDirection === 'last'
+          // Leave at last sort direction from previous column
+        }
+      };
+
+      if (field.sortable) {
+        if (key === this.localSortBy) {
+          // Change sorting direction on current column
+          this.localSortDesc = !this.localSortDesc;
+        } else {
+          // Start sorting this column ascending
+          this.localSortBy = key; // this.localSortDesc = false
+
+          toggleLocalSortDesc();
+        }
+
+        sortChanged = true;
+      } else if (this.localSortBy && !this.noSortReset) {
+        this.localSortBy = null;
+        toggleLocalSortDesc();
+        sortChanged = true;
+      }
+
+      if (sortChanged) {
+        // Sorting parameters changed
+        this.$emit('sort-changed', this.context);
+      }
+    },
+    // methods to compute classes and attrs for thead>th cells
+    sortTheadThClasses: function sortTheadThClasses(key, field, isFoot) {
+      return {// No Classes for sorting currently...
+        // All styles targeted using aria-* attrs
+      };
+    },
+    sortTheadThAttrs: function sortTheadThAttrs(key, field, isFoot) {
+      if (!this.isSortable || isFoot && this.noFooterSorting) {
+        // No atributes if not a sortable table
+        return {};
+      }
+
+      var sortable = field.sortable;
+      var ariaLabel = '';
+
+      if ((!field.label || !field.label.trim()) && !field.headerTitle) {
+        // In case field's label and title are empty/blank, we need to
+        // add a hint about what the column is about for non-sighted users.
+        // This is dulicated code from tbody-row mixin, but we need it
+        // here as well, since we overwrite the original aria-label.
+
+        /* istanbul ignore next */
+        ariaLabel = (0, _startcase.default)(key);
+      } // The correctness of these labels is very important for screen-reader users.
+
+
+      var ariaLabelSorting = '';
+
+      if (sortable) {
+        if (this.localSortBy === key) {
+          // currently sorted sortable column.
+          ariaLabelSorting = this.localSortDesc ? this.labelSortAsc : this.labelSortDesc;
+        } else {
+          // Not currently sorted sortable column.
+          // Not using nested ternary's here for clarity/readability
+          // Default for ariaLabel
+          ariaLabelSorting = this.localSortDesc ? this.labelSortDesc : this.labelSortAsc; // Handle sortDirection setting
+
+          var sortDirection = this.sortDirection || field.sortDirection;
+
+          if (sortDirection === 'asc') {
+            ariaLabelSorting = this.labelSortAsc;
+          } else if (sortDirection === 'desc') {
+            ariaLabelSorting = this.labelSortDesc;
+          }
+        }
+      } else if (!this.noSortReset) {
+        // Non sortable column
+        ariaLabelSorting = this.localSortBy ? this.labelSortClear : '';
+      } // Assemble the aria-label attribute value
+
+
+      ariaLabel = [ariaLabel.trim(), ariaLabelSorting.trim()].filter(Boolean).join(': '); // Assemble the aria-sort attribute value
+
+      var ariaSort = sortable && this.localSortBy === key ? this.localSortDesc ? 'descending' : 'ascending' : sortable ? 'none' : null; // Return the attributes
+      // (All the above just to get these two values)
+
+      return {
+        'aria-label': ariaLabel || null,
+        'aria-sort': ariaSort
+      };
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "e93a":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _tooltip = __webpack_require__("16ae");
+
+var _warn = __webpack_require__("93e0");
+
+var _toolpop = __webpack_require__("c542");
+
+// @vue/component
+var _default = {
+  name: 'BTooltip',
+  mixins: [_toolpop.default],
+  props: {
+    title: {
+      type: String,
+      default: ''
+    },
+    triggers: {
+      type: [String, Array],
+      default: 'hover focus'
+    },
+    placement: {
+      type: String,
+      default: 'top'
+    }
+  },
+  data: function data() {
+    return {};
+  },
+  methods: {
+    createToolpop: function createToolpop() {
+      // getTarget is in toolpop mixin
+      var target = this.getTarget();
+
+      if (target) {
+        this._toolpop = new _tooltip.default(target, this.getConfig(), this.$root);
+      } else {
+        this._toolpop = null;
+        (0, _warn.default)("b-tooltip: 'target' element not found!");
+      }
+
+      return this._toolpop;
+    }
+  },
+  render: function render(h) {
+    return h('div', {
+      class: ['d-none'],
+      style: {
+        display: 'none'
+      },
+      attrs: {
+        'aria-hidden': true
+      }
+    }, [h('div', {
+      ref: 'title'
+    }, this.$slots.default)]);
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -9182,6 +25263,66 @@ exports.getBreakpointsDown = getBreakpointsDown;
 
 /***/ }),
 
+/***/ "ebd1":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var props = {
+  id: {
+    type: String,
+    default: null
+  },
+  tag: {
+    type: String,
+    default: 'div'
+  },
+  tooltip: {
+    type: Boolean,
+    default: false
+  },
+  forceShow: {
+    type: Boolean,
+    default: false
+  },
+  state: {
+    type: [Boolean, String],
+    default: null
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BFormInvalidFeedback',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    var show = props.forceShow === true || props.state === false || props.state === 'invalid';
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      class: {
+        'invalid-feedback': !props.tooltip,
+        'invalid-tooltip': props.tooltip,
+        'd-block': show
+      },
+      attrs: {
+        id: props.id
+      }
+    }), children);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "edbc":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9243,6 +25384,53 @@ var _default = {
       return this;
     }
   }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "edd0":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _navbar = __webpack_require__("e1a8");
+
+var _navbarNav = __webpack_require__("4d00");
+
+var _navbarBrand = __webpack_require__("c52a");
+
+var _navbarToggle = __webpack_require__("41cd");
+
+var _nav = __webpack_require__("6423");
+
+var _collapse = __webpack_require__("f3fa");
+
+var _dropdown = __webpack_require__("c7b9");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BNavbar: _navbar.default,
+  BNavbarNav: _navbarNav.default,
+  BNavbarBrand: _navbarBrand.default,
+  BNavbarToggle: _navbarToggle.default,
+  BNavToggle: _navbarToggle.default
+};
+var plugins = {
+  NavPlugin: _nav.default,
+  CollapsePlugin: _collapse.default,
+  DropdownPlugin: _dropdown.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components,
+    plugins: plugins
+  })
 };
 exports.default = _default;
 
@@ -9313,6 +25501,38 @@ exports.default = _default2;
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_index_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Button_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_index_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Button_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
  /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_index_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Button_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "efe3":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _formCheckbox = __webpack_require__("bdb1");
+
+var _formCheckboxGroup = __webpack_require__("11ab");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BFormCheckbox: _formCheckbox.default,
+  BCheckbox: _formCheckbox.default,
+  BCheck: _formCheckbox.default,
+  BFormCheckboxGroup: _formCheckboxGroup.default,
+  BCheckboxGroup: _formCheckboxGroup.default,
+  BCheckGroup: _formCheckboxGroup.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -11956,6 +28176,276 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "f347":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.unbindTargets = exports.bindTargets = void 0;
+
+var _object = __webpack_require__("24e2");
+
+var _dom = __webpack_require__("1611");
+
+var allListenTypes = {
+  hover: true,
+  click: true,
+  focus: true
+};
+var BVBoundListeners = '__BV_boundEventListeners__';
+
+var bindTargets = function bindTargets(vnode, binding, listenTypes, fn) {
+  var targets = (0, _object.keys)(binding.modifiers || {}).filter(function (t) {
+    return !allListenTypes[t];
+  });
+
+  if (binding.value) {
+    targets.push(binding.value);
+  }
+
+  var listener = function listener() {
+    fn({
+      targets: targets,
+      vnode: vnode
+    });
+  };
+
+  (0, _object.keys)(allListenTypes).forEach(function (type) {
+    if (listenTypes[type] || binding.modifiers[type]) {
+      (0, _dom.eventOn)(vnode.elm, type, listener);
+      var boundListeners = vnode.elm[BVBoundListeners] || {};
+      boundListeners[type] = boundListeners[type] || [];
+      boundListeners[type].push(listener);
+      vnode.elm[BVBoundListeners] = boundListeners;
+    }
+  }); // Return the list of targets
+
+  return targets;
+};
+
+exports.bindTargets = bindTargets;
+
+var unbindTargets = function unbindTargets(vnode, binding, listenTypes) {
+  (0, _object.keys)(allListenTypes).forEach(function (type) {
+    if (listenTypes[type] || binding.modifiers[type]) {
+      var boundListeners = vnode.elm[BVBoundListeners] && vnode.elm[BVBoundListeners][type];
+
+      if (boundListeners) {
+        boundListeners.forEach(function (listener) {
+          return (0, _dom.eventOff)(vnode.elm, type, listener);
+        });
+        delete vnode.elm[BVBoundListeners][type];
+      }
+    }
+  });
+};
+
+exports.unbindTargets = unbindTargets;
+var _default = bindTargets;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "f38f":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _popover = __webpack_require__("8597");
+
+var _popover2 = __webpack_require__("d670");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BPopover: _popover.default
+};
+var plugins = {
+  BPopoverDirectivePlugin: _popover2.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components,
+    plugins: plugins
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "f3fa":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _collapse = __webpack_require__("e4c5");
+
+var _toggle = __webpack_require__("d4a9");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BCollapse: _collapse.default
+};
+var plugins = {
+  BToggleDirectivePlugin: _toggle.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components,
+    plugins: plugins
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "f429":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _dom = __webpack_require__("1611");
+
+var _target = __webpack_require__("f347");
+
+// Target listen types
+var listenTypes = {
+  click: true // Emitted show event for modal
+
+};
+var EVENT_SHOW = 'bv::show::modal';
+
+var setRole = function setRole(el, binding, vnode) {
+  if (el.tagName !== 'BUTTON') {
+    (0, _dom.setAttr)(el, 'role', 'button');
+  }
+};
+/*
+ * Export our directive
+ */
+
+
+var _default = {
+  // eslint-disable-next-line no-shadow-restricted-names
+  bind: function bind(el, binding, vnode) {
+    (0, _target.bindTargets)(vnode, binding, listenTypes, function (_ref) {
+      var targets = _ref.targets,
+          vnode = _ref.vnode;
+      targets.forEach(function (target) {
+        vnode.context.$root.$emit(EVENT_SHOW, target, vnode.elm);
+      });
+    }); // If element is not a button, we add `role="button"` for accessibility
+
+    setRole(el, binding, vnode);
+  },
+  updated: setRole,
+  componentUpdated: setRole,
+  unbind: function unbind(el, binding, vnode) {
+    (0, _target.unbindTargets)(vnode, binding, listenTypes); // If element is not a button, we add `role="button"` for accessibility
+
+    if (el.tagName !== 'BUTTON') {
+      (0, _dom.removeAttr)(el, 'role', 'button');
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "f4fc":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _array = __webpack_require__("bb2f");
+
+var _toString = __webpack_require__("40f6");
+
+var _breadcrumbItem = __webpack_require__("5279");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var props = {
+  items: {
+    type: Array,
+    default: null
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BBreadcrumb',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    var childNodes = children; // Build child nodes from items if given.
+
+    if ((0, _array.isArray)(props.items)) {
+      var activeDefined = false;
+      childNodes = props.items.map(function (item, idx) {
+        if (_typeof(item) !== 'object') {
+          item = {
+            text: (0, _toString.default)(item)
+          };
+        } // Copy the value here so we can normalize it.
+
+
+        var active = item.active;
+
+        if (active) {
+          activeDefined = true;
+        }
+
+        if (!active && !activeDefined) {
+          // Auto-detect active by position in list.
+          active = idx + 1 === props.items.length;
+        }
+
+        return h(_breadcrumbItem.default, {
+          props: _objectSpread({}, item, {
+            active: active
+          })
+        });
+      });
+    }
+
+    return h('ol', (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'breadcrumb'
+    }), childNodes);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "f772":
 /***/ (function(module, exports) {
 
@@ -12048,6 +28538,31 @@ function () {
 }();
 
 var _default = BvEvent;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "f8d0":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _paginationNav = __webpack_require__("8934");
+
+var _plugins = __webpack_require__("0a8d");
+
+var components = {
+  BPaginationNav: _paginationNav.default
+};
+var _default = {
+  install: (0, _plugins.installFactory)({
+    components: components
+  })
+};
 exports.default = _default;
 
 /***/ }),
@@ -13154,6 +29669,17 @@ var NavItem_component = normalizeComponent(
 )
 
 /* harmony default export */ var NavItem = (NavItem_component.exports);
+// EXTERNAL MODULE: ./node_modules/bootstrap-vue/es/components/index.js
+var components = __webpack_require__("7b38");
+
+// EXTERNAL MODULE: ./node_modules/bootstrap-vue/es/components/collapse/collapse.js
+var collapse = __webpack_require__("e4c5");
+var collapse_default = /*#__PURE__*/__webpack_require__.n(collapse);
+
+// EXTERNAL MODULE: ./node_modules/bootstrap-vue/es/directives/toggle/toggle.js
+var toggle = __webpack_require__("a596");
+var toggle_default = /*#__PURE__*/__webpack_require__.n(toggle);
+
 // EXTERNAL MODULE: ./src/assets/sass/main.scss
 var main = __webpack_require__("9299");
 
@@ -13168,10 +29694,9 @@ var main = __webpack_require__("9299");
 
 
 
- // import { Layout } from "bootstrap-vue/es/components";
-// import bCollapse from "bootstrap-vue/es/components/collapse/collapse";
-// import vBToggle from "bootstrap-vue/es/directives/toggle/toggle";
-// Load main SCSS file, (Bootstrap configuration included)
+
+
+
 
 
 external_commonjs_vue_commonjs2_vue_root_Vue_default.a.config.productionTip = false;
@@ -13182,20 +29707,76 @@ var Components = {
   Modal: Modal,
   Navbar: Navbar,
   NavDropdown: NavDropdown,
-  NavItem: NavItem
+  NavItem: NavItem,
+  bCollapse: collapse_default.a
+};
+var Directives = {
+  vBToggle: toggle_default.a
+};
+var NymblUI = {
+  Components: Components,
+  Directives: Directives,
+  Layout: components["Layout"]
 };
 
 keys_default()(Components).forEach(function (name) {
   external_commonjs_vue_commonjs2_vue_root_Vue_default.a.component(name, Components[name]);
 });
 
-/* harmony default export */ var components = (Components);
+keys_default()(Directives).forEach(function (name) {
+  external_commonjs_vue_commonjs2_vue_root_Vue_default.a.directive(name, Directives[name]);
+});
+
+external_commonjs_vue_commonjs2_vue_root_Vue_default.a.use(components["Layout"]);
+/* harmony default export */ var src_components = (NymblUI);
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
 
 
-/* harmony default export */ var entry_lib = __webpack_exports__["default"] = (components);
+/* harmony default export */ var entry_lib = __webpack_exports__["default"] = (src_components);
 
 
+
+/***/ }),
+
+/***/ "fc47":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = defaultSortCompare;
+
+var _get = __webpack_require__("b0df");
+
+var _stringifyObjectValues = __webpack_require__("2227");
+
+// Default sort compare routine
+//
+// TODO: add option to sort by multiple columns (tri-state per column, plus order of columns in sort)
+//  where sprtBy could be an array of objects [ {key: 'foo', sortDir: 'asc'}, {key:'bar', sortDir: 'desc'} ...]
+//  or an array of arrays [ ['foo','asc'], ['bar','desc'] ]
+function defaultSortCompare(a, b, sortBy) {
+  a = (0, _get.default)(a, sortBy, '');
+  b = (0, _get.default)(b, sortBy, '');
+
+  if (a instanceof Date && b instanceof Date || typeof a === 'number' && typeof b === 'number') {
+    // Special case for comparing Dates and Numbers
+    // Internally dates are compared via their epoch number values
+    if (a < b) {
+      return -1;
+    } else if (a > b) {
+      return 1;
+    } else {
+      return 0;
+    }
+  } else {
+    // Do localized string comparison
+    return (0, _stringifyObjectValues.default)(a).localeCompare((0, _stringifyObjectValues.default)(b), undefined, {
+      numeric: true
+    });
+  }
+}
 
 /***/ }),
 
@@ -13217,12 +29798,281 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "fde0":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _inputGroupPrepend = __webpack_require__("9e3e");
+
+var _inputGroupAppend = __webpack_require__("6780");
+
+var _inputGroupText = __webpack_require__("df74");
+
+var _html = __webpack_require__("be11");
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+var props = {
+  id: {
+    type: String
+  },
+  size: {
+    type: String
+  },
+  prepend: {
+    type: String
+  },
+  prependHTML: {
+    type: String
+  },
+  append: {
+    type: String
+  },
+  appendHTML: {
+    type: String
+  },
+  tag: {
+    type: String,
+    default: 'div'
+  } // @vue/component
+
+};
+exports.props = props;
+var _default = {
+  name: 'BInputGroup',
+  functional: true,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        slots = _ref.slots;
+    var $slots = slots();
+    var childNodes = []; // Prepend prop
+
+    if (props.prepend) {
+      childNodes.push(h(_inputGroupPrepend.default, [h(_inputGroupText.default, {
+        domProps: (0, _html.htmlOrText)(props.prependHTML, props.prepend)
+      })]));
+    } else {
+      childNodes.push(h(false));
+    } // Prepend slot
+
+
+    if ($slots.prepend) {
+      childNodes.push(h(_inputGroupPrepend.default, $slots.prepend));
+    } else {
+      childNodes.push(h(false));
+    } // Default slot
+
+
+    if ($slots.default) {
+      childNodes.push.apply(childNodes, _toConsumableArray($slots.default));
+    } else {
+      childNodes.push(h(false));
+    } // Append prop
+
+
+    if (props.append) {
+      childNodes.push(h(_inputGroupAppend.default, [h(_inputGroupText.default, {
+        domProps: (0, _html.htmlOrText)(props.appendHTML, props.append)
+      })]));
+    } else {
+      childNodes.push(h(false));
+    } // Append slot
+
+
+    if ($slots.append) {
+      childNodes.push(h(_inputGroupAppend.default, $slots.append));
+    } else {
+      childNodes.push(h(false));
+    }
+
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'input-group',
+      class: _defineProperty({}, "input-group-".concat(props.size), Boolean(props.size)),
+      attrs: {
+        id: props.id || null,
+        role: 'group'
+      }
+    }), childNodes);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "fdef":
 /***/ (function(module, exports) {
 
 module.exports = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u2003' +
   '\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF';
 
+
+/***/ }),
+
+/***/ "ff35":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _id = __webpack_require__("eae0");
+
+var _formOptions = __webpack_require__("461c");
+
+var _form = __webpack_require__("5f07");
+
+var _formSize = __webpack_require__("6e1b");
+
+var _formState = __webpack_require__("41fb");
+
+var _formCustom = __webpack_require__("377c");
+
+var _array = __webpack_require__("bb2f");
+
+var _html = __webpack_require__("be11");
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// @vue/component
+var _default = {
+  name: 'BFormSelect',
+  mixins: [_id.default, _form.default, _formSize.default, _formState.default, _formCustom.default, _formOptions.default],
+  model: {
+    prop: 'value',
+    event: 'input'
+  },
+  props: {
+    value: {// type: [Object, Array, String, Number, Boolean],
+      // default: undefined
+    },
+    multiple: {
+      type: Boolean,
+      default: false
+    },
+    selectSize: {
+      // Browsers default size to 0, which shows 4 rows in most browsers in multiple mode
+      // Size of 1 can bork out Firefox
+      type: Number,
+      default: 0
+    },
+    ariaInvalid: {
+      type: [Boolean, String],
+      default: false
+    }
+  },
+  data: function data() {
+    return {
+      localValue: this.value
+    };
+  },
+  computed: {
+    computedSelectSize: function computedSelectSize() {
+      // Custom selects with a size of zero causes the arrows to be hidden,
+      // so dont render the size attribute in this case
+      return !this.plain && this.selectSize === 0 ? null : this.selectSize;
+    },
+    inputClass: function inputClass() {
+      return [this.plain ? 'form-control' : 'custom-select', this.size && this.plain ? "form-control-".concat(this.size) : null, this.size && !this.plain ? "custom-select-".concat(this.size) : null, this.stateClass];
+    },
+    computedAriaInvalid: function computedAriaInvalid() {
+      if (this.ariaInvalid === true || this.ariaInvalid === 'true') {
+        return 'true';
+      }
+
+      return this.stateClass === 'is-invalid' ? 'true' : null;
+    }
+  },
+  watch: {
+    value: function value(newVal, oldVal) {
+      this.localValue = newVal;
+    },
+    localValue: function localValue(newVal, oldVal) {
+      this.$emit('input', this.localValue);
+    }
+  },
+  methods: {
+    focus: function focus() {
+      this.$refs.input.focus();
+    },
+    blur: function blur() {
+      this.$refs.input.blur();
+    }
+  },
+  render: function render(h) {
+    var _this = this;
+
+    var $slots = this.$slots;
+    var options = this.formOptions.map(function (option, index) {
+      return h('option', {
+        key: "option_".concat(index, "_opt"),
+        attrs: {
+          disabled: Boolean(option.disabled)
+        },
+        domProps: _objectSpread({}, (0, _html.htmlOrText)(option.html, option.text), {
+          value: option.value
+        })
+      });
+    });
+    return h('select', {
+      ref: 'input',
+      class: this.inputClass,
+      directives: [{
+        name: 'model',
+        rawName: 'v-model',
+        value: this.localValue,
+        expression: 'localValue'
+      }],
+      attrs: {
+        id: this.safeId(),
+        name: this.name,
+        form: this.form || null,
+        multiple: this.multiple || null,
+        size: this.computedSelectSize,
+        disabled: this.disabled,
+        required: this.required,
+        'aria-required': this.required ? 'true' : null,
+        'aria-invalid': this.computedAriaInvalid
+      },
+      on: {
+        change: function change(evt) {
+          var target = evt.target;
+          var selectedVal = (0, _array.from)(target.options).filter(function (o) {
+            return o.selected;
+          }).map(function (o) {
+            return '_value' in o ? o._value : o.value;
+          });
+          _this.localValue = target.multiple ? selectedVal : selectedVal[0];
+
+          _this.$nextTick(function () {
+            _this.$emit('change', _this.localValue);
+          });
+        }
+      }
+    }, [$slots.first, options, $slots.default]);
+  }
+};
+exports.default = _default;
 
 /***/ })
 
