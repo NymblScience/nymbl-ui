@@ -1,12 +1,14 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700");
+
 @import "@/assets/sass/colors.scss";
 
 $primary: $dark-green;
 $secondary: $blue !default;
 $danger: $light-red !default;
 
-$border-radius: 0.09rem !default;
-$border-radius-lg: 0.1rem !default;
-$border-radius-sm: 0.02rem !default;
+$border-radius: 0.20rem !default;
+$border-radius-lg: 0.30rem !default;
+$border-radius-sm: 0.10rem !default;
 
 $navbar-light-hover-color: $dark-green;
 $navbar-light-active-color: $dark-green;
@@ -16,23 +18,39 @@ $navbar-nav-link-padding-x: 1rem !default;
 $link-hover-color: $dark-green;
 $navbar-light-hover-color: $dark-green;
 
-$btn-padding-y:               0.6rem !default;
-$btn-padding-x:               1.3rem !default;
-$btn-font-size: 0.9rem;
+$btn-padding-y: 0.9rem !default;
+$btn-padding-x: 1.2rem !default;
+$btn-font-size: 0.95rem;
 
-$btn-padding-y-sm:            0.3rem !default;
-$btn-padding-x-sm:            0.9rem !default;
-$btn-font-size-sm:            0.8rem !default;
+$btn-padding-y-sm: 0.7rem !default;
+$btn-padding-x-sm: 0.8rem !default;
+$btn-font-size-sm: 0.8rem !default;
 // $btn-line-height-sm:          2rem !default;
 
-$btn-padding-y-lg:            0.6rem !default;
-$btn-padding-x-lg:            1.6rem !default;
-$btn-font-size-lg:           1.2rem !default;
+$btn-padding-y-lg: 1.1rem !default;
+$btn-padding-x-lg: 1.3rem !default;
+$btn-font-size-lg: 1.4rem !default;
 // $btn-line-height-lg:          $input-btn-line-height-lg !default;
 
+$btn-disabled-opacity: 0.5 !default;
 
-$btn-focus-width:   0;      
+$btn-focus-width: 0;
 
+$body-bg: $white !default;
+$body-color: #231f20 !default;
+
+$text-color: #231f20;
+
+// Links
+//
+// Style anchor elements.
+
+// $link-color:                              theme-color("primary") !default;
+// $link-decoration:                         none !default;
+// $link-hover-color:                        darken($link-color, 15%) !default;
+// $link-hover-decoration:                   underline !default;
+// // Darken percentage for links with `.text-*` class (e.g. `.text-success`)
+// $emphasized-link-hover-darken-percentage: 15% !default;
 
 @import "node_modules/bootstrap/scss/_functions.scss";
 @import "node_modules/bootstrap/scss/_variables.scss";
@@ -40,7 +58,6 @@ $btn-focus-width:   0;
 
 @import "node_modules/bootstrap/scss/_root.scss";
 @import "node_modules/bootstrap/scss/_reboot.scss";
-
 
 // @import "node_modules/bootstrap/scss/_type.scss";
 // @import "node_modules/bootstrap/scss/bootstrap/images.scss";
@@ -78,14 +95,17 @@ $btn-focus-width:   0;
 
 // Stop scrolling.
 .no-scrolling {
-    overflow: hidden;
-    padding-right: 17px;
+  overflow: hidden;
+  padding-right: 17px;
 }
 
 html {
-    font-size: 100%;
+  font-size: 100%;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  color: $text-color;
 }
 
 body {
-    font-size: 1rem;
+  font-size: 1rem;
 }

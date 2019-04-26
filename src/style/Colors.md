@@ -1,0 +1,3 @@
+```vue
+<colors></colors>
+```

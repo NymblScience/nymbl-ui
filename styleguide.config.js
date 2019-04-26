@@ -31,23 +31,34 @@ module.exports = {
   components: "src/components/**/[A-Z]*.vue",
   defaultExample: false,
   exampleMode: "expand",
-  
   sections: [
-		// {
-		// 	name: 'Documentation',
-		// 	content: 'docs/Introduction.md',
-		// 	sections: [
-		// 		{
-		// 			name: 'Typography',
-		// 			content: 'docs/Typography.md',
-		// 		},
-		// 		{
-		// 			name: 'Colors',
-		// 			content: 'docs/Colors.md',
-		// 		},
-		// 	],
-		// 	sectionDepth: 1
-		// },
+    // {
+    // 	name: 'Documentation',
+    // 	content: 'docs/Introduction.md',
+    // 	sections: [
+    // 		{
+    // 			name: 'Typography',
+    // 			content: 'docs/Typography.md',
+    // 		},
+    // 		{
+    // 			name: 'Colors',
+    // 			content: 'docs/Colors.md',
+    // 		},
+    // 	],
+    // 	sectionDepth: 1
+    // },
+    // {
+    //   name: "Style",
+     // components: () => ["src/components/Colors.vue"],
+      // exampleMode: "expand", // 'expand' | 'collapse' | 'expand'
+      // usageMode: "expand" // 'hide' | 'collapse' | 'expand'
+    // },
+    {
+      name: "Style",
+      components: "src/style/**/[A-Z]*.vue",
+      exampleMode: "hide", // 'hide' | 'collapse' | 'expand'
+      usageMode: "hide" // 'hide' | 'collapse' | 'expand'
+    },
     {
       name: "Components",
       components: "src/components/**/[A-Z]*.vue"

@@ -19,9 +19,10 @@
         type="icon"
         variant="danger"
         class="modal-close"
+        title="Close"
         @click.native="close()"
       >
-        <close-icon :size="32" />
+        <close-icon :size="28" />
       </Button>
     </div>
 
@@ -33,8 +34,8 @@
 </template>
 <script>
 import BModal from "bootstrap-vue/es/components/modal/modal";
-import CloseIcon from "vue-material-design-icons/Close.vue";
-
+import CloseIcon from "../icons/Close.vue";
+// const CloseIcon = require("./icons/Close.vue").default;
 export default {
   name: "Modal",
   components: {
@@ -112,6 +113,9 @@ export default {
 .modal-footer {
   border-top: none;
   text-align: right;
+  .btn {
+    margin-left: 0.3rem;
+  }
 }
 .modal-header {
   border-bottom: none;
