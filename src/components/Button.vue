@@ -74,6 +74,7 @@ export default {
   computed: {
     classes() {
       const classes = [];
+      classes.push("nymbl-btn");
       if (this.type === "icon") {
         classes.push("btn-icon");
       }
@@ -94,7 +95,7 @@ export default {
 <style lang="scss">
 @import "@/assets/sass/main.scss";
 
-.btn {
+.btn.nymbl-btn {
   white-space: nowrap;
   font-weight: 500;
   text-transform: uppercase;
