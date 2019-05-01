@@ -126,6 +126,9 @@ export default {
   &:focus {
     background-image: linear-gradient(#c9ffff, #85ece8);
   }
+  &:hover {
+    color: #0a6b69;
+  }
 }
 
 .btn.btn-secondary {
