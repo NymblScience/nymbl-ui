@@ -230,7 +230,7 @@ export default {
 
   &:hover {
     background: none !important;
-    box-shadow: none;
+    box-shadow: none !important;
     -webkit-filter: drop-shadow(0.053rem 0.053rem 0.053rem rgba(0, 0, 0, 0.8));
     filter: drop-shadow(0.053rem 0.053rem 0.053rem rgba(0, 0, 0, 0.8));
   }
