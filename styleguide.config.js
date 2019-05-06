@@ -30,7 +30,7 @@ module.exports = {
   title: "Nymbl Style Guide",
   components: "src/components/**/[A-Z]*.vue",
   defaultExample: false,
-  exampleMode: "expand",
+  exampleMode: "collapse",
   sections: [
     // {
     // 	name: 'Documentation',
@@ -68,7 +68,7 @@ module.exports = {
   // webpackConfig: {
   //   // custom config goes here
   // }
-  usageMode: "expand",
+  usageMode: "collapse",
   skipComponentsWithoutExample: true,
   theme: {
     spaceFactor: 1,
