@@ -31237,12 +31237,12 @@ var NavItem_component = normalizeComponent(
 )
 
 /* harmony default export */ var NavItem = (NavItem_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NTextbox.vue?vue&type=template&id=a90f8a90&
-var NTextboxvue_type_template_id_a90f8a90_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('ui-textbox',_vm._g(_vm._b({staticClass:"n-textbox",attrs:{"options":_vm.options,"disabled":_vm.disabled,"label":_vm.label,"placeholder":_vm.placeholder,"floating-label":_vm.floatingLabel,"help":_vm.help,"error":_vm.error,"invalid":_vm.invalid}},'ui-textbox',_vm.$attrs,false),_vm.$listeners),[_vm._t("default")],2)}
-var NTextboxvue_type_template_id_a90f8a90_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NTextbox.vue?vue&type=template&id=47199dd8&
+var NTextboxvue_type_template_id_47199dd8_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('ui-textbox',_vm._g(_vm._b({staticClass:"n-textbox",attrs:{"options":_vm.options,"disabled":_vm.disabled,"label":_vm.label,"placeholder":_vm.placeholder,"floating-label":_vm.floatingLabel,"help":_vm.help,"error":_vm.error,"invalid":_vm.invalid,"name":_vm.name}},'ui-textbox',_vm.$attrs,false),_vm.$listeners),[_vm._t("default")],2)}
+var NTextboxvue_type_template_id_47199dd8_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/NTextbox.vue?vue&type=template&id=a90f8a90&
+// CONCATENATED MODULE: ./src/components/NTextbox.vue?vue&type=template&id=47199dd8&
 
 // EXTERNAL MODULE: ./node_modules/keen-ui/src/helpers/modality.js
 var modality = __webpack_require__("78b7");
@@ -31255,6 +31255,7 @@ var UiTextbox = __webpack_require__("a99d");
 var UiTextbox_default = /*#__PURE__*/__webpack_require__.n(UiTextbox);
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NTextbox.vue?vue&type=script&lang=js&
+//
 //
 //
 //
@@ -31311,6 +31312,10 @@ var UiTextbox_default = /*#__PURE__*/__webpack_require__.n(UiTextbox);
       default: "",
       type: String
     },
+    name: {
+      default: "",
+      type: String
+    },
     floatingLabel: {
       default: false,
       type: Boolean
@@ -31341,8 +31346,8 @@ var NTextboxvue_type_style_index_0_lang_scss_ = __webpack_require__("f520");
 
 var NTextbox_component = normalizeComponent(
   components_NTextboxvue_type_script_lang_js_,
-  NTextboxvue_type_template_id_a90f8a90_render,
-  NTextboxvue_type_template_id_a90f8a90_staticRenderFns,
+  NTextboxvue_type_template_id_47199dd8_render,
+  NTextboxvue_type_template_id_47199dd8_staticRenderFns,
   false,
   null,
   null,

@@ -10,6 +10,7 @@
     :help="help"
     :error="error"
     :invalid="invalid"
+    :name="name"
     v-on="$listeners"
   >
     <slot />
@@ -50,6 +51,10 @@ export default {
       type: String
     },
     error: {
+      default: "",
+      type: String
+    },
+    name: {
       default: "",
       type: String
     },
