@@ -7,7 +7,7 @@ import Modal from "./Modal.vue";
 import Navbar from "./Navbar.vue";
 import NavDropdown from "./NavDropdown.vue";
 import NavItem from "./NavItem.vue";
-import NSelect from "./NSelect.vue";
+// import NSelect from "./NSelect.vue";
 import NTextbox from "./NTextbox.vue";
 import { Layout } from "bootstrap-vue/es/components";
 import bCollapse from "bootstrap-vue/es/components/collapse/collapse";
@@ -26,8 +26,8 @@ const Components = {
   NavDropdown,
   NavItem,
   bCollapse,
-  NTextbox,
-  NSelect
+  NTextbox
+  // NSelect
 };
 
 const Directives = {
