@@ -1,14 +1,16 @@
 import Vue from "vue";
 
 import NButton from "./NButton.vue";
-import DropdownItem from "./DropdownItem.vue";
-import Dropdown from "./Dropdown.vue";
-import Modal from "./Modal.vue";
-import Navbar from "./Navbar.vue";
-import NavDropdown from "./NavDropdown.vue";
-import NavItem from "./NavItem.vue";
-// import NSelect from "./NSelect.vue";
+import NDropdownItem from "./NDropdownItem.vue";
+import NDropdown from "./NDropdown.vue";
+import NModal from "./NModal.vue";
+import NNavbar from "./NNavbar.vue";
+import NNavDropdown from "./NNavDropdown.vue";
+import NNavItem from "./NNavItem.vue";
+import NSelect from "./NSelect.vue";
 import NTextbox from "./NTextbox.vue";
+import NRadio from "./NRadio.vue";
+import NRadioGroup from "./NRadioGroup.vue";
 import { Layout } from "bootstrap-vue/es/components";
 import bCollapse from "bootstrap-vue/es/components/collapse/collapse";
 import vBToggle from "bootstrap-vue/es/directives/toggle/toggle";
@@ -19,15 +21,17 @@ Vue.config.productionTip = false;
 
 const Components = {
   NButton,
-  DropdownItem,
-  Dropdown,
-  Modal,
-  Navbar,
-  NavDropdown,
-  NavItem,
+  NDropdownItem,
+  NDropdown,
+  NModal,
+  NNavbar,
+  NNavDropdown,
+  NNavItem,
   bCollapse,
-  NTextbox
-  // NSelect
+  NTextbox,
+  NSelect,
+  NRadio,
+  NRadioGroup
 };
 
 const Directives = {

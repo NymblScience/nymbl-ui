@@ -2,6 +2,7 @@
   <b-modal
     ref="modal"
     v-model="show"
+    class="n-modal"
     :centered="centered"
     v-bind="$attrs"
     hide-header-close
@@ -14,16 +15,16 @@
   >
     <div v-if="type !== 'confirm'" slot="modal-header">
       {{ title }}
-      <Button
+      <n-button
         round
-        type="icon"
+        button-type="icon"
         variant="danger"
         class="modal-close"
         title="Close"
         @click.native="close()"
       >
         <close-icon :size="28" />
-      </Button>
+      </n-button>
     </div>
 
     <slot />
@@ -37,7 +38,7 @@ import BModal from "bootstrap-vue/es/components/modal/modal";
 import CloseIcon from "../icons/Close.vue";
 // const CloseIcon = require("./icons/Close.vue").default;
 export default {
-  name: "Modal",
+  name: "NModal",
   components: {
     BModal,
     CloseIcon

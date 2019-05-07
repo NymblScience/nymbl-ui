@@ -1,17 +1,14 @@
 ```vue
 <template>
-    <NymCheckbox v-model="value"   :options="options" label="Colors" :floatingLabel="true">
-    </NymCheckbox>
+  <n-radio-group name="group1" :options="options" v-model="value">Favourite Flanders</n-radio-group>
 </template>
 
 <script>
-
 export default {
-
   data() {
     return {
-        value: "",
-      options: ['Red', 'Blue', 'Green']
+      value: "",
+      options: ["Red", "Blue", "Green"]
     };
   }
 };

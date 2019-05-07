@@ -1,5 +1,5 @@
 <template>
-  <ui-checkbox
+  <ui-radio-group
     :options="options"
     :disabled="disabled"
     :label="label"
@@ -12,15 +12,15 @@
     v-on="$listeners"
   >
     <slot />
-  </ui-checkbox>
+  </ui-radio-group>
 </template>
 <script>
 import "keen-ui/src/bootstrap"; // Required when using standalone components, should be imported only once in your project
-import UiCheckbox from "keen-ui/lib/UiCheckbox";
+import UiRadioGroup from "keen-ui/lib/UiRadioGroup";
 export default {
   name: "NRadioGroup",
   components: {
-    UiCheckbox
+    UiRadioGroup
   },
   props: {
     /**
@@ -67,12 +67,4 @@ export default {
   }
 };
 </script>
-<style>
-.ui-select .ui-select__display {
-  border: 1px solid lightgray;
-  padding: 20px 20px;
-  border-radius: 5px;
-  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1) inset,
-    0 1px 4px rgba(0, 0, 0, 0.1) inset, 1px -1px 2px rgba(0, 0, 0, 0.1);
-}
-</style>
+<style></style>

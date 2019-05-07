@@ -68,11 +68,11 @@ export default {
 };
 </script>
 <style>
-.ui-select .ui-select__display {
+/* .ui-select .ui-select__display {
   border: 1px solid lightgray;
   padding: 20px 20px;
   border-radius: 5px;
   box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1) inset,
     0 1px 4px rgba(0, 0, 0, 0.1) inset, 1px -1px 2px rgba(0, 0, 0, 0.1);
-}
+} */
 </style>

@@ -10,22 +10,22 @@
   </b-nav-item-dropdown>
 </template>
 <script>
-import BNavItemDropdown from 'bootstrap-vue/es/components/nav/nav-item-dropdown';
+import BNavItemDropdown from "bootstrap-vue/es/components/nav/nav-item-dropdown";
 
 export default {
-  name: 'NavDropdown',
+  name: "NNavDropdown",
   components: {
-    BNavItemDropdown,
+    BNavItemDropdown
   },
   props: {
     text: {
-      default: '',
-      type: String,
+      default: "",
+      type: String
     },
     disabled: {
       default: false,
-      type: Boolean,
-    },
-  },
+      type: Boolean
+    }
+  }
 };
 </script>

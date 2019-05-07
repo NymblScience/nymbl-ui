@@ -3,31 +3,31 @@
   <div>
     <div class="styleguide-section">
       <h3>Default</h3>
-      <Button variant="primary">Primary</Button>
-      <Button variant="secondary">Secondary</Button>
-      <Button variant="danger">Danger</Button>
-      <Button disabled variant="primary">Disabled</Button>
+      <n-button variant="primary">Primary</n-button>
+      <n-button variant="secondary">Secondary</n-button>
+      <n-button variant="danger">Danger</n-button>
+      <n-button disabled variant="primary">Disabled</n-button>
     </div>
     <div class="styleguide-section">
       <h3>Sizes</h3>
-      <Button size="lg">Large</Button>
-      <Button>Medium</Button>
-      <Button size="sm">Small</Button>
+      <n-button size="lg">Large</n-button>
+      <n-button>Medium</n-button>
+      <n-button size="sm">Small</n-button>
     </div>
     <div class="styleguide-section">
       <h3>Text</h3> 
-      <Button type="text" variant="primary">Accept</Button>
-      <Button type="text" variant="secondary">Cancel</Button>
-      <Button type="text" variant="danger">Delete</Button>
+      <n-button buttonType="text" variant="primary">Accept</n-button>
+      <n-button buttonType="text" variant="secondary">Cancel</n-button>
+      <n-button buttonType="text" variant="danger">Delete</n-button>
     </div>
     <div class="styleguide-section">
       <h3>Icon</h3>
-      <Button round type="icon" variant="primary">
+      <n-button round buttonType="icon" variant="primary">
         <menu-icon :size="42"></menu-icon>
-      </Button>
-      <Button round type="icon" variant="danger">
+      </n-button>
+      <n-button round buttonType="icon" variant="danger">
         <close-icon :size="42"></close-icon>
-      </Button>
+      </n-button>
     </div>
   </div>
 </template>

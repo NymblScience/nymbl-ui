@@ -98,18 +98,19 @@
     :fixed="fixed"
     :sticky="sticky"
     :toggleable="toggleable"
+    class="n-navbar"
     :class="{ drawer: drawer }"
   >
-    <Button
+    <n-button
       v-if="drawer"
       round
-      type="icon"
+      button-type="icon"
       variant="transparent"
       class="menu-toggle"
       @click.native="toggleSidebar()"
     >
       <menu-icon />
-    </Button>
+    </n-button>
 
     <b-navbar-brand class="navbar-brand" href="#">
       <slot name="logo" />
@@ -122,15 +123,15 @@
       :class="{ open: show }"
       class="ml-auto sidebar"
     >
-      <Button
+      <n-button
         round
-        type="icon"
+        button-type="icon"
         variant="transparent"
         class="menu-close"
         @click.native="hide()"
       >
         <close-icon />
-      </Button>
+      </n-button>
       <slot name="nav-items-drawer" />
     </b-navbar-nav>
 
@@ -152,7 +153,7 @@ import CloseIcon from "vue-material-design-icons/Close.vue";
 import Hammer from "hammerjs";
 
 export default {
-  name: "Navbar",
+  name: "NNavbar",
   components: {
     BNavbar,
     BNavbarBrand,
