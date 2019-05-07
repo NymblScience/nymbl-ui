@@ -1,6 +1,6 @@
 import Vue from "vue";
 
-import Button from "./Button.vue";
+import NButton from "./NButton.vue";
 import DropdownItem from "./DropdownItem.vue";
 import Dropdown from "./Dropdown.vue";
 import Modal from "./Modal.vue";
@@ -18,7 +18,7 @@ import "../assets/sass/main.scss";
 Vue.config.productionTip = false;
 
 const Components = {
-  Button,
+  NButton,
   DropdownItem,
   Dropdown,
   Modal,

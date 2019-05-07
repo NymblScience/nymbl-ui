@@ -15,7 +15,7 @@
 import BButton from "bootstrap-vue/es/components/button/button";
 
 export default {
-  name: "Button",
+  name: "NButton",
   components: {
     BButton
   },
@@ -44,7 +44,7 @@ export default {
     /**
      * Specify button type `default`, `outline`, `text`, `icon`,
      */
-    type: {
+    buttonType: {
       default: "default",
       type: String
     },
@@ -75,16 +75,16 @@ export default {
     classes() {
       const classes = [];
       classes.push("nymbl-btn");
-      if (this.type === "icon") {
+      if (this.buttonType === "icon") {
         classes.push("btn-icon");
       }
-      if (this.type === "text") {
+      if (this.buttonType === "text") {
         classes.push("btn-text");
       }
-      if (this.type === "outline") {
+      if (this.buttonType === "outline") {
         classes.push("btn-outline");
       }
-      if (this.round && this.type === "icon") {
+      if (this.round && this.buttonType === "icon") {
         classes.push("btn-icon-round");
       }
       return classes;
@@ -139,6 +139,9 @@ export default {
     background: #95bfdd !important;
     color: #245072 !important;
   }
+  &:hover {
+    color: #245072;
+  }
 }
 
 .btn.btn-danger {
@@ -148,6 +151,9 @@ export default {
   &:active {
     background: #dac6bb !important;
     color: #603f2c !important;
+  }
+  &:hover {
+    color: #603f2c;
   }
 }
 
