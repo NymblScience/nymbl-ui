@@ -74,6 +74,7 @@ export default {
   computed: {
     classes() {
       const classes = [];
+      classes.push("n-button");
       classes.push("nymbl-btn");
       if (this.buttonType === "icon") {
         classes.push("btn-icon");

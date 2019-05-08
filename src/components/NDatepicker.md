@@ -1,7 +1,7 @@
 ```vue
 <template>
-    <n-checkbox v-model="value"   :options="options" label="Colors" :floatingLabel="true">
-    </n-checkbox>
+    <n-datepicker v-model="value"   >
+    </n-datepicker>
 </template>
 
 <script>
@@ -10,8 +10,8 @@ export default {
 
   data() {
     return {
-        value: "",
-      options: ['Red', 'Blue', 'Green']
+      value: null
+
     };
   }
 };
