@@ -1,5 +1,6 @@
 <template>
   <ui-radio-group
+    class="n-radio-group"
     :options="options"
     :disabled="disabled"
     :label="label"
@@ -67,4 +68,29 @@ export default {
   }
 };
 </script>
-<style></style>
+<style lang="scss">
+@import "@/assets/sass/config.scss";
+
+.n-radio-group.ui-radio-group.is-invalid
+  .n-radio-group.ui-radio-group__label-text {
+  color: $form-color-invalid;
+}
+.n-radio-group.ui-radio-group.is-invalid .ui-radio-group__feedback {
+  color: $form-color-invalid;
+}
+.n-radio-group.ui-radio-group:not(.is-disabled):not(.is-invalid).is-active
+  .ui-radio-group__label-text {
+  color: $form-color-active;
+}
+
+.n-radio-group
+  .ui-radio--color-primary.is-checked:not(.is-disabled)
+  .ui-radio__outer-circle {
+  border-color: $form-color-active;
+}
+.n-radio-group
+  .ui-radio--color-primary.is-checked:not(.is-disabled)
+  .ui-radio__inner-circle {
+  background-color: $form-color-active;
+}
+</style>

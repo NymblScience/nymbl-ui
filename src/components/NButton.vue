@@ -42,7 +42,7 @@ export default {
       default: false
     },
     /**
-     * Specify button type `default`, `outline`, `text`, `icon`,
+     * Specify button type `default`, `outline`, `text`, `icon`, 'flat-icon',
      */
     buttonType: {
       default: "default",
@@ -78,6 +78,10 @@ export default {
       classes.push("nymbl-btn");
       if (this.buttonType === "icon") {
         classes.push("btn-icon");
+      }
+      if (this.buttonType === "icon-flat") {
+        classes.push("btn-icon");
+        classes.push("btn-icon-flat");
       }
       if (this.buttonType === "text") {
         classes.push("btn-text");
@@ -254,6 +258,19 @@ export default {
     background: none !important;
     outline: none !important;
     box-shadow: none !important;
+  }
+}
+
+.btn.btn-icon.btn-icon-flat {
+  filter: none;
+  &:hover {
+    filter: none;
+  }
+  &:focus {
+    filter: none;
+  }
+  &:active {
+    filter: none;
   }
 }
 

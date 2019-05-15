@@ -1,6 +1,6 @@
 ```vue
 <template>
-    <n-select v-model="value"   :options="options" label="Colors" :floatingLabel="false">
+  <n-select v-model="value"   :options="options" label="Colors" :floatingLabel="false">
     </n-select>
 </template>
 

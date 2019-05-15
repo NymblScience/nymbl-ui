@@ -1,6 +1,6 @@
 ```vue
 <template>
-  <n-navbar>
+  <n-navbar :drawer="true">
     <template v-slot:logo>
       <img class="navbar__logo" :src="logo" />
     </template>
@@ -10,11 +10,11 @@
       <n-nav-item>Item Three</n-nav-item>
       <n-nav-item disabled>Disabled</n-nav-item>
     </template>
-    <template v-slot:nav-items>
+    <!-- <template v-slot:nav-items>
       <n-button round buttonType="icon" variant="transparent">
         <star-icon></star-icon>
       </n-button>
-    </template>
+    </template> -->
   </n-navbar>
 </template>
 

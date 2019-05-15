@@ -1,6 +1,6 @@
 ```vue
 <template>
-  <n-radio-group name="group1" :options="options" v-model="value">Favourite Flanders</n-radio-group>
+  <n-radio-group name="group1" :options="options" v-model="value">Favourite Color</n-radio-group>
 </template>
 
 <script>

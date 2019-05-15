@@ -18,15 +18,15 @@
   display: none;
 }
 
+.n-navbar .router-link-active {
+  color: $dark-green !important;
+}
+
 .menu-close {
   position: absolute;
   right: 1rem;
   top: 0.8rem;
 }
-// @include media-breakpoint-up(xs) {
-//   html {
-//     background: red!important }
-// }
 
 .no-scrolling {
   overflow: hidden;
@@ -75,7 +75,7 @@
     }
   }
 
-  .navbar.drawer.sidebar.open {
+  .navbar.drawer .sidebar.open {
     left: 0;
   }
 
@@ -90,6 +90,20 @@
     z-index: 2060;
     animation: fadeIn 400ms;
   }
+
+  // Add padding when no scrolling enabled.
+  .no-scrolling .navbar.drawer {
+    padding-right: 35px;
+  }
+
+  .n-navbar .n-transparent {
+    .navbar-brand {
+      color: #333;
+    }
+    background: transparent;
+    box-shadow: none;
+    z-index: 1989;
+  }
 }
 </style>
 
@@ -99,7 +113,7 @@
     :sticky="sticky"
     :toggleable="toggleable"
     class="n-navbar"
-    :class="{ drawer: drawer }"
+    :class="{ drawer: drawer, 'n-transparent': transparent }"
   >
     <n-button
       v-if="drawer"
@@ -148,8 +162,8 @@ import BNavbar from "bootstrap-vue/es/components/navbar/navbar";
 import BNavbarBrand from "bootstrap-vue/es/components/navbar/navbar-brand";
 import BNavbarNav from "bootstrap-vue/es/components/navbar/navbar-nav";
 import ClickOutside from "vue-click-outside";
-import MenuIcon from "vue-material-design-icons/Menu.vue";
-import CloseIcon from "vue-material-design-icons/Close.vue";
+import MenuIcon from "../assets/icons/Menu.vue";
+import CloseIcon from "../assets/icons/Close.vue";
 import Hammer from "hammerjs";
 
 export default {
@@ -197,6 +211,13 @@ export default {
      */
     toggleable: {
       type: [Boolean, String],
+      default: false
+    },
+    /**
+     * Set to `true` to make the navbar transparent
+     */
+    transparent: {
+      type: Boolean,
       default: false
     }
   },

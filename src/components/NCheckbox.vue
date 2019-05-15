@@ -1,5 +1,6 @@
 <template>
   <ui-checkbox
+    class="n-checkbox"
     :options="options"
     :disabled="disabled"
     :label="label"
@@ -67,4 +68,19 @@ export default {
   }
 };
 </script>
-<style></style>
+<style lang="scss">
+@import "@/assets/sass/config.scss";
+.n-checkbox.ui-checkbox--color-primary:not(.is-disabled).is-checked:hover
+  .ui-checkbox__checkmark::before,
+.n-checkbox.ui-checkbox--color-primary:not(.is-disabled).is-checked.is-active
+  .ui-checkbox__checkmark::before {
+  background-color: darken($form-color-active, 5%);
+  border-color: darken($form-color-active, 5%);
+}
+
+.n-checkbox.ui-checkbox--color-primary.is-checked
+  .ui-checkbox__checkmark::before {
+  background-color: $form-color-active;
+  border-color: $form-color-active;
+}
+</style>

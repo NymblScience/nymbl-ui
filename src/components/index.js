@@ -9,6 +9,7 @@ import NNavDropdown from "./NNavDropdown.vue";
 import NNavItem from "./NNavItem.vue";
 import NSelect from "./NSelect.vue";
 import NTextbox from "./NTextbox.vue";
+import NDatepicker from "./NDatepicker.vue";
 import NRadio from "./NRadio.vue";
 import NRadioGroup from "./NRadioGroup.vue";
 import { Layout } from "bootstrap-vue/es/components";
@@ -31,7 +32,8 @@ const Components = {
   NTextbox,
   NSelect,
   NRadio,
-  NRadioGroup
+  NRadioGroup,
+  NDatepicker
 };
 
 const Directives = {

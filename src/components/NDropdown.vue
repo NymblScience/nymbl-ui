@@ -7,7 +7,7 @@
 import BDropdown from "bootstrap-vue/es/components/dropdown/dropdown";
 
 export default {
-  name: "Dropdown",
+  name: "NDropdown",
   components: {
     BDropdown
   },

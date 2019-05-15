@@ -28,6 +28,10 @@
       <n-button round buttonType="icon" variant="danger">
         <close-icon :size="42"></close-icon>
       </n-button>
+
+            <n-button round buttonType="icon-flat" variant="danger">
+        <close-icon :size="42"></close-icon>
+      </n-button>
     </div>
   </div>
 </template>

@@ -77,36 +77,30 @@ export default {
 @import "@/assets/sass/animations.scss";
 @import "@/assets/sass/colors.scss";
 @import "@/assets/sass/config.scss";
-.n-textbox .ui-textbox__input {
-  // border: 1px solid lightgray;
-  // border-bottom-width: 1px;
-  // border-radius: $n-border-radius;
-  // height: 2.5rem;
-  // margin: 0.3rem 0;
-  // padding: 0 0.rem;
-  // box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset,
-  //   0 1px 2px rgba(0, 0, 0, 0.1) inset, 1px -1px 2px rgba(0, 0, 0, 0.1);
-}
 
-.n-textbox .ui-textbox.is-invalid:not(.is-disabled) .ui-textbox__input,
-.ui-textbox.is-invalid:not(.is-disabled) .ui-textbox__textarea {
-  border-color: #f44336;
-  border-bottom-color: #f44336;
+.n-textbox.ui-textbox.is-invalid:not(.is-disabled) .ui-textbox__label-text,
+.n-textbox.ui-textbox.is-invalid:not(.is-disabled)
+  .ui-textbox__icon-wrapper
+  .ui-icon,
+.n-textbox.ui-textbox.is-invalid:not(.is-disabled) .ui-textbox__counter {
+  color: $form-color-invalid;
 }
-
 .n-textbox.ui-textbox.is-invalid:not(.is-disabled) .ui-textbox__input,
 .n-textbox.ui-textbox.is-invalid:not(.is-disabled) .ui-textbox__textarea {
-  // border-bottom-width: 1px;
+  border-bottom-color: $form-color-invalid;
+}
+.n-textbox.ui-textbox.is-invalid:not(.is-disabled) .ui-textbox__feedback {
+  color: $form-color-invalid;
 }
 
-// .n-textbox.ui-textbox {
-//   &.is-active:not(.is-disabled) {
-//     .ui-textbox__input,
-//     .ui-textbox__textarea {
-//       border-color: $dark-green;
-//       border-bottom-color: $dark-green;
-//       border-bottom-width: 1px;
-//     }
-//   }
-// }
+.n-textbox.ui-textbox.is-active:not(.is-disabled) .ui-textbox__input,
+.n-textbox.ui-textbox.is-active:not(.is-disabled) .ui-textbox__textarea {
+  border-bottom-color: $form-color-active;
+}
+.n-textbox.ui-textbox.is-active:not(.is-disabled) .ui-textbox__label-text,
+.n-textbox.ui-textbox.is-active:not(.is-disabled)
+  .ui-textbox__icon-wrapper
+  .ui-icon {
+  color: $form-color-active;
+}
 </style>

@@ -62,6 +62,37 @@ export default {
 };
 </script>
 <style lang="scss">
+@import "@/assets/sass/config.scss";
+
+.n-datepicker.ui-datepicker.is-active:not(.is-disabled)
+  .ui-datepicker__label-text,
+.ui-datepicker.is-active:not(.is-disabled)
+  .ui-datepicker__icon-wrapper
+  .ui-icon {
+  color: $form-color-active;
+}
+
+.n-datepicker.ui-datepicker.is-active:not(.is-disabled)
+  .ui-datepicker__display {
+  border-bottom-color: $form-color-active;
+}
+
+.n-datepicker.ui-datepicker.is-invalid:not(.is-disabled)
+  .ui-datepicker__label-text,
+.n-datepicker.ui-datepicker.is-invalid:not(.is-disabled)
+  .ui-datepicker__icon-wrapper
+  .ui-icon {
+  color: $form-color-invalid;
+}
+.n-datepicker.ui-datepicker.is-invalid:not(.is-disabled)
+  .ui-datepicker__display {
+  border-bottom-color: $form-color-invalid;
+}
+.n-datepicker.ui-datepicker.is-invalid:not(.is-disabled)
+  .ui-datepicker__feedback {
+  color: $form-color-invalid;
+}
+
 .ui-calendar-month__header {
   background: #0ab4b1;
   span {
@@ -73,10 +104,7 @@ export default {
 .ui-calendar__body {
   padding: 0 !important;
   height: 20rem !important;
-}
-
-.ui-calendar__header {
-  display: none;
+  background: #fff;
 }
 
 .ui-calendar-controls {
@@ -105,5 +133,37 @@ export default {
 .ui-calendar-week__date.is-in-other-month {
   visibility: visible !important;
   background: #f1f1f1;
+}
+
+.ui-calendar__header-details {
+  display: none !important;
+}
+
+.ui-calendar__header-year {
+  margin-bottom: 0 !important;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.ui-calendar__header {
+  padding: 0.6rem 0 !important;
+  background-color: #292f2f !important;
+}
+
+.ui-calendar--color-primary .ui-calendar__year:hover,
+body[modality="keyboard"] .ui-calendar--color-primary .ui-calendar__year:focus {
+  color: $form-color-active !important;
+}
+.ui-calendar--color-primary .ui-calendar__year.is-selected {
+  color: $form-color-active !important;
+}
+.ui-calendar--color-primary .ui-calendar-week__date.is-today {
+  color: $form-color-active !important;
+}
+.ui-calendar--color-primary .ui-calendar-week__date.is-selected,
+body[modality="keyboard"]
+  .ui-calendar--color-primary
+  .ui-calendar-week__date.is-selected {
+  background-color: $form-color-active !important;
 }
 </style>

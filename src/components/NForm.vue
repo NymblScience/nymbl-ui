@@ -37,7 +37,7 @@ import BModal from "bootstrap-vue/es/components/modal/modal";
 import CloseIcon from "../icons/Close.vue";
 // const CloseIcon = require("./icons/Close.vue").default;
 export default {
-  name: "Modal",
+  name: "NForm",
   components: {
     BModal,
     CloseIcon

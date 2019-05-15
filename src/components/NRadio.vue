@@ -1,5 +1,6 @@
 <template>
   <ui-radio
+    class="n-radio"
     :options="options"
     :disabled="disabled"
     :label="label"
@@ -23,15 +24,6 @@ export default {
     UiRadio
   },
   props: {
-    /**
-     * Select Options
-     */
-    options: {
-      type: Array,
-      default: function() {
-        return [];
-      }
-    },
     /**
      * The size of the button
      * `small, normal, large`
@@ -67,4 +59,15 @@ export default {
   }
 };
 </script>
-<style></style>
+<style lang="scss">
+@import "@/assets/sass/config.scss";
+
+.n-radio.ui-radio--color-primary.is-checked:not(.is-disabled)
+  .ui-radio__outer-circle {
+  border-color: $form-color-active;
+}
+.n-radio.ui-radio--color-primary.is-checked:not(.is-disabled)
+  .ui-radio__inner-circle {
+  background-color: $form-color-active;
+}
+</style>

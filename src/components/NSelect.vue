@@ -1,5 +1,6 @@
 <template>
   <ui-select
+    class="n-select"
     :options="options"
     :disabled="disabled"
     :label="label"
@@ -67,12 +68,36 @@ export default {
   }
 };
 </script>
-<style>
-/* .ui-select .ui-select__display {
-  border: 1px solid lightgray;
-  padding: 20px 20px;
-  border-radius: 5px;
-  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1) inset,
-    0 1px 4px rgba(0, 0, 0, 0.1) inset, 1px -1px 2px rgba(0, 0, 0, 0.1);
-} */
+<style lang="scss">
+@import "@/assets/sass/config.scss";
+
+.n-select.ui-select.is-active:not(.is-disabled) .ui-select__label-text,
+.ui-select.is-active:not(.is-disabled) .ui-select__icon-wrapper .ui-icon {
+  color: $form-color-active;
+}
+
+.n-select.ui-select.is-active:not(.is-disabled) .ui-select__display {
+  border-bottom-color: $form-color-active;
+}
+
+.n-select.ui-select.is-invalid:not(.is-disabled) .ui-select__label-text,
+.n-select.ui-select.is-invalid:not(.is-disabled)
+  .ui-select__icon-wrapper
+  .ui-icon {
+  color: $form-color-active;
+}
+.n-select.ui-select.is-invalid:not(.is-disabled) .ui-select__display {
+  border-bottom-color: $form-color-active;
+}
+.n-select.ui-select.is-invalid:not(.is-disabled) .ui-select__feedback {
+  color: $form-color-active;
+}
+
+.ui-select-option.is-selected {
+  color: $form-color-active !important;
+}
+
+.ui-select-option.is-selected .ui-select-option__checkbox {
+  color: $form-color-active !important;
+}
 </style>
