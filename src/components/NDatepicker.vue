@@ -64,6 +64,14 @@ export default {
 <style lang="scss">
 @import "@/assets/sass/config.scss";
 
+.n-datepicker .ui-datepicker__label-text {
+  @extend .form-label-style;
+}
+
+.n-datepicker .ui-datepicker__display {
+  color: $form-color;
+}
+
 .n-datepicker.ui-datepicker.is-active:not(.is-disabled)
   .ui-datepicker__label-text,
 .ui-datepicker.is-active:not(.is-disabled)
@@ -113,7 +121,7 @@ export default {
   text-transform: uppercase;
 }
 .ui-calendar-week {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #0ab4b1;
 }
 .ui-calendar-month__week {
   width: 17rem !important;
@@ -126,13 +134,13 @@ export default {
 }
 .ui-calendar-week__date {
   border-radius: 0 !important;
-  border-right: 1px solid black;
+  border-right: 1px solid #0ab4b1;
   height: 2.4rem !important;
   width: 2.4rem !important;
 }
 .ui-calendar-week__date.is-in-other-month {
   visibility: visible !important;
-  background: #f1f1f1;
+  background: #f9f9f9;
 }
 
 .ui-calendar__header-details {

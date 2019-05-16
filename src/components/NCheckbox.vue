@@ -70,6 +70,7 @@ export default {
 </script>
 <style lang="scss">
 @import "@/assets/sass/config.scss";
+
 .n-checkbox.ui-checkbox--color-primary:not(.is-disabled).is-checked:hover
   .ui-checkbox__checkmark::before,
 .n-checkbox.ui-checkbox--color-primary:not(.is-disabled).is-checked.is-active

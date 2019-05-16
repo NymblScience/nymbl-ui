@@ -71,6 +71,10 @@ export default {
 <style lang="scss">
 @import "@/assets/sass/config.scss";
 
+.n-radio-group .ui-radio-group__label-text {
+  @extend .form-label-style;
+}
+
 .n-radio-group.ui-radio-group.is-invalid
   .n-radio-group.ui-radio-group__label-text {
   color: $form-color-invalid;

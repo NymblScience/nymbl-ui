@@ -17,7 +17,6 @@
   </ui-textbox>
 </template>
 <script>
-import "keen-ui/src/bootstrap"; // Required when using standalone components, should be imported only once in your project
 import UiTextbox from "keen-ui/lib/UiTextbox";
 export default {
   name: "NTextbox",
@@ -77,6 +76,19 @@ export default {
 @import "@/assets/sass/animations.scss";
 @import "@/assets/sass/colors.scss";
 @import "@/assets/sass/config.scss";
+
+.n-textbox .ui-textbox__label-text {
+  @extend .form-label-style;
+}
+
+.n-textbox .ui-textbox__input::placeholder {
+  color: $form-color-placeholder;
+}
+
+.n-textbox .ui-textbox__input,
+.ui-textbox__textarea {
+  color: $form-color;
+}
 
 .n-textbox.ui-textbox.is-invalid:not(.is-disabled) .ui-textbox__label-text,
 .n-textbox.ui-textbox.is-invalid:not(.is-disabled)

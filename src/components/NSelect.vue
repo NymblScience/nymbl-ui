@@ -16,7 +16,6 @@
   </ui-select>
 </template>
 <script>
-import "keen-ui/src/bootstrap"; // Required when using standalone components, should be imported only once in your project
 import UiSelect from "keen-ui/lib/UiSelect";
 export default {
   name: "NSelect",
@@ -70,6 +69,14 @@ export default {
 </script>
 <style lang="scss">
 @import "@/assets/sass/config.scss";
+
+.n-select .ui-select__label-text {
+  @extend .form-label-style;
+}
+
+.n-select .ui-select__display {
+  color: $form-color;
+}
 
 .n-select.ui-select.is-active:not(.is-disabled) .ui-select__label-text,
 .ui-select.is-active:not(.is-disabled) .ui-select__icon-wrapper .ui-icon {
