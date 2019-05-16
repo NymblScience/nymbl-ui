@@ -22,6 +22,12 @@
   color: $dark-green !important;
 }
 
+@media only screen and (max-width: 70rem) {
+  .navigation-help-icon {
+    margin-left: 0.6rem;
+  }
+}
+
 .menu-close {
   position: absolute;
   right: 1rem;

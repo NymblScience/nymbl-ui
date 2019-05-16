@@ -48644,12 +48644,12 @@ var NModal_component = normalizeComponent(
 )
 
 /* harmony default export */ var NModal = (NModal_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NNavbar.vue?vue&type=template&id=025399b9&
-var NNavbarvue_type_template_id_025399b9_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-navbar',{staticClass:"n-navbar",class:{ drawer: _vm.drawer, 'n-transparent': _vm.transparent },attrs:{"fixed":_vm.fixed,"sticky":_vm.sticky,"toggleable":_vm.toggleable}},[(_vm.drawer)?_c('n-button',{staticClass:"menu-toggle",attrs:{"round":"","button-type":"icon","variant":"transparent"},nativeOn:{"click":function($event){return _vm.toggleSidebar()}}},[_c('menu-icon')],1):_vm._e(),_c('b-navbar-brand',{staticClass:"navbar-brand",attrs:{"href":"#"}},[_vm._t("logo")],2),_c('b-navbar-nav',{staticClass:"ml-auto sidebar",class:{ open: _vm.show },attrs:{"id":"side-bar","right":""}},[_c('n-button',{staticClass:"menu-close",attrs:{"round":"","button-type":"icon","variant":"transparent"},nativeOn:{"click":function($event){return _vm.hide()}}},[_c('close-icon')],1),_vm._t("nav-items-drawer")],2),_c('b-navbar-nav',{attrs:{"right":""}},[_vm._t("nav-items")],2),(_vm.show)?_c('div',{staticClass:"backdrop",on:{"click":function($event){return _vm.hide()}}}):_vm._e()],1)}
-var NNavbarvue_type_template_id_025399b9_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NNavbar.vue?vue&type=template&id=f7d768ec&
+var NNavbarvue_type_template_id_f7d768ec_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-navbar',{staticClass:"n-navbar",class:{ drawer: _vm.drawer, 'n-transparent': _vm.transparent },attrs:{"fixed":_vm.fixed,"sticky":_vm.sticky,"toggleable":_vm.toggleable}},[(_vm.drawer)?_c('n-button',{staticClass:"menu-toggle",attrs:{"round":"","button-type":"icon","variant":"transparent"},nativeOn:{"click":function($event){return _vm.toggleSidebar()}}},[_c('menu-icon')],1):_vm._e(),_c('b-navbar-brand',{staticClass:"navbar-brand",attrs:{"href":"#"}},[_vm._t("logo")],2),_c('b-navbar-nav',{staticClass:"ml-auto sidebar",class:{ open: _vm.show },attrs:{"id":"side-bar","right":""}},[_c('n-button',{staticClass:"menu-close",attrs:{"round":"","button-type":"icon","variant":"transparent"},nativeOn:{"click":function($event){return _vm.hide()}}},[_c('close-icon')],1),_vm._t("nav-items-drawer")],2),_c('b-navbar-nav',{attrs:{"right":""}},[_vm._t("nav-items")],2),(_vm.show)?_c('div',{staticClass:"backdrop",on:{"click":function($event){return _vm.hide()}}}):_vm._e()],1)}
+var NNavbarvue_type_template_id_f7d768ec_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/NNavbar.vue?vue&type=template&id=025399b9&
+// CONCATENATED MODULE: ./src/components/NNavbar.vue?vue&type=template&id=f7d768ec&
 
 // EXTERNAL MODULE: ./node_modules/bootstrap-vue/es/components/navbar/navbar.js
 var navbar = __webpack_require__("e1a8");
@@ -49026,6 +49026,12 @@ var hammer_default = /*#__PURE__*/__webpack_require__.n(hammerjs_hammer);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -49141,8 +49147,8 @@ var NNavbarvue_type_style_index_0_lang_scss_ = __webpack_require__("ac75");
 
 var NNavbar_component = normalizeComponent(
   components_NNavbarvue_type_script_lang_js_,
-  NNavbarvue_type_template_id_025399b9_render,
-  NNavbarvue_type_template_id_025399b9_staticRenderFns,
+  NNavbarvue_type_template_id_f7d768ec_render,
+  NNavbarvue_type_template_id_f7d768ec_staticRenderFns,
   false,
   null,
   null,
