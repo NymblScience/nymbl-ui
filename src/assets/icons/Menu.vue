@@ -13,39 +13,42 @@
       :height="size"
       viewBox="0 0 24 24"
     >
-      <g transform="translate(-105.24 -61.446)">
+      <title>{{ title }}</title>
+      <g id="g12" transform="matrix(1,0,0,1.2546583,-105.04276,-76.643735)">
         <g
-          transform="matrix(.64661 0 0 .64661 -74.249 -105.93)"
-          fill-rule="evenodd"
-          stroke-width=".67193"
+          id="g10"
+          transform="matrix(0.64661,0,0,0.64661,-74.249,-105.93)"
+          style="fill-rule:evenodd;stroke-width:0.67193002"
         >
           <rect
-            transform="matrix(-1 -.0019925 .0027971 1 0 0)"
-            x="-311.43"
-            y="258.29"
-            width="34.571"
-            height="5.8891"
+            id="rect4"
+            transform="matrix(-1,-0.0019925,0.0027971,1,0,0)"
+            x="-311.42999"
+            y="258.29001"
+            width="34.570999"
+            height="5.8891001"
             rx="3.053"
           />
           <rect
-            transform="matrix(-1 -.0019925 .0027971 1 0 0)"
-            x="-311.4"
-            y="268.64"
-            width="34.571"
-            height="5.8891"
+            id="rect6"
+            transform="matrix(-1,-0.0019925,0.0027971,1,0,0)"
+            x="-311.39999"
+            y="268.64001"
+            width="34.570999"
+            height="5.8891001"
             rx="3.053"
           />
           <rect
-            transform="matrix(-1 -.0019925 .0027971 1 0 0)"
+            id="rect8"
+            transform="matrix(-1,-0.0019925,0.0027971,1,0,0)"
             x="-311.37"
-            y="279.29"
-            width="34.571"
-            height="5.8891"
+            y="279.29001"
+            width="34.570999"
+            height="5.8891001"
             rx="3.053"
           />
         </g>
       </g>
-      <title>{{ title }}</title>
     </svg>
   </span>
 </template>

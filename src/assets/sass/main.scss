@@ -45,6 +45,10 @@ $body-color: #231f20 !default;
 
 $text-color: #231f20;
 
+
+
+$zindex-modal-backdrop:             2040 !default;
+$zindex-modal:                      2050 !default;
 // Links
 //
 // Style anchor elements.
@@ -100,7 +104,7 @@ $text-color: #231f20;
 // Stop scrolling.
 .no-scrolling {
   overflow: hidden;
-  padding-right: 17px;
+  // padding-right: 17px;
 }
 
 html {

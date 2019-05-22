@@ -1,6 +1,7 @@
 <template>
   <ui-textbox
     class="n-textbox"
+    :class="classes"
     :options="options"
     :disabled="disabled"
     :label="label"
@@ -61,6 +62,14 @@ export default {
       default: false,
       type: Boolean
     },
+    /**
+     * Make the textbox act as static text.
+     * Disabled prop must me set to true
+     */
+    text: {
+      default: false,
+      type: Boolean
+    },
     disabled: {
       default: false,
       type: Boolean
@@ -68,6 +77,15 @@ export default {
     invalid: {
       default: false,
       type: Boolean
+    }
+  },
+  computed: {
+    classes() {
+      const classes = [];
+      if (this.text) {
+        classes.push("n-text");
+      }
+      return classes;
     }
   }
 };
@@ -114,5 +132,11 @@ export default {
   .ui-textbox__icon-wrapper
   .ui-icon {
   color: $form-color-active;
+}
+
+.n-textbox.n-text.is-disabled .ui-textbox__input {
+  border-bottom-width: 0;
+  cursor: default;
+  color: $form-color;
 }
 </style>

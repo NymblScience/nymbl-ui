@@ -13,6 +13,10 @@
   min-height: 4rem;
 }
 
+.n-navbar .container {
+  margin-top: 0;
+}
+
 .navbar .menu-toggle,
 .navbar .menu-close {
   display: none;
@@ -121,45 +125,46 @@
     class="n-navbar"
     :class="{ drawer: drawer, 'n-transparent': transparent }"
   >
-    <n-button
-      v-if="drawer"
-      round
-      button-type="icon"
-      variant="transparent"
-      class="menu-toggle"
-      @click.native="toggleSidebar()"
-    >
-      <menu-icon />
-    </n-button>
-
-    <b-navbar-brand class="navbar-brand" href="#">
-      <slot name="logo" />
-    </b-navbar-brand>
-
-    <!-- Hidden in drawer  -->
-    <b-navbar-nav
-      id="side-bar"
-      right
-      :class="{ open: show }"
-      class="ml-auto sidebar"
-    >
+    <div class="container">
       <n-button
-        round
+        v-if="drawer"
         button-type="icon"
-        variant="transparent"
-        class="menu-close"
-        @click.native="hide()"
+        variant="primary"
+        class="menu-toggle"
+        @click.native="toggleSidebar()"
       >
-        <close-icon />
+        <menu-icon />
       </n-button>
-      <slot name="nav-items-drawer" />
-    </b-navbar-nav>
 
-    <!-- Always shown  -->
-    <b-navbar-nav right>
-      <slot name="nav-items" />
-    </b-navbar-nav>
-    <div v-if="show" class="backdrop" @click="hide()" />
+      <b-navbar-brand class="navbar-brand" href="#">
+        <slot name="logo" />
+      </b-navbar-brand>
+
+      <!-- Hidden in drawer  -->
+      <b-navbar-nav
+        id="side-bar"
+        right
+        :class="{ open: show }"
+        class="ml-auto sidebar"
+      >
+        <n-button
+          round
+          button-type="icon"
+          variant="danger"
+          class="menu-close"
+          @click.native="hide()"
+        >
+          <close-icon />
+        </n-button>
+        <slot name="nav-items-drawer" />
+      </b-navbar-nav>
+
+      <!-- Always shown  -->
+      <b-navbar-nav right>
+        <slot name="nav-items" />
+      </b-navbar-nav>
+      <div v-if="show" class="backdrop" @click="hide()" />
+    </div>
   </b-navbar>
 </template>
 

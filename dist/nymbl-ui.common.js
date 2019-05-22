@@ -96,24 +96,51 @@ module.exports =
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
-var _link = __webpack_require__("4e40");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
+var _link = _interopRequireWildcard(__webpack_require__("4e40"));
+
+var _dom = __webpack_require__("1611");
+
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var props = (0, _link.propsFactory)(); // @vue/component
 
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BDropdownItem',
+  mixins: [_normalizeSlot.default],
+  inheritAttrs: false,
   inject: {
     bvDropdown: {
       default: null
     }
   },
-  props: props,
+  props: _objectSpread({}, props, {
+    variant: {
+      type: String,
+      default: null
+    }
+  }),
   methods: {
     closeDropdown: function closeDropdown() {
-      if (this.bvDropdown) {
-        this.bvDropdown.hide(true);
-      }
+      var _this = this;
+
+      // Close on next animation frame to allow <b-link> time to process
+      (0, _dom.requestAF)(function () {
+        if (_this.bvDropdown) {
+          _this.bvDropdown.hide(true);
+        }
+      });
     },
     onClick: function onClick(evt) {
       this.$emit('click', evt);
@@ -121,18 +148,21 @@ var _default = {
     }
   },
   render: function render(h) {
-    return h(_link.default, {
+    return h('li', [h(_link.default, {
       props: this.$props,
       staticClass: 'dropdown-item',
-      attrs: {
+      class: _defineProperty({}, "text-".concat(this.variant), this.variant && !(this.active || this.disabled)),
+      attrs: _objectSpread({}, this.$attrs, {
         role: 'menuitem'
-      },
+      }),
       on: {
         click: this.onClick
-      }
-    }, this.$slots.default);
+      },
+      ref: 'item'
+    }, this.normalizeSlot('default'))]);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -146,17 +176,29 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _inputGroup = __webpack_require__("fde0");
+var _inputGroup = _interopRequireDefault(__webpack_require__("fde0"));
 
-var _inputGroupAddon = __webpack_require__("9d25");
+exports.BInputGroup = _inputGroup.default;
 
-var _inputGroupPrepend = __webpack_require__("9e3e");
+var _inputGroupAddon = _interopRequireDefault(__webpack_require__("9d25"));
 
-var _inputGroupAppend = __webpack_require__("6780");
+exports.BInputGroupAddon = _inputGroupAddon.default;
 
-var _inputGroupText = __webpack_require__("df74");
+var _inputGroupPrepend = _interopRequireDefault(__webpack_require__("9e3e"));
+
+exports.BInputGroupPrepend = _inputGroupPrepend.default;
+
+var _inputGroupAppend = _interopRequireDefault(__webpack_require__("6780"));
+
+exports.BInputGroupAppend = _inputGroupAppend.default;
+
+var _inputGroupText = _interopRequireDefault(__webpack_require__("df74"));
+
+exports.BInputGroupText = _inputGroupText.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BInputGroup: _inputGroup.default,
@@ -260,11 +302,17 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
 exports.__esModule = true;
 exports.default = void 0;
 
-var _listGroup = __webpack_require__("5a5e");
+var _listGroup = _interopRequireDefault(__webpack_require__("5a5e"));
 
-var _listGroupItem = __webpack_require__("5ac8");
+exports.BListGroup = _listGroup.default;
+
+var _listGroupItem = _interopRequireDefault(__webpack_require__("5ac8"));
+
+exports.BListGroupItem = _listGroupItem.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BListGroup: _listGroup.default,
@@ -288,7 +336,11 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var props = {
   id: {
@@ -310,7 +362,8 @@ var props = {
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BForm',
   functional: true,
   props: props,
@@ -329,7 +382,8 @@ var _default = {
       }
     }), children);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -343,25 +397,31 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _startcase = __webpack_require__("3098");
+var _keyCodes = _interopRequireDefault(__webpack_require__("06e4"));
 
-var _keyCodes = __webpack_require__("06e4");
+var _startcase = _interopRequireDefault(__webpack_require__("3098"));
+
+var _config = __webpack_require__("eb60");
 
 var _html = __webpack_require__("be11");
 
-var _filterEvent = __webpack_require__("382a");
+var _filterEvent = _interopRequireDefault(__webpack_require__("382a"));
 
-var _textSelectionActive = __webpack_require__("c57f");
+var _textSelectionActive = _interopRequireDefault(__webpack_require__("c57f"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var _default = {
+var _default2 = {
   props: {
     headVariant: {
       type: String,
-      default: ''
+      default: function _default() {
+        return (0, _config.getComponentConfig)('BTable', 'headVariant');
+      }
     },
     theadClass: {
       type: [String, Array, Object],
@@ -464,9 +524,7 @@ var _default = {
         };
         var slot = isFoot && _this.hasNormalizedSlot("FOOT_".concat(field.key)) ? _this.normalizeSlot("FOOT_".concat(field.key), fieldScope) : _this.normalizeSlot("HEAD_".concat(field.key), fieldScope);
 
-        if (slot) {
-          slot = [slot];
-        } else {
+        if (!slot) {
           data.domProps = (0, _html.htmlOrText)(field.labelHtml);
         }
 
@@ -511,7 +569,7 @@ var _default = {
     }
   }
 };
-exports.default = _default;
+exports.default = _default2;
 
 /***/ }),
 
@@ -564,9 +622,13 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _spinner = __webpack_require__("9c6f");
+var _spinner = _interopRequireDefault(__webpack_require__("9c6f"));
+
+exports.BSpinner = _spinner.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BSpinner: _spinner.default
@@ -589,23 +651,29 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _id = __webpack_require__("eae0");
-
-var _form = __webpack_require__("5f07");
-
-var _formState = __webpack_require__("41fb");
-
-var _formCustom = __webpack_require__("377c");
-
-var _normalizeSlot = __webpack_require__("532a");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
 
 var _array = __webpack_require__("bb2f");
 
 var _config = __webpack_require__("eb60");
 
+var _inspect = __webpack_require__("0d5a");
+
+var _formCustom = _interopRequireDefault(__webpack_require__("377c"));
+
+var _form = _interopRequireDefault(__webpack_require__("5f07"));
+
+var _formState = _interopRequireDefault(__webpack_require__("41fb"));
+
+var _id = _interopRequireDefault(__webpack_require__("eae0"));
+
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var NAME = 'BFormFile'; // @vue/component
 
-var _default2 = {
+var _default2 = _vue.default.extend({
   name: NAME,
   mixins: [_id.default, _form.default, _formState.default, _formCustom.default, _normalizeSlot.default],
   model: {
@@ -697,7 +765,7 @@ var _default2 = {
         })];
       } else {
         // Use the user supplied formatter, or the built in one.
-        return typeof this.fileNameFormatter === 'function' ? String(this.fileNameFormatter(files)) : files.map(function (file) {
+        return (0, _inspect.isFunction)(this.fileNameFormatter) ? String(this.fileNameFormatter(files)) : files.map(function (file) {
           return file.name;
         }).join(', ');
       }
@@ -933,7 +1001,8 @@ var _default2 = {
       }
     }, [input, label]);
   }
-};
+});
+
 exports.default = _default2;
 
 /***/ }),
@@ -947,35 +1016,39 @@ exports.default = _default2;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _looseEqual = __webpack_require__("96cd");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
 
-var _id = __webpack_require__("eae0");
+var _looseEqual = _interopRequireDefault(__webpack_require__("96cd"));
 
-var _normalizeSlot = __webpack_require__("532a");
+var _id = _interopRequireDefault(__webpack_require__("eae0"));
 
-var _mixinItems = __webpack_require__("4399");
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
 
-var _mixinFiltering = __webpack_require__("a306");
+var _mixinItems = _interopRequireDefault(__webpack_require__("4399"));
 
-var _mixinSorting = __webpack_require__("e8c7");
+var _mixinFiltering = _interopRequireDefault(__webpack_require__("a306"));
 
-var _mixinPagination = __webpack_require__("0c42");
+var _mixinSorting = _interopRequireDefault(__webpack_require__("e8c7"));
 
-var _mixinCaption = __webpack_require__("50b2");
+var _mixinPagination = _interopRequireDefault(__webpack_require__("0c42"));
 
-var _mixinColgroup = __webpack_require__("6a0e");
+var _mixinCaption = _interopRequireDefault(__webpack_require__("50b2"));
 
-var _mixinThead = __webpack_require__("060b");
+var _mixinColgroup = _interopRequireDefault(__webpack_require__("6a0e"));
 
-var _mixinTfoot = __webpack_require__("711a");
+var _mixinThead = _interopRequireDefault(__webpack_require__("060b"));
 
-var _mixinTbody = __webpack_require__("3888");
+var _mixinTfoot = _interopRequireDefault(__webpack_require__("711a"));
 
-var _mixinBusy = __webpack_require__("7f6b");
+var _mixinTbody = _interopRequireDefault(__webpack_require__("3888"));
 
-var _mixinSelectable = __webpack_require__("3966");
+var _mixinBusy = _interopRequireDefault(__webpack_require__("7f6b"));
 
-var _mixinProvider = __webpack_require__("b6bd");
+var _mixinSelectable = _interopRequireDefault(__webpack_require__("3966"));
+
+var _mixinProvider = _interopRequireDefault(__webpack_require__("b6bd"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -983,7 +1056,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 // b-table component definition
 // @vue/component
-var _default2 = {
+var _default2 = _vue.default.extend({
   name: 'BTable',
   // Order of mixins is important.
   // They are merged from left to fight, followed by this component.
@@ -1031,6 +1104,10 @@ var _default2 = {
       type: [Boolean, String],
       default: false
     },
+    tableClass: {
+      type: [String, Array, Object],
+      default: null
+    },
     value: {
       // v-model for retrieving the current displayed rows
       type: Array,
@@ -1056,9 +1133,11 @@ var _default2 = {
       return this.isResponsive === true ? 'table-responsive' : this.isResponsive ? "table-responsive-".concat(this.responsive) : '';
     },
     tableClasses: function tableClasses() {
-      return [_defineProperty({
+      return [// User supplied classes
+      this.tableClass, // Styling classes
+      _defineProperty({
         'table-striped': this.striped,
-        'table-hover': this.hover,
+        'table-hover': this.hover && this.computedItems.length > 0 && !this.computedBusy,
         'table-dark': this.dark,
         'table-bordered': this.bordered,
         'table-borderless': this.borderless,
@@ -1142,7 +1221,8 @@ var _default2 = {
       class: this.responsiveClass
     }, [$table]) : $table;
   }
-};
+});
+
 exports.default = _default2;
 
 /***/ }),
@@ -1167,11 +1247,17 @@ module.exports = function (it, key) {
 exports.__esModule = true;
 exports.default = void 0;
 
-var _button = __webpack_require__("b664");
+var _button = _interopRequireDefault(__webpack_require__("b664"));
 
-var _buttonClose = __webpack_require__("600b");
+exports.BButton = _button.default;
+
+var _buttonClose = _interopRequireDefault(__webpack_require__("600b"));
+
+exports.BButtonClose = _buttonClose.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BButton: _button.default,
@@ -1197,9 +1283,13 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
 var _config = __webpack_require__("eb60");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -1226,7 +1316,8 @@ var props = {
 
 };
 exports.props = props;
-var _default2 = {
+
+var _default2 = _vue.default.extend({
   name: NAME,
   functional: true,
   props: props,
@@ -1243,7 +1334,8 @@ var _default2 = {
       }
     }), children);
   }
-};
+});
+
 exports.default = _default2;
 
 /***/ }),
@@ -1257,11 +1349,11 @@ exports.default = _default2;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _array = __webpack_require__("bb2f");
+var _identity = _interopRequireDefault(__webpack_require__("fccc"));
 
-var _object = __webpack_require__("24e2");
+var _inspect = __webpack_require__("0d5a");
 
-var _identity = __webpack_require__("fccc");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -1278,7 +1370,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var copyProps = function copyProps(props) {
   var transformFn = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _identity.default;
 
-  if ((0, _array.isArray)(props)) {
+  if ((0, _inspect.isArray)(props)) {
     return props.map(transformFn);
   } // Props as an object.
 
@@ -1290,7 +1382,7 @@ var copyProps = function copyProps(props) {
     if (props.hasOwnProperty(prop)) {
       // If the prop value is an object, do a shallow clone to prevent
       // potential mutations to the original object.
-      copied[transformFn(prop)] = (0, _object.isObject)(props[prop]) ? _objectSpread({}, props[prop]) : props[prop];
+      copied[transformFn(prop)] = (0, _inspect.isObject)(props[prop]) ? _objectSpread({}, props[prop]) : props[prop];
     }
   }
 
@@ -1309,26 +1401,64 @@ exports.default = _default;
 
 
 exports.__esModule = true;
-exports.vueUse = exports.registerDirectives = exports.registerDirective = exports.registerComponents = exports.registerComponent = exports.registerPlugins = exports.installFactory = void 0;
+exports.vueUse = exports.registerDirectives = exports.registerDirective = exports.registerComponents = exports.registerComponent = exports.registerPlugins = exports.installFactory = exports.checkMultipleVue = void 0;
+
+var _vue = _interopRequireDefault(__webpack_require__("8bbf"));
+
+var _warn = _interopRequireDefault(__webpack_require__("93e0"));
 
 var _config = __webpack_require__("eb60");
 
+var _env = __webpack_require__("4565");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var MULTIPLE_VUE_WARNING = "Multiple instances of Vue detected!\nSee: https://bootstrap-vue.js.org/docs#using-module-bundlers";
+var checkMultipleVueWarned = false;
+/**
+ * Checks if there are multiple instances of Vue, and warns (once) about issues.
+ * @param {object} Vue
+ */
+
+var checkMultipleVue = function checkMultipleVue(Vue) {
+  /* istanbul ignore next */
+  if (!checkMultipleVueWarned && _vue.default !== Vue) {
+    (0, _warn.default)(MULTIPLE_VUE_WARNING);
+    checkMultipleVueWarned = true;
+  }
+};
 /**
  * Plugin install factory function.
  * @param {object} { components, directives }
  * @returns {function} plugin install function
  */
+
+
+exports.checkMultipleVue = checkMultipleVue;
+
 var installFactory = function installFactory(_ref) {
   var components = _ref.components,
       directives = _ref.directives,
       plugins = _ref.plugins;
-  return function (Vue) {
+
+  var install = function install(Vue) {
     var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    if (install.installed) {
+      /* istanbul ignore next */
+      return;
+    }
+
+    install.installed = true;
+    checkMultipleVue(Vue);
     (0, _config.setConfig)(config);
     registerComponents(Vue, components);
     registerDirectives(Vue, directives);
     registerPlugins(Vue, plugins);
   };
+
+  install.installed = false;
+  return install;
 };
 /**
  * Load a group of plugins.
@@ -1391,7 +1521,9 @@ exports.registerComponents = registerComponents;
 
 var registerDirective = function registerDirective(Vue, name, def) {
   if (Vue && name && def) {
-    Vue.directive(name, def);
+    // Ensure that any leading V is removed from the
+    // name, as Vue adds it automatically
+    Vue.directive(name.replace(/^VB/, 'B'), def);
   }
 };
 /**
@@ -1420,7 +1552,7 @@ exports.registerDirectives = registerDirectives;
 
 var vueUse = function vueUse(VuePlugin) {
   /* istanbul ignore next */
-  if (typeof window !== 'undefined' && window.Vue) {
+  if (_env.hasWindowSupport && window.Vue) {
     window.Vue.use(VuePlugin);
   }
 };
@@ -1439,6 +1571,8 @@ exports.__esModule = true;
 exports.default = void 0;
 
 var _html = __webpack_require__("be11");
+
+var _inspect = __webpack_require__("0d5a");
 
 var _default = {
   props: {
@@ -1499,7 +1633,7 @@ var _default = {
         $empty = h('tr', {
           key: this.isFiltered ? '_b-table-empty-filtered-row_' : '_b-table-empty-row_',
           staticClass: 'b-table-empty-row',
-          class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-empty') : this.tbodyTrClass],
+          class: [(0, _inspect.isFunction)(this.tbodyTrClass) ? this.tbodyTrClass(null, 'row-empty') : this.tbodyTrClass],
           attrs: {
             role: 'row'
           }
@@ -1534,28 +1668,34 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _id = __webpack_require__("eae0");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
 
-var _form = __webpack_require__("5f07");
+var _id = _interopRequireDefault(__webpack_require__("eae0"));
 
-var _formSize = __webpack_require__("6e1b");
+var _form = _interopRequireDefault(__webpack_require__("5f07"));
 
-var _formState = __webpack_require__("41fb");
+var _formSize = _interopRequireDefault(__webpack_require__("6e1b"));
 
-var _formText = __webpack_require__("c01c");
+var _formState = _interopRequireDefault(__webpack_require__("41fb"));
 
-var _formSelection = __webpack_require__("10fc");
+var _formText = _interopRequireDefault(__webpack_require__("c01c"));
 
-var _formValidity = __webpack_require__("b965");
+var _formSelection = _interopRequireDefault(__webpack_require__("10fc"));
+
+var _formValidity = _interopRequireDefault(__webpack_require__("b965"));
 
 var _dom = __webpack_require__("1611");
+
+var _inspect = __webpack_require__("0d5a");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 // @vue/component
-var _default = {
+var _default = _vue.default.extend({
   name: 'BFormTextarea',
   mixins: [_id.default, _form.default, _formSize.default, _formState.default, _formText.default, _formSelection.default, _formValidity.default],
   props: {
@@ -1585,7 +1725,8 @@ var _default = {
   },
   data: function data() {
     return {
-      dontResize: true
+      dontResize: true,
+      heightInPx: null
     };
   },
   computed: {
@@ -1599,7 +1740,10 @@ var _default = {
       if (!this.computedRows) {
         // The computed height for auto resize.
         // We avoid setting the style to null, which can override user manual resize.
-        styles.height = this.computedHeight;
+        styles.height = this.heightInPx; // We always add a vertical scrollbar to the textarea when auto-resize is
+        // enabled so that the computed height calcaultion returns a stable value.
+
+        styles.overflowY = 'scroll';
       }
 
       return styles;
@@ -1617,53 +1761,16 @@ var _default = {
       // This is used to set the attribute 'rows' on the textarea.
       // If auto-resize is enabled, then we return null as we use CSS to control height.
       return this.computedMinRows === this.computedMaxRows ? this.computedMinRows : null;
-    },
-    computedHeight: function computedHeight()
-    /* istanbul ignore next: can't test getComputedProperties */
-    {
-      // We compare `computedRows` and `localValue` to `true`, a value
-      // they both can't have at any time, to ensure reactivity
-      if (this.$isServer || this.dontResize || this.computedRows === true || this.localValue === true) {
-        return null;
+    }
+  },
+  watch: {
+    dontResize: function dontResize(newVal, oldval) {
+      if (!newVal) {
+        this.setHeight();
       }
-
-      var el = this.$el; // Element must be visible (not hidden) and in document
-      // *Must* be checked after above checks
-
-      if (!(0, _dom.isVisible)(el)) {
-        return null;
-      } // Remember old height (includes `px` units) and reset it temporarily to `auto`
-
-
-      var oldHeight = el.style.height;
-      el.style.height = 'auto'; // Get current computed styles
-
-      var computedStyle = (0, _dom.getCS)(el); // Height of one line of text in px
-
-      var lineHeight = parseFloat(computedStyle.lineHeight); // Minimum height for min rows (browser dependant)
-
-      var minHeight = parseInt(computedStyle.height, 10) || lineHeight * this.computedMinRows; // Calculate height of content
-
-      var offset = (parseFloat(computedStyle.borderTopWidth) || 0) + (parseFloat(computedStyle.borderBottomWidth) || 0) + (parseFloat(computedStyle.paddingTop) || 0) + (parseFloat(computedStyle.paddingBottom) || 0); // Calculate content height in "rows"
-
-      var contentRows = Math.max((el.scrollHeight - offset) / lineHeight, 2); // Calculate number of rows to display (limited within min/max rows)
-
-      var rows = Math.min(Math.max(contentRows, this.computedMinRows), this.computedMaxRows); // Calculate the required height of the textarea including border and padding (in pixels)
-
-      var height = Math.max(Math.ceil(rows * lineHeight + offset), minHeight); // Place old height back on element, just in case this computed prop returns the same value
-
-      el.style.height = oldHeight; // Value of previous height (without px units appended)
-
-      var oldHeightPx = parseFloat(oldHeight) || 0;
-
-      if (this.noAutoShrink && oldHeightPx > height) {
-        // Computed height remains the larger of oldHeight and new height
-        // When height is `sticky` (no-auto-shrink is true)
-        return oldHeight;
-      } // Return the new computed height in px units
-
-
-      return "".concat(height, "px");
+    },
+    localValue: function localValue(newVal, oldVal) {
+      this.setHeight();
     }
   },
   mounted: function mounted() {
@@ -1689,6 +1796,63 @@ var _default = {
   beforeDestroy: function beforeDestroy() {
     /* istanbul ignore next */
     this.dontResize = true;
+  },
+  methods: {
+    setHeight: function setHeight() {
+      var _this3 = this;
+
+      this.$nextTick(function () {
+        _this3.heightInPx = _this3.computeHeight();
+      });
+    },
+    computeHeight: function computeHeight()
+    /* istanbul ignore next: can't test getComputedStyle in JSDOM */
+    {
+      if (this.$isServer || !(0, _inspect.isNull)(this.computedRows)) {
+        return null;
+      }
+
+      var el = this.$el; // Element must be visible (not hidden) and in document.
+      // Must be checked after above checks
+
+      if (!(0, _dom.isVisible)(el)) {
+        return null;
+      } // Get current computed styles
+
+
+      var computedStyle = (0, _dom.getCS)(el); // Height of one line of text in px
+
+      var lineHeight = parseFloat(computedStyle.lineHeight); // Calculate height of border and padding
+
+      var border = (parseFloat(computedStyle.borderTopWidth) || 0) + (parseFloat(computedStyle.borderBottomWidth) || 0);
+      var padding = (parseFloat(computedStyle.paddingTop) || 0) + (parseFloat(computedStyle.paddingBottom) || 0); // Calculate offset
+
+      var offset = border + padding; // Minimum height for min rows (which must be 2 rows or greater for cross-browser support)
+
+      var minHeight = lineHeight * this.computedMinRows + offset; // Get the current style height (with `px` units)
+
+      var oldHeight = el.style.height || computedStyle.height; // Probe scrollHeight by temporarily changing the height to `auto`
+
+      el.style.height = 'auto';
+      var scrollHeight = el.scrollHeight; // Place the original old height back on the element, just in case this computedProp
+      // returns the same value as before.
+
+      el.style.height = oldHeight; // Calculate content height in "rows" (scrollHeight includes padding but not border)
+
+      var contentRows = Math.max((scrollHeight - padding) / lineHeight, 2); // Calculate number of rows to display (limited within min/max rows)
+
+      var rows = Math.min(Math.max(contentRows, this.computedMinRows), this.computedMaxRows); // Calculate the required height of the textarea including border and padding (in pixels)
+
+      var height = Math.max(Math.ceil(rows * lineHeight + offset), minHeight); // Computed height remains the larger of oldHeight and new height,
+      // when height is in `sticky` mode (prop `no-auto-shrink` is true)
+
+      if (this.noAutoShrink && (parseFloat(oldHeight) || 0) > height) {
+        return oldHeight;
+      } // Return the new computed CSS height in px units
+
+
+      return "".concat(height, "px");
+    }
   },
   render: function render(h) {
     // Using self instead of this helps reduce code size during minification
@@ -1727,7 +1891,8 @@ var _default = {
       })
     });
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -1785,6 +1950,107 @@ module.exports = Object.keys || function keys(O) {
   return $keys(O, enumBugKeys);
 };
 
+
+/***/ }),
+
+/***/ "0d5a":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.isPromise = exports.isRegExp = exports.isDate = exports.isPrimitive = exports.isNumber = exports.isString = exports.isBoolean = exports.isFunction = exports.isNull = exports.isUndefined = exports.toRawTypeLC = exports.toRawType = exports.toType = void 0;
+
+var _array = __webpack_require__("bb2f");
+
+exports.isArray = _array.isArray;
+
+var _object = __webpack_require__("24e2");
+
+exports.isObject = _object.isObject;
+exports.isPlainObject = _object.isPlainObject;
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var toType = function toType(val) {
+  return _typeof(val);
+};
+
+exports.toType = toType;
+
+var toRawType = function toRawType(val) {
+  return Object.prototype.toString.call(val).slice(8, -1);
+};
+
+exports.toRawType = toRawType;
+
+var toRawTypeLC = function toRawTypeLC(val) {
+  return toRawType(val).toLowerCase();
+};
+
+exports.toRawTypeLC = toRawTypeLC;
+
+var isUndefined = function isUndefined(val) {
+  return val === undefined;
+};
+
+exports.isUndefined = isUndefined;
+
+var isNull = function isNull(val) {
+  return val === null;
+};
+
+exports.isNull = isNull;
+
+var isFunction = function isFunction(val) {
+  return toType(val) === 'function';
+};
+
+exports.isFunction = isFunction;
+
+var isBoolean = function isBoolean(val) {
+  return toType(val) === 'boolean';
+};
+
+exports.isBoolean = isBoolean;
+
+var isString = function isString(val) {
+  return toType(val) === 'string';
+};
+
+exports.isString = isString;
+
+var isNumber = function isNumber(val) {
+  return toType(val) === 'number';
+};
+
+exports.isNumber = isNumber;
+
+var isPrimitive = function isPrimitive(val) {
+  return isBoolean(val) || isString(val) || isNumber(val);
+};
+
+exports.isPrimitive = isPrimitive;
+
+var isDate = function isDate(val) {
+  return val instanceof Date;
+};
+
+exports.isDate = isDate;
+
+var isRegExp = function isRegExp(val) {
+  return toRawType(val) === 'RegExp';
+};
+
+exports.isRegExp = isRegExp;
+
+var isPromise = function isPromise(val) {
+  return !isUndefined(val) && !isNull(val) && isFunction(val.then) && isFunction(val.catch);
+}; // Extra convenience named re-exports
+
+
+exports.isPromise = isPromise;
 
 /***/ }),
 
@@ -11004,11 +11270,17 @@ module.exports = function (index, length) {
 exports.__esModule = true;
 exports.default = void 0;
 
-var _tabs = __webpack_require__("40bb");
+var _tabs = _interopRequireDefault(__webpack_require__("40bb"));
 
-var _tab = __webpack_require__("a212");
+exports.BTabs = _tabs.default;
+
+var _tab = _interopRequireDefault(__webpack_require__("a212"));
+
+exports.BTab = _tab.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BTabs: _tabs.default,
@@ -11116,6 +11388,9 @@ exports.default = _default;
 
 exports.__esModule = true;
 exports.default = void 0;
+
+var _inspect = __webpack_require__("0d5a");
+
 var _default = {
   methods: {
     renderBottomRow: function renderBottomRow() {
@@ -11130,7 +11405,7 @@ var _default = {
       return h('tr', {
         key: '__b-table-bottom-row__',
         staticClass: 'b-table-bottom-row',
-        class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-bottom') : this.tbodyTrClass],
+        class: [(0, _inspect.isFunction)(this.tbodyTrClass) ? this.tbodyTrClass(null, 'row-bottom') : this.tbodyTrClass],
         attrs: {
           role: 'row'
         }
@@ -11211,28 +11486,40 @@ exports.default = _default;
 
 
 exports.__esModule = true;
-exports.default = void 0;
+exports.default = exports.props = void 0;
 
-var _id = __webpack_require__("eae0");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
 
-var _form = __webpack_require__("5f07");
+var _id = _interopRequireDefault(__webpack_require__("eae0"));
 
-var _formOptions = __webpack_require__("461c");
+var _form = _interopRequireDefault(__webpack_require__("5f07"));
 
-var _formRadioCheckGroup = __webpack_require__("5c02");
+var _formOptions = _interopRequireDefault(__webpack_require__("461c"));
 
-var _formSize = __webpack_require__("6e1b");
+var _formRadioCheckGroup = _interopRequireDefault(__webpack_require__("5c02"));
 
-var _formState = __webpack_require__("41fb");
+var _formSize = _interopRequireDefault(__webpack_require__("6e1b"));
 
-var _formCheckbox = __webpack_require__("bdb1");
+var _formState = _interopRequireDefault(__webpack_require__("41fb"));
 
-// @vue/component
-var _default = {
-  name: 'BFormCheckboxGroup',
-  components: {
-    BFormCheckbox: _formCheckbox.default
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var props = {
+  switches: {
+    // Custom switch styling
+    type: Boolean,
+    default: false
   },
+  checked: {
+    type: [String, Number, Object, Array, Boolean],
+    default: null
+  } // @vue/component
+
+};
+exports.props = props;
+
+var _default = _vue.default.extend({
+  name: 'BFormCheckboxGroup',
   mixins: [_id.default, _form.default, _formRadioCheckGroup.default, // Includes render function
   _formOptions.default, _formSize.default, _formState.default],
   provide: function provide() {
@@ -11240,17 +11527,7 @@ var _default = {
       bvCheckGroup: this
     };
   },
-  props: {
-    switches: {
-      // Custom switch styling
-      type: Boolean,
-      default: false
-    },
-    checked: {
-      type: [String, Number, Object, Array, Boolean],
-      default: null
-    }
-  },
+  props: props,
   data: function data() {
     return {
       localChecked: this.checked || []
@@ -11261,7 +11538,8 @@ var _default = {
       return false;
     }
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -11298,7 +11576,9 @@ exports.f = __webpack_require__("9e1e") ? gOPD : function getOwnPropertyDescript
 exports.__esModule = true;
 exports.default = void 0;
 
-var _lowerFirst = __webpack_require__("2839");
+var _lowerFirst = _interopRequireDefault(__webpack_require__("2839"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * @param {string} prefix
@@ -11322,13 +11602,19 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
-var _pluckProps = __webpack_require__("9c97");
+var _pluckProps = _interopRequireDefault(__webpack_require__("9c97"));
 
-var _link = __webpack_require__("4e40");
+var _link = _interopRequireWildcard(__webpack_require__("4e40"));
 
 var _html = __webpack_require__("be11");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -11351,7 +11637,8 @@ var props = _objectSpread({}, (0, _link.propsFactory)(), {
 });
 
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BBreadcrumbLink',
   functional: true,
   props: props,
@@ -11376,7 +11663,8 @@ var _default = {
 
     return h(tag, (0, _vueFunctionalDataMerge.mergeData)(data, componentData), children);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -11410,7 +11698,11 @@ module.exports = __webpack_require__("9e1e") ? Object.defineProperties : functio
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var props = {
   tag: {
@@ -11424,7 +11716,8 @@ var props = {
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BContainer',
   functional: true,
   props: props,
@@ -11439,7 +11732,8 @@ var _default = {
       }
     }), children);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -11451,55 +11745,73 @@ exports.default = _default;
 
 
 exports.__esModule = true;
-exports.requestAF = exports.position = exports.offset = exports.getCS = exports.getBCR = exports.hasAttr = exports.getAttr = exports.removeAttr = exports.setAttr = exports.hasClass = exports.removeClass = exports.addClass = exports.getById = exports.contains = exports.closest = exports.matches = exports.select = exports.selectAll = exports.reflow = exports.isDisabled = exports.isVisible = exports.isElement = exports.eventOff = exports.eventOn = exports.parseEventOptions = exports.isPassiveSupported = void 0;
+exports.position = exports.offset = exports.getCS = exports.getBCR = exports.hasAttr = exports.getAttr = exports.removeAttr = exports.setAttr = exports.hasClass = exports.removeClass = exports.addClass = exports.getById = exports.contains = exports.closest = exports.matches = exports.select = exports.selectAll = exports.reflow = exports.isDisabled = exports.isVisible = exports.isElement = exports.eventOff = exports.eventOn = exports.parseEventOptions = exports.MutationObs = exports.requestAF = exports.closestEl = exports.matchesEl = void 0;
 
 var _array = __webpack_require__("bb2f");
 
-var _object = __webpack_require__("24e2");
-
 var _env = __webpack_require__("4565");
 
-// Determine if the browser supports the option passive for events
-var passiveEventSupported = false;
-/* istanbul ignore if */
+var _inspect = __webpack_require__("0d5a");
 
-if (_env.inBrowser) {
-  try {
-    var options = {
-      get passive() {
-        // This function will be called when the browser
-        // attempts to access the passive property.
-        passiveEventSupported = true;
-      }
+// --- Constants ---
+var w = _env.hasWindowSupport ? window : {};
+var d = _env.hasDocumentSupport ? document : {};
+var elProto = typeof Element !== 'undefined' ? Element.prototype : {}; // --- Normalization utils ---
+// See: https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
 
-    };
-    window.addEventListener('test', options, options);
-    window.removeEventListener('test', options, options);
-  } catch (err) {
-    passiveEventSupported = false;
-  }
-} // Exported only for testing purposes
+/* istanbul ignore next */
+
+var matchesEl = elProto.matches || elProto.msMatchesSelector || elProto.webkitMatchesSelector; // See: https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
+
+/* istanbul ignore next */
+
+exports.matchesEl = matchesEl;
+
+var closestEl = elProto.closest || function (sel)
+/* istanbul ignore next */
+{
+  var el = this;
+
+  do {
+    // Use our "patched" matches function
+    if (matches(el, sel)) {
+      return el;
+    }
+
+    el = el.parentElement || el.parentNode;
+  } while (!(0, _inspect.isNull)(el) && el.nodeType === Node.ELEMENT_NODE);
+
+  return null;
+}; // `requestAnimationFrame()` convenience method
+// We don't have a version for cancelAnimationFrame, but we don't call it anywhere
 
 
-var isPassiveSupported = function isPassiveSupported() {
-  return passiveEventSupported;
-}; // Normalize event options based on support of passive option
+exports.closestEl = closestEl;
+
+var requestAF = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.mozRequestAnimationFrame || w.msRequestAnimationFrame || w.oRequestAnimationFrame || function (cb) {
+  // Fallback, but not a true polyfill
+  // All browsers we support (other than Opera Mini) support
+  // `requestAnimationFrame()` without a polyfill
+
+  /* istanbul ignore next */
+  return setTimeout(cb, 16);
+};
+
+exports.requestAF = requestAF;
+var MutationObs = w.MutationObserver || w.WebKitMutationObserver || w.MozMutationObserver || null; // --- Utils ---
+// Normalize event options based on support of passive option
 // Exported only for testing purposes
 
-
-exports.isPassiveSupported = isPassiveSupported;
+exports.MutationObs = MutationObs;
 
 var parseEventOptions = function parseEventOptions(options) {
-  if (!passiveEventSupported) {
+  if (!_env.hasPassiveEventSupport) {
     // Need to translate to actual Boolean value
-    return Boolean((0, _object.isObject)(options) ? options.useCapture : options);
+    return Boolean((0, _inspect.isObject)(options) ? options.useCapture : options);
   }
-  /* istanbul ignore next: JSDOM doesn't support above detection of passive */
 
-
-  return options || {
-    useCapture: false // So we can't reach this anymore for unit testing due to the above if statement
-
+  return (0, _inspect.isObject)(options) ? options : {
+    useCapture: Boolean(options || false)
   };
 }; // Attach an event listener to an element
 
@@ -11531,13 +11843,19 @@ var isElement = function isElement(el) {
 
 exports.isElement = isElement;
 
-var isVisible = function isVisible(el)
-/* istanbul ignore next: getBoundingClientRect() doesn't work in JSDOM */
-{
-  if (!isElement(el) || !contains(document.body, el)) {
+var isVisible = function isVisible(el) {
+  if (!isElement(el) || !contains(d.body, el)) {
+    return false;
+  }
+
+  if (el.style.display === 'none') {
+    // We do this check to help with vue-test-utils when using v-show
+
+    /* istanbul ignore next */
     return false;
   } // All browsers support getBoundingClientRect(), except JSDOM as it returns all 0's for values :(
   // So any tests that need isVisible will fail in JSDOM
+  // Except when we override the getBCR prototype in some tests
 
 
   var bcr = getBCR(el);
@@ -11548,7 +11866,7 @@ var isVisible = function isVisible(el)
 exports.isVisible = isVisible;
 
 var isDisabled = function isDisabled(el) {
-  return !isElement(el) || el.disabled || hasClass(el, 'disabled') || Boolean(getAttr(el, 'disabled'));
+  return !isElement(el) || el.disabled || Boolean(getAttr(el, 'disabled')) || hasClass(el, 'disabled');
 }; // Cause/wait-for an element to reflow it's content (adjusting it's height/width)
 
 
@@ -11565,22 +11883,14 @@ var reflow = function reflow(el) {
 exports.reflow = reflow;
 
 var selectAll = function selectAll(selector, root) {
-  if (!isElement(root)) {
-    root = document;
-  }
-
-  return (0, _array.from)(root.querySelectorAll(selector));
+  return (0, _array.from)((isElement(root) ? root : d).querySelectorAll(selector));
 }; // Select a single element, returns `null` if not found
 
 
 exports.selectAll = selectAll;
 
 var select = function select(selector, root) {
-  if (!isElement(root)) {
-    root = document;
-  }
-
-  return root.querySelector(selector) || null;
+  return (isElement(root) ? root : d).querySelector(selector) || null;
 }; // Determine if an element matches a selector
 
 
@@ -11589,26 +11899,9 @@ exports.select = select;
 var matches = function matches(el, selector) {
   if (!isElement(el)) {
     return false;
-  } // https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
-  // Prefer native implementations over polyfill function
+  }
 
-
-  var proto = Element.prototype;
-  /* istanbul ignore next */
-
-  var Matches = proto.matches || proto.matchesSelector || proto.mozMatchesSelector || proto.msMatchesSelector || proto.oMatchesSelector || proto.webkitMatchesSelector || function (sel)
-  /* istanbul ignore next */
-  {
-    var element = this;
-    var m = selectAll(sel, element.document || element.ownerDocument);
-    var i = m.length; // eslint-disable-next-line no-empty
-
-    while (--i >= 0 && m.item(i) !== element) {}
-
-    return i > -1;
-  };
-
-  return Matches.call(el, selector);
+  return matchesEl.call(el, selector);
 }; // Finds closest element matching selector. Returns `null` if not found
 
 
@@ -11617,33 +11910,9 @@ exports.matches = matches;
 var closest = function closest(selector, root) {
   if (!isElement(root)) {
     return null;
-  } // https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
-  // Since we dont support IE < 10, we can use the "Matches" version of the polyfill for speed
-  // Prefer native implementation over polyfill function
+  }
 
-
-  var Closest = Element.prototype.closest || function (sel)
-  /* istanbul ignore next */
-  {
-    var element = this;
-
-    if (!contains(document.documentElement, element)) {
-      return null;
-    }
-
-    do {
-      // Use our "patched" matches function
-      if (matches(element, sel)) {
-        return element;
-      }
-
-      element = element.parentElement || element.parentNode;
-    } while (element !== null && element.nodeType === Node.ELEMENT_NODE);
-
-    return null;
-  };
-
-  var el = Closest.call(root, selector); // Emulate jQuery closest and return `null` if match is the passed in element (root)
+  var el = closestEl.call(root, selector); // Emulate jQuery closest and return `null` if match is the passed in element (root)
 
   return el === root ? null : el;
 }; // Returns true if the parent element contains the child element
@@ -11652,7 +11921,7 @@ var closest = function closest(selector, root) {
 exports.closest = closest;
 
 var contains = function contains(parent, child) {
-  if (!parent || typeof parent.contains !== 'function') {
+  if (!parent || !(0, _inspect.isFunction)(parent.contains)) {
     return false;
   }
 
@@ -11663,7 +11932,7 @@ var contains = function contains(parent, child) {
 exports.contains = contains;
 
 var getById = function getById(id) {
-  return document.getElementById(/^#/.test(id) ? id.slice(1) : id) || null;
+  return d.getElementById(/^#/.test(id) ? id.slice(1) : id) || null;
 }; // Add a class to an element
 
 
@@ -11720,45 +11989,41 @@ var removeAttr = function removeAttr(el, attr) {
   if (attr && isElement(el)) {
     el.removeAttribute(attr);
   }
-}; // Get an attribute value from an element (returns `null` if not found)
+}; // Get an attribute value from an element
+// Returns `null` if not found
 
 
 exports.removeAttr = removeAttr;
 
 var getAttr = function getAttr(el, attr) {
-  if (attr && isElement(el)) {
-    return el.getAttribute(attr);
-  }
-
-  return null;
-}; // Determine if an attribute exists on an element (returns `true`
-// or `false`, or `null` if element not found)
+  return attr && isElement(el) ? el.getAttribute(attr) : null;
+}; // Determine if an attribute exists on an element
+// Returns `true` or `false`, or `null` if element not found
 
 
 exports.getAttr = getAttr;
 
 var hasAttr = function hasAttr(el, attr) {
-  if (attr && isElement(el)) {
-    return el.hasAttribute(attr);
-  }
+  return attr && isElement(el) ? el.hasAttribute(attr) : null;
+}; // Return the Bounding Client Rect of an element
+// Returns `null` if not an element
 
-  return null;
-}; // Return the Bounding Client Rect of an element. Returns `null` if not an element
+/* istanbul ignore next: getBoundingClientRect() doesn't work in JSDOM */
 
 
 exports.hasAttr = hasAttr;
 
 var getBCR = function getBCR(el) {
-  /* istanbul ignore next: getBoundingClientRect() doesn't work in JSDOM */
   return isElement(el) ? el.getBoundingClientRect() : null;
 }; // Get computed style object for an element
+
+/* istanbul ignore next: getComputedStyle() doesn't work in JSDOM */
 
 
 exports.getBCR = getBCR;
 
 var getCS = function getCS(el) {
-  /* istanbul ignore next: getComputedStyle() doesn't work in JSDOM */
-  return isElement(el) ? window.getComputedStyle(el) : {};
+  return _env.hasWindowSupport && isElement(el) ? w.getComputedStyle(el) : {};
 }; // Return an element's offset with respect to document element
 // https://j11y.io/jquery/#v=git&fn=jQuery.fn.offset
 
@@ -11833,28 +12098,34 @@ var position = function position(el)
     top: _offset.top - parentOffset.top - parseFloat(elStyles.marginTop),
     left: _offset.left - parentOffset.left - parseFloat(elStyles.marginLeft)
   };
-}; // requestAnimationFrame convenience method
-// We don't have a version for cancelAnimationFrame, but we don't call it anywhere
-
+};
 
 exports.position = position;
 
-var requestAF = function requestAF(cb) {
-  var w = _env.inBrowser ? window : {};
+/***/ }),
 
-  var rAF = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.mozRequestAnimationFrame || w.msRequestAnimationFrame || w.oRequestAnimationFrame || function (cb) {
-    // Fallback, but not a true polyfill.
-    // But all browsers we support (other than Opera Mini) support rAF
-    // without a polyfill.
+/***/ "1654":
+/***/ (function(module, exports, __webpack_require__) {
 
-    /* istanbul ignore next */
-    return setTimeout(cb, 16);
-  };
+"use strict";
 
-  return rAF(cb);
-};
+var $at = __webpack_require__("71c1")(true);
 
-exports.requestAF = requestAF;
+// 21.1.3.27 String.prototype[@@iterator]()
+__webpack_require__("30f1")(String, 'String', function (iterated) {
+  this._t = String(iterated); // target
+  this._i = 0;                // next index
+// 21.1.5.2.1 %StringIteratorPrototype%.next()
+}, function () {
+  var O = this._t;
+  var index = this._i;
+  var point;
+  if (index >= O.length) return { value: undefined, done: true };
+  point = $at(O, index);
+  this._i += point.length;
+  return { value: point, done: false };
+});
+
 
 /***/ }),
 
@@ -11867,7 +12138,11 @@ exports.requestAF = requestAF;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var props = {
   tag: {
@@ -11877,7 +12152,8 @@ var props = {
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BFormRow',
   functional: true,
   props: props,
@@ -11889,7 +12165,8 @@ var _default = {
       staticClass: 'form-row'
     }), children);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -11914,17 +12191,19 @@ module.exports = (
 exports.__esModule = true;
 exports.default = void 0;
 
-var _popper = __webpack_require__("f0bd");
+var _popper = _interopRequireDefault(__webpack_require__("6043"));
 
-var _bvEvent = __webpack_require__("f8bb");
+var _bvEvent = _interopRequireDefault(__webpack_require__("f8bb"));
 
-var _noop = __webpack_require__("cab0");
+var _noop = _interopRequireDefault(__webpack_require__("cab0"));
 
 var _array = __webpack_require__("bb2f");
 
 var _dom = __webpack_require__("1611");
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+var _inspect = __webpack_require__("0d5a");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -12000,14 +12279,20 @@ var Defaults = {
   container: false,
   fallbackPlacement: 'flip',
   callbacks: {},
-  boundary: 'scrollParent' // Transition event names
+  boundary: 'scrollParent',
+  boundaryPadding: 5 // Transition event names
 
 };
 var TransitionEndEvents = {
   WebkitTransition: ['webkitTransitionEnd'],
   MozTransition: ['transitionend'],
   OTransition: ['otransitionend', 'oTransitionEnd'],
-  transition: ['transitionend'] // Client-side tip ID counter for aria-describedby attribute
+  transition: ['transitionend'] // Options for Native Event Listeners (since we never call preventDefault)
+
+};
+var EvtOpts = {
+  passive: true,
+  capture: false // Client-side tip ID counter for aria-describedby attribute
   // Each tooltip requires a unique client side ID
 
 };
@@ -12020,8 +12305,6 @@ var generateId = function generateId(name) {
 /*
  * ToolTip class definition
  */
-
-/* istanbul ignore next: difficult to test in Jest/JSDOM environment */
 
 
 var ToolTip =
@@ -12065,7 +12348,8 @@ function () {
       var updatedConfig = _objectSpread({}, this.constructor.Default, config); // Sanitize delay
 
 
-      if (config.delay && typeof config.delay === 'number') {
+      if (config.delay && (0, _inspect.isNumber)(config.delay)) {
+        /* istanbul ignore next */
         updatedConfig.delay = {
           show: config.delay,
           hide: config.delay
@@ -12073,12 +12357,14 @@ function () {
       } // Title for tooltip and popover
 
 
-      if (config.title && typeof config.title === 'number') {
+      if (config.title && (0, _inspect.isNumber)(config.title)) {
+        /* istanbul ignore next */
         updatedConfig.title = config.title.toString();
       } // Content only for popover
 
 
-      if (config.content && typeof config.content === 'number') {
+      if (config.content && (0, _inspect.isNumber)(config.content)) {
+        /* istanbul ignore next */
         updatedConfig.content = config.content.toString();
       } // Hide element original title if needed
 
@@ -12158,8 +12444,11 @@ function () {
     key: "toggle",
     value: function toggle(event) {
       if (!this.$isEnabled) {
+        /* istanbul ignore next */
         return;
       }
+      /* istanbul ignore else */
+
 
       if (event) {
         this.$activeTrigger.click = !this.$activeTrigger.click;
@@ -12195,7 +12484,11 @@ function () {
 
       if (!this.isWithContent(tip)) {
         // If no content, don't bother showing
+
+        /* istanbul ignore next */
         this.$tip = null;
+        /* istanbul ignore next */
+
         return;
       } // Set ID on tip and aria-describedby on element
 
@@ -12277,7 +12570,7 @@ function () {
 
       if (on) {
         this.$visibleInterval = setInterval(function () {
-          var tip = _this2.getTipElement();
+          var tip = _this2.$tip;
 
           if (tip && !(0, _dom.isVisible)(_this2.$element) && (0, _dom.hasClass)(tip, ClassName.SHOW)) {
             // Element is no longer visible, so force-hide the tooltip
@@ -12301,9 +12594,9 @@ function () {
 
       if (on && /(focus|blur)/.test(this.$config.trigger)) {
         // If focus moves between trigger element and tip container, don't close
-        (0, _dom.eventOn)(this.$tip, 'focusout', this);
+        (0, _dom.eventOn)(this.$tip, 'focusout', this, EvtOpts);
       } else {
-        (0, _dom.eventOff)(this.$tip, 'focusout', this);
+        (0, _dom.eventOff)(this.$tip, 'focusout', this, EvtOpts);
       }
     } // Force hide of tip (internal method)
 
@@ -12311,6 +12604,7 @@ function () {
     key: "forceHide",
     value: function forceHide() {
       if (!this.$tip || !(0, _dom.hasClass)(this.$tip, ClassName.SHOW)) {
+        /* istanbul ignore next */
         return;
       } // Disable while open listeners/watchers
 
@@ -12332,6 +12626,7 @@ function () {
       var tip = this.$tip;
 
       if (!tip) {
+        /* istanbul ignore next */
         return;
       } // Create a cancelable BvEvent
 
@@ -12348,8 +12643,6 @@ function () {
         // Don't hide if event cancelled
         return;
       } // Transitionend callback
-
-      /* istanbul ignore next */
 
 
       var complete = function complete() {
@@ -12406,7 +12699,7 @@ function () {
 
       var callbacks = this.$config.callbacks || {};
 
-      if (typeof callbacks[evtName] === 'function') {
+      if ((0, _inspect.isFunction)(callbacks[evtName])) {
         callbacks[evtName](evt);
       }
     }
@@ -12440,6 +12733,7 @@ function () {
       }).join(' ').trim();
 
       if (desc) {
+        /* istanbul ignore next */
         (0, _dom.setAttr)(this.$element, 'aria-describedby', desc);
       } else {
         (0, _dom.removeAttr)(this.$element, 'aria-describedby');
@@ -12454,8 +12748,6 @@ function () {
 
       this.$popper = null;
     }
-    /* istanbul ignore next */
-
   }, {
     key: "transitionOnce",
     value: function transitionOnce(tip, complete) {
@@ -12468,6 +12760,7 @@ function () {
 
       var fnOnce = function fnOnce() {
         if (called) {
+          /* istanbul ignore next */
           return;
         }
 
@@ -12475,7 +12768,7 @@ function () {
         clearTimeout(_this5.$fadeTimeout);
         _this5.$fadeTimeout = null;
         transEvents.forEach(function (evtName) {
-          (0, _dom.eventOff)(tip, evtName, fnOnce);
+          (0, _dom.eventOff)(tip, evtName, fnOnce, EvtOpts);
         }); // Call complete callback
 
         complete();
@@ -12483,7 +12776,7 @@ function () {
 
       if ((0, _dom.hasClass)(tip, ClassName.FADE)) {
         transEvents.forEach(function (evtName) {
-          (0, _dom.eventOn)(tip, evtName, fnOnce);
+          (0, _dom.eventOn)(tip, evtName, fnOnce, EvtOpts);
         }); // Fallback to setTimeout()
 
         this.$fadeTimeout = setTimeout(fnOnce, TRANSITION_DURATION);
@@ -12496,18 +12789,22 @@ function () {
     key: "getTransitionEndEvents",
     value: function getTransitionEndEvents() {
       for (var name in TransitionEndEvents) {
-        if (this.$element.style[name] !== undefined) {
+        if (!(0, _inspect.isUndefined)(this.$element.style[name])) {
           return TransitionEndEvents[name];
         }
       } // Fallback
 
+      /* istanbul ignore next */
+
 
       return [];
     }
+    /* istanbul ignore next */
+
   }, {
     key: "update",
     value: function update() {
-      if (this.$popper !== null) {
+      if (!(0, _inspect.isNull)(this.$popper)) {
         this.$popper.scheduleUpdate();
       }
     } // NOTE: Overridden by PopOver class
@@ -12518,6 +12815,7 @@ function () {
       tip = tip || this.$tip;
 
       if (!tip) {
+        /* istanbul ignore next */
         return false;
       }
 
@@ -12545,7 +12843,8 @@ function () {
   }, {
     key: "compileTemplate",
     value: function compileTemplate(html) {
-      if (!html || typeof html !== 'string') {
+      if (!html || !(0, _inspect.isString)(html)) {
+        /* istanbul ignore next */
         return null;
       }
 
@@ -12568,12 +12867,14 @@ function () {
     value: function setElementContent(container, content) {
       if (!container) {
         // If container element doesn't exist, just return
+
+        /* istanbul ignore next */
         return;
       }
 
       var allowHtml = this.$config.html;
 
-      if (_typeof(content) === 'object' && content.nodeType) {
+      if ((0, _inspect.isObject)(content) && content.nodeType) {
         // Content is a DOM node
         if (allowHtml) {
           if (content.parentElement !== container) {
@@ -12581,6 +12882,7 @@ function () {
             container.appendChild(content);
           }
         } else {
+          /* istanbul ignore next */
           container.innerText = content.innerText;
         }
       } else {
@@ -12594,18 +12896,22 @@ function () {
     value: function getTitle() {
       var title = this.$config.title || '';
 
-      if (typeof title === 'function') {
+      if ((0, _inspect.isFunction)(title)) {
         // Call the function to get the title value
+
+        /* istanbul ignore next */
         title = title(this.$element);
       }
 
-      if (_typeof(title) === 'object' && title.nodeType && !title.innerHTML.trim()) {
+      if ((0, _inspect.isObject)(title) && title.nodeType && !title.innerHTML.trim()) {
         // We have a DOM node, but without inner content,
         // so just return empty string
+
+        /* istanbul ignore next */
         title = '';
       }
 
-      if (typeof title === 'string') {
+      if ((0, _inspect.isString)(title)) {
         title = title.trim();
       }
 
@@ -12630,16 +12936,16 @@ function () {
 
       triggers.forEach(function (trigger) {
         if (trigger === 'click') {
-          (0, _dom.eventOn)(el, 'click', _this6);
+          (0, _dom.eventOn)(el, 'click', _this6, EvtOpts);
         } else if (trigger === 'focus') {
-          (0, _dom.eventOn)(el, 'focusin', _this6);
-          (0, _dom.eventOn)(el, 'focusout', _this6);
+          (0, _dom.eventOn)(el, 'focusin', _this6, EvtOpts);
+          (0, _dom.eventOn)(el, 'focusout', _this6, EvtOpts);
         } else if (trigger === 'blur') {
           // Used to close $tip when element looses focus
-          (0, _dom.eventOn)(el, 'focusout', _this6);
+          (0, _dom.eventOn)(el, 'focusout', _this6, EvtOpts);
         } else if (trigger === 'hover') {
-          (0, _dom.eventOn)(el, 'mouseenter', _this6);
-          (0, _dom.eventOn)(el, 'mouseleave', _this6);
+          (0, _dom.eventOn)(el, 'mouseenter', _this6, EvtOpts);
+          (0, _dom.eventOn)(el, 'mouseleave', _this6, EvtOpts);
         }
       }, this);
     }
@@ -12651,7 +12957,7 @@ function () {
       var events = ['click', 'focusin', 'focusout', 'mouseenter', 'mouseleave']; // Using "this" as the handler will get automatically directed to this.handleEvent
 
       events.forEach(function (evt) {
-        (0, _dom.eventOff)(_this7.$element, evt, _this7);
+        (0, _dom.eventOff)(_this7.$element, evt, _this7, EvtOpts);
       }, this); // Stop listening for global show/hide/enable/disable events
 
       this.setRootListener(false);
@@ -12663,6 +12969,8 @@ function () {
       if ((0, _dom.isDisabled)(this.$element)) {
         // If disabled, don't do anything. Note: If tip is shown before element gets
         // disabled, then tip not close until no longer disabled or forcefully closed.
+
+        /* istanbul ignore next */
         return;
       }
 
@@ -12686,18 +12994,26 @@ function () {
         // and relatedTarget is the element gaining focus
         if ($tip && $element && $element.contains(target) && $tip.contains(relatedTarget)) {
           // If focus moves from $element to $tip, don't trigger a leave
+
+          /* istanbul ignore next */
           return;
         }
 
         if ($tip && $element && $tip.contains(target) && $element.contains(relatedTarget)) {
           // If focus moves from $tip to $element, don't trigger a leave
+
+          /* istanbul ignore next */
           return;
         }
+        /* istanbul ignore next: difficult to test */
+
 
         if ($tip && $tip.contains(target) && $tip.contains(relatedTarget)) {
           // If focus moves within $tip, don't trigger a leave
           return;
         }
+        /* istanbul ignore next: difficult to test */
+
 
         if ($element && $element.contains(target) && $element.contains(relatedTarget)) {
           // If focus moves within $element, don't trigger a leave
@@ -12755,8 +13071,6 @@ function () {
         this.$root[on ? '$on' : '$off'](MODAL_CLOSE_EVENT, this.$forceHide);
       }
     }
-    /* istanbul ignore next */
-
   }, {
     key: "setRootListener",
     value: function setRootListener(on) {
@@ -12816,8 +13130,6 @@ function () {
         this.enable();
       }
     }
-    /* istanbul ignore next */
-
   }, {
     key: "setOnTouchStartListener",
     value: function setOnTouchStartListener(on) {
@@ -12828,6 +13140,7 @@ function () {
       // Only needed because of broken event delegation on iOS
       // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
       if ('ontouchstart' in document.documentElement) {
+        /* istanbul ignore next: JSDOM does not support 'ontouchstart' event */
         (0, _array.from)(document.body.children).forEach(function (el) {
           if (on) {
             (0, _dom.eventOn)(el, 'mouseover', _this9._noop);
@@ -12842,15 +13155,11 @@ function () {
     value: function fixTitle() {
       var el = this.$element;
 
-      var titleType = _typeof((0, _dom.getAttr)(el, 'data-original-title'));
-
-      if ((0, _dom.getAttr)(el, 'title') || titleType !== 'string') {
+      if ((0, _dom.getAttr)(el, 'title') || !(0, _inspect.isString)((0, _dom.getAttr)(el, 'data-original-title'))) {
         (0, _dom.setAttr)(el, 'data-original-title', (0, _dom.getAttr)(el, 'title') || '');
         (0, _dom.setAttr)(el, 'title', '');
       }
     } // Enter handler
-
-    /* istanbul ignore next */
 
   }, {
     key: "enter",
@@ -12880,8 +13189,6 @@ function () {
         }
       }, this.$config.delay.show);
     } // Leave handler
-
-    /* istanbul ignore next */
 
   }, {
     key: "leave",
@@ -12940,16 +13247,22 @@ function () {
         },
         onCreate: function onCreate(data) {
           // Handle flipping arrow classes
+
+          /* istanbul ignore next */
           if (data.originalPlacement !== data.placement) {
             _this12.handlePopperPlacementChange(data);
           }
         },
         onUpdate: function onUpdate(data) {
           // Handle flipping arrow classes
+
+          /* istanbul ignore next */
           _this12.handlePopperPlacementChange(data);
         }
       };
     }
+    /* istanbul ignore next */
+
   }, {
     key: "getOffset",
     value: function getOffset(placement, tip) {
@@ -12976,7 +13289,8 @@ function () {
     value: function getPlacement() {
       var placement = this.$config.placement;
 
-      if (typeof placement === 'function') {
+      if ((0, _inspect.isFunction)(placement)) {
+        /* istanbul ignore next */
         return placement.call(this, this.$tip, this.$element);
       }
 
@@ -12994,30 +13308,36 @@ function () {
       return false;
     } // NOTE: Overridden by PopOver class
 
+    /* istanbul ignore next */
+
   }, {
     key: "cleanTipClass",
     value: function cleanTipClass() {
       var tip = this.getTipElement();
       var tabClass = tip.className.match(BS_CLASS_PREFIX_REGEX);
 
-      if (tabClass !== null && tabClass.length > 0) {
+      if (!(0, _inspect.isNull)(tabClass) && tabClass.length > 0) {
         tabClass.forEach(function (cls) {
           (0, _dom.removeClass)(tip, cls);
         });
       }
     }
+    /* istanbul ignore next */
+
   }, {
     key: "handlePopperPlacementChange",
     value: function handlePopperPlacementChange(data) {
       this.cleanTipClass();
       this.addAttachmentClass(this.constructor.getAttachment(data.placement));
     }
+    /* istanbul ignore next */
+
   }, {
     key: "fixTransition",
     value: function fixTransition(tip) {
       var initConfigAnimation = this.$config.animation || false;
 
-      if ((0, _dom.getAttr)(tip, 'x-placement') !== null) {
+      if (!(0, _inspect.isNull)((0, _dom.getAttr)(tip, 'x-placement'))) {
         return;
       }
 
@@ -13062,11 +13382,13 @@ exports.default = _default;
 exports.__esModule = true;
 exports.computeHref = exports.computeRel = exports.computeTag = exports.isRouterLink = exports.parseQuery = exports.stringifyQueryObj = void 0;
 
+var _toString = _interopRequireDefault(__webpack_require__("40f6"));
+
+var _inspect = __webpack_require__("0d5a");
+
 var _object = __webpack_require__("24e2");
 
-var _array = __webpack_require__("bb2f");
-
-var _toString = __webpack_require__("40f6");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ANCHOR_TAG = 'a'; // Precompile RegExp
 
@@ -13088,22 +13410,22 @@ var decode = decodeURIComponent; // Stringifies an object of query parameters
 // See: https://github.com/vuejs/vue-router/blob/dev/src/util/query.js
 
 var stringifyQueryObj = function stringifyQueryObj(obj) {
-  if (!(0, _object.isPlainObject)(obj)) {
+  if (!(0, _inspect.isPlainObject)(obj)) {
     return '';
   }
 
   var query = (0, _object.keys)(obj).map(function (key) {
     var val = obj[key];
 
-    if (val === undefined) {
+    if ((0, _inspect.isUndefined)(val)) {
       return '';
-    } else if (val === null) {
+    } else if ((0, _inspect.isNull)(val)) {
       return encode(key);
-    } else if ((0, _array.isArray)(val)) {
+    } else if ((0, _inspect.isArray)(val)) {
       return val.reduce(function (results, val2) {
-        if (val2 === null) {
+        if ((0, _inspect.isNull)(val2)) {
           results.push(encode(key));
-        } else if (val2 !== undefined) {
+        } else if (!(0, _inspect.isUndefined)(val2)) {
           // Faster than string interpolation
           results.push(encode(key) + '=' + encode(val2));
         }
@@ -13137,9 +13459,9 @@ var parseQuery = function parseQuery(query) {
     var key = decode(parts.shift());
     var val = parts.length > 0 ? decode(parts.join('=')) : null;
 
-    if (parsed[key] === undefined) {
+    if ((0, _inspect.isUndefined)(parsed[key])) {
       parsed[key] = val;
-    } else if ((0, _array.isArray)(parsed[key])) {
+    } else if ((0, _inspect.isArray)(parsed[key])) {
       parsed[key].push(val);
     } else {
       parsed[key] = [parsed[key], val];
@@ -13172,7 +13494,7 @@ var computeRel = function computeRel() {
       target = _ref2.target,
       rel = _ref2.rel;
 
-  if (target === '_blank' && rel === null) {
+  if (target === '_blank' && (0, _inspect.isNull)(rel)) {
     return 'noopener';
   }
 
@@ -13205,12 +13527,12 @@ var computeHref = function computeHref() {
 
   if (to) {
     // Fallback to `to` prop (if `to` is a string)
-    if (typeof to === 'string') {
+    if ((0, _inspect.isString)(to)) {
       return to || toFallback;
     } // Fallback to `to.path + to.query + to.hash` prop (if `to` is an object)
 
 
-    if ((0, _object.isPlainObject)(to) && (to.path || to.query || to.hash)) {
+    if ((0, _inspect.isPlainObject)(to) && (to.path || to.query || to.hash)) {
       var path = (0, _toString.default)(to.path);
       var query = stringifyQueryObj(to.query);
       var hash = (0, _toString.default)(to.hash);
@@ -13236,7 +13558,9 @@ exports.computeHref = computeHref;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _upperFirst = __webpack_require__("5540");
+var _upperFirst = _interopRequireDefault(__webpack_require__("5540"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Suffix can be a falsey value so nothing is appended to string.
@@ -13251,6 +13575,17 @@ var suffixPropName = function suffixPropName(suffix, str) {
 
 var _default = suffixPropName;
 exports.default = _default;
+
+/***/ }),
+
+/***/ "1af6":
+/***/ (function(module, exports, __webpack_require__) {
+
+// 22.1.2.2 / 15.4.3.2 Array.isArray(arg)
+var $export = __webpack_require__("63b6");
+
+$export($export.S, 'Array', { isArray: __webpack_require__("9003") });
+
 
 /***/ }),
 
@@ -13282,9 +13617,13 @@ module.exports = function (it, S) {
 exports.__esModule = true;
 exports.default = void 0;
 
-var _jumbotron = __webpack_require__("4c74");
+var _jumbotron = _interopRequireDefault(__webpack_require__("4c74"));
+
+exports.BJumbotron = _jumbotron.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BJumbotron: _jumbotron.default
@@ -13321,15 +13660,19 @@ module.exports = function (it) {
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
-var _prefixPropName = __webpack_require__("e109");
+var _prefixPropName = _interopRequireDefault(__webpack_require__("e109"));
 
-var _copyProps = __webpack_require__("0942");
+var _copyProps = _interopRequireDefault(__webpack_require__("0942"));
 
 var _html = __webpack_require__("be11");
 
-var _cardMixin = __webpack_require__("45f0");
+var _cardMixin = _interopRequireDefault(__webpack_require__("45f0"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -13352,7 +13695,8 @@ var props = _objectSpread({}, (0, _copyProps.default)(_cardMixin.default.props, 
 });
 
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BCardHeader',
   functional: true,
   props: props,
@@ -13369,8 +13713,25 @@ var _default = {
       domProps: (0, _html.htmlOrText)(props.headerHtml, props.header)
     })]);
   }
-};
+});
+
 exports.default = _default;
+
+/***/ }),
+
+/***/ "20fd":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $defineProperty = __webpack_require__("d9f6");
+var createDesc = __webpack_require__("aebd");
+
+module.exports = function (object, index, value) {
+  if (index in object) $defineProperty.f(object, index, createDesc(0, value));
+  else object[index] = value;
+};
+
 
 /***/ }),
 
@@ -13383,13 +13744,19 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
 var _config = __webpack_require__("eb60");
 
-var _pluckProps = __webpack_require__("9c97");
+var _pluckProps = _interopRequireDefault(__webpack_require__("9c97"));
 
-var _link = __webpack_require__("4e40");
+var _link = _interopRequireWildcard(__webpack_require__("4e40"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -13419,7 +13786,8 @@ var props = _objectSpread({}, linkProps, {
 });
 
 exports.props = props;
-var _default2 = {
+
+var _default2 = _vue.default.extend({
   name: NAME,
   functional: true,
   props: props,
@@ -13430,7 +13798,7 @@ var _default2 = {
     var tag = !props.href && !props.to ? props.tag : _link.default;
     var componentData = {
       staticClass: 'badge',
-      class: ["badge-".concat(props.variant || (0, _config.getComponentConfig)(NAME, 'variant')), {
+      class: [props.variant ? "badge-".concat(props.variant) : 'badge-secondary', {
         'badge-pill': Boolean(props.pill),
         active: props.active,
         disabled: props.disabled
@@ -13439,7 +13807,8 @@ var _default2 = {
     };
     return h(tag, (0, _vueFunctionalDataMerge.mergeData)(data, componentData), children);
   }
-};
+});
+
 exports.default = _default2;
 
 /***/ }),
@@ -13455,20 +13824,22 @@ exports.default = stringifyObjectValues;
 
 var _object = __webpack_require__("24e2");
 
+var _inspect = __webpack_require__("0d5a");
+
 // Recursively stringifies the values of an object, space separated, in an
-// SSR safe deterministic way (keys are storted before stringification)
+// SSR safe deterministic way (keys are sorted before stringification)
 //
 //   ex:
 //     { b: 3, c: { z: 'zzz', d: null, e: 2 }, d: [10, 12, 11], a: 'one' }
 //   becomes
 //     'one 3 2 zzz 10 12 11'
 //
-// Primatives (numbers/strings) are returned as-is
+// Primitives (numbers/strings) are returned as-is
 // Null and undefined values are filtered out
 // Dates are converted to their native string format
 //
 function stringifyObjectValues(val) {
-  if (typeof val === 'undefined' || val === null) {
+  if ((0, _inspect.isUndefined)(val) || (0, _inspect.isNull)(val)) {
     /* istanbul ignore next */
     return '';
   }
@@ -13479,7 +13850,7 @@ function stringifyObjectValues(val) {
     return (0, _object.keys)(val).sort()
     /* sort to prevent SSR issues on pre-rendered sorted tables */
     .filter(function (v) {
-      return v !== undefined && v !== null;
+      return !(0, _inspect.isUndefined)(v) && !(0, _inspect.isNull)(v);
     })
     /* ignore undefined/null values */
     .map(function (k) {
@@ -13501,28 +13872,50 @@ function stringifyObjectValues(val) {
 exports.__esModule = true;
 exports.default = void 0;
 
-var _form = __webpack_require__("0596");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
+var _form = _interopRequireWildcard(__webpack_require__("0596"));
 
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var _default = {
+var _default = _vue.default.extend({
   name: 'BDropdownForm',
   functional: true,
-  props: _objectSpread({}, _form.props),
+  inheritAttrs: false,
+  props: _objectSpread({}, _form.props, {
+    disabled: {
+      type: Boolean,
+      default: false
+    }
+  }),
   render: function render(h, _ref) {
     var props = _ref.props,
         data = _ref.data,
         children = _ref.children;
-    return h(_form.default, (0, _vueFunctionalDataMerge.mergeData)(data, {
+    return h('li', [h(_form.default, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      ref: 'form',
+      staticClass: 'b-dropdown-form',
+      class: {
+        disabled: props.disabled
+      },
       props: props,
-      staticClass: 'b-dropdown-form'
-    }), children);
+      attrs: {
+        disabled: props.disabled,
+        // Tab index of -1 for keyboard navigation
+        tabindex: props.disabled ? null : '-1'
+      }
+    }), children)]);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -13550,7 +13943,11 @@ module.exports = function (it) {
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var props = {
   src: {
@@ -13599,7 +13996,8 @@ var props = {
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BCardImg',
   functional: true,
   props: props,
@@ -13628,7 +14026,8 @@ var _default = {
       }
     }));
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -13642,21 +14041,56 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _buttonClose = __webpack_require__("600b");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
 
 var _config = __webpack_require__("eb60");
 
 var _dom = __webpack_require__("1611");
 
+var _inspect = __webpack_require__("0d5a");
+
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
+
+var _buttonClose = _interopRequireDefault(__webpack_require__("600b"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var NAME = 'BAlert'; // @vue/component
+var NAME = 'BAlert'; // Convert `show` value to a number
 
-var _default2 = {
+var parseCountDown = function parseCountDown(show) {
+  if (show === '' || (0, _inspect.isBoolean)(show)) {
+    return 0;
+  }
+
+  show = parseInt(show, 10);
+  return show > 0 ? show : 0;
+}; // Convert `show` value to a boolean
+
+
+var parseShow = function parseShow(show) {
+  if (show === '' || show === true) {
+    return true;
+  }
+
+  if (parseInt(show, 10) < 1) {
+    // Boolean will always return false for the above comparison
+    return false;
+  }
+
+  return Boolean(show);
+}; // Is a value number like (i.e. a number or a number as string)
+
+
+var isNumericLike = function isNumericLike(value) {
+  return !isNaN(parseInt(value, 10));
+}; // @vue/component
+
+
+var _default2 = _vue.default.extend({
   name: NAME,
-  components: {
-    BButtonClose: _buttonClose.default
-  },
+  mixins: [_normalizeSlot.default],
   model: {
     prop: 'show',
     event: 'input'
@@ -13679,7 +14113,7 @@ var _default2 = {
       }
     },
     show: {
-      type: [Boolean, Number],
+      type: [Boolean, Number, String],
       default: false
     },
     fade: {
@@ -13690,84 +14124,81 @@ var _default2 = {
   data: function data() {
     return {
       countDownTimerId: null,
-      dismissed: false,
-      localShow: this.show,
+      countDown: 0,
+      // If initially shown, we need to set these for SSR
+      localShow: parseShow(this.show),
       showClass: this.fade && this.show
     };
   },
   watch: {
     show: function show(newVal) {
-      this.showChanged(newVal);
+      this.countDown = parseCountDown(newVal);
+      this.localShow = parseShow(newVal);
     },
-    dismissed: function dismissed(newVal) {
-      if (newVal) {
-        this.localShow = false;
+    countDown: function countDown(newVal) {
+      var _this = this;
+
+      this.clearTimer();
+      this.$emit('dismiss-count-down', newVal);
+
+      if (this.show !== newVal) {
+        // Update the v-model if needed
+        this.$emit('input', newVal);
+      }
+
+      if (newVal > 0) {
+        this.localShow = true;
+        this.countDownTimerId = setTimeout(function () {
+          _this.countDown--;
+        }, 1000);
+      } else {
+        // Slightly delay the hide to allow any UI updates
+        this.$nextTick(function () {
+          (0, _dom.requestAF)(function () {
+            _this.localShow = false;
+          });
+        });
+      }
+    },
+    localShow: function localShow(newVal) {
+      if (!newVal && (this.dismissible || isNumericLike(this.show))) {
+        // Only emit dismissed events for dismissible or auto dismissing alerts
         this.$emit('dismissed');
+      }
+
+      if (!isNumericLike(this.show) && this.show !== newVal) {
+        // Only emit booleans if we weren't passed a number via `this.show`
+        this.$emit('input', newVal);
       }
     }
   },
-  mounted: function mounted() {
-    this.showChanged(this.show);
+  created: function created() {
+    this.countDown = parseCountDown(this.show);
+    this.localShow = parseShow(this.show);
   },
-  destroyed
-  /* istanbul ignore next */
-  : function destroyed() {
-    this.clearCounter();
+  mounted: function mounted() {
+    this.countDown = parseCountDown(this.show);
+    this.localShow = parseShow(this.show);
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.clearTimer();
   },
   methods: {
     dismiss: function dismiss() {
-      this.clearCounter();
-
-      if (typeof this.show === 'number') {
-        this.$emit('dismiss-count-down', 0);
-        this.$emit('input', 0);
-      } else {
-        this.$emit('input', false);
-      }
-
-      this.dismissed = true;
+      this.clearTimer();
+      this.countDown = 0;
+      this.localShow = false;
     },
-    clearCounter: function clearCounter() {
+    clearTimer: function clearTimer() {
       if (this.countDownTimerId) {
         clearInterval(this.countDownTimerId);
         this.countDownTimerId = null;
       }
     },
-    showChanged: function showChanged(show) {
-      var _this = this;
-
-      // Reset counter status
-      this.clearCounter(); // Reset dismiss status
-
-      this.dismissed = false; // Set localShow state
-
-      this.localShow = Boolean(show); // No timer for boolean values
-
-      if (show === true || show === false || show === null || show === 0) {
-        return;
-      } // Start counter (ensure we have an integer value)
-
-
-      var dismissCountDown = parseInt(show, 10) || 1;
-      this.countDownTimerId = setInterval(function () {
-        if (dismissCountDown < 1) {
-          _this.dismiss();
-
-          return;
-        }
-
-        dismissCountDown--;
-
-        _this.$emit('dismiss-count-down', dismissCountDown);
-
-        _this.$emit('input', dismissCountDown);
-      }, 1000);
-    },
     onBeforeEnter: function onBeforeEnter() {
       var _this2 = this;
 
       if (this.fade) {
-        // Add show class one frame after inserted, to make transitions work
         (0, _dom.requestAF)(function () {
           _this2.showClass = true;
         });
@@ -13780,21 +14211,21 @@ var _default2 = {
     }
   },
   render: function render(h) {
-    var $slots = this.$slots;
-    var $alert = h(false);
+    var $alert; // undefined
 
     if (this.localShow) {
       var $dismissBtn = h(false);
 
       if (this.dismissible) {
-        $dismissBtn = h('b-button-close', {
+        // Add dismiss button
+        $dismissBtn = h(_buttonClose.default, {
           attrs: {
             'aria-label': this.dismissLabel
           },
           on: {
             click: this.dismiss
           }
-        }, [$slots.dismiss]);
+        }, [this.normalizeSlot('dismiss')]);
       }
 
       $alert = h('div', {
@@ -13809,14 +14240,12 @@ var _default2 = {
           'aria-live': 'polite',
           'aria-atomic': true
         }
-      }, [$dismissBtn, $slots.default]);
+      }, [$dismissBtn, this.normalizeSlot('default')]);
       $alert = [$alert];
     }
 
     return h('transition', {
       props: {
-        mode: 'out-in',
-        // Disable use of built-in transition classes
         'enter-class': '',
         'enter-active-class': '',
         'enter-to-class': '',
@@ -13830,7 +14259,8 @@ var _default2 = {
       }
     }, $alert);
   }
-};
+});
+
 exports.default = _default2;
 
 /***/ }),
@@ -13856,22 +14286,26 @@ module.exports = function (it) {
 exports.__esModule = true;
 exports.default = void 0;
 
-var _tooltip = __webpack_require__("e93a");
+var _tooltip = _interopRequireDefault(__webpack_require__("e93a"));
 
-var _tooltip2 = __webpack_require__("2eee");
+exports.BTooltip = _tooltip.default;
+
+var _tooltip2 = _interopRequireDefault(__webpack_require__("91b6"));
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BTooltip: _tooltip.default
 };
-var plugins = {
-  BTooltipDirectivePlugin: _tooltip2.default
+var directives = {
+  VBTooltip: _tooltip2.default
 };
 var _default = {
   install: (0, _plugins.installFactory)({
     components: components,
-    plugins: plugins
+    directives: directives
   })
 };
 exports.default = _default;
@@ -13887,69 +14321,20 @@ exports.default = _default;
 exports.__esModule = true;
 exports.readonlyDescriptor = exports.omit = exports.isPlainObject = exports.isObject = exports.is = exports.isFrozen = exports.create = exports.getPrototypeOf = exports.getOwnPropertySymbols = exports.getOwnPropertyDescriptor = exports.freeze = exports.defineProperty = exports.defineProperties = exports.keys = exports.getOwnPropertyNames = exports.assign = void 0;
 
+var _assign = _interopRequireDefault(__webpack_require__("51b6"));
+
+var _is = _interopRequireDefault(__webpack_require__("cf44"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-/**
- * Aliasing Object[method] allows the minifier to shorten methods to a single character variable,
- * as well as giving BV a chance to inject polyfills.
- * As long as we avoid
- * - import * as Object from "utils/object"
- * all unused exports should be removed by tree-shaking.
- */
-// @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
-
-/* istanbul ignore if */
-if (typeof Object.assign !== 'function') {
-  Object.assign = function (target, varArgs) {
-    // .length of function is 2
-    if (target == null) {
-      // TypeError if undefined or null
-      throw new TypeError('Cannot convert undefined or null to object');
-    }
-
-    var to = Object(target);
-
-    for (var index = 1; index < arguments.length; index++) {
-      var nextSource = arguments[index];
-
-      if (nextSource != null) {
-        // Skip over if undefined or null
-        for (var nextKey in nextSource) {
-          // Avoid bugs when hasOwnProperty is shadowed
-          if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
-            to[nextKey] = nextSource[nextKey];
-          }
-        }
-      }
-    }
-
-    return to;
-  };
-} // @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is#Polyfill
-
-/* istanbul ignore if */
-
-
-if (!Object.is) {
-  Object.is = function (x, y) {
-    // SameValue algorithm
-    if (x === y) {
-      // Steps 1-5, 7-10
-      // Steps 6.b-6.e: +0 != -0
-      return x !== 0 || 1 / x === 1 / y;
-    } else {
-      // Step 6.a: NaN == NaN
-      // eslint-disable-next-line no-self-compare
-      return x !== x && y !== y;
-    }
-  };
-}
-
-var assign = Object.assign;
+// --- Static ---
+var assign = Object.assign || _assign.default;
 exports.assign = assign;
 var getOwnPropertyNames = Object.getOwnPropertyNames;
 exports.getOwnPropertyNames = getOwnPropertyNames;
@@ -13971,7 +14356,7 @@ var create = Object.create;
 exports.create = create;
 var isFrozen = Object.isFrozen;
 exports.isFrozen = isFrozen;
-var is = Object.is;
+var is = Object.is || _is.default;
 /**
  * Quick object check - this is primarily used to tell
  * Objects from primitive values when we know the value
@@ -14000,7 +14385,7 @@ var isPlainObject = function isPlainObject(obj) {
 exports.isPlainObject = isPlainObject;
 
 var omit = function omit(obj, props) {
-  return Object.keys(obj).filter(function (key) {
+  return keys(obj).filter(function (key) {
     return props.indexOf(key) === -1;
   }).reduce(function (result, key) {
     return _objectSpread({}, result, _defineProperty({}, key, obj[key]));
@@ -14030,21 +14415,32 @@ exports.readonlyDescriptor = readonlyDescriptor;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _modal = __webpack_require__("3a5b");
+var _modal = _interopRequireDefault(__webpack_require__("3a5b"));
 
-var _modal2 = __webpack_require__("be8c");
+exports.BModal = _modal.default;
+
+var _bvModal = _interopRequireDefault(__webpack_require__("b7af"));
+
+var _modal2 = _interopRequireDefault(__webpack_require__("f429"));
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BModal: _modal.default
 };
+var directives = {
+  VBModal: _modal2.default
+};
 var plugins = {
-  BModalDirectivePlugin: _modal2.default
+  // $bvModal injection
+  BVModalPlugin: _bvModal.default
 };
 var _default = {
   install: (0, _plugins.installFactory)({
     components: components,
+    directives: directives,
     plugins: plugins
   })
 };
@@ -14073,11 +14469,17 @@ module.exports = function (it) {
 exports.__esModule = true;
 exports.default = void 0;
 
-var _img = __webpack_require__("4c76");
+var _img = _interopRequireDefault(__webpack_require__("4c76"));
 
-var _imgLazy = __webpack_require__("294b");
+exports.BImg = _img.default;
+
+var _imgLazy = _interopRequireDefault(__webpack_require__("294b"));
+
+exports.BImgLazy = _imgLazy.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BImg: _img.default,
@@ -14101,17 +14503,21 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _toString = __webpack_require__("40f6");
+var _keyCodes = _interopRequireDefault(__webpack_require__("06e4"));
 
-var _get = __webpack_require__("b0df");
+var _get = _interopRequireDefault(__webpack_require__("b0df"));
 
-var _keyCodes = __webpack_require__("06e4");
+var _toString = _interopRequireDefault(__webpack_require__("40f6"));
 
 var _array = __webpack_require__("bb2f");
 
-var _filterEvent = __webpack_require__("382a");
+var _inspect = __webpack_require__("0d5a");
 
-var _textSelectionActive = __webpack_require__("c57f");
+var _filterEvent = _interopRequireDefault(__webpack_require__("382a"));
+
+var _textSelectionActive = _interopRequireDefault(__webpack_require__("c57f"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -14154,7 +14560,7 @@ var _default = {
       return _objectSpread({}, attrs, this.getTdValues(item, field.key, field.tdAttr, {}));
     },
     rowClasses: function rowClasses(item) {
-      return [item._rowVariant ? "".concat(this.dark ? 'bg' : 'table', "-").concat(item._rowVariant) : '', typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(item, 'row') : this.tbodyTrClass];
+      return [item._rowVariant ? "".concat(this.dark ? 'bg' : 'table', "-").concat(item._rowVariant) : '', (0, _inspect.isFunction)(this.tbodyTrClass) ? this.tbodyTrClass(item, 'row') : this.tbodyTrClass];
     },
     getTdValues: function getTdValues(item, key, tdValue, defValue) {
       var parent = this.$parent;
@@ -14162,9 +14568,9 @@ var _default = {
       if (tdValue) {
         var value = (0, _get.default)(item, key, '');
 
-        if (typeof tdValue === 'function') {
+        if ((0, _inspect.isFunction)(tdValue)) {
           return tdValue(value, key, item);
-        } else if (typeof tdValue === 'string' && typeof parent[tdValue] === 'function') {
+        } else if ((0, _inspect.isString)(tdValue) && (0, _inspect.isFunction)(parent[tdValue])) {
           return parent[tdValue](value, key, item);
         }
 
@@ -14181,14 +14587,14 @@ var _default = {
       var value = (0, _get.default)(item, key, null);
 
       if (formatter) {
-        if (typeof formatter === 'function') {
+        if ((0, _inspect.isFunction)(formatter)) {
           value = formatter(value, key, item);
-        } else if (typeof formatter === 'string' && typeof parent[formatter] === 'function') {
+        } else if ((0, _inspect.isString)(formatter) && (0, _inspect.isFunction)(parent[formatter])) {
           value = parent[formatter](value, key, item);
         }
       }
 
-      return value === null || typeof value === 'undefined' ? '' : value;
+      return (0, _inspect.isUndefined)(value) || (0, _inspect.isNull)(value) ? '' : value;
     },
     tbodyRowKeydown: function tbodyRowKeydown(evt, item, rowIndex) {
       var keyCode = evt.keyCode;
@@ -14312,7 +14718,8 @@ var _default = {
       var rowSelected = this.selectedRows[rowIndex];
       var formatted = this.getFormattedValue(item, field);
       var data = {
-        // For the Vue key, we concatinate the column index and field key (as field keys can be duplicated)
+        // For the Vue key, we concatenate the column index and
+        // field key (as field keys can be duplicated)
         key: "row-".concat(rowIndex, "-cell-").concat(colIndex, "-").concat(field.key),
         class: this.tdClasses(field, item),
         attrs: this.tdAttrs(field, item, colIndex)
@@ -14382,10 +14789,10 @@ var _default = {
 
 
       var primaryKey = this.primaryKey;
-      var rowKey = primaryKey && item[primaryKey] !== undefined && item[primaryKey] !== null ? (0, _toString.default)(item[primaryKey]) : String(rowIndex); // If primary key is provided, use it to generate a unique ID on each tbody > tr
+      var rowKey = primaryKey && !(0, _inspect.isUndefined)(item[primaryKey]) && !(0, _inspect.isNull)(item[primaryKey]) ? (0, _toString.default)(item[primaryKey]) : String(rowIndex); // If primary key is provided, use it to generate a unique ID on each tbody > tr
       // In the format of '{tableId}__row_{primaryKeyValue}'
 
-      var rowId = primaryKey && item[primaryKey] !== undefined && item[primaryKey] !== null ? this.safeId("_row_".concat(item[primaryKey])) : null;
+      var rowId = primaryKey && !(0, _inspect.isUndefined)(item[primaryKey]) && !(0, _inspect.isNull)(item[primaryKey]) ? this.safeId("_row_".concat(item[primaryKey])) : null;
       var handlers = {};
 
       if (hasRowClickHandler) {
@@ -14416,7 +14823,7 @@ var _default = {
           role: 'row'
         }, this.selectableRowAttrs(rowIndex)),
         on: _objectSpread({}, handlers, {
-          // TODO: instatiate the following handlers only if we have registered
+          // TODO: Instantiate the following handlers only if we have registered
           //       listeners i.e. this.$listeners['row-middle-clicked'], etc.
           auxclick: function auxclick(evt) {
             if (evt.which === 2) {
@@ -14473,7 +14880,7 @@ var _default = {
         $rows.push(h('tr', {
           key: "__b-table-details-".concat(rowIndex, "__"),
           staticClass: 'b-table-details',
-          class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(item, 'row-details') : this.tbodyTrClass],
+          class: [(0, _inspect.isFunction)(this.tbodyTrClass) ? this.tbodyTrClass(item, 'row-details') : this.tbodyTrClass],
           attrs: trAttrs
         }, [$details]));
       } else if ($detailsSlot) {
@@ -14524,108 +14931,112 @@ exports.default = _default;
 
 
 exports.__esModule = true;
-exports.default = void 0;
+exports.default = exports.props = void 0;
 
-var _img = __webpack_require__("4c76");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
+var _img = _interopRequireDefault(__webpack_require__("4c76"));
 
 var _dom = __webpack_require__("1611");
 
 var _config = __webpack_require__("eb60");
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var NAME = 'BImgLazy';
 var THROTTLE = 100;
 var EventOptions = {
   passive: true,
-  capture: false // @vue/component
-
+  capture: false
 };
-var _default2 = {
-  name: NAME,
-  components: {
-    BImg: _img.default
+var props = {
+  src: {
+    type: String,
+    default: null,
+    required: true
   },
-  props: {
-    src: {
-      type: String,
-      default: null,
-      required: true
-    },
-    alt: {
-      type: String,
-      default: null
-    },
-    width: {
-      type: [Number, String],
-      default: null
-    },
-    height: {
-      type: [Number, String],
-      default: null
-    },
-    blankSrc: {
-      // If null, a blank image is generated
-      type: String,
-      default: null
-    },
-    blankColor: {
-      type: String,
-      default: function _default() {
-        return (0, _config.getComponentConfig)(NAME, 'blankColor');
-      }
-    },
-    blankWidth: {
-      type: [Number, String],
-      default: null
-    },
-    blankHeight: {
-      type: [Number, String],
-      default: null
-    },
-    show: {
-      type: Boolean,
-      default: false
-    },
-    fluid: {
-      type: Boolean,
-      default: false
-    },
-    fluidGrow: {
-      type: Boolean,
-      default: false
-    },
-    block: {
-      type: Boolean,
-      default: false
-    },
-    thumbnail: {
-      type: Boolean,
-      default: false
-    },
-    rounded: {
-      type: [Boolean, String],
-      default: false
-    },
-    left: {
-      type: Boolean,
-      default: false
-    },
-    right: {
-      type: Boolean,
-      default: false
-    },
-    center: {
-      type: Boolean,
-      default: false
-    },
-    offset: {
-      type: [Number, String],
-      default: 360
-    },
-    throttle: {
-      type: [Number, String],
-      default: THROTTLE
+  alt: {
+    type: String,
+    default: null
+  },
+  width: {
+    type: [Number, String],
+    default: null
+  },
+  height: {
+    type: [Number, String],
+    default: null
+  },
+  blankSrc: {
+    // If null, a blank image is generated
+    type: String,
+    default: null
+  },
+  blankColor: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'blankColor');
     }
   },
+  blankWidth: {
+    type: [Number, String],
+    default: null
+  },
+  blankHeight: {
+    type: [Number, String],
+    default: null
+  },
+  show: {
+    type: Boolean,
+    default: false
+  },
+  fluid: {
+    type: Boolean,
+    default: false
+  },
+  fluidGrow: {
+    type: Boolean,
+    default: false
+  },
+  block: {
+    type: Boolean,
+    default: false
+  },
+  thumbnail: {
+    type: Boolean,
+    default: false
+  },
+  rounded: {
+    type: [Boolean, String],
+    default: false
+  },
+  left: {
+    type: Boolean,
+    default: false
+  },
+  right: {
+    type: Boolean,
+    default: false
+  },
+  center: {
+    type: Boolean,
+    default: false
+  },
+  offset: {
+    type: [Number, String],
+    default: 360
+  },
+  throttle: {
+    type: [Number, String],
+    default: THROTTLE
+  } // @vue/component
+
+};
+exports.props = props;
+
+var _default2 = _vue.default.extend({
+  name: NAME,
+  props: props,
   data: function data() {
     return {
       isShown: false,
@@ -14750,7 +15161,7 @@ var _default2 = {
     }
   },
   render: function render(h) {
-    return h('b-img', {
+    return h(_img.default, {
       props: {
         src: this.computedSrc,
         alt: this.alt,
@@ -14769,7 +15180,8 @@ var _default2 = {
       }
     });
   }
-};
+});
+
 exports.default = _default2;
 
 /***/ }),
@@ -14892,6 +15304,630 @@ $exports.store = store;
 
 /***/ }),
 
+/***/ "2b88":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+ /*! 
+  * portal-vue © Thorsten Lünborg, 2019 
+  * 
+  * Version: 2.1.4
+  * 
+  * LICENCE: MIT 
+  * 
+  * https://github.com/linusborg/portal-vue
+  * 
+ */
+
+
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var Vue = _interopDefault(__webpack_require__("8bbf"));
+
+function _typeof(obj) {
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function (obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function (obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
+}
+
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+    return arr2;
+  }
+}
+
+function _iterableToArray(iter) {
+  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance");
+}
+
+var inBrowser = typeof window !== 'undefined';
+function freeze(item) {
+  if (Array.isArray(item) || _typeof(item) === 'object') {
+    return Object.freeze(item);
+  }
+
+  return item;
+}
+function combinePassengers(transports) {
+  var slotProps = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return transports.reduce(function (passengers, transport) {
+    var temp = transport.passengers[0];
+    var newPassengers = typeof temp === 'function' ? temp(slotProps) : transport.passengers;
+    return passengers.concat(newPassengers);
+  }, []);
+}
+function stableSort(array, compareFn) {
+  return array.map(function (v, idx) {
+    return [idx, v];
+  }).sort(function (a, b) {
+    return compareFn(a[1], b[1]) || a[0] - b[0];
+  }).map(function (c) {
+    return c[1];
+  });
+}
+function pick(obj, keys) {
+  return keys.reduce(function (acc, key) {
+    if (obj.hasOwnProperty(key)) {
+      acc[key] = obj[key];
+    }
+
+    return acc;
+  }, {});
+}
+
+var transports = {};
+var targets = {};
+var sources = {};
+var Wormhole = Vue.extend({
+  data: function data() {
+    return {
+      transports: transports,
+      targets: targets,
+      sources: sources,
+      trackInstances: inBrowser
+    };
+  },
+  methods: {
+    open: function open(transport) {
+      if (!inBrowser) return;
+      var to = transport.to,
+          from = transport.from,
+          passengers = transport.passengers,
+          _transport$order = transport.order,
+          order = _transport$order === void 0 ? Infinity : _transport$order;
+      if (!to || !from || !passengers) return;
+      var newTransport = {
+        to: to,
+        from: from,
+        passengers: freeze(passengers),
+        order: order
+      };
+      var keys = Object.keys(this.transports);
+
+      if (keys.indexOf(to) === -1) {
+        Vue.set(this.transports, to, []);
+      }
+
+      var currentIndex = this.$_getTransportIndex(newTransport); // Copying the array here so that the PortalTarget change event will actually contain two distinct arrays
+
+      var newTransports = this.transports[to].slice(0);
+
+      if (currentIndex === -1) {
+        newTransports.push(newTransport);
+      } else {
+        newTransports[currentIndex] = newTransport;
+      }
+
+      this.transports[to] = stableSort(newTransports, function (a, b) {
+        return a.order - b.order;
+      });
+    },
+    close: function close(transport) {
+      var force = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      var to = transport.to,
+          from = transport.from;
+      if (!to || !from) return;
+
+      if (!this.transports[to]) {
+        return;
+      }
+
+      if (force) {
+        this.transports[to] = [];
+      } else {
+        var index = this.$_getTransportIndex(transport);
+
+        if (index >= 0) {
+          // Copying the array here so that the PortalTarget change event will actually contain two distinct arrays
+          var newTransports = this.transports[to].slice(0);
+          newTransports.splice(index, 1);
+          this.transports[to] = newTransports;
+        }
+      }
+    },
+    registerTarget: function registerTarget(target, vm, force) {
+      if (!inBrowser) return;
+
+      if (this.trackInstances && !force && this.targets[target]) {
+        console.warn("[portal-vue]: Target ".concat(target, " already exists"));
+      }
+
+      this.$set(this.targets, target, Object.freeze([vm]));
+    },
+    unregisterTarget: function unregisterTarget(target) {
+      this.$delete(this.targets, target);
+    },
+    registerSource: function registerSource(source, vm, force) {
+      if (!inBrowser) return;
+
+      if (this.trackInstances && !force && this.sources[source]) {
+        console.warn("[portal-vue]: source ".concat(source, " already exists"));
+      }
+
+      this.$set(this.sources, source, Object.freeze([vm]));
+    },
+    unregisterSource: function unregisterSource(source) {
+      this.$delete(this.sources, source);
+    },
+    hasTarget: function hasTarget(to) {
+      return !!(this.targets[to] && this.targets[to][0]);
+    },
+    hasSource: function hasSource(to) {
+      return !!(this.sources[to] && this.sources[to][0]);
+    },
+    hasContentFor: function hasContentFor(to) {
+      return !!this.transports[to] && !!this.transports[to].length;
+    },
+    // Internal
+    $_getTransportIndex: function $_getTransportIndex(_ref) {
+      var to = _ref.to,
+          from = _ref.from;
+
+      for (var i in this.transports[to]) {
+        if (this.transports[to][i].from === from) {
+          return +i;
+        }
+      }
+
+      return -1;
+    }
+  }
+});
+var wormhole = new Wormhole(transports);
+
+var _id = 1;
+var Portal = Vue.extend({
+  name: 'portal',
+  props: {
+    disabled: {
+      type: Boolean
+    },
+    name: {
+      type: String,
+      default: function _default() {
+        return String(_id++);
+      }
+    },
+    order: {
+      type: Number,
+      default: 0
+    },
+    slim: {
+      type: Boolean
+    },
+    slotProps: {
+      type: Object,
+      default: function _default() {
+        return {};
+      }
+    },
+    tag: {
+      type: String,
+      default: 'DIV'
+    },
+    to: {
+      type: String,
+      default: function _default() {
+        return String(Math.round(Math.random() * 10000000));
+      }
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    this.$nextTick(function () {
+      wormhole.registerSource(_this.name, _this);
+    });
+  },
+  mounted: function mounted() {
+    if (!this.disabled) {
+      this.sendUpdate();
+    }
+  },
+  updated: function updated() {
+    if (this.disabled) {
+      this.clear();
+    } else {
+      this.sendUpdate();
+    }
+  },
+  beforeDestroy: function beforeDestroy() {
+    wormhole.unregisterSource(this.name);
+    this.clear();
+  },
+  watch: {
+    to: function to(newValue, oldValue) {
+      oldValue && oldValue !== newValue && this.clear(oldValue);
+      this.sendUpdate();
+    }
+  },
+  methods: {
+    clear: function clear(target) {
+      var closer = {
+        from: this.name,
+        to: target || this.to
+      };
+      wormhole.close(closer);
+    },
+    normalizeSlots: function normalizeSlots() {
+      return this.$scopedSlots.default ? [this.$scopedSlots.default] : this.$slots.default;
+    },
+    normalizeOwnChildren: function normalizeOwnChildren(children) {
+      return typeof children === 'function' ? children(this.slotProps) : children;
+    },
+    sendUpdate: function sendUpdate() {
+      var slotContent = this.normalizeSlots();
+
+      if (slotContent) {
+        var transport = {
+          from: this.name,
+          to: this.to,
+          passengers: _toConsumableArray(slotContent),
+          order: this.order
+        };
+        wormhole.open(transport);
+      } else {
+        this.clear();
+      }
+    }
+  },
+  render: function render(h) {
+    var children = this.$slots.default || this.$scopedSlots.default || [];
+    var Tag = this.tag;
+
+    if (children && this.disabled) {
+      return children.length <= 1 && this.slim ? this.normalizeOwnChildren(children)[0] : h(Tag, [this.normalizeOwnChildren(children)]);
+    } else {
+      return this.slim ? h() : h(Tag, {
+        class: {
+          'v-portal': true
+        },
+        style: {
+          display: 'none'
+        },
+        key: 'v-portal-placeholder'
+      });
+    }
+  }
+});
+
+var PortalTarget = Vue.extend({
+  name: 'portalTarget',
+  props: {
+    multiple: {
+      type: Boolean,
+      default: false
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    slim: {
+      type: Boolean,
+      default: false
+    },
+    slotProps: {
+      type: Object,
+      default: function _default() {
+        return {};
+      }
+    },
+    tag: {
+      type: String,
+      default: 'div'
+    },
+    transition: {
+      type: [String, Object, Function]
+    }
+  },
+  data: function data() {
+    return {
+      transports: wormhole.transports,
+      firstRender: true
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.$nextTick(function () {
+      wormhole.registerTarget(_this.name, _this);
+    });
+  },
+  watch: {
+    ownTransports: function ownTransports() {
+      this.$emit('change', this.children().length > 0);
+    },
+    name: function name(newVal, oldVal) {
+      /**
+       * TODO
+       * This should warn as well ...
+       */
+      wormhole.unregisterTarget(oldVal);
+      wormhole.registerTarget(newVal, this);
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    if (this.transition) {
+      this.$nextTick(function () {
+        // only when we have a transition, because it causes a re-render
+        _this2.firstRender = false;
+      });
+    }
+  },
+  beforeDestroy: function beforeDestroy() {
+    wormhole.unregisterTarget(this.name);
+  },
+  computed: {
+    ownTransports: function ownTransports() {
+      var transports = this.transports[this.name] || [];
+
+      if (this.multiple) {
+        return transports;
+      }
+
+      return transports.length === 0 ? [] : [transports[transports.length - 1]];
+    },
+    passengers: function passengers() {
+      return combinePassengers(this.ownTransports, this.slotProps);
+    }
+  },
+  methods: {
+    // can't be a computed prop because it has to "react" to $slot changes.
+    children: function children() {
+      return this.passengers.length !== 0 ? this.passengers : this.$scopedSlots.default ? this.$scopedSlots.default(this.slotProps) : this.$slots.default || [];
+    },
+    // can't be a computed prop because it has to "react" to this.children().
+    noWrapper: function noWrapper() {
+      var noWrapper = this.slim && !this.transition;
+
+      if (noWrapper && this.children().length > 1) {
+        console.warn('[portal-vue]: PortalTarget with `slim` option received more than one child element.');
+      }
+
+      return noWrapper;
+    }
+  },
+  render: function render(h) {
+    var noWrapper = this.noWrapper();
+    var children = this.children();
+    var Tag = this.transition || this.tag;
+    return noWrapper ? children[0] : this.slim && !Tag ? h() : h(Tag, {
+      props: {
+        // if we have a transition component, pass the tag if it exists
+        tag: this.transition && this.tag ? this.tag : undefined
+      },
+      class: {
+        'vue-portal-target': true
+      }
+    }, children);
+  }
+});
+
+var _id$1 = 0;
+var portalProps = ['disabled', 'name', 'order', 'slim', 'slotProps', 'tag', 'to'];
+var targetProps = ['multiple', 'transition'];
+var MountingPortal = Vue.extend({
+  name: 'MountingPortal',
+  inheritAttrs: false,
+  props: {
+    append: {
+      type: [Boolean, String]
+    },
+    bail: {
+      type: Boolean
+    },
+    mountTo: {
+      type: String,
+      required: true
+    },
+    // Portal
+    disabled: {
+      type: Boolean
+    },
+    // name for the portal
+    name: {
+      type: String,
+      default: function _default() {
+        return 'mounted_' + String(_id$1++);
+      }
+    },
+    order: {
+      type: Number,
+      default: 0
+    },
+    slim: {
+      type: Boolean
+    },
+    slotProps: {
+      type: Object,
+      default: function _default() {
+        return {};
+      }
+    },
+    tag: {
+      type: String,
+      default: 'DIV'
+    },
+    // name for the target
+    to: {
+      type: String,
+      default: function _default() {
+        return String(Math.round(Math.random() * 10000000));
+      }
+    },
+    // Target
+    multiple: {
+      type: Boolean,
+      default: false
+    },
+    targetSlim: {
+      type: Boolean
+    },
+    targetSlotProps: {
+      type: Object,
+      default: function _default() {
+        return {};
+      }
+    },
+    targetTag: {
+      type: String,
+      default: 'div'
+    },
+    transition: {
+      type: [String, Object, Function]
+    }
+  },
+  created: function created() {
+    if (typeof document === 'undefined') return;
+    var el = document.querySelector(this.mountTo);
+
+    if (!el) {
+      console.error("[portal-vue]: Mount Point '".concat(this.mountTo, "' not found in document"));
+      return;
+    }
+
+    var props = this.$props; // Target already exists
+
+    if (wormhole.targets[props.name]) {
+      if (props.bail) {
+        console.warn("[portal-vue]: Target ".concat(props.name, " is already mounted.\n        Aborting because 'bail: true' is set"));
+      } else {
+        this.portalTarget = wormhole.targets[props.name];
+      }
+
+      return;
+    }
+
+    var append = props.append;
+
+    if (append) {
+      var type = typeof append === 'string' ? append : 'DIV';
+      var mountEl = document.createElement(type);
+      el.appendChild(mountEl);
+      el = mountEl;
+    } // get props for target from $props
+    // we have to rename a few of them
+
+
+    var _props = pick(this.$props, targetProps);
+
+    _props.slim = this.targetSlim;
+    _props.tag = this.targetTag;
+    _props.slotProps = this.targetSlotProps;
+    _props.name = this.to;
+    this.portalTarget = new PortalTarget({
+      el: el,
+      parent: this.$parent || this,
+      propsData: _props
+    });
+  },
+  beforeDestroy: function beforeDestroy() {
+    var target = this.portalTarget;
+
+    if (this.append) {
+      var el = target.$el;
+      el.parentNode.removeChild(el);
+    }
+
+    target.$destroy();
+  },
+  render: function render(h) {
+    if (!this.portalTarget) {
+      console.warn("[portal-vue] Target wasn't mounted");
+      return h();
+    } // if there's no "manual" scoped slot, so we create a <Portal> ourselves
+
+
+    if (!this.$scopedSlots.manual) {
+      var props = pick(this.$props, portalProps);
+      return h(Portal, {
+        props: props,
+        attrs: this.$attrs,
+        on: this.$listeners,
+        scopedSlots: this.$scopedSlots
+      }, this.$slots.default);
+    } // else, we render the scoped slot
+
+
+    var content = this.$scopedSlots.manual({
+      to: this.to
+    }); // if user used <template> for the scoped slot
+    // content will be an array
+
+    if (Array.isArray(content)) {
+      content = content[0];
+    }
+
+    if (!content) return h();
+    return content;
+  }
+});
+
+function install(Vue$$1) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  Vue$$1.component(options.portalName || 'Portal', Portal);
+  Vue$$1.component(options.portalTargetName || 'PortalTarget', PortalTarget);
+  Vue$$1.component(options.MountingPortalName || 'MountingPortal', MountingPortal);
+}
+
+var index = {
+  install: install
+};
+
+exports.default = index;
+exports.Portal = Portal;
+exports.PortalTarget = PortalTarget;
+exports.MountingPortal = MountingPortal;
+exports.Wormhole = wormhole;
+//# sourceMappingURL=portal-vue.common.js.map
+
+
+/***/ }),
+
 /***/ "2c38":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14901,20 +15937,24 @@ $exports.store = store;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _id = __webpack_require__("eae0");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
 
-var _form = __webpack_require__("5f07");
+var _id = _interopRequireDefault(__webpack_require__("eae0"));
 
-var _formState = __webpack_require__("41fb");
+var _form = _interopRequireDefault(__webpack_require__("5f07"));
 
-var _formSize = __webpack_require__("6e1b");
+var _formState = _interopRequireDefault(__webpack_require__("41fb"));
 
-var _formRadioCheck = __webpack_require__("4fe1");
+var _formSize = _interopRequireDefault(__webpack_require__("6e1b"));
 
-var _looseEqual = __webpack_require__("96cd");
+var _formRadioCheck = _interopRequireDefault(__webpack_require__("4fe1"));
+
+var _looseEqual = _interopRequireDefault(__webpack_require__("96cd"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // @vue/component
-var _default = {
+var _default = _vue.default.extend({
   name: 'BFormRadio',
   mixins: [_id.default, _formRadioCheck.default, // Includes shared render function
   _form.default, _formSize.default, _formState.default],
@@ -14963,7 +16003,8 @@ var _default = {
       }
     }
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -14976,6 +16017,30 @@ module.exports = false;
 
 /***/ }),
 
+/***/ "2d14":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _vue = _interopRequireDefault(__webpack_require__("8bbf"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+// Single point of contact for Vue
+//
+// TODO:
+//   Conditionally import Vue if no global Vue
+//
+var _default = _vue.default;
+exports.default = _default;
+
+/***/ }),
+
 /***/ "2d8d":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14985,7 +16050,9 @@ module.exports = false;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _looseEqual = __webpack_require__("96cd");
+var _looseEqual = _interopRequireDefault(__webpack_require__("96cd"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var looseIndexOf = function looseIndexOf(arr, val) {
   // Assumes that the first argument is an array
@@ -15024,7 +16091,11 @@ module.exports = function (it) {
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -15048,7 +16119,8 @@ var props = {
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BButtonGroup',
   functional: true,
   props: props,
@@ -15066,7 +16138,8 @@ var _default = {
       }
     }), children);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -15112,31 +16185,6 @@ var stableSort = function stableSort(array, compareFn) {
 };
 
 var _default = stableSort;
-exports.default = _default;
-
-/***/ }),
-
-/***/ "2eee":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _tooltip = __webpack_require__("91b6");
-
-var _plugins = __webpack_require__("0a8d");
-
-var directives = {
-  BTooltip: _tooltip.default
-};
-var _default = {
-  install: (0, _plugins.installFactory)({
-    directives: directives
-  })
-};
 exports.default = _default;
 
 /***/ }),
@@ -15189,6 +16237,83 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "30f1":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var LIBRARY = __webpack_require__("b8e3");
+var $export = __webpack_require__("63b6");
+var redefine = __webpack_require__("9138");
+var hide = __webpack_require__("35e8");
+var Iterators = __webpack_require__("481b");
+var $iterCreate = __webpack_require__("8f60");
+var setToStringTag = __webpack_require__("45f2");
+var getPrototypeOf = __webpack_require__("53e2");
+var ITERATOR = __webpack_require__("5168")('iterator');
+var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
+var FF_ITERATOR = '@@iterator';
+var KEYS = 'keys';
+var VALUES = 'values';
+
+var returnThis = function () { return this; };
+
+module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED) {
+  $iterCreate(Constructor, NAME, next);
+  var getMethod = function (kind) {
+    if (!BUGGY && kind in proto) return proto[kind];
+    switch (kind) {
+      case KEYS: return function keys() { return new Constructor(this, kind); };
+      case VALUES: return function values() { return new Constructor(this, kind); };
+    } return function entries() { return new Constructor(this, kind); };
+  };
+  var TAG = NAME + ' Iterator';
+  var DEF_VALUES = DEFAULT == VALUES;
+  var VALUES_BUG = false;
+  var proto = Base.prototype;
+  var $native = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT];
+  var $default = $native || getMethod(DEFAULT);
+  var $entries = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined;
+  var $anyNative = NAME == 'Array' ? proto.entries || $native : $native;
+  var methods, key, IteratorPrototype;
+  // Fix native
+  if ($anyNative) {
+    IteratorPrototype = getPrototypeOf($anyNative.call(new Base()));
+    if (IteratorPrototype !== Object.prototype && IteratorPrototype.next) {
+      // Set @@toStringTag to native iterators
+      setToStringTag(IteratorPrototype, TAG, true);
+      // fix for some old engines
+      if (!LIBRARY && typeof IteratorPrototype[ITERATOR] != 'function') hide(IteratorPrototype, ITERATOR, returnThis);
+    }
+  }
+  // fix Array#{values, @@iterator}.name in V8 / FF
+  if (DEF_VALUES && $native && $native.name !== VALUES) {
+    VALUES_BUG = true;
+    $default = function values() { return $native.call(this); };
+  }
+  // Define iterator
+  if ((!LIBRARY || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])) {
+    hide(proto, ITERATOR, $default);
+  }
+  // Plug for library
+  Iterators[NAME] = $default;
+  Iterators[TAG] = returnThis;
+  if (DEFAULT) {
+    methods = {
+      values: DEF_VALUES ? $default : getMethod(VALUES),
+      keys: IS_SET ? $default : getMethod(KEYS),
+      entries: $entries
+    };
+    if (FORCED) for (key in methods) {
+      if (!(key in proto)) redefine(proto, key, methods[key]);
+    } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
+  }
+  return methods;
+};
+
+
+/***/ }),
+
 /***/ "3110":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15198,11 +16323,17 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _formRadio = __webpack_require__("2c38");
+var _formRadio = _interopRequireDefault(__webpack_require__("2c38"));
 
-var _formRadioGroup = __webpack_require__("679b");
+exports.BFormRadio = _formRadio.default;
+
+var _formRadioGroup = _interopRequireDefault(__webpack_require__("679b"));
+
+exports.BFormRadioGroup = _formRadioGroup.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BFormRadio: _formRadio.default,
@@ -15214,6 +16345,277 @@ var _default = {
   install: (0, _plugins.installFactory)({
     components: components
   })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "3163":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
+var _array = __webpack_require__("bb2f");
+
+var _config = __webpack_require__("eb60");
+
+var _dom = __webpack_require__("1611");
+
+var _inspect = __webpack_require__("0d5a");
+
+var _object = __webpack_require__("24e2");
+
+var _warn = __webpack_require__("93e0");
+
+var _toast = _interopRequireWildcard(__webpack_require__("782b"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+// --- Constants ---
+var PROP_NAME = '$bvToast';
+var PROP_NAME_PRIV = '_bv__toast'; // Base toast props that are allowed
+// Some may be ignored or overridden on some message boxes
+// Prop ID is allowed, but really only should be used for testing
+// We need to add it in explicitly as it comes from the `idMixin`
+
+var BASE_PROPS = ['id'].concat(_toConsumableArray((0, _object.keys)((0, _object.omit)(_toast.props, ['static', 'visible'])))); // Map prop names to toast slot names
+
+var propsToSlots = {
+  toastContent: 'default',
+  title: 'toast-title' // --- Utility methods ---
+  // Method to filter only recognized props that are not undefined
+
+};
+
+var filterOptions = function filterOptions(options) {
+  return BASE_PROPS.reduce(function (memo, key) {
+    if (!(0, _inspect.isUndefined)(options[key])) {
+      memo[key] = options[key];
+    }
+
+    return memo;
+  }, {});
+}; // Create a private sub-component that extends BToast
+// which self-destructs after hidden
+// @vue/component
+
+
+var BToastPop = _vue.default.extend({
+  name: 'BToastPop',
+  extends: _toast.default,
+  destroyed: function destroyed() {
+    // Make sure we not in document any more
+    if (this.$el && this.$el.parentNode) {
+      this.$el.parentNode.removeChild(this.$el);
+    }
+  },
+  mounted: function mounted() {
+    // Self destruct handler
+    var self = this;
+
+    var handleDestroy = function handleDestroy() {
+      // Ensure the toast has been force hidden
+      self.localShow = false;
+      self.doRender = false;
+      self.$nextTick(function () {
+        self.$nextTick(function () {
+          // In a `requestAF()` to release control back to application
+          // and to allow the portal-target time to remove the content
+          (0, _dom.requestAF)(function () {
+            self.$destroy();
+          });
+        });
+      });
+    }; // Self destruct if parent destroyed
+
+
+    this.$parent.$once('hook:destroyed', handleDestroy); // Self destruct after hidden
+
+    this.$once('hidden', handleDestroy); // Self destruct when toaster is destroyed
+
+    this.listenOnRoot('bv::toaster::destroyed', function (toaster) {
+      /* istanbul ignore next: hard to test */
+      if (toaster === self.toaster) {
+        handleDestroy();
+      }
+    });
+  }
+}); // Method to generate the on-demand toast
+
+
+var makeToast = function makeToast(props, $parent) {
+  if ((0, _warn.warnNotClient)(PROP_NAME)) {
+    // Should this throw an error?
+
+    /* istanbul ignore next */
+    return;
+  } // Create an instance of `BToast` component
+
+
+  var toast = new BToastPop({
+    // We set parent as the local VM so these toasts can emit events on
+    // the app `$root`
+    // And it helps to ensure `BToast` is destroyed when parent is destroyed
+    parent: $parent,
+    // Preset the prop values
+    propsData: _objectSpread({}, filterOptions((0, _config.getComponentConfig)('BToast') || {}), (0, _object.omit)(props, ['toastContent']), {
+      // Props that can't be overridden
+      static: false,
+      visible: true
+    })
+  }); // Convert certain props to slots
+
+  (0, _object.keys)(propsToSlots).forEach(function (prop) {
+    var value = props[prop];
+
+    if (!(0, _inspect.isUndefined)(value)) {
+      // Can be a string, or array of VNodes
+      // Alternatively, user can use HTML version of prop to pass an HTML string
+      if (prop === 'title' && (0, _inspect.isString)(value)) {
+        // Special case for title if it is a string, we wrap in a <strong>
+        value = [$parent.$createElement('strong', {
+          class: 'mr-2'
+        }, value)];
+      } // Make sure slot value is an array for Vue 2.5.x compatability
+
+
+      toast.$slots[propsToSlots[prop]] = (0, _array.concat)(value);
+    }
+  }); // Create a mount point (a DIV)
+  // TODO: this needs to target a portal-target
+  // But we still need to place in document to portal-vue can
+  // transfer the content
+
+  var div = document.createElement('div');
+  document.body.appendChild(div); // Mount the toast to trigger it to show
+
+  toast.$mount(div);
+}; // BvToast instance property class
+
+
+var BvToast =
+/*#__PURE__*/
+function () {
+  function BvToast(vm) {
+    _classCallCheck(this, BvToast);
+
+    // Assign the new properties to this instance
+    (0, _object.assign)(this, {
+      _vm: vm,
+      _root: vm.$root
+    }); // Set these properties as read-only and non-enumerable
+
+    (0, _object.defineProperties)(this, {
+      _vm: (0, _object.readonlyDescriptor)(),
+      _root: (0, _object.readonlyDescriptor)()
+    });
+  } // --- Instance methods ---
+  // Opens a user defined toast and returns immediately
+
+
+  _createClass(BvToast, [{
+    key: "toast",
+    value: function toast(content) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+      if (!content || (0, _warn.warnNotClient)(PROP_NAME)) {
+        // Should this throw an error?
+
+        /* istanbul ignore next */
+        return;
+      }
+
+      var props = _objectSpread({}, filterOptions(options), {
+        toastContent: content
+      });
+
+      makeToast(props, this._vm);
+    } // shows a `<b-toast>` component with the specified ID
+
+  }, {
+    key: "show",
+    value: function show(id) {
+      if (id) {
+        this._root.$emit('bv::show::toast', id);
+      }
+    } // Hide a toast with specified ID, or if not ID all toasts
+
+  }, {
+    key: "hide",
+    value: function hide() {
+      var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+      this._root.$emit('bv::hide::toast', id);
+    }
+  }]);
+
+  return BvToast;
+}(); // Method to install `$bvToast` VM injection
+
+
+var install = function install(_Vue) {
+  if (install.installed) {
+    // Only install once
+
+    /* istanbul ignore next */
+    return;
+  }
+
+  install.installed = true; // Add our instance mixin
+
+  _Vue.mixin({
+    beforeCreate: function beforeCreate() {
+      // Because we need access to `$root` for `$emits`, and VM for parenting,
+      // we have to create a fresh instance of `BvToast` for each VM
+      this[PROP_NAME_PRIV] = new BvToast(this);
+    }
+  }); // Define our read-only `$bvToast` instance property
+  // Placed in an if just in case in HMR mode
+
+
+  if (!_Vue.prototype.hasOwnProperty(PROP_NAME)) {
+    (0, _object.defineProperty)(_Vue.prototype, PROP_NAME, {
+      get: function get() {
+        /* istanbul ignore next */
+        if (!this || !this[PROP_NAME_PRIV]) {
+          (0, _warn.warn)("'".concat(PROP_NAME, "' must be accessed from a Vue instance 'this' context"));
+        }
+
+        return this[PROP_NAME_PRIV];
+      }
+    });
+  }
+};
+
+install.installed = false;
+var _default = {
+  install: install
 };
 exports.default = _default;
 
@@ -15259,9 +16661,13 @@ module.exports = __webpack_require__("9e1e") ? function (object, key, value) {
 exports.__esModule = true;
 exports.default = void 0;
 
-var _embed = __webpack_require__("cc37");
+var _embed = _interopRequireDefault(__webpack_require__("cc37"));
+
+exports.BEmbed = _embed.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BEmbed: _embed.default
@@ -15275,6 +16681,15 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "32fc":
+/***/ (function(module, exports, __webpack_require__) {
+
+var document = __webpack_require__("e53d").document;
+module.exports = document && document.documentElement;
+
+
+/***/ }),
+
 /***/ "335c":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15284,6 +16699,14 @@ var cof = __webpack_require__("6b4c");
 module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
   return cof(it) == 'String' ? it.split('') : Object(it);
 };
+
+
+/***/ }),
+
+/***/ "355d":
+/***/ (function(module, exports) {
+
+exports.f = {}.propertyIsEnumerable;
 
 
 /***/ }),
@@ -15311,6 +16734,21 @@ var IObject = __webpack_require__("335c");
 var defined = __webpack_require__("25eb");
 module.exports = function (it) {
   return IObject(defined(it));
+};
+
+
+/***/ }),
+
+/***/ "3702":
+/***/ (function(module, exports, __webpack_require__) {
+
+// check on default Array iterator
+var Iterators = __webpack_require__("481b");
+var ITERATOR = __webpack_require__("5168")('iterator');
+var ArrayProto = Array.prototype;
+
+module.exports = function (it) {
+  return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
 };
 
 
@@ -15398,13 +16836,15 @@ function filterEvent(evt) {
 exports.__esModule = true;
 exports.default = void 0;
 
-var _mixinTbodyRow = __webpack_require__("282f");
+var _mixinTbodyRow = _interopRequireDefault(__webpack_require__("282f"));
 
-var _mixinEmpty = __webpack_require__("0b34");
+var _mixinEmpty = _interopRequireDefault(__webpack_require__("0b34"));
 
-var _mixinTopRow = __webpack_require__("621e");
+var _mixinTopRow = _interopRequireDefault(__webpack_require__("621e"));
 
-var _mixinBottomRow = __webpack_require__("1106");
+var _mixinBottomRow = _interopRequireDefault(__webpack_require__("1106"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -15516,15 +16956,19 @@ module.exports = Object.getPrototypeOf || function (O) {
 exports.__esModule = true;
 exports.default = void 0;
 
-var _looseEqual = __webpack_require__("96cd");
+var _looseEqual = _interopRequireDefault(__webpack_require__("96cd"));
 
 var _array = __webpack_require__("bb2f");
 
-var _sanitizeRow = __webpack_require__("b40f");
+var _config = __webpack_require__("eb60");
+
+var _sanitizeRow = _interopRequireDefault(__webpack_require__("b40f"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var _default = {
+var _default2 = {
   props: {
     selectable: {
       type: Boolean,
@@ -15536,7 +16980,9 @@ var _default = {
     },
     selectedVariant: {
       type: String,
-      default: 'primary'
+      default: function _default() {
+        return (0, _config.getComponentConfig)('BTable', 'selectedVariant');
+      }
     }
   },
   data: function data() {
@@ -15696,7 +17142,7 @@ var _default = {
     }
   }
 };
-exports.default = _default;
+exports.default = _default2;
 
 /***/ }),
 
@@ -15720,23 +17166,33 @@ module.exports = function (it) {
 
 
 exports.__esModule = true;
-exports.default = void 0;
+exports.default = exports.props = void 0;
 
-var _button = __webpack_require__("b664");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
 
-var _buttonClose = __webpack_require__("600b");
+var _portalVue = __webpack_require__("2b88");
 
-var _id = __webpack_require__("eae0");
+var _modalManager = _interopRequireDefault(__webpack_require__("9539"));
 
-var _listenOnRoot = __webpack_require__("edbc");
+var _bvModalEvent = _interopRequireDefault(__webpack_require__("cfd0"));
 
-var _observeDom = __webpack_require__("bf9c");
+var _button = _interopRequireDefault(__webpack_require__("b664"));
 
-var _warn = __webpack_require__("93e0");
+var _buttonClose = _interopRequireDefault(__webpack_require__("600b"));
 
-var _keyCodes = __webpack_require__("06e4");
+var _id = _interopRequireDefault(__webpack_require__("eae0"));
 
-var _bvEvent = __webpack_require__("f8bb");
+var _listenOnRoot = _interopRequireDefault(__webpack_require__("edbc"));
+
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
+
+var _observeDom = _interopRequireDefault(__webpack_require__("bf9c"));
+
+var _keyCodes = _interopRequireDefault(__webpack_require__("06e4"));
+
+var _env = __webpack_require__("4565");
+
+var _inspect = __webpack_require__("0d5a");
 
 var _config = __webpack_require__("eb60");
 
@@ -15744,272 +17200,258 @@ var _html = __webpack_require__("be11");
 
 var _dom = __webpack_require__("1611");
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var NAME = 'BModal'; // Selectors for padding/margin adjustments
+// --- Constants ---
+var NAME = 'BModal'; // ObserveDom config to detect changes in modal content
+// so that we can adjust the modal padding if needed
 
-var Selector = {
-  FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
-  STICKY_CONTENT: '.sticky-top',
-  NAVBAR_TOGGLER: '.navbar-toggler' // ObserveDom config
-
-};
 var OBSERVER_CONFIG = {
   subtree: true,
   childList: true,
   characterData: true,
   attributes: true,
-  attributeFilter: ['style', 'class'] // modal wrapper ZINDEX offset incrememnt
+  attributeFilter: ['style', 'class'] // Options for DOM event listeners
 
 };
-var ZINDEX_OFFSET = 2000; // Modal open count helpers
-
-function getModalOpenCount() {
-  return parseInt((0, _dom.getAttr)(document.body, 'data-modal-open-count') || 0, 10);
-}
-
-function setModalOpenCount(count) {
-  (0, _dom.setAttr)(document.body, 'data-modal-open-count', String(count));
-  return count;
-}
-
-function incrementModalOpenCount() {
-  return setModalOpenCount(getModalOpenCount() + 1);
-}
-
-function decrementModalOpenCount() {
-  return setModalOpenCount(Math.max(getModalOpenCount() - 1, 0));
-} // Returns the current visible modal highest z-index
-
-
-function getModalMaxZIndex() {
-  return (0, _dom.selectAll)('div.modal')
-  /* find all modals that are in document */
-  .filter(_dom.isVisible)
-  /* filter only visible ones */
-  .map(function (m) {
-    return m.parentElement;
-  })
-  /* select the outer div */
-  .reduce(function (max, el) {
-    /* compute the highest z-index */
-    return Math.max(max, parseInt(el.style.zIndex || 0, 10));
-  }, 0);
-} // Returns the next z-index to be used by a modal to ensure proper stacking
-// regardless of document order. Increments by 2000
-
-
-function getModalNextZIndex() {
-  return getModalMaxZIndex() + ZINDEX_OFFSET;
-} // @vue/component
-
-
-var _default2 = {
-  name: NAME,
-  components: {
-    BButton: _button.default,
-    BButtonClose: _buttonClose.default
+var EVT_OPTIONS = {
+  passive: true,
+  capture: false
+};
+var props = {
+  title: {
+    type: String,
+    default: ''
   },
-  mixins: [_id.default, _listenOnRoot.default],
+  titleHtml: {
+    type: String
+  },
+  titleTag: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'titleTag');
+    }
+  },
+  size: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'size');
+    }
+  },
+  centered: {
+    type: Boolean,
+    default: false
+  },
+  scrollable: {
+    type: Boolean,
+    default: false
+  },
+  buttonSize: {
+    type: String,
+    default: ''
+  },
+  noStacking: {
+    type: Boolean,
+    default: false
+  },
+  noFade: {
+    type: Boolean,
+    default: false
+  },
+  noCloseOnBackdrop: {
+    type: Boolean,
+    default: false
+  },
+  noCloseOnEsc: {
+    type: Boolean,
+    default: false
+  },
+  noEnforceFocus: {
+    type: Boolean,
+    default: false
+  },
+  headerBgVariant: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'headerBgVariant');
+    }
+  },
+  headerBorderVariant: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'headerBorderVariant');
+    }
+  },
+  headerTextVariant: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'headerTextVariant');
+    }
+  },
+  headerCloseVariant: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'headerCloseVariant');
+    }
+  },
+  headerClass: {
+    type: [String, Array],
+    default: null
+  },
+  bodyBgVariant: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'bodyBgVariant');
+    }
+  },
+  bodyTextVariant: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'bodyTextVariant');
+    }
+  },
+  modalClass: {
+    type: [String, Array],
+    default: null
+  },
+  dialogClass: {
+    type: [String, Array],
+    default: null
+  },
+  contentClass: {
+    type: [String, Array],
+    default: null
+  },
+  bodyClass: {
+    type: [String, Array],
+    default: null
+  },
+  footerBgVariant: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'footerBgVariant');
+    }
+  },
+  footerBorderVariant: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'footerBorderVariant');
+    }
+  },
+  footerTextVariant: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'footerTextVariant');
+    }
+  },
+  footerClass: {
+    type: [String, Array],
+    default: null
+  },
+  hideHeader: {
+    type: Boolean,
+    default: false
+  },
+  hideFooter: {
+    type: Boolean,
+    default: false
+  },
+  hideHeaderClose: {
+    type: Boolean,
+    default: false
+  },
+  hideBackdrop: {
+    type: Boolean,
+    default: false
+  },
+  okOnly: {
+    type: Boolean,
+    default: false
+  },
+  okDisabled: {
+    type: Boolean,
+    default: false
+  },
+  cancelDisabled: {
+    type: Boolean,
+    default: false
+  },
+  visible: {
+    type: Boolean,
+    default: false
+  },
+  returnFocus: {
+    // type: Object,
+    default: null
+  },
+  headerCloseLabel: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'headerCloseLabel');
+    }
+  },
+  cancelTitle: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'cancelTitle');
+    }
+  },
+  cancelTitleHtml: {
+    type: String
+  },
+  okTitle: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'okTitle');
+    }
+  },
+  okTitleHtml: {
+    type: String
+  },
+  cancelVariant: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'cancelVariant');
+    }
+  },
+  okVariant: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'okVariant');
+    }
+  },
+  lazy: {
+    type: Boolean,
+    default: false
+  },
+  busy: {
+    type: Boolean,
+    default: false
+  },
+  static: {
+    type: Boolean,
+    default: false
+  } // @vue/component
+
+};
+exports.props = props;
+
+var _default2 = _vue.default.extend({
+  name: NAME,
+  mixins: [_id.default, _listenOnRoot.default, _normalizeSlot.default],
   model: {
     prop: 'visible',
     event: 'change'
   },
-  props: {
-    title: {
-      type: String,
-      default: ''
-    },
-    titleHtml: {
-      type: String
-    },
-    titleTag: {
-      type: String,
-      default: 'h5'
-    },
-    size: {
-      type: String,
-      default: 'md'
-    },
-    centered: {
-      type: Boolean,
-      default: false
-    },
-    scrollable: {
-      type: Boolean,
-      default: false
-    },
-    buttonSize: {
-      type: String,
-      default: ''
-    },
-    noStacking: {
-      type: Boolean,
-      default: false
-    },
-    noFade: {
-      type: Boolean,
-      default: false
-    },
-    noCloseOnBackdrop: {
-      type: Boolean,
-      default: false
-    },
-    noCloseOnEsc: {
-      type: Boolean,
-      default: false
-    },
-    noEnforceFocus: {
-      type: Boolean,
-      default: false
-    },
-    headerBgVariant: {
-      type: String,
-      default: null
-    },
-    headerBorderVariant: {
-      type: String,
-      default: null
-    },
-    headerTextVariant: {
-      type: String,
-      default: null
-    },
-    headerCloseVariant: {
-      type: String,
-      default: null
-    },
-    headerClass: {
-      type: [String, Array],
-      default: null
-    },
-    bodyBgVariant: {
-      type: String,
-      default: null
-    },
-    bodyTextVariant: {
-      type: String,
-      default: null
-    },
-    modalClass: {
-      type: [String, Array],
-      default: null
-    },
-    dialogClass: {
-      type: [String, Array],
-      default: null
-    },
-    contentClass: {
-      type: [String, Array],
-      default: null
-    },
-    bodyClass: {
-      type: [String, Array],
-      default: null
-    },
-    footerBgVariant: {
-      type: String,
-      default: null
-    },
-    footerBorderVariant: {
-      type: String,
-      default: null
-    },
-    footerTextVariant: {
-      type: String,
-      default: null
-    },
-    footerClass: {
-      type: [String, Array],
-      default: null
-    },
-    hideHeader: {
-      type: Boolean,
-      default: false
-    },
-    hideFooter: {
-      type: Boolean,
-      default: false
-    },
-    hideHeaderClose: {
-      type: Boolean,
-      default: false
-    },
-    hideBackdrop: {
-      type: Boolean,
-      default: false
-    },
-    okOnly: {
-      type: Boolean,
-      default: false
-    },
-    okDisabled: {
-      type: Boolean,
-      default: false
-    },
-    cancelDisabled: {
-      type: Boolean,
-      default: false
-    },
-    visible: {
-      type: Boolean,
-      default: false
-    },
-    returnFocus: {
-      // type: Object,
-      default: null
-    },
-    headerCloseLabel: {
-      type: String,
-      default: function _default() {
-        return (0, _config.getComponentConfig)(NAME, 'headerCloseLabel');
-      }
-    },
-    cancelTitle: {
-      type: String,
-      default: function _default() {
-        return (0, _config.getComponentConfig)(NAME, 'cancelTitle');
-      }
-    },
-    cancelTitleHtml: {
-      type: String
-    },
-    okTitle: {
-      type: String,
-      default: function _default() {
-        return (0, _config.getComponentConfig)(NAME, 'okTitle');
-      }
-    },
-    okTitleHtml: {
-      type: String
-    },
-    cancelVariant: {
-      type: String,
-      default: function _default() {
-        return (0, _config.getComponentConfig)(NAME, 'cancelVariant');
-      }
-    },
-    okVariant: {
-      type: String,
-      default: function _default() {
-        return (0, _config.getComponentConfig)(NAME, 'okVariant');
-      }
-    },
-    lazy: {
-      type: Boolean,
-      default: false
-    },
-    busy: {
-      type: Boolean,
-      default: false
-    }
-  },
+  props: props,
   data: function data() {
     return {
-      is_hidden: this.lazy || false,
-      // for lazy modals
+      is_hidden: true,
+      // If should not be in document
       is_visible: false,
-      // controls modal visible state
+      // Controls modal visible state
       is_transitioning: false,
       // Used for style control
       is_show: false,
@@ -16017,28 +17459,34 @@ var _default2 = {
       is_block: false,
       // Used for style control
       is_opening: false,
-      // Semaphore for previnting incorrect modal open counts
+      // To signal that the modal is in the process of opening
       is_closing: false,
-      // Semapbore for preventing incorrect modal open counts
+      // To signal that the modal is in the process of closing
+      ignoreBackdropClick: false,
+      // Used to signify if click out listener should ignore the click
+      isModalOverflowing: false,
+      return_focus: this.returnFocus || null,
+      // The following items are controlled by the modalManager instance
       scrollbarWidth: 0,
-      zIndex: ZINDEX_OFFSET,
-      // z-index for modal stacking
+      zIndex: _modalManager.default.getBaseZIndex(),
       isTop: true,
-      // If the modal is the topmost opened modal
-      isBodyOverflowing: false,
-      return_focus: this.returnFocus || null
+      isBodyOverflowing: false
     };
   },
   computed: {
-    contentClasses: function contentClasses() {
-      return ['modal-content', this.contentClass];
-    },
     modalClasses: function modalClasses() {
       return [{
         fade: !this.noFade,
         show: this.is_show,
         'd-block': this.is_block
       }, this.modalClass];
+    },
+    modalStyles: function modalStyles() {
+      var sbWidth = "".concat(this.scrollbarWidth, "px");
+      return {
+        paddingLeft: !this.isBodyOverflowing && this.isModalOverflowing ? sbWidth : '',
+        paddingRight: this.isBodyOverflowing && !this.isModalOverflowing ? sbWidth : ''
+      };
     },
     dialogClasses: function dialogClasses() {
       var _ref;
@@ -16067,35 +17515,42 @@ var _default2 = {
       return [(_ref4 = {}, _defineProperty(_ref4, "bg-".concat(this.footerBgVariant), Boolean(this.footerBgVariant)), _defineProperty(_ref4, "text-".concat(this.footerTextVariant), Boolean(this.footerTextVariant)), _defineProperty(_ref4, "border-".concat(this.footerBorderVariant), Boolean(this.footerBorderVariant)), _ref4), this.footerClass];
     },
     modalOuterStyle: function modalOuterStyle() {
+      // Styles needed for proper stacking of modals
       return {
-        // We only set these styles on the stacked modals (ones with next z-index > 0).
         position: 'absolute',
         zIndex: this.zIndex
+      };
+    },
+    slotScope: function slotScope() {
+      return {
+        ok: this.onOk,
+        cancel: this.onCancel,
+        close: this.onClose,
+        hide: this.hide,
+        visible: this.is_visible
       };
     }
   },
   watch: {
     visible: function visible(newVal, oldVal) {
-      if (newVal === oldVal) {
-        /* istanbul ignore next */
-        return;
+      if (newVal !== oldVal) {
+        this[newVal ? 'show' : 'hide']();
       }
-
-      this[newVal ? 'show' : 'hide']();
     }
   },
   created: function created() {
-    // create non-reactive property
+    // Define non-reactive properties
     this._observer = null;
   },
   mounted: function mounted() {
-    // Listen for events from others to either open or close ourselves
-    // And listen to all modals to enable/disable enforce focus
+    // Set initial z-index as queried from the DOM
+    this.zIndex = _modalManager.default.getBaseZIndex(); // Listen for events from others to either open or close ourselves
+    // and listen to all modals to enable/disable enforce focus
+
     this.listenOnRoot('bv::show::modal', this.showHandler);
-    this.listenOnRoot('bv::modal::shown', this.shownHandler);
     this.listenOnRoot('bv::hide::modal', this.hideHandler);
-    this.listenOnRoot('bv::modal::hidden', this.hiddenHandler);
-    this.listenOnRoot('bv::toggle::modal', this.toggleHandler); // Listen for bv:modal::show events, and close ourselves if the opening modal not us
+    this.listenOnRoot('bv::toggle::modal', this.toggleHandler); // Listen for `bv:modal::show events`, and close ourselves if the
+    // opening modal not us
 
     this.listenOnRoot('bv::modal::show', this.modalListener); // Initially show modal?
 
@@ -16103,18 +17558,14 @@ var _default2 = {
       this.show();
     }
   },
-  beforeDestroy: function beforeDestroy()
-  /* istanbul ignore next */
-  {
+  beforeDestroy: function beforeDestroy() {
     // Ensure everything is back to normal
     if (this._observer) {
       this._observer.disconnect();
 
       this._observer = null;
-    } // Ensure our root "once" listener is gone
+    }
 
-
-    this.$root.$off('bv::modal::hidden', this.doShow);
     this.setEnforceFocus(false);
     this.setResizeEvent(false);
 
@@ -16122,56 +17573,49 @@ var _default2 = {
       this.is_visible = false;
       this.is_show = false;
       this.is_transitioning = false;
-      var count = decrementModalOpenCount();
-
-      if (count === 0) {
-        // Re-adjust body/navbar/fixed padding/margins (as we were the last modal open)
-        this.setModalOpenClass(false);
-        this.resetScrollbar();
-        this.resetDialogAdjustments();
-      }
     }
   },
   methods: {
+    updateModel: function updateModel(val) {
+      if (val !== this.visible) {
+        this.$emit('change', val);
+      }
+    },
     // Public Methods
     show: function show() {
       if (this.is_visible || this.is_opening) {
-        // if already open, on in the process of opening, do nothing
+        // If already open, on in the process of opening, do nothing
+
+        /* istanbul ignore next */
         return;
       }
 
       if (this.is_closing) {
-        // if we are in the process of closing, wait until hidden before re-opening
+        // If we are in the process of closing, wait until hidden before re-opening
+
+        /* istanbul ignore next: very difficult to test */
         this.$once('hidden', this.show);
+        /* istanbul ignore next */
+
         return;
       }
 
-      this.is_opening = true;
-      var showEvt = new _bvEvent.default('show', {
+      this.is_opening = true; // Set the element to return focus to when closed
+
+      this.return_focus = this.return_focus || this.getActiveElement();
+      var showEvt = new _bvModalEvent.default('show', {
         cancelable: true,
         vueTarget: this,
         target: this.$refs.modal,
-        modalId: this.safeId(),
-        relatedTarget: null
+        relatedTarget: null,
+        componentId: this.safeId()
       });
       this.emitEvent(showEvt); // Don't show if canceled
 
       if (showEvt.defaultPrevented || this.is_visible) {
-        this.is_opening = false;
-        return;
-      }
+        this.is_opening = false; // Ensure the v-model reflects the current state
 
-      if (!this.noStacking) {
-        // Find the z-index to use
-        this.zIndex = getModalNextZIndex(); // Show the modal
-
-        this.doShow();
-        return;
-      }
-
-      if ((0, _dom.hasClass)(document.body, 'modal-open')) {
-        // If another modal is already open, wait for it to close
-        this.$root.$once('bv::modal::hidden', this.doShow);
+        this.updateModel(false);
         return;
       } // Show the modal
 
@@ -16180,50 +17624,48 @@ var _default2 = {
     },
     hide: function hide(trigger) {
       if (!this.is_visible || this.is_closing) {
+        /* istanbul ignore next */
         return;
       }
 
       this.is_closing = true;
-      var hideEvt = new _bvEvent.default('hide', {
-        cancelable: true,
+      var hideEvt = new _bvModalEvent.default('hide', {
+        cancelable: trigger !== 'FORCE',
         vueTarget: this,
         target: this.$refs.modal,
-        modalId: this.safeId(),
-        // this could be the trigger element/component reference
         relatedTarget: null,
-        isOK: trigger || null,
-        trigger: trigger || null,
-        cancel: function cancel()
-        /* istanbul ignore next */
-        {
-          // Backwards compatibility
-          (0, _warn.default)('b-modal: evt.cancel() is deprecated. Please use evt.preventDefault().');
-          this.preventDefault();
-        }
-      });
+        componentId: this.safeId(),
+        trigger: trigger || null
+      }); // We emit specific event for one of the three built-in buttons
 
       if (trigger === 'ok') {
         this.$emit('ok', hideEvt);
       } else if (trigger === 'cancel') {
         this.$emit('cancel', hideEvt);
+      } else if (trigger === 'headerclose') {
+        this.$emit('close', hideEvt);
       }
 
       this.emitEvent(hideEvt); // Hide if not canceled
 
       if (hideEvt.defaultPrevented || !this.is_visible) {
-        this.is_closing = false;
+        this.is_closing = false; // Ensure v-model reflects current state
+
+        this.updateModel(true);
         return;
-      } // stop observing for content changes
+      } // Stop observing for content changes
 
 
       if (this._observer) {
         this._observer.disconnect();
 
         this._observer = null;
-      }
+      } // Trigger the hide transition
 
-      this.is_visible = false;
-      this.$emit('change', false);
+
+      this.is_visible = false; // Update the v-model
+
+      this.updateModel(false);
     },
     // Public method to toggle modal visibility
     toggle: function toggle(triggerEl) {
@@ -16237,36 +17679,56 @@ var _default2 = {
         this.show();
       }
     },
+    // Private method to get the current document active element
+    getActiveElement: function getActiveElement() {
+      if (_env.isBrowser) {
+        var activeElement = document.activeElement; // Note: On IE11, `document.activeElement` may be null. So we test it for
+        // truthyness first.
+        // https://github.com/bootstrap-vue/bootstrap-vue/issues/3206
+        // Returning focus to document.body may cause unwanted scrolls, so we
+        // exclude setting focus on body
+
+        if (activeElement && activeElement !== document.body && activeElement.focus) {
+          // Preset the fallback return focus value if it is not set
+          // `document.activeElement` should be the trigger element that was clicked or
+          // in the case of using the v-model, which ever element has current focus
+          // Will be overridden by some commands such as toggle, etc.
+          return activeElement;
+        }
+      }
+
+      return null;
+    },
     // Private method to finish showing modal
     doShow: function doShow() {
       var _this = this;
 
-      // Place modal in DOM if lazy
-      this.is_hidden = false;
-      this.$nextTick(function () {
-        // We do this in nextTick to ensure the modal is in DOM first before we show it
-        _this.is_visible = true;
-        _this.is_opening = false;
-
-        _this.$emit('change', true); // Observe changes in modal content and adjust if necessary
-
-
-        _this._observer = (0, _observeDom.default)(_this.$refs.content, _this.adjustDialog.bind(_this), OBSERVER_CONFIG);
-      });
-    },
-    // Transition Handlers
-    onBeforeEnter: function onBeforeEnter() {
-      this.getScrollbarWidth();
-      this.is_transitioning = true;
-      this.checkScrollbar();
-      var count = incrementModalOpenCount();
-
-      if (count === 1) {
-        this.setScrollbar();
+      /* istanbul ignore next: commenting out for now until we can test stacking */
+      if (_modalManager.default.modalsAreOpen && this.noStacking) {
+        // If another modal(s) is already open, wait for it(them) to close
+        this.listenOnRootOnce('bv::modal::hidden', this.doShow);
+        return;
       }
 
-      this.adjustDialog();
-      this.setModalOpenClass(true);
+      _modalManager.default.registerModal(this); // Place modal in DOM
+
+
+      this.is_hidden = false;
+      this.$nextTick(function () {
+        // We do this in `$nextTick()` to ensure the modal is in DOM first
+        // before we show it
+        _this.is_visible = true;
+        _this.is_opening = false; // Update the v-model
+
+        _this.updateModel(true); // Observe changes in modal content and adjust if necessary
+
+
+        _this._observer = (0, _observeDom.default)(_this.$refs.content, _this.checkModalOverflow.bind(_this), OBSERVER_CONFIG);
+      });
+    },
+    // Transition handlers
+    onBeforeEnter: function onBeforeEnter() {
+      this.is_transitioning = true;
       this.setResizeEvent(true);
     },
     onEnter: function onEnter() {
@@ -16275,15 +17737,16 @@ var _default2 = {
     onAfterEnter: function onAfterEnter() {
       var _this2 = this;
 
+      this.checkModalOverflow();
       this.is_show = true;
       this.is_transitioning = false;
       this.$nextTick(function () {
-        var shownEvt = new _bvEvent.default('shown', {
+        var shownEvt = new _bvModalEvent.default('shown', {
           cancelable: false,
           vueTarget: _this2,
           target: _this2.$refs.modal,
-          modalId: _this2.safeId(),
-          relatedTarget: null
+          relatedTarget: null,
+          componentId: _this2.safeId()
         });
 
         _this2.emitEvent(shownEvt);
@@ -16305,45 +17768,67 @@ var _default2 = {
       var _this3 = this;
 
       this.is_block = false;
-      this.resetDialogAdjustments();
       this.is_transitioning = false;
-      var count = decrementModalOpenCount();
-
-      if (count === 0) {
-        this.resetScrollbar();
-        this.setModalOpenClass(false);
-      }
-
       this.setEnforceFocus(false);
+      this.isModalOverflowing = false;
+      this.is_hidden = true;
       this.$nextTick(function () {
-        _this3.is_hidden = _this3.lazy || false;
-        _this3.zIndex = ZINDEX_OFFSET;
-
         _this3.returnFocusTo();
 
         _this3.is_closing = false;
-        var hiddenEvt = new _bvEvent.default('hidden', {
+        _this3.return_focus = null; // TODO: Need to find a way to pass the `trigger` property
+        //       to the `hidden` event, not just only the `hide` event
+
+        var hiddenEvt = new _bvModalEvent.default('hidden', {
           cancelable: false,
           vueTarget: _this3,
-          target: _this3.lazy ? null : _this3.$refs.modal,
-          modalId: _this3.safeId(),
-          relatedTarget: null
+          target: _this3.$el,
+          relatedTarget: null,
+          componentId: _this3.safeId()
         });
 
         _this3.emitEvent(hiddenEvt);
+
+        _modalManager.default.unregisterModal(_this3);
       });
     },
     // Event emitter
-    emitEvent: function emitEvent(bvEvt) {
-      var type = bvEvt.type;
-      this.$emit(type, bvEvt);
-      this.$root.$emit("bv::modal::".concat(type), bvEvt, this.safeId());
+    emitEvent: function emitEvent(bvModalEvt) {
+      var type = bvModalEvt.type; // We emit on root first incase a global listener wants to cancel
+      // the event first before the instance emits it's event
+
+      this.emitOnRoot("bv::modal::".concat(type), bvModalEvt, bvModalEvt.componentId);
+      this.$emit(type, bvModalEvt);
     },
-    // UI Event Handlers
+    // UI event handlers
+    onDialogMousedown: function onDialogMousedown() {
+      var _this4 = this;
+
+      // Watch to see if the matching mouseup event occurs outside the dialog
+      // And if it does, cancel the clickOut handler
+      var modal = this.$refs.modal;
+
+      var onceModalMouseup = function onceModalMouseup(evt) {
+        (0, _dom.eventOff)(modal, 'mouseup', onceModalMouseup, EVT_OPTIONS);
+
+        if (evt.target === modal) {
+          _this4.ignoreBackdropClick = true;
+        }
+      };
+
+      (0, _dom.eventOn)(modal, 'mouseup', onceModalMouseup, EVT_OPTIONS);
+    },
     onClickOut: function onClickOut(evt) {
-      // Do nothing if not visible, backdrop click disabled, or element that generated
-      // click event is no longer in document
-      if (!this.is_visible || this.noCloseOnBackdrop || !(0, _dom.contains)(document, evt.target)) {
+      // Do nothing if not visible, backdrop click disabled, or element
+      // that generated click event is no longer in document body
+      if (!this.is_visible || this.noCloseOnBackdrop || !(0, _dom.contains)(document.body, evt.target)) {
+        return;
+      }
+
+      if (this.ignoreBackdropClick) {
+        // Click was initiated inside the modal content, but finished outside
+        // Set by the above onDialogMousedown handler
+        this.ignoreBackdropClick = false;
         return;
       } // If backdrop clicked, hide modal
 
@@ -16351,6 +17836,15 @@ var _default2 = {
       if (!(0, _dom.contains)(this.$refs.content, evt.target)) {
         this.hide('backdrop');
       }
+    },
+    onOk: function onOk() {
+      this.hide('ok');
+    },
+    onCancel: function onCancel() {
+      this.hide('cancel');
+    },
+    onClose: function onClose() {
+      this.hide('headerclose');
     },
     onEsc: function onEsc(evt) {
       // If ESC pressed, hide modal
@@ -16371,41 +17865,21 @@ var _default2 = {
     },
     // Turn on/off focusin listener
     setEnforceFocus: function setEnforceFocus(on) {
-      var options = {
-        passive: true,
-        capture: false
-      };
-
-      if (on) {
-        (0, _dom.eventOn)(document, 'focusin', this.focusHandler, options);
-      } else {
-        (0, _dom.eventOff)(document, 'focusin', this.focusHandler, options);
-      }
+      var method = on ? _dom.eventOn : _dom.eventOff;
+      method(document, 'focusin', this.focusHandler, EVT_OPTIONS);
     },
-    // Resize Listener
-    setResizeEvent: function setResizeEvent(on)
-    /* istanbul ignore next: can't easily test in JSDOM */
-    {
-      var _this4 = this;
+    // Resize listener
+    setResizeEvent: function setResizeEvent(on) {
+      var method = on ? _dom.eventOn : _dom.eventOff; // These events should probably also check if
+      // body is overflowing
 
-      ;
-      ['resize', 'orientationchange'].forEach(function (evtName) {
-        var options = {
-          passive: true,
-          capture: false
-        };
-
-        if (on) {
-          (0, _dom.eventOn)(window, evtName, _this4.adjustDialog, options);
-        } else {
-          (0, _dom.eventOff)(window, evtName, _this4.adjustDialog, options);
-        }
-      });
+      method(window, 'resize', this.checkModalOverflow, EVT_OPTIONS);
+      method(window, 'orientationchange', this.checkModalOverflow, EVT_OPTIONS);
     },
-    // Root Listener handlers
+    // Root listener handlers
     showHandler: function showHandler(id, triggerEl) {
       if (id === this.id) {
-        this.return_focus = triggerEl || null;
+        this.return_focus = triggerEl || this.getActiveElement();
         this.show();
       }
     },
@@ -16419,392 +17893,264 @@ var _default2 = {
         this.toggle(triggerEl);
       }
     },
-    shownHandler: function shownHandler() {
-      this.setTop();
-    },
-    hiddenHandler: function hiddenHandler() {
-      this.setTop();
-    },
-    setTop: function setTop() {
-      // Determine if we are the topmost visible modal
-      this.isTop = this.zIndex >= getModalMaxZIndex();
-    },
     modalListener: function modalListener(bvEvt) {
-      // If another modal opens, close this one
+      // If another modal opens, close this one if stacking not permitted
       if (this.noStacking && bvEvt.vueTarget !== this) {
         this.hide();
       }
     },
     // Focus control handlers
     focusFirst: function focusFirst() {
+      // TODO: Add support for finding input element with 'autofocus'
+      //       attribute set and focus that element
       // Don't try and focus if we are SSR
-      if (typeof document === 'undefined') {
-        return;
-      }
+      if (_env.isBrowser) {
+        var modal = this.$refs.modal;
+        var activeElement = this.getActiveElement(); // If the modal contains the activeElement, we don't do anything
 
-      var modal = this.$refs.modal;
-      var activeElement = document.activeElement;
-
-      if (activeElement && (0, _dom.contains)(modal, activeElement)) {
-        // If activeElement is child of modal or is modal, no need to change focus
-        return;
-      }
-
-      if (modal) {
-        // make sure top of modal is showing (if longer than the viewport) and
-        // focus the modal content wrapper
-        this.$nextTick(function () {
-          modal.scrollTop = 0;
-          modal.focus();
-        });
+        if (modal && !(activeElement && (0, _dom.contains)(modal, activeElement))) {
+          // Make sure top of modal is showing (if longer than the viewport)
+          // and focus the modal content wrapper
+          this.$nextTick(function () {
+            modal.scrollTop = 0;
+            modal.focus();
+          });
+        }
       }
     },
     returnFocusTo: function returnFocusTo() {
-      // Prefer returnFocus prop over event specified return_focus value
-      var el = this.returnFocus || this.return_focus || null;
+      // Prefer `returnFocus` prop over event specified
+      // `return_focus` value
+      var el = this.returnFocus || this.return_focus || null; // Is el a string CSS selector?
 
-      if (typeof el === 'string') {
-        // CSS Selector
-        el = (0, _dom.select)(el);
-      }
+      el = (0, _inspect.isString)(el) ? (0, _dom.select)(el) : el;
 
       if (el) {
+        // Possibly could be a component reference
         el = el.$el || el;
 
-        if ((0, _dom.isVisible)(el)) {
+        if ((0, _dom.isVisible)(el) && el.focus) {
           el.focus();
         }
       }
     },
-    // Utility methods
-    getScrollbarWidth: function getScrollbarWidth() {
-      var scrollDiv = document.createElement('div');
-      scrollDiv.className = 'modal-scrollbar-measure';
-      document.body.appendChild(scrollDiv);
-      this.scrollbarWidth = (0, _dom.getBCR)(scrollDiv).width - scrollDiv.clientWidth;
-      document.body.removeChild(scrollDiv);
-    },
-    setModalOpenClass: function setModalOpenClass(open) {
-      if (open) {
-        (0, _dom.addClass)(document.body, 'modal-open');
-      } else {
-        (0, _dom.removeClass)(document.body, 'modal-open');
+    checkModalOverflow: function checkModalOverflow() {
+      if (this.is_visible) {
+        var modal = this.$refs.modal;
+        this.isModalOverflowing = modal.scrollHeight > document.documentElement.clientHeight;
       }
     },
-    adjustDialog: function adjustDialog() {
-      if (!this.is_visible) {
-        return;
-      }
+    makeModal: function makeModal(h) {
+      var _this5 = this;
 
-      var modal = this.$refs.modal;
-      var isModalOverflowing = modal.scrollHeight > document.documentElement.clientHeight;
+      // Modal header
+      var header = h(false);
 
-      if (!this.isBodyOverflowing && isModalOverflowing) {
-        modal.style.paddingLeft = "".concat(this.scrollbarWidth, "px");
-      } else {
-        modal.style.paddingLeft = '';
-      }
+      if (!this.hideHeader) {
+        var modalHeader = this.normalizeSlot('modal-header', this.slotScope);
 
-      if (this.isBodyOverflowing && !isModalOverflowing) {
-        modal.style.paddingRight = "".concat(this.scrollbarWidth, "px");
-      } else {
-        modal.style.paddingRight = '';
-      }
-    },
-    resetDialogAdjustments: function resetDialogAdjustments() {
-      var modal = this.$refs.modal;
+        if (!modalHeader) {
+          var closeButton = h(false);
 
-      if (modal) {
-        modal.style.paddingLeft = '';
-        modal.style.paddingRight = '';
-      }
-    },
-    checkScrollbar: function checkScrollbar()
-    /* istanbul ignore next: getBCR can't be tested in JSDOM */
-    {
-      var _getBCR = (0, _dom.getBCR)(document.body),
-          left = _getBCR.left,
-          right = _getBCR.right,
-          height = _getBCR.height; // Extra check for body.height needed for stacked modals
-
-
-      this.isBodyOverflowing = left + right < window.innerWidth || height > window.innerHeight;
-    },
-    setScrollbar: function setScrollbar() {
-      /* istanbul ignore if: get Computed Style can't be tested in JSDOM */
-      if (this.isBodyOverflowing) {
-        // Note: DOMNode.style.paddingRight returns the actual value or '' if not set
-        //   while $(DOMNode).css('padding-right') returns the calculated value or 0 if not set
-        var body = document.body;
-        var scrollbarWidth = this.scrollbarWidth;
-        body._paddingChangedForModal = [];
-        body._marginChangedForModal = []; // Adjust fixed content padding
-
-        (0, _dom.selectAll)(Selector.FIXED_CONTENT).forEach(function (el) {
-          var actualPadding = el.style.paddingRight;
-          var calculatedPadding = (0, _dom.getCS)(el).paddingRight || 0;
-          (0, _dom.setAttr)(el, 'data-padding-right', actualPadding);
-          el.style.paddingRight = "".concat(parseFloat(calculatedPadding) + scrollbarWidth, "px");
-
-          body._paddingChangedForModal.push(el);
-        }); // Adjust sticky content margin
-
-        (0, _dom.selectAll)(Selector.STICKY_CONTENT).forEach(function (el) {
-          var actualMargin = el.style.marginRight;
-          var calculatedMargin = (0, _dom.getCS)(el).marginRight || 0;
-          (0, _dom.setAttr)(el, 'data-margin-right', actualMargin);
-          el.style.marginRight = "".concat(parseFloat(calculatedMargin) - scrollbarWidth, "px");
-
-          body._marginChangedForModal.push(el);
-        }); // Adjust navbar-toggler margin
-
-        (0, _dom.selectAll)(Selector.NAVBAR_TOGGLER).forEach(function (el) {
-          var actualMargin = el.style.marginRight;
-          var calculatedMargin = (0, _dom.getCS)(el).marginRight || 0;
-          (0, _dom.setAttr)(el, 'data-margin-right', actualMargin);
-          el.style.marginRight = "".concat(parseFloat(calculatedMargin) + scrollbarWidth, "px");
-
-          body._marginChangedForModal.push(el);
-        }); // Adjust body padding
-
-        var actualPadding = body.style.paddingRight;
-        var calculatedPadding = (0, _dom.getCS)(body).paddingRight;
-        (0, _dom.setAttr)(body, 'data-padding-right', actualPadding);
-        body.style.paddingRight = "".concat(parseFloat(calculatedPadding) + scrollbarWidth, "px");
-      }
-    },
-    resetScrollbar: function resetScrollbar() {
-      var body = document.body;
-
-      if (body._paddingChangedForModal) {
-        // Restore fixed content padding
-        body._paddingChangedForModal.forEach(function (el) {
-          if ((0, _dom.hasAttr)(el, 'data-padding-right')) {
-            el.style.paddingRight = (0, _dom.getAttr)(el, 'data-padding-right') || '';
-            (0, _dom.removeAttr)(el, 'data-padding-right');
-          }
-        });
-      }
-
-      if (body._marginChangedForModal) {
-        // Restore sticky content and navbar-toggler margin
-        body._marginChangedForModal.forEach(function (el) {
-          if ((0, _dom.hasAttr)(el, 'data-margin-right')) {
-            el.style.marginRight = (0, _dom.getAttr)(el, 'data-margin-right') || '';
-            (0, _dom.removeAttr)(el, 'data-margin-right');
-          }
-        });
-      }
-
-      body._paddingChangedForModal = null;
-      body._marginChangedForModal = null; // Restore body padding
-
-      if ((0, _dom.hasAttr)(body, 'data-padding-right')) {
-        body.style.paddingRight = (0, _dom.getAttr)(body, 'data-padding-right') || '';
-        (0, _dom.removeAttr)(body, 'data-padding-right');
-      }
-    }
-  },
-  render: function render(h) {
-    var _this5 = this;
-
-    var $slots = this.$slots; // Modal Header
-
-    var header = h(false);
-
-    if (!this.hideHeader) {
-      var modalHeader = $slots['modal-header'];
-
-      if (!modalHeader) {
-        var closeButton = h(false);
-
-        if (!this.hideHeaderClose) {
-          closeButton = h('b-button-close', {
-            props: {
-              disabled: this.is_transitioning,
-              ariaLabel: this.headerCloseLabel,
-              textVariant: this.headerCloseVariant || this.headerTextVariant
-            },
-            on: {
-              click: function click(evt) {
-                _this5.hide('headerclose');
+          if (!this.hideHeaderClose) {
+            closeButton = h(_buttonClose.default, {
+              props: {
+                disabled: this.is_transitioning,
+                ariaLabel: this.headerCloseLabel,
+                textVariant: this.headerCloseVariant || this.headerTextVariant
+              },
+              on: {
+                click: function click(evt) {
+                  _this5.onClose();
+                }
               }
-            }
-          }, [$slots['modal-header-close']]);
+            }, [this.normalizeSlot('modal-header-close', {})]);
+          }
+
+          modalHeader = [h(this.titleTag, {
+            class: ['modal-title']
+          }, [this.normalizeSlot('modal-title', this.slotScope) || this.titleHtml || (0, _html.stripTags)(this.title)]), closeButton];
         }
 
-        modalHeader = [h(this.titleTag, {
-          class: ['modal-title']
-        }, [$slots['modal-title'] || this.titleHtml || (0, _html.stripTags)(this.title)]), closeButton];
-      }
+        header = h('header', {
+          ref: 'header',
+          staticClass: 'modal-header',
+          class: this.headerClasses,
+          attrs: {
+            id: this.safeId('__BV_modal_header_')
+          }
+        }, [modalHeader]);
+      } // Modal body
 
-      header = h('header', {
-        ref: 'header',
-        staticClass: 'modal-header',
-        class: this.headerClasses,
+
+      var body = h('div', {
+        ref: 'body',
+        staticClass: 'modal-body',
+        class: this.bodyClasses,
         attrs: {
-          id: this.safeId('__BV_modal_header_')
+          id: this.safeId('__BV_modal_body_')
         }
-      }, [modalHeader]);
-    } // Modal Body
+      }, this.normalizeSlot('default', this.slotScope)); // Modal footer
 
+      var footer = h(false);
 
-    var body = h('div', {
-      ref: 'body',
-      staticClass: 'modal-body',
-      class: this.bodyClasses,
-      attrs: {
-        id: this.safeId('__BV_modal_body_')
-      }
-    }, [$slots.default]); // Modal Footer
+      if (!this.hideFooter) {
+        var modalFooter = this.normalizeSlot('modal-footer', this.slotScope);
 
-    var footer = h(false);
+        if (!modalFooter) {
+          var cancelButton = h(false);
 
-    if (!this.hideFooter) {
-      var modalFooter = $slots['modal-footer'];
+          if (!this.okOnly) {
+            cancelButton = h(_button.default, {
+              props: {
+                variant: this.cancelVariant,
+                size: this.buttonSize,
+                disabled: this.cancelDisabled || this.busy || this.is_transitioning
+              },
+              on: {
+                click: function click(evt) {
+                  _this5.onCancel();
+                }
+              }
+            }, [this.normalizeSlot('modal-cancel', {}) || this.cancelTitleHtml || (0, _html.stripTags)(this.cancelTitle)]);
+          }
 
-      if (!modalFooter) {
-        var cancelButton = h(false);
-
-        if (!this.okOnly) {
-          cancelButton = h('b-button', {
+          var okButton = h(_button.default, {
             props: {
-              variant: this.cancelVariant,
+              variant: this.okVariant,
               size: this.buttonSize,
-              disabled: this.cancelDisabled || this.busy || this.is_transitioning
+              disabled: this.okDisabled || this.busy || this.is_transitioning
             },
             on: {
               click: function click(evt) {
-                _this5.hide('cancel');
+                _this5.onOk();
               }
             }
-          }, [$slots['modal-cancel'] || this.cancelTitleHtml || (0, _html.stripTags)(this.cancelTitle)]);
+          }, [this.normalizeSlot('modal-ok', {}) || this.okTitleHtml || (0, _html.stripTags)(this.okTitle)]);
+          modalFooter = [cancelButton, okButton];
         }
 
-        var okButton = h('b-button', {
-          props: {
-            variant: this.okVariant,
-            size: this.buttonSize,
-            disabled: this.okDisabled || this.busy || this.is_transitioning
-          },
-          on: {
-            click: function click(evt) {
-              _this5.hide('ok');
-            }
+        footer = h('footer', {
+          ref: 'footer',
+          staticClass: 'modal-footer',
+          class: this.footerClasses,
+          attrs: {
+            id: this.safeId('__BV_modal_footer_')
           }
-        }, [$slots['modal-ok'] || this.okTitleHtml || (0, _html.stripTags)(this.okTitle)]);
-        modalFooter = [cancelButton, okButton];
-      }
+        }, [modalFooter]);
+      } // Assemble modal content
 
-      footer = h('footer', {
-        ref: 'footer',
-        staticClass: 'modal-footer',
-        class: this.footerClasses,
+
+      var modalContent = h('div', {
+        ref: 'content',
+        staticClass: 'modal-content',
+        class: this.contentClass,
         attrs: {
-          id: this.safeId('__BV_modal_footer_')
+          role: 'document',
+          id: this.safeId('__BV_modal_content_'),
+          'aria-labelledby': this.hideHeader ? null : this.safeId('__BV_modal_header_'),
+          'aria-describedby': this.safeId('__BV_modal_body_')
         }
-      }, [modalFooter]);
-    } // Assemble Modal Content
+      }, [header, body, footer]); // Modal dialog wrapper
 
+      var modalDialog = h('div', {
+        staticClass: 'modal-dialog',
+        class: this.dialogClasses,
+        on: {
+          mousedown: this.onDialogMousedown
+        }
+      }, [modalContent]); // Modal
 
-    var modalContent = h('div', {
-      ref: 'content',
-      class: this.contentClasses,
-      attrs: {
-        role: 'document',
-        id: this.safeId('__BV_modal_content_'),
-        'aria-labelledby': this.hideHeader ? null : this.safeId('__BV_modal_header_'),
-        'aria-describedby': this.safeId('__BV_modal_body_')
-      }
-    }, [header, body, footer]); // Modal Dialog wrapper
-
-    var modalDialog = h('div', {
-      staticClass: 'modal-dialog',
-      class: this.dialogClasses
-    }, [modalContent]); // Modal
-
-    var modal = h('div', {
-      ref: 'modal',
-      staticClass: 'modal',
-      class: this.modalClasses,
-      directives: [{
-        name: 'show',
-        rawName: 'v-show',
-        value: this.is_visible,
-        expression: 'is_visible'
-      }],
-      attrs: {
-        id: this.safeId(),
-        role: 'dialog',
-        tabindex: '-1',
-        'aria-hidden': this.is_visible ? null : 'true',
-        'aria-modal': this.is_visible ? 'true' : null
-      },
-      on: {
-        keydown: this.onEsc,
-        click: this.onClickOut
-      }
-    }, [modalDialog]); // Wrap modal in transition
-
-    modal = h('transition', {
-      props: {
-        enterClass: '',
-        enterToClass: '',
-        enterActiveClass: '',
-        leaveClass: '',
-        leaveActiveClass: '',
-        leaveToClass: ''
-      },
-      on: {
-        'before-enter': this.onBeforeEnter,
-        enter: this.onEnter,
-        'after-enter': this.onAfterEnter,
-        'before-leave': this.onBeforeLeave,
-        leave: this.onLeave,
-        'after-leave': this.onAfterLeave
-      }
-    }, [modal]); // Modal Backdrop
-
-    var backdrop = h(false);
-
-    if (!this.hideBackdrop && (this.is_visible || this.is_transitioning)) {
-      backdrop = h('div', {
-        staticClass: 'modal-backdrop',
-        class: this.backdropClasses,
+      var modal = h('div', {
+        ref: 'modal',
+        staticClass: 'modal',
+        class: this.modalClasses,
+        style: this.modalStyles,
+        directives: [{
+          name: 'show',
+          rawName: 'v-show',
+          value: this.is_visible,
+          expression: 'is_visible'
+        }],
         attrs: {
-          id: this.safeId('__BV_modal_backdrop_')
+          id: this.safeId(),
+          role: 'dialog',
+          tabindex: '-1',
+          'aria-hidden': this.is_visible ? null : 'true',
+          'aria-modal': this.is_visible ? 'true' : null
+        },
+        on: {
+          keydown: this.onEsc,
+          click: this.onClickOut
         }
-      }, [$slots['modal-backdrop']]);
-    } // Tab trap to prevent page from scrolling to next element in tab index during enforce focus tab cycle
+      }, [modalDialog]); // Wrap modal in transition
 
-
-    var tabTrap = h(false);
-
-    if (this.is_visible && this.isTop && !this.noEnforceFocus) {
-      tabTrap = h('div', {
-        attrs: {
-          tabindex: '0'
+      modal = h('transition', {
+        props: {
+          enterClass: '',
+          enterToClass: '',
+          enterActiveClass: '',
+          leaveClass: '',
+          leaveActiveClass: '',
+          leaveToClass: ''
+        },
+        on: {
+          'before-enter': this.onBeforeEnter,
+          enter: this.onEnter,
+          'after-enter': this.onAfterEnter,
+          'before-leave': this.onBeforeLeave,
+          leave: this.onLeave,
+          'after-leave': this.onAfterLeave
         }
-      });
-    } // Assemble modal and backdrop in an outer div needed for lazy modals
+      }, [modal]); // Modal backdrop
+
+      var backdrop = h(false);
+
+      if (!this.hideBackdrop && (this.is_visible || this.is_transitioning || this.is_block)) {
+        backdrop = h('div', {
+          staticClass: 'modal-backdrop',
+          class: this.backdropClasses,
+          attrs: {
+            id: this.safeId('__BV_modal_backdrop_')
+          }
+        }, [this.normalizeSlot('modal-backdrop', {})]);
+      } // Tab trap to prevent page from scrolling to next element in
+      // tab index during enforce focus tab cycle
 
 
-    var outer = h(false);
+      var tabTrap = h(false);
 
-    if (!this.is_hidden) {
-      outer = h('div', {
-        key: 'modal-outer',
+      if (this.is_visible && this.isTop && !this.noEnforceFocus) {
+        tabTrap = h('div', {
+          attrs: {
+            tabindex: '0'
+          }
+        });
+      } // Assemble modal and backdrop in an outer <div>
+
+
+      return h('div', {
+        key: "modal-outer-".concat(this._uid),
         style: this.modalOuterStyle,
         attrs: {
           id: this.safeId('__BV_modal_outer_')
         }
       }, [modal, tabTrap, backdrop]);
-    } // Wrap in DIV to maintain thi.$el reference for hide/show method aceess
-
-
-    return h('div', {}, [outer]);
+    }
+  },
+  render: function render(h) {
+    // Wrap in a portal
+    return h(_portalVue.Portal, {
+      props: {
+        name: "b-modal-".concat(this._uid),
+        to: _modalManager.default.modalTargetName,
+        slim: true,
+        disabled: this.static
+      }
+    }, [!this.is_hidden || this.static && !this.lazy ? this.makeModal(h) : h(false)]);
   }
-};
+});
+
 exports.default = _default2;
 
 /***/ }),
@@ -16818,9 +18164,11 @@ exports.default = _default2;
 exports.__esModule = true;
 exports.default = stringifyRecordValues;
 
-var _sanitizeRow = __webpack_require__("b40f");
+var _sanitizeRow = _interopRequireDefault(__webpack_require__("b40f"));
 
-var _stringifyObjectValues = __webpack_require__("2227");
+var _stringifyObjectValues = _interopRequireDefault(__webpack_require__("2227"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Stringifies the values of a record, ignoring any special top level field keys
 // TODO: add option to strigify formatted/scopedSlot items, and only specific fields
@@ -16845,9 +18193,13 @@ function stringifyRecordValues(row) {
 exports.__esModule = true;
 exports.default = void 0;
 
-var _link = __webpack_require__("4e40");
+var _link = _interopRequireDefault(__webpack_require__("4e40"));
+
+exports.BLink = _link.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BLink: _link.default
@@ -16870,11 +18222,17 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
-var _mediaBody = __webpack_require__("7a5e");
+var _mediaBody = _interopRequireDefault(__webpack_require__("7a5e"));
 
-var _mediaAside = __webpack_require__("7b63");
+var _mediaAside = _interopRequireDefault(__webpack_require__("7b63"));
+
+var _normalizeSlot = __webpack_require__("9de7");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var props = {
   tag: {
@@ -16896,7 +18254,8 @@ var props = {
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BMedia',
   functional: true,
   props: props,
@@ -16904,29 +18263,34 @@ var _default = {
     var props = _ref.props,
         data = _ref.data,
         slots = _ref.slots,
+        scopedSlots = _ref.scopedSlots,
         children = _ref.children;
     var childNodes = props.noBody ? children : [];
-    var $slots = slots();
 
     if (!props.noBody) {
-      if ($slots.aside && !props.rightAlign) {
+      var $slots = slots();
+      var $scopedSlots = scopedSlots || {};
+      var $aside = (0, _normalizeSlot.normalizeSlot)('aside', {}, $scopedSlots, $slots);
+      var $default = (0, _normalizeSlot.normalizeSlot)('default', {}, $scopedSlots, $slots);
+
+      if ($aside && !props.rightAlign) {
         childNodes.push(h(_mediaAside.default, {
           staticClass: 'mr-3',
           props: {
             verticalAlign: props.verticalAlign
           }
-        }, $slots.aside));
+        }, $aside));
       }
 
-      childNodes.push(h(_mediaBody.default, $slots.default));
+      childNodes.push(h(_mediaBody.default, {}, $default));
 
-      if ($slots.aside && props.rightAlign) {
+      if ($aside && props.rightAlign) {
         childNodes.push(h(_mediaAside.default, {
           staticClass: 'ml-3',
           props: {
             verticalAlign: props.verticalAlign
           }
-        }, $slots.aside));
+        }, $aside));
       }
     }
 
@@ -16934,7 +18298,8 @@ var _default = {
       staticClass: 'media'
     }), childNodes);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -16980,31 +18345,40 @@ exports.EVENT_FILTER = EVENT_FILTER;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var props = {
   tag: {
     type: String,
-    default: 'div'
+    default: 'hr'
   } // @vue/component
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BDropdownDivider',
   functional: true,
+  inheritAttrs: false,
   props: props,
   render: function render(h, _ref) {
     var props = _ref.props,
         data = _ref.data;
-    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+    return h('li', [h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
       staticClass: 'dropdown-divider',
       attrs: {
-        role: 'separator'
-      }
-    }));
+        role: 'separator',
+        'aria-orientation': 'horizontal'
+      },
+      ref: 'divider'
+    }))]);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -17018,19 +18392,41 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _link = __webpack_require__("4e40");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
 
-var _keyCodes = __webpack_require__("06e4");
+var _link = _interopRequireDefault(__webpack_require__("4e40"));
 
-var _observeDom = __webpack_require__("bf9c");
+var _nav = _interopRequireWildcard(__webpack_require__("92e4"));
 
-var _id = __webpack_require__("eae0");
+var _keyCodes = _interopRequireDefault(__webpack_require__("06e4"));
+
+var _observeDom = _interopRequireDefault(__webpack_require__("bf9c"));
+
+var _object = __webpack_require__("24e2");
+
+var _id = _interopRequireDefault(__webpack_require__("eae0"));
+
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-// Private Helper component
+// -- Constants --
+var navProps = (0, _object.omit)(_nav.props, ['tabs', 'isNavBar']); // -- Utils --
+// Filter function to filter out disabled tabs
+
+var notDisabled = function notDisabled(tab) {
+  return !tab.disabled;
+}; // --- Helper components ---
 // @vue/component
-var BTabButtonHelper = {
+
+
+var BTabButtonHelper = _vue.default.extend({
   name: 'BTabButtonHelper',
   inject: {
     bvTabs: {
@@ -17042,13 +18438,15 @@ var BTabButtonHelper = {
     }
   },
   props: {
-    // Reference to the child b-tab instance
+    // Reference to the child <b-tab> instance
     tab: {
       default: null
     },
     tabs: {
       type: Array,
-      default: function _default() {
+      default: function _default()
+      /* istanbul ignore next */
+      {
         return [];
       }
     },
@@ -17134,7 +18532,8 @@ var BTabButtonHelper = {
       class: [{
         active: this.tab.localActive && !this.tab.disabled,
         disabled: this.tab.disabled
-      }, this.tab.titleLinkClass],
+      }, this.tab.titleLinkClass, // Apply <b-tabs> `activeNavItemClass` styles when the tab is active
+      this.tab.localActive ? this.bvTabs.activeNavItemClass : null],
       props: {
         href: this.tab.href,
         // To be deprecated to always be '#'
@@ -17154,7 +18553,7 @@ var BTabButtonHelper = {
         click: this.handleEvt,
         keydown: this.handleEvt
       }
-    }, [this.tab.$slots.title || this.tab.title]);
+    }, [this.tab.normalizeSlot('title') || this.tab.title]);
     return h('li', {
       staticClass: 'nav-item',
       class: [this.tab.titleItemClass],
@@ -17163,16 +18562,12 @@ var BTabButtonHelper = {
       }
     }, [link]);
   }
-}; // Filter function to filter out disabled tabs
-
-function notDisabled(tab) {
-  return !tab.disabled;
-} // @vue/component
+}); // @vue/component
 
 
-var _default2 = {
+var _default2 = _vue.default.extend({
   name: 'BTabs',
-  mixins: [_id.default],
+  mixins: [_id.default, _normalizeSlot.default],
   provide: function provide() {
     return {
       bvTabs: this
@@ -17182,24 +18577,12 @@ var _default2 = {
     prop: 'value',
     event: 'input'
   },
-  props: {
+  props: _objectSpread({}, navProps, {
     tag: {
       type: String,
       default: 'div'
     },
     card: {
-      type: Boolean,
-      default: false
-    },
-    small: {
-      type: Boolean,
-      default: false
-    },
-    pills: {
-      type: Boolean,
-      default: false
-    },
-    vertical: {
       type: Boolean,
       default: false
     },
@@ -17225,7 +18608,7 @@ var _default2 = {
       default: false
     },
     lazy: {
-      // This prop is sniffed by the tab child
+      // This prop is sniffed by the <b-tab> child
       type: Boolean,
       default: false
     },
@@ -17241,19 +18624,30 @@ var _default2 = {
       type: [String, Array, Object],
       default: null
     },
+    activeNavItemClass: {
+      // Only applied to the currently active <b-nav-item>
+      type: [String, Array, Object],
+      default: null
+    },
+    activeTabClass: {
+      // Only applied to the currently active <b-tab>
+      // This prop is sniffed by the <b-tab> child
+      type: [String, Array, Object],
+      default: null
+    },
     value: {
       // v-model
       type: Number,
       default: null
     }
-  },
+  }),
   data: function data() {
     var tabIdx = parseInt(this.value, 10);
     tabIdx = isNaN(tabIdx) ? -1 : tabIdx;
     return {
       // Index of current tab
       currentTab: tabIdx,
-      // Array of direct child b-tab instances
+      // Array of direct child <b-tab> instances
       tabs: []
     };
   },
@@ -17264,6 +18658,19 @@ var _default2 = {
     },
     navStyle: function navStyle() {
       return this.pills ? 'pills' : 'tabs';
+    },
+    localNavClass: function localNavClass() {
+      var classes = [];
+
+      if (this.card) {
+        if (this.vertical) {
+          classes.push('card-header', 'h-100', 'border-bottom-0', 'rounded-0');
+        } else {
+          classes.push("card-header-".concat(this.navStyle));
+        }
+      }
+
+      return [].concat(classes, [this.navClass]);
     }
   },
   watch: {
@@ -17318,8 +18725,8 @@ var _default2 = {
     var _this2 = this;
 
     this.$nextTick(function () {
-      // Call updateTabs jsut in case....
-      _this2.updateTabs(); // Observe Child changes so we can update list of tabs
+      // Call `updateTabs()` just in case...
+      _this2.updateTabs(); // Observe child changes so we can update list of tabs
 
 
       _this2.setObserver(true);
@@ -17352,7 +18759,7 @@ var _default2 = {
     setObserver: function setObserver(on) {
       if (on) {
         // Make sure no existing observer running
-        this.setObserver(false); // Watch for changes to b-tab sub components
+        this.setObserver(false); // Watch for changes to <b-tab> sub components
 
         this._bvObserver = (0, _observeDom.default)(this.$refs.tabsContainer, this.updateTabs.bind(this), {
           childList: true,
@@ -17369,13 +18776,13 @@ var _default2 = {
       }
     },
     getTabs: function getTabs() {
-      return (this.$slots.default || []).map(function (vnode) {
+      return (this.normalizeSlot('default') || []).map(function (vnode) {
         return vnode.componentInstance;
       }).filter(function (tab) {
         return tab && tab._isTab;
       });
     },
-    // Update list of b-tab children
+    // Update list of <b-tab> children
     updateTabs: function updateTabs() {
       // Probe tabs
       var tabs = this.getTabs(); // Find *last* active non-disabled tab in current tabs
@@ -17424,8 +18831,8 @@ var _default2 = {
         return btn.tab === tab;
       });
     },
-    // Force a button to re-render it's content, given a b-tab instance
-    // Called by b-tab on update()
+    // Force a button to re-render it's content, given a <b-tab> instance
+    // Called by <b-tab> on `update()`
     updateButton: function updateButton(tab) {
       var button = this.getButtonForTab(tab);
 
@@ -17433,8 +18840,8 @@ var _default2 = {
         button.$forceUpdate();
       }
     },
-    // Activate a tab given a b-tab instance
-    // Also accessed by b-tab
+    // Activate a tab given a <b-tab> instance
+    // Also accessed by <b-tab>
     activateTab: function activateTab(tab) {
       var result = false;
 
@@ -17448,7 +18855,7 @@ var _default2 = {
       }
 
       if (!result) {
-        // Couldn't set tab, so ensure v-model is set to this.currentTab
+        // Couldn't set tab, so ensure v-model is set to `this.currentTab`
 
         /* istanbul ignore next: should rarely happen */
         this.$emit('input', this.currentTab);
@@ -17456,27 +18863,27 @@ var _default2 = {
 
       return result;
     },
-    // Deactivate a tab given a b-tab instance
-    // Accessed by b-tab
+    // Deactivate a tab given a <b-tab> instance
+    // Accessed by <b-tab>
     deactivateTab: function deactivateTab(tab) {
       if (tab) {
         // Find first non-disabled tab that isn't the one being deactivated
-        // If no available tabs, then don't deactivate current tab
+        // If no tabs are available, then don't deactivate current tab
         return this.activateTab(this.tabs.filter(function (t) {
           return t !== tab;
         }).find(notDisabled));
       } else {
         // No tab specified
 
-        /* istanbull ignore next: should never happen */
+        /* istanbul ignore next: should never happen */
         return false;
       }
     },
-    // Focus a tab button given it's b-tab instance
+    // Focus a tab button given it's <b-tab> instance
     focusButton: function focusButton(tab) {
       var _this4 = this;
 
-      // Wrap in nextTick to ensure DOM has completed rendering/updating before focusing
+      // Wrap in `$nextTick()` to ensure DOM has completed rendering/updating before focusing
       this.$nextTick(function () {
         var button = _this4.getButtonForTab(tab);
 
@@ -17485,13 +18892,13 @@ var _default2 = {
         }
       });
     },
-    // Emit a click event on a specified b-tab component instance
+    // Emit a click event on a specified <b-tab> component instance
     emitTabClick: function emitTabClick(tab, evt) {
       if (evt && evt instanceof Event && tab && tab.$emit && !tab.disabled) {
         tab.$emit('click', evt);
       }
     },
-    // Click Handler
+    // Click handler
     clickTab: function clickTab(tab, evt) {
       this.activateTab(tab);
       this.emitTabClick(tab, evt);
@@ -17536,8 +18943,7 @@ var _default2 = {
     }
   },
   render: function render(h) {
-    var _this5 = this,
-        _ref;
+    var _this5 = this;
 
     var tabs = this.tabs; // Currently active tab
 
@@ -17565,7 +18971,7 @@ var _default2 = {
       return h(BTabButtonHelper, {
         key: tab._uid || index,
         ref: 'buttons',
-        // Needed to make this.$refs.buttons an array
+        // Needed to make `this.$refs.buttons` an array
         refInFor: true,
         props: {
           tab: tab,
@@ -17587,24 +18993,33 @@ var _default2 = {
           last: _this5.lastTab
         }
       });
-    }); // Nav 'button' wrapper
+    }); // Nav
 
-    var navs = h('ul', {
-      ref: 'navs',
-      class: ['nav', (_ref = {}, _defineProperty(_ref, "nav-".concat(this.navStyle), !this.noNavStyle), _defineProperty(_ref, "card-header-".concat(this.navStyle), this.card && !this.vertical), _defineProperty(_ref, 'card-header', this.card && this.vertical), _defineProperty(_ref, 'h-100', this.card && this.vertical), _defineProperty(_ref, 'flex-column', this.vertical), _defineProperty(_ref, 'border-bottom-0', this.vertical), _defineProperty(_ref, 'rounded-0', this.vertical), _defineProperty(_ref, "small", this.small), _ref), this.navClass],
+    var nav = h(_nav.default, {
+      ref: 'nav',
+      class: this.localNavClass,
       attrs: {
         role: 'tablist',
         id: this.safeId('_BV_tab_controls_')
+      },
+      props: {
+        fill: this.fill,
+        justified: this.justified,
+        align: this.align,
+        tabs: !this.noNavStyle && !this.pills,
+        pills: !this.noNavStyle && this.pills,
+        vertical: this.vertical,
+        small: this.small
       }
-    }, [buttons, this.$slots.tabs]);
-    navs = h('div', {
-      key: 'bv-tabs-navs',
+    }, [buttons, this.normalizeSlot('tabs')]);
+    nav = h('div', {
+      key: 'bv-tabs-nav',
       class: [{
         'card-header': this.card && !this.vertical && !(this.end || this.bottom),
         'card-footer': this.card && !this.vertical && (this.end || this.bottom),
         'col-auto': this.vertical
       }, this.navWrapperClass]
-    }, [navs]);
+    }, [nav]);
     var empty = h(false);
 
     if (!tabs || tabs.length === 0) {
@@ -17613,7 +19028,7 @@ var _default2 = {
         class: ['tab-pane', 'active', {
           'card-body': this.card
         }]
-      }, this.$slots.empty);
+      }, this.normalizeSlot('empty'));
     } // Main content section
     // TODO: This container should be a helper component
 
@@ -17628,7 +19043,7 @@ var _default2 = {
       attrs: {
         id: this.safeId('_BV_tab_container_')
       }
-    }, [this.$slots.default, empty]); // Render final output
+    }, [this.normalizeSlot('default'), empty]); // Render final output
 
     return h(this.tag, {
       staticClass: 'tabs',
@@ -17639,10 +19054,41 @@ var _default2 = {
       attrs: {
         id: this.safeId()
       }
-    }, [this.end || this.bottom ? content : h(false), [navs], this.end || this.bottom ? h(false) : content]);
+    }, [this.end || this.bottom ? content : h(false), [nav], this.end || this.bottom ? h(false) : content]);
   }
-};
+});
+
 exports.default = _default2;
+
+/***/ }),
+
+/***/ "40c3":
+/***/ (function(module, exports, __webpack_require__) {
+
+// getting tag from 19.1.3.6 Object.prototype.toString()
+var cof = __webpack_require__("6b4c");
+var TAG = __webpack_require__("5168")('toStringTag');
+// ES3 wrong here
+var ARG = cof(function () { return arguments; }()) == 'Arguments';
+
+// fallback for IE11 Script Access Denied error
+var tryGet = function (it, key) {
+  try {
+    return it[key];
+  } catch (e) { /* empty */ }
+};
+
+module.exports = function (it) {
+  var O, T, B;
+  return it === undefined ? 'Undefined' : it === null ? 'Null'
+    // @@toStringTag case
+    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
+    // builtinTag case
+    : ARG ? cof(O)
+    // ES3 arguments fallback
+    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
+};
+
 
 /***/ }),
 
@@ -17655,16 +19101,14 @@ exports.default = _default2;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _array = __webpack_require__("bb2f");
-
-var _object = __webpack_require__("24e2");
+var _inspect = __webpack_require__("0d5a");
 
 /**
  * Convert a value to a string that can be rendered.
  */
 var toString = function toString(val) {
   var spaces = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-  return val === null || val === undefined ? '' : (0, _array.isArray)(val) || (0, _object.isPlainObject)(val) && val.toString === Object.prototype.toString ? JSON.stringify(val, null, spaces) : String(val);
+  return (0, _inspect.isUndefined)(val) || (0, _inspect.isNull)(val) ? '' : (0, _inspect.isArray)(val) || (0, _inspect.isPlainObject)(val) && val.toString === Object.prototype.toString ? JSON.stringify(val, null, spaces) : String(val);
 };
 
 var _default = toString;
@@ -17702,16 +19146,33 @@ module.exports = function (Constructor, NAME, next) {
 exports.__esModule = true;
 exports.default = void 0;
 
-var _listenOnRoot = __webpack_require__("edbc");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
 
-// @vue/component
-var _default = {
-  name: 'BNavbarToggle',
-  mixins: [_listenOnRoot.default],
+var _listenOnRoot = _interopRequireDefault(__webpack_require__("edbc"));
+
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
+
+var _config = __webpack_require__("eb60");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var NAME = 'BNavbarToggle'; // Events we emit on $root
+
+var EVENT_TOGGLE = 'bv::toggle::collapse'; // Events we listen to on $root
+
+var EVENT_STATE = 'bv::collapse::state'; // This private event is NOT to be documented as people should not be using it.
+
+var EVENT_STATE_SYNC = 'bv::collapse::sync::state'; // @vue/component
+
+var _default2 = _vue.default.extend({
+  name: NAME,
+  mixins: [_listenOnRoot.default, _normalizeSlot.default],
   props: {
     label: {
       type: String,
-      default: 'Toggle navigation'
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'label');
+      }
     },
     target: {
       type: String,
@@ -17724,15 +19185,15 @@ var _default = {
     };
   },
   created: function created() {
-    this.listenOnRoot('bv::collapse::state', this.handleStateEvt);
+    this.listenOnRoot(EVENT_STATE, this.handleStateEvt);
+    this.listenOnRoot(EVENT_STATE_SYNC, this.handleStateEvt);
   },
   methods: {
     onClick: function onClick(evt) {
       this.$emit('click', evt);
-      /* istanbul ignore next */
 
       if (!evt.defaultPrevented) {
-        this.$root.$emit('bv::toggle::collapse', this.target);
+        this.$root.$emit(EVENT_TOGGLE, this.target);
       }
     },
     handleStateEvt: function handleStateEvt(id, state) {
@@ -17753,12 +19214,13 @@ var _default = {
       on: {
         click: this.onClick
       }
-    }, [this.$slots.default || h('span', {
+    }, [this.normalizeSlot('default') || h('span', {
       class: ['navbar-toggler-icon']
     })]);
   }
-};
-exports.default = _default;
+});
+
+exports.default = _default2;
 
 /***/ }),
 
@@ -17829,23 +19291,27 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _id = __webpack_require__("eae0");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
 
-var _form = __webpack_require__("5f07");
+var _id = _interopRequireDefault(__webpack_require__("eae0"));
 
-var _formSize = __webpack_require__("6e1b");
+var _form = _interopRequireDefault(__webpack_require__("5f07"));
 
-var _formState = __webpack_require__("41fb");
+var _formSize = _interopRequireDefault(__webpack_require__("6e1b"));
 
-var _formText = __webpack_require__("c01c");
+var _formState = _interopRequireDefault(__webpack_require__("41fb"));
 
-var _formSelection = __webpack_require__("10fc");
+var _formText = _interopRequireDefault(__webpack_require__("c01c"));
 
-var _formValidity = __webpack_require__("b965");
+var _formSelection = _interopRequireDefault(__webpack_require__("10fc"));
+
+var _formValidity = _interopRequireDefault(__webpack_require__("b965"));
 
 var _array = __webpack_require__("bb2f");
 
 var _dom = __webpack_require__("1611");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -17854,7 +19320,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 // Valid supported input types
 var TYPES = ['text', 'password', 'email', 'number', 'url', 'tel', 'search', 'range', 'color', 'date', 'time', 'datetime', 'datetime-local', 'month', 'week']; // @vue/component
 
-var _default = {
+var _default = _vue.default.extend({
   name: 'BFormInput',
   mixins: [_id.default, _form.default, _formSize.default, _formState.default, _formText.default, _formSelection.default, _formValidity.default],
   props: {
@@ -17981,7 +19447,8 @@ var _default = {
       })
     });
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -18032,9 +19499,11 @@ exports.features = {};
 exports.__esModule = true;
 exports.default = void 0;
 
-var _normalizeFields = __webpack_require__("4d86");
+var _inspect = __webpack_require__("0d5a");
 
-var _array = __webpack_require__("bb2f");
+var _normalizeFields = _interopRequireDefault(__webpack_require__("4d86"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _default2 = {
   props: {
@@ -18061,7 +19530,7 @@ var _default2 = {
   data: function data() {
     return {
       // Our local copy of the items. Must be an array
-      localItems: (0, _array.isArray)(this.items) ? this.items.slice() : []
+      localItems: (0, _inspect.isArray)(this.items) ? this.items.slice() : []
     };
   },
   computed: {
@@ -18084,10 +19553,10 @@ var _default2 = {
   watch: {
     items: function items(newItems) {
       /* istanbul ignore else */
-      if ((0, _array.isArray)(newItems)) {
+      if ((0, _inspect.isArray)(newItems)) {
         // Set localItems/filteredItems to a copy of the provided array
         this.localItems = newItems.slice();
-      } else if (newItems === null || newItems === undefined) {
+      } else if ((0, _inspect.isUndefined)(newItems) || (0, _inspect.isNull)(newItems)) {
         /* istanbul ignore next */
         this.localItems = [];
       }
@@ -18098,6 +19567,179 @@ exports.default = _default2;
 
 /***/ }),
 
+/***/ "440a":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.TooltipPlugin = exports.ToastPlugin = exports.TabsPlugin = exports.TablePlugin = exports.SpinnerPlugin = exports.ProgressPlugin = exports.PopoverPlugin = exports.PaginationNavPlugin = exports.PaginationPlugin = exports.NavbarPlugin = exports.NavPlugin = exports.ModalPlugin = exports.MediaPlugin = exports.ListGroupPlugin = exports.LinkPlugin = exports.JumbotronPlugin = exports.ImagePlugin = exports.FormSelectPlugin = exports.FormFilePlugin = exports.FormTextareaPlugin = exports.FormInputPlugin = exports.FormRadioPlugin = exports.FormCheckboxPlugin = exports.FormGroupPlugin = exports.FormPlugin = exports.EmbedPlugin = exports.DropdownPlugin = exports.CollapsePlugin = exports.LayoutPlugin = exports.CarouselPlugin = exports.CardPlugin = exports.InputGroupPlugin = exports.ButtonToolbarPlugin = exports.ButtonGroupPlugin = exports.ButtonPlugin = exports.BreadcrumbPlugin = exports.BadgePlugin = exports.AlertPlugin = exports.BVToastPlugin = exports.BVModalPlugin = void 0;
+
+var _bvModal = _interopRequireDefault(__webpack_require__("b7af"));
+
+exports.BVModalPlugin = _bvModal.default;
+
+var _bvToast = _interopRequireDefault(__webpack_require__("3163"));
+
+exports.BVToastPlugin = _bvToast.default;
+
+var _alert = _interopRequireDefault(__webpack_require__("9e25"));
+
+exports.AlertPlugin = _alert.default;
+
+var _badge = _interopRequireDefault(__webpack_require__("7cb0"));
+
+exports.BadgePlugin = _badge.default;
+
+var _breadcrumb = _interopRequireDefault(__webpack_require__("6def"));
+
+exports.BreadcrumbPlugin = _breadcrumb.default;
+
+var _button = _interopRequireDefault(__webpack_require__("0866"));
+
+exports.ButtonPlugin = _button.default;
+
+var _buttonGroup = _interopRequireDefault(__webpack_require__("8b96"));
+
+exports.ButtonGroupPlugin = _buttonGroup.default;
+
+var _buttonToolbar = _interopRequireDefault(__webpack_require__("5c3f"));
+
+exports.ButtonToolbarPlugin = _buttonToolbar.default;
+
+var _inputGroup = _interopRequireDefault(__webpack_require__("00df"));
+
+exports.InputGroupPlugin = _inputGroup.default;
+
+var _card = _interopRequireDefault(__webpack_require__("c4bd"));
+
+exports.CardPlugin = _card.default;
+
+var _carousel = _interopRequireDefault(__webpack_require__("a88f"));
+
+exports.CarouselPlugin = _carousel.default;
+
+var _layout = _interopRequireDefault(__webpack_require__("9d37"));
+
+exports.LayoutPlugin = _layout.default;
+
+var _collapse = _interopRequireDefault(__webpack_require__("f3fa"));
+
+exports.CollapsePlugin = _collapse.default;
+
+var _dropdown = _interopRequireDefault(__webpack_require__("c7b9"));
+
+exports.DropdownPlugin = _dropdown.default;
+
+var _embed = _interopRequireDefault(__webpack_require__("32ec"));
+
+exports.EmbedPlugin = _embed.default;
+
+var _form = _interopRequireDefault(__webpack_require__("7d54"));
+
+exports.FormPlugin = _form.default;
+
+var _formGroup = _interopRequireDefault(__webpack_require__("7a5c"));
+
+exports.FormGroupPlugin = _formGroup.default;
+
+var _formCheckbox = _interopRequireDefault(__webpack_require__("efe3"));
+
+exports.FormCheckboxPlugin = _formCheckbox.default;
+
+var _formRadio = _interopRequireDefault(__webpack_require__("3110"));
+
+exports.FormRadioPlugin = _formRadio.default;
+
+var _formInput = _interopRequireDefault(__webpack_require__("b407"));
+
+exports.FormInputPlugin = _formInput.default;
+
+var _formTextarea = _interopRequireDefault(__webpack_require__("a05c"));
+
+exports.FormTextareaPlugin = _formTextarea.default;
+
+var _formFile = _interopRequireDefault(__webpack_require__("a60a"));
+
+exports.FormFilePlugin = _formFile.default;
+
+var _formSelect = _interopRequireDefault(__webpack_require__("8b08"));
+
+exports.FormSelectPlugin = _formSelect.default;
+
+var _image = _interopRequireDefault(__webpack_require__("2635"));
+
+exports.ImagePlugin = _image.default;
+
+var _jumbotron = _interopRequireDefault(__webpack_require__("1bee"));
+
+exports.JumbotronPlugin = _jumbotron.default;
+
+var _link = _interopRequireDefault(__webpack_require__("3b34"));
+
+exports.LinkPlugin = _link.default;
+
+var _listGroup = _interopRequireDefault(__webpack_require__("057b"));
+
+exports.ListGroupPlugin = _listGroup.default;
+
+var _media = _interopRequireDefault(__webpack_require__("d71d"));
+
+exports.MediaPlugin = _media.default;
+
+var _modal = _interopRequireDefault(__webpack_require__("256b"));
+
+exports.ModalPlugin = _modal.default;
+
+var _nav = _interopRequireDefault(__webpack_require__("6423"));
+
+exports.NavPlugin = _nav.default;
+
+var _navbar = _interopRequireDefault(__webpack_require__("edd0"));
+
+exports.NavbarPlugin = _navbar.default;
+
+var _pagination = _interopRequireDefault(__webpack_require__("887d"));
+
+exports.PaginationPlugin = _pagination.default;
+
+var _paginationNav = _interopRequireDefault(__webpack_require__("f8d0"));
+
+exports.PaginationNavPlugin = _paginationNav.default;
+
+var _popover = _interopRequireDefault(__webpack_require__("f38f"));
+
+exports.PopoverPlugin = _popover.default;
+
+var _progress = _interopRequireDefault(__webpack_require__("b528"));
+
+exports.ProgressPlugin = _progress.default;
+
+var _spinner = _interopRequireDefault(__webpack_require__("076e"));
+
+exports.SpinnerPlugin = _spinner.default;
+
+var _table = _interopRequireDefault(__webpack_require__("b740"));
+
+exports.TablePlugin = _table.default;
+
+var _tabs = _interopRequireDefault(__webpack_require__("1018"));
+
+exports.TabsPlugin = _tabs.default;
+
+var _toast = _interopRequireDefault(__webpack_require__("8596"));
+
+exports.ToastPlugin = _toast.default;
+
+var _tooltip = _interopRequireDefault(__webpack_require__("249f"));
+
+exports.TooltipPlugin = _tooltip.default;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+
 /***/ "4565":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18105,21 +19747,75 @@ exports.default = _default2;
 /* WEBPACK VAR INJECTION */(function(process) {
 
 exports.__esModule = true;
-exports.getNoWarn = exports.hasPointerEvent = exports.hasTouchSupport = exports.isServer = exports.inBrowser = void 0;
-// Info about the current environment
-// Constants
-var inBrowser = typeof document !== 'undefined' && typeof window !== 'undefined';
-exports.inBrowser = inBrowser;
-var isServer = !inBrowser;
-exports.isServer = isServer;
-var hasTouchSupport = inBrowser && ('ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0);
-exports.hasTouchSupport = hasTouchSupport;
-var hasPointerEvent = inBrowser && Boolean(window.PointerEvent || window.MSPointerEvent); // Getters
+exports.getNoWarn = exports.getEnv = exports.hasPointerEventSupport = exports.hasTouchSupport = exports.hasPassiveEventSupport = exports.isBrowser = exports.hasMutationObserverSupport = exports.hasPromiseSupport = exports.hasNavigatorSupport = exports.hasDocumentSupport = exports.hasWindowSupport = void 0;
 
-exports.hasPointerEvent = hasPointerEvent;
+/**
+ * Utilities to get information about the current environment
+ */
+// --- Constants ---
+var hasWindowSupport = typeof window !== 'undefined';
+exports.hasWindowSupport = hasWindowSupport;
+var hasDocumentSupport = typeof document !== 'undefined';
+exports.hasDocumentSupport = hasDocumentSupport;
+var hasNavigatorSupport = typeof navigator !== 'undefined';
+exports.hasNavigatorSupport = hasNavigatorSupport;
+var hasPromiseSupport = typeof Promise !== 'undefined';
+exports.hasPromiseSupport = hasPromiseSupport;
+var hasMutationObserverSupport = typeof MutationObserver !== 'undefined' || typeof WebKitMutationObserver !== 'undefined' || typeof MozMutationObserver !== 'undefined';
+exports.hasMutationObserverSupport = hasMutationObserverSupport;
+var isBrowser = hasWindowSupport && hasDocumentSupport && hasNavigatorSupport; // Determine if the browser supports the option passive for events
+
+exports.isBrowser = isBrowser;
+
+var hasPassiveEventSupport = function () {
+  var passiveEventSupported = false;
+
+  if (isBrowser) {
+    try {
+      var options = {
+        get passive() {
+          // This function will be called when the browser
+          // attempts to access the passive property.
+
+          /* istanbul ignore next: will never be called in JSDOM */
+          passiveEventSupported = true;
+        }
+
+      };
+      window.addEventListener('test', options, options);
+      window.removeEventListener('test', options, options);
+    } catch (err) {
+      /* istanbul ignore next: will never be called in JSDOM */
+      passiveEventSupported = false;
+    }
+  }
+
+  return passiveEventSupported;
+}();
+
+exports.hasPassiveEventSupport = hasPassiveEventSupport;
+var hasTouchSupport = isBrowser && ('ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0);
+exports.hasTouchSupport = hasTouchSupport;
+var hasPointerEventSupport = isBrowser && Boolean(window.PointerEvent || window.MSPointerEvent); // --- Getters ---
+
+exports.hasPointerEventSupport = hasPointerEventSupport;
+
+var getEnv = function getEnv(key) {
+  var fallback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  var env = typeof process !== 'undefined' && process ? Object({"NODE_ENV":"production","BASE_URL":"/"}) || false : {};
+
+  if (!key) {
+    /* istanbul ignore next */
+    return env;
+  }
+
+  return env[key] || fallback;
+};
+
+exports.getEnv = getEnv;
 
 var getNoWarn = function getNoWarn() {
-  return process && Object({"NODE_ENV":"production","BASE_URL":"/"}) && Object({"NODE_ENV":"production","BASE_URL":"/"}).BOOTSTRAP_VUE_NO_WARN;
+  return getEnv('BOOTSTRAP_VUE_NO_WARN');
 };
 
 exports.getNoWarn = getNoWarn;
@@ -18173,6 +19869,20 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "45f2":
+/***/ (function(module, exports, __webpack_require__) {
+
+var def = __webpack_require__("d9f6").f;
+var has = __webpack_require__("07e3");
+var TAG = __webpack_require__("5168")('toStringTag');
+
+module.exports = function (it, tag, stat) {
+  if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
+};
+
+
+/***/ }),
+
 /***/ "461c":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18182,17 +19892,13 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _array = __webpack_require__("bb2f");
+var _html = __webpack_require__("be11");
+
+var _inspect = __webpack_require__("0d5a");
 
 var _object = __webpack_require__("24e2");
 
-var _html = __webpack_require__("be11");
-
-function isObject(obj) {
-  return obj && {}.toString.call(obj) === '[object Object]';
-} // @vue/component
-
-
+// @vue/component
 var _default2 = {
   props: {
     options: {
@@ -18226,14 +19932,14 @@ var _default2 = {
       var htmlField = this.htmlField;
       var disabledField = this.disabledField;
 
-      if ((0, _array.isArray)(options)) {
+      if ((0, _inspect.isArray)(options)) {
         // Normalize flat-ish arrays to Array of Objects
         return options.map(function (option) {
-          if (isObject(option)) {
+          if ((0, _inspect.isPlainObject)(option)) {
             var value = option[valueField];
             var text = String(option[textField]);
             return {
-              value: typeof value === 'undefined' ? text : value,
+              value: (0, _inspect.isUndefined)(value) ? text : value,
               text: (0, _html.stripTags)(text),
               html: option[htmlField],
               disabled: Boolean(option[disabledField])
@@ -18252,12 +19958,12 @@ var _default2 = {
         return (0, _object.keys)(options).map(function (key) {
           var option = options[key] || {};
 
-          if (isObject(option)) {
+          if ((0, _inspect.isPlainObject)(option)) {
             var value = option[valueField];
             var text = option[textField];
             return {
-              value: typeof value === 'undefined' ? key : value,
-              text: typeof text === 'undefined' ? (0, _html.stripTags)(String(key)) : (0, _html.stripTags)(String(text)),
+              value: (0, _inspect.isUndefined)(value) ? key : value,
+              text: (0, _inspect.isUndefined)(text) ? (0, _html.stripTags)(String(key)) : (0, _html.stripTags)(String(text)),
               html: option[htmlField],
               disabled: Boolean(option[disabledField])
             };
@@ -18292,6 +19998,14 @@ module.exports = function (bitmap, value) {
 
 /***/ }),
 
+/***/ "481b":
+/***/ (function(module, exports) {
+
+module.exports = {};
+
+
+/***/ }),
+
 /***/ "485d":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18299,63 +20013,93 @@ module.exports = function (bitmap, value) {
 
 
 exports.__esModule = true;
-exports.default = void 0;
+exports.default = exports.props = void 0;
 
-var _id = __webpack_require__("eae0");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
 
-var _dropdown = __webpack_require__("c190");
+var _link = _interopRequireDefault(__webpack_require__("4e40"));
+
+var _dropdown = __webpack_require__("e14e");
+
+var _id = _interopRequireDefault(__webpack_require__("eae0"));
+
+var _dropdown2 = _interopRequireDefault(__webpack_require__("c190"));
+
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
+
+var _pluckProps = _interopRequireDefault(__webpack_require__("9c97"));
 
 var _html = __webpack_require__("be11");
 
-// @vue/component
-var _default = {
-  name: 'BNavItemDropdown',
-  mixins: [_id.default, _dropdown.default],
-  props: {
-    noCaret: {
-      type: Boolean,
-      default: false
-    },
-    extraToggleClasses: {
-      // Extra Toggle classes
-      type: String,
-      default: ''
-    },
-    extraMenuClasses: {
-      // Extra Menu classes
-      type: String,
-      default: ''
-    },
-    role: {
-      type: String,
-      default: 'menu'
-    }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// -- Constants --
+var props = _objectSpread({}, (0, _pluckProps.default)(['menuClass', 'toggleClass', 'noCaret', 'role'], _dropdown.props), {
+  extraMenuClasses: {
+    type: String,
+    default: '',
+    // `deprecated` -> Don't use this prop
+    // `deprecation` -> Refers to a change in prop usage
+    deprecated: 'Setting prop "extra-menu-classes" is deprecated. Use "menu-class" prop instead.'
   },
+  extraToggleClasses: {
+    type: String,
+    default: '',
+    // `deprecated` -> Don't use this prop
+    // `deprecation` -> Refers to a change in prop usage
+    deprecated: 'Setting prop "extra-toggle-classes" is deprecated. Use "toggle-class" prop instead.'
+  } // @vue/component
+
+});
+
+exports.props = props;
+
+var _default = _vue.default.extend({
+  name: 'BNavItemDropdown',
+  mixins: [_id.default, _dropdown2.default, _normalizeSlot.default],
+  props: props,
   computed: {
     isNav: function isNav() {
       // Signal to dropdown mixin that we are in a navbar
       return true;
     },
     dropdownClasses: function dropdownClasses() {
-      return ['nav-item', 'b-nav-dropdown', 'dropdown', this.dropup ? 'dropup' : '', this.visible ? 'show' : ''];
-    },
-    toggleClasses: function toggleClasses() {
-      return ['nav-link', this.noCaret ? '' : 'dropdown-toggle', this.disabled ? 'disabled' : '', this.extraToggleClasses ? this.extraToggleClasses : ''];
+      return [this.directionClass, {
+        show: this.visible
+      }];
     },
     menuClasses: function menuClasses() {
-      return ['dropdown-menu', this.right ? 'dropdown-menu-right' : 'dropdown-menu-left', this.visible ? 'show' : '', this.extraMenuClasses ? this.extraMenuClasses : ''];
+      return [this.extraMenuClasses, // Deprecated
+      this.menuClass, {
+        'dropdown-menu-right': this.right,
+        show: this.visible
+      }];
+    },
+    toggleClasses: function toggleClasses() {
+      return [this.extraToggleClasses, // Deprecated
+      this.toggleClass, {
+        disabled: this.disabled,
+        'dropdown-toggle-no-caret': this.noCaret
+      }];
     }
   },
   render: function render(h) {
-    var button = h('a', {
-      class: this.toggleClasses,
+    var button = h(_link.default, {
       ref: 'toggle',
-      attrs: {
+      staticClass: 'nav-link dropdown-toggle',
+      class: this.toggleClasses,
+      props: {
         href: '#',
+        disabled: this.disabled
+      },
+      attrs: {
         id: this.safeId('_BV_button_'),
-        disabled: this.disabled,
         'aria-haspopup': 'true',
-        'aria-expanded': this.visible ? 'true' : 'false'
+        'aria-expanded': String(this.visible)
       },
       on: {
         click: this.toggle,
@@ -18365,7 +20109,8 @@ var _default = {
     }, [this.$slots['button-content'] || this.$slots.text || h('span', {
       domProps: (0, _html.htmlOrText)(this.html, this.text)
     })]);
-    var menu = h('div', {
+    var menu = h('ul', {
+      staticClass: 'dropdown-menu',
       class: this.menuClasses,
       ref: 'menu',
       attrs: {
@@ -18373,19 +20118,22 @@ var _default = {
         'aria-labelledby': this.safeId('_BV_button_')
       },
       on: {
-        mouseover: this.onMouseOver,
-        keydown: this.onKeydown // tab, up, down, esc
+        keydown: this.onKeydown // up, down, esc
 
       }
-    }, [this.$slots.default]);
+    }, [this.normalizeSlot('default', {
+      hide: this.hide
+    })]);
     return h('li', {
+      staticClass: 'nav-item b-nav-dropdown dropdown',
+      class: this.dropdownClasses,
       attrs: {
         id: this.safeId()
-      },
-      class: this.dropdownClasses
+      }
     }, [button, menu]);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -18411,14 +20159,23 @@ module.exports = function (it) {
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _config = __webpack_require__("eb60");
 
 var _html = __webpack_require__("be11");
 
-var _container = __webpack_require__("1520");
+var _normalizeSlot = __webpack_require__("9de7");
+
+var _container = _interopRequireDefault(__webpack_require__("1520"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var NAME = 'BJumbotron';
 var props = {
   fluid: {
     type: Boolean,
@@ -18462,21 +20219,28 @@ var props = {
   },
   bgVariant: {
     type: String,
-    default: null
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'bgVariant');
+    }
   },
   borderVariant: {
     type: String,
-    default: null
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'borderVariant');
+    }
   },
   textVariant: {
     type: String,
-    default: null
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'textVariant');
+    }
   } // @vue/component
 
 };
 exports.props = props;
-var _default = {
-  name: 'BJumbotron',
+
+var _default2 = _vue.default.extend({
+  name: NAME,
   functional: true,
   props: props,
   render: function render(h, _ref) {
@@ -18484,28 +20248,30 @@ var _default = {
 
     var props = _ref.props,
         data = _ref.data,
-        slots = _ref.slots;
+        slots = _ref.slots,
+        scopedSlots = _ref.scopedSlots;
     // The order of the conditionals matter.
     // We are building the component markup in order.
     var childNodes = [];
-    var $slots = slots(); // Header
+    var $slots = slots();
+    var $scopedSlots = scopedSlots || {}; // Header
 
-    if (props.header || $slots.header || props.headerHtml) {
+    if (props.header || (0, _normalizeSlot.hasNormalizedSlot)('header', $scopedSlots, $slots) || props.headerHtml) {
       childNodes.push(h(props.headerTag, {
         class: _defineProperty({}, "display-".concat(props.headerLevel), Boolean(props.headerLevel))
-      }, $slots.header || props.headerHtml || (0, _html.stripTags)(props.header)));
+      }, (0, _normalizeSlot.normalizeSlot)('header', {}, $scopedSlots, $slots) || props.headerHtml || (0, _html.stripTags)(props.header)));
     } // Lead
 
 
-    if (props.lead || $slots.lead || props.leadHtml) {
+    if (props.lead || (0, _normalizeSlot.hasNormalizedSlot)('lead', $scopedSlots, $slots) || props.leadHtml) {
       childNodes.push(h(props.leadTag, {
         staticClass: 'lead'
-      }, $slots.lead || props.leadHtml || (0, _html.stripTags)(props.lead)));
+      }, (0, _normalizeSlot.normalizeSlot)('lead', {}, $scopedSlots, $slots) || props.leadHtml || (0, _html.stripTags)(props.lead)));
     } // Default slot
 
 
-    if ($slots.default) {
-      childNodes.push($slots.default);
+    if ((0, _normalizeSlot.hasNormalizedSlot)('default', $scopedSlots, $slots)) {
+      childNodes.push((0, _normalizeSlot.normalizeSlot)('default', {}, $scopedSlots, $slots));
     } // If fluid, wrap content in a container/container-fluid
 
 
@@ -18526,8 +20292,9 @@ var _default = {
       }, _defineProperty(_class2, "text-".concat(props.textVariant), Boolean(props.textVariant)), _defineProperty(_class2, "bg-".concat(props.bgVariant), Boolean(props.bgVariant)), _defineProperty(_class2, "border-".concat(props.borderVariant), Boolean(props.borderVariant)), _defineProperty(_class2, "border", Boolean(props.borderVariant)), _class2)
     }), childNodes);
   }
-};
-exports.default = _default;
+});
+
+exports.default = _default2;
 
 /***/ }),
 
@@ -18540,21 +20307,22 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
 var _config = __webpack_require__("eb60");
 
+var _inspect = __webpack_require__("0d5a");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+// --- Constants --
 var NAME = 'BImg'; // Blank image with fill template
 
 var BLANK_TEMPLATE = '<svg width="%{w}" height="%{h}" ' + 'xmlns="http://www.w3.org/2000/svg" ' + 'viewBox="0 0 %{w} %{h}" preserveAspectRatio="none">' + '<rect width="100%" height="100%" style="fill:%{f};"></rect>' + '</svg>';
-
-function makeBlankImgSrc(width, height, color) {
-  var src = encodeURIComponent(BLANK_TEMPLATE.replace('%{w}', String(width)).replace('%{h}', String(height)).replace('%{f}', color));
-  return "data:image/svg+xml;charset=UTF-8,".concat(src);
-}
-
 var props = {
   src: {
     type: String,
@@ -18623,11 +20391,18 @@ var props = {
     default: function _default() {
       return (0, _config.getComponentConfig)(NAME, 'blankColor');
     }
-  } // @vue/component
+  } // --- Helper methods ---
 
 };
 exports.props = props;
-var _default2 = {
+
+function makeBlankImgSrc(width, height, color) {
+  var src = encodeURIComponent(BLANK_TEMPLATE.replace('%{w}', String(width)).replace('%{h}', String(height)).replace('%{f}', color));
+  return "data:image/svg+xml;charset=UTF-8,".concat(src);
+} // @vue/component
+
+
+var _default2 = _vue.default.extend({
   name: 'BImg',
   functional: true,
   props: props,
@@ -18679,10 +20454,11 @@ var _default2 = {
         'img-fluid': props.fluid || props.fluidGrow,
         'w-100': props.fluidGrow,
         rounded: props.rounded === '' || props.rounded === true
-      }, _defineProperty(_class, "rounded-".concat(props.rounded), typeof props.rounded === 'string' && props.rounded !== ''), _defineProperty(_class, align, Boolean(align)), _defineProperty(_class, 'd-block', block), _class)
+      }, _defineProperty(_class, "rounded-".concat(props.rounded), (0, _inspect.isString)(props.rounded) && props.rounded !== ''), _defineProperty(_class, align, Boolean(align)), _defineProperty(_class, 'd-block', block), _class)
     }));
   }
-};
+});
+
 exports.default = _default2;
 
 /***/ }),
@@ -18696,41 +20472,50 @@ exports.default = _default2;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
-var props = {
-  tag: {
-    type: String,
-    default: 'ul'
-  },
-  fill: {
-    type: Boolean,
-    default: false
-  },
-  justified: {
-    type: Boolean,
-    default: false
-  } // @vue/component
+var _pluckProps = _interopRequireDefault(__webpack_require__("9c97"));
 
-};
+var _nav = __webpack_require__("92e4");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// -- Constants --
+var props = (0, _pluckProps.default)(['tag', 'fill', 'justified', 'align', 'small'], _nav.props); // -- Utils --
+
 exports.props = props;
-var _default = {
+
+var computeJustifyContent = function computeJustifyContent(value) {
+  // Normalize value
+  value = value === 'left' ? 'start' : value === 'right' ? 'end' : value;
+  return "justify-content-".concat(value);
+}; // @vue/component
+
+
+var _default = _vue.default.extend({
   name: 'BNavbarNav',
   functional: true,
   props: props,
   render: function render(h, _ref) {
+    var _class;
+
     var props = _ref.props,
         data = _ref.data,
         children = _ref.children;
     return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
       staticClass: 'navbar-nav',
-      class: {
+      class: (_class = {
         'nav-fill': props.fill,
         'nav-justified': props.justified
-      }
+      }, _defineProperty(_class, computeJustifyContent(props.align), props.align), _defineProperty(_class, "small", props.small), _class)
     }), children);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -18742,39 +20527,39 @@ exports.default = _default;
 
 
 exports.__esModule = true;
-exports.default = normalizeFields;
+exports.default = void 0;
 
-var _startcase = __webpack_require__("3098");
+var _startcase = _interopRequireDefault(__webpack_require__("3098"));
+
+var _inspect = __webpack_require__("0d5a");
 
 var _object = __webpack_require__("24e2");
 
-var _array = __webpack_require__("bb2f");
-
 var _constants = __webpack_require__("3ed8");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-// private function to massage field entry into common object format
-function processField(key, value) {
+// Private function to massage field entry into common object format
+var processField = function processField(key, value) {
   var field = null;
 
-  if (typeof value === 'string') {
+  if ((0, _inspect.isString)(value)) {
     // Label shortcut
     field = {
       key: key,
       label: value
     };
-  } else if (typeof value === 'function') {
+  } else if ((0, _inspect.isFunction)(value)) {
     // Formatter shortcut
     field = {
       key: key,
       formatter: value
     };
-  } else if (_typeof(value) === 'object') {
+  } else if ((0, _inspect.isObject)(value)) {
     field = _objectSpread({}, value);
     field.key = field.key || key;
   } else if (value !== false) {
@@ -18787,27 +20572,27 @@ function processField(key, value) {
   }
 
   return field;
-} // We normalize fields into an array of objects
+}; // We normalize fields into an array of objects
 // [ { key:..., label:..., ...}, {...}, ..., {..}]
 
 
-function normalizeFields(origFields, items) {
+var normalizeFields = function normalizeFields(origFields, items) {
   var fields = [];
 
-  if ((0, _array.isArray)(origFields)) {
+  if ((0, _inspect.isArray)(origFields)) {
     // Normalize array Form
     origFields.filter(function (f) {
       return f;
     }).forEach(function (f) {
-      if (typeof f === 'string') {
+      if ((0, _inspect.isString)(f)) {
         fields.push({
           key: f,
           label: (0, _startcase.default)(f)
         });
-      } else if (_typeof(f) === 'object' && f.key && typeof f.key === 'string') {
+      } else if ((0, _inspect.isObject)(f) && f.key && (0, _inspect.isString)(f.key)) {
         // Full object definition. We use assign so that we don't mutate the original
         fields.push(_objectSpread({}, f));
-      } else if (_typeof(f) === 'object' && (0, _object.keys)(f).length === 1) {
+      } else if ((0, _inspect.isObject)(f) && (0, _object.keys)(f).length === 1) {
         // Shortcut object (i.e. { 'foo_bar': 'This is Foo Bar' }
         var key = (0, _object.keys)(f)[0];
         var field = processField(key, f[key]);
@@ -18817,7 +20602,7 @@ function normalizeFields(origFields, items) {
         }
       }
     });
-  } else if (origFields && _typeof(origFields) === 'object' && (0, _object.keys)(origFields).length > 0) {
+  } else if (origFields && (0, _inspect.isObject)(origFields) && (0, _object.keys)(origFields).length > 0) {
     // Normalize object Form (deprecated)
     (0, _object.keys)(origFields).forEach(function (key) {
       var field = processField(key, origFields[key]);
@@ -18829,7 +20614,7 @@ function normalizeFields(origFields, items) {
   } // If no field provided, take a sample from first record (if exits)
 
 
-  if (fields.length === 0 && (0, _array.isArray)(items) && items.length > 0) {
+  if (fields.length === 0 && (0, _inspect.isArray)(items) && items.length > 0) {
     var sample = items[0];
     (0, _object.keys)(sample).forEach(function (k) {
       if (!_constants.IGNORED_FIELD_KEYS[k]) {
@@ -18846,13 +20631,16 @@ function normalizeFields(origFields, items) {
   return fields.filter(function (f) {
     if (!memo[f.key]) {
       memo[f.key] = true;
-      f.label = typeof f.label === 'string' ? f.label : (0, _startcase.default)(f.key);
+      f.label = (0, _inspect.isString)(f.label) ? f.label : (0, _startcase.default)(f.key);
       return true;
     }
 
     return false;
   });
-}
+};
+
+var _default = normalizeFields;
+exports.default = _default;
 
 /***/ }),
 
@@ -18863,22 +20651,33 @@ function normalizeFields(origFields, items) {
 
 
 exports.__esModule = true;
-exports.propsFactory = propsFactory;
-exports.pickLinkProps = pickLinkProps;
-exports.omitLinkProps = omitLinkProps;
-exports.default = exports.props = void 0;
+exports.default = exports.omitLinkProps = exports.pickLinkProps = exports.props = exports.propsFactory = void 0;
 
-var _object = __webpack_require__("24e2");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
 var _array = __webpack_require__("bb2f");
 
+var _inspect = __webpack_require__("0d5a");
+
+var _object = __webpack_require__("24e2");
+
 var _router = __webpack_require__("185a");
 
-var _vueFunctionalDataMerge = __webpack_require__("b42e");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 /**
  * The Link component is used in many other BV components.
@@ -18890,7 +20689,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * https://github.com/vuejs/vue-router/blob/dev/src/components/link.js
  * @return {{}}
  */
-function propsFactory() {
+var propsFactory = function propsFactory() {
   return {
     href: {
       type: String,
@@ -18951,13 +20750,15 @@ function propsFactory() {
       default: false
     }
   };
-}
+};
 
-var props = propsFactory(); // Return a fresh copy of BLink props, containing only the specifeid prop(s)
+exports.propsFactory = propsFactory;
+var props = propsFactory(); // Return a fresh copy of <b-link> props
+// Containing only the specified prop(s)
 
 exports.props = props;
 
-function pickLinkProps(propsToPick) {
+var pickLinkProps = function pickLinkProps(propsToPick) {
   var freshLinkProps = propsFactory(); // Normalize everything to array.
 
   propsToPick = (0, _array.concat)(propsToPick);
@@ -18968,10 +20769,13 @@ function pickLinkProps(propsToPick) {
 
     return memo;
   }, {});
-} // Return a fresh copy of BLink props, keeping all but the specified omitting prop(s)
+}; // Return a fresh copy of <b-link> props
+// Keeping all but the specified omitting prop(s)
 
 
-function omitLinkProps(propsToOmit) {
+exports.pickLinkProps = pickLinkProps;
+
+var omitLinkProps = function omitLinkProps(propsToOmit) {
   var freshLinkProps = propsFactory(); // Normalize everything to array.
 
   propsToOmit = (0, _array.concat)(propsToOmit);
@@ -18982,31 +20786,40 @@ function omitLinkProps(propsToOmit) {
 
     return memo;
   }, {});
-}
+};
 
-function clickHandlerFactory(_ref) {
+exports.omitLinkProps = omitLinkProps;
+
+var clickHandlerFactory = function clickHandlerFactory(_ref) {
   var disabled = _ref.disabled,
       tag = _ref.tag,
       href = _ref.href,
       suppliedHandler = _ref.suppliedHandler,
       parent = _ref.parent;
   return function onClick(evt) {
+    var _arguments = arguments;
+
     if (disabled && evt instanceof Event) {
       // Stop event from bubbling up.
       evt.stopPropagation(); // Kill the event loop attached to this specific EventTarget.
+      // Needed to prevent vue-router for doing its thing
 
       evt.stopImmediatePropagation();
     } else {
       if ((0, _router.isRouterLink)(tag) && evt.target.__vue__) {
         // Router links do not emit instance 'click' events, so we
         // add in an $emit('click', evt) on it's vue instance
+
+        /* istanbul ignore next: difficult to test, but we know it works */
         evt.target.__vue__.$emit('click', evt);
-      }
+      } // Call the suppliedHandler(s), if any provided
 
-      if (typeof suppliedHandler === 'function') {
-        suppliedHandler.apply(void 0, arguments);
-      }
 
+      (0, _array.concat)(suppliedHandler).filter(function (h) {
+        return (0, _inspect.isFunction)(h);
+      }).forEach(function (handler) {
+        handler.apply(void 0, _toConsumableArray(_arguments));
+      });
       parent.$root.$emit('clicked::link', evt);
     }
 
@@ -19016,10 +20829,10 @@ function clickHandlerFactory(_ref) {
       evt.preventDefault();
     }
   };
-} // @vue/component
+}; // @vue/component
 
 
-var _default = {
+var _default = _vue.default.extend({
   name: 'BLink',
   functional: true,
   props: propsFactory(),
@@ -19061,6 +20874,9 @@ var _default = {
 
     if (href) {
       componentData.attrs.href = href;
+    } else {
+      // Ensure the prop HREF does not exist for router links
+      delete componentData.props.href;
     } // We want to overwrite any click handler since our callback
     // will invoke the user supplied handler if !props.disabled
 
@@ -19068,7 +20884,301 @@ var _default = {
     componentData[eventType] = _objectSpread({}, componentData[eventType] || {}, handlers);
     return h(tag, componentData, children);
   }
+});
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "4eb8":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.DefaultTransition = exports.props = void 0;
+
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
+var _portalVue = __webpack_require__("2b88");
+
+var _warn = _interopRequireDefault(__webpack_require__("93e0"));
+
+var _config = __webpack_require__("eb60");
+
+var _dom = __webpack_require__("1611");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// --- Constants ---
+var NAME = 'BToaster';
+var props = {
+  name: {
+    type: String,
+    required: true
+  },
+  ariaLive: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'ariaLive');
+    }
+  },
+  ariaAtomic: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'ariaAtomic');
+    } // Allowed: 'true' or 'false'
+
+  },
+  role: {
+    // Aria role
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'role');
+    }
+    /*
+    transition: {
+      type: [Boolean, String, Object],
+      default: false
+    }
+    */
+
+  } // @vue/component
+
 };
+exports.props = props;
+
+var DefaultTransition = _vue.default.extend({
+  data: function data() {
+    return {
+      // Transition classes base name
+      name: 'b-toaster'
+    };
+  },
+  methods: {
+    onAfterEnter: function onAfterEnter(el) {
+      var _this = this;
+
+      // Handle bug where enter-to class is not removed.
+      // Bug is related to portal-vue and transition-groups.
+      (0, _dom.requestAF)(function () {
+        (0, _dom.removeClass)(el, "".concat(_this.name, "-enter-to")); // The *-move class is also stuck on elements that moved,
+        // but there are no javascript hooks to handle after move.
+      });
+    }
+  },
+  render: function render(h) {
+    return h('transition-group', {
+      props: {
+        tag: 'div',
+        name: this.name
+      },
+      on: {
+        afterEnter: this.onAfterEnter
+      }
+    }, this.$slots.default);
+  }
+}); // @vue/component
+
+
+exports.DefaultTransition = DefaultTransition;
+
+var _default2 = _vue.default.extend({
+  name: NAME,
+  props: props,
+  data: function data() {
+    return {
+      // We don't render on SSR or if a an existing target found
+      doRender: false,
+      dead: false,
+      // Toaster names cannot change once created
+      staticName: this.name
+    };
+  },
+  beforeMount: function beforeMount() {
+    var _this2 = this;
+
+    this.staticName = this.name;
+    /* istanbul ignore if */
+
+    if (_portalVue.Wormhole.hasTarget(this.staticName)) {
+      (0, _warn.default)("b-toaster: A <portal-target> with name '".concat(this.name, "' already exists in the document."));
+      this.dead = true;
+    } else {
+      this.doRender = true;
+      this.$once('hook:beforeDestroy', function () {
+        // Let toasts made with `this.$bvToast.toast()` know that this toaster
+        // is being destroyed and should should also destroy/hide themselves
+        _this2.$root.$emit('bv::toaster::destroyed', _this2.staticName);
+      });
+    }
+  },
+  destroyed: function destroyed() {
+    // Remove from DOM if needed
+
+    /* istanbul ignore next: difficult to test */
+    if (this.$el && this.$el.parentNode) {
+      this.$el.parentNode.removeChild(this.$el);
+    }
+  },
+  render: function render(h) {
+    var $toaster = h('div', {
+      class: ['d-none', {
+        'b-dead-toaster': this.dead
+      }]
+    });
+
+    if (this.doRender) {
+      var $target = h(_portalVue.PortalTarget, {
+        staticClass: 'b-toaster-slot',
+        attrs: {
+          role: this.role || null,
+          // fallback to null to make sure attribute doesn't exist
+          'aria-live': this.ariaLive,
+          'aria-atomic': this.ariaAtomic
+        },
+        props: {
+          name: this.staticName,
+          multiple: true,
+          tag: 'div',
+          slim: false,
+          // transition: this.transition || DefaultTransition
+          transition: DefaultTransition
+        }
+      });
+      $toaster = h('div', {
+        staticClass: 'b-toaster',
+        class: [this.staticName],
+        attrs: {
+          id: this.staticName
+        }
+      }, [$target]);
+    }
+
+    return $toaster;
+  }
+});
+
+exports.default = _default2;
+
+/***/ }),
+
+/***/ "4ee1":
+/***/ (function(module, exports, __webpack_require__) {
+
+var ITERATOR = __webpack_require__("5168")('iterator');
+var SAFE_CLOSING = false;
+
+try {
+  var riter = [7][ITERATOR]();
+  riter['return'] = function () { SAFE_CLOSING = true; };
+  // eslint-disable-next-line no-throw-literal
+  Array.from(riter, function () { throw 2; });
+} catch (e) { /* empty */ }
+
+module.exports = function (exec, skipClosing) {
+  if (!skipClosing && !SAFE_CLOSING) return false;
+  var safe = false;
+  try {
+    var arr = [7];
+    var iter = arr[ITERATOR]();
+    iter.next = function () { return { done: safe = true }; };
+    arr[ITERATOR] = function () { return iter; };
+    exec(arr);
+  } catch (e) { /* empty */ }
+  return safe;
+};
+
+
+/***/ }),
+
+/***/ "4f66":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
+var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _normalizeSlot = __webpack_require__("9de7");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var props = {
+  id: {
+    type: String,
+    default: null
+  },
+  header: {
+    type: String,
+    default: null
+  },
+  headerTag: {
+    type: String,
+    default: 'header'
+  },
+  headerVariant: {
+    type: String,
+    default: null
+  },
+  headerClasses: {
+    type: [String, Array, Object],
+    default: null
+  },
+  ariaDescribedby: {
+    type: String,
+    default: null
+  } // @vue/component
+
+};
+exports.props = props;
+
+var _default = _vue.default.extend({
+  name: 'BDropdownGroup',
+  functional: true,
+  inheritAttrs: false,
+  props: props,
+  render: function render(h, _ref) {
+    var props = _ref.props,
+        data = _ref.data,
+        slots = _ref.slots,
+        scopedSlots = _ref.scopedSlots;
+    var $slots = slots();
+    var $scopedSlots = scopedSlots || {};
+    var header;
+    var headerId = null;
+
+    if ((0, _normalizeSlot.hasNormalizedSlot)('header', $scopedSlots, $slots) || props.header) {
+      headerId = props.id ? "_bv_".concat(props.id, "_group_dd_header") : null;
+      header = h(props.headerTag, {
+        staticClass: 'dropdown-header',
+        class: [props.headerClasses, _defineProperty({}, "text-".concat(props.variant), props.variant)],
+        attrs: {
+          id: headerId,
+          role: 'heading'
+        }
+      }, (0, _normalizeSlot.normalizeSlot)('header', {}, $scopedSlots, $slots) || props.header);
+    }
+
+    var adb = [headerId, props.ariaDescribedBy].filter(Boolean).join(' ').trim();
+    return h('li', [header || h(false), h('ul', (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'list-unstyled',
+      attrs: {
+        id: props.id || null,
+        'aria-describedby': adb || null
+      }
+    }), (0, _normalizeSlot.normalizeSlot)('default', {}, $scopedSlots, $slots))]);
+  }
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -19082,10 +21192,15 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 // @vue/component
 var _default = {
+  mixins: [_normalizeSlot.default],
   model: {
     prop: 'checked',
     event: 'input'
@@ -19118,6 +21233,11 @@ var _default = {
       default: null
     },
     ariaLabel: {
+      // Placed on the input if present.
+      type: String,
+      default: null
+    },
+    ariaLabelledby: {
       // Placed on the input if present.
       type: String,
       default: null
@@ -19235,7 +21355,7 @@ var _default = {
     }
   },
   render: function render(h) {
-    var defaultSlot = this.$slots.default; // Generate the input element
+    var defaultSlot = this.normalizeSlot('default'); // Generate the input element
 
     var on = {
       change: this.handleChange
@@ -19273,7 +21393,8 @@ var _default = {
         required: this.is_Required,
         autocomplete: 'off',
         'aria-required': this.is_Required || null,
-        'aria-label': this.ariaLabel || null
+        'aria-label': this.ariaLabel || null,
+        'aria-labelledby': this.ariaLabelledby || null
       },
       domProps: {
         value: this.value,
@@ -19407,23 +21528,84 @@ exports.default = _default;
 
 
 exports.__esModule = true;
-exports.default = void 0;
+exports.default = exports.props = void 0;
 
-var _img = __webpack_require__("4c76");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
 
-var _id = __webpack_require__("eae0");
+var _img = _interopRequireDefault(__webpack_require__("4c76"));
+
+var _id = _interopRequireDefault(__webpack_require__("eae0"));
+
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
 
 var _env = __webpack_require__("4565");
 
 var _html = __webpack_require__("be11");
 
-// @vue/component
-var _default2 = {
-  name: 'BCarouselSlide',
-  components: {
-    BImg: _img.default
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var props = {
+  imgSrc: {
+    type: String // default: undefined
+
   },
-  mixins: [_id.default],
+  imgAlt: {
+    type: String // default: undefined
+
+  },
+  imgWidth: {
+    type: [Number, String] // default: undefined
+
+  },
+  imgHeight: {
+    type: [Number, String] // default: undefined
+
+  },
+  imgBlank: {
+    type: Boolean,
+    default: false
+  },
+  imgBlankColor: {
+    type: String,
+    default: 'transparent'
+  },
+  contentVisibleUp: {
+    type: String
+  },
+  contentTag: {
+    type: String,
+    default: 'div'
+  },
+  caption: {
+    type: String
+  },
+  captionHtml: {
+    type: String
+  },
+  captionTag: {
+    type: String,
+    default: 'h3'
+  },
+  text: {
+    type: String
+  },
+  textHtml: {
+    type: String
+  },
+  textTag: {
+    type: String,
+    default: 'p'
+  },
+  background: {
+    type: String
+  } // @vue/component
+
+};
+exports.props = props;
+
+var _default2 = _vue.default.extend({
+  name: 'BCarouselSlide',
+  mixins: [_id.default, _normalizeSlot.default],
   inject: {
     bvCarousel: {
       default: function _default() {
@@ -19434,62 +21616,7 @@ var _default2 = {
       }
     }
   },
-  props: {
-    imgSrc: {
-      type: String // default: undefined
-
-    },
-    imgAlt: {
-      type: String // default: undefined
-
-    },
-    imgWidth: {
-      type: [Number, String] // default: undefined
-
-    },
-    imgHeight: {
-      type: [Number, String] // default: undefined
-
-    },
-    imgBlank: {
-      type: Boolean,
-      default: false
-    },
-    imgBlankColor: {
-      type: String,
-      default: 'transparent'
-    },
-    contentVisibleUp: {
-      type: String
-    },
-    contentTag: {
-      type: String,
-      default: 'div'
-    },
-    caption: {
-      type: String
-    },
-    captionHtml: {
-      type: String
-    },
-    captionTag: {
-      type: String,
-      default: 'h3'
-    },
-    text: {
-      type: String
-    },
-    textHtml: {
-      type: String
-    },
-    textTag: {
-      type: String,
-      default: 'p'
-    },
-    background: {
-      type: String
-    }
-  },
+  props: props,
   data: function data() {
     return {};
   },
@@ -19507,12 +21634,11 @@ var _default2 = {
     }
   },
   render: function render(h) {
-    var $slots = this.$slots;
     var noDrag = !this.bvCarousel.noTouch && _env.hasTouchSupport;
-    var img = $slots.img;
+    var img = this.normalizeSlot('img');
 
     if (!img && (this.imgSrc || this.imgBlank)) {
-      img = h('b-img', {
+      img = h(_img.default, {
         props: {
           fluidGrow: true,
           block: true,
@@ -19544,7 +21670,7 @@ var _default2 = {
       domProps: (0, _html.htmlOrText)(this.captionHtml, this.caption)
     }) : h(false), this.text || this.textHtml ? h(this.textTag, {
       domProps: (0, _html.htmlOrText)(this.textHtml, this.text)
-    }) : h(false), $slots.default]);
+    }) : h(false), this.normalizeSlot('default')]);
     return h('div', {
       staticClass: 'carousel-item',
       style: {
@@ -19556,8 +21682,36 @@ var _default2 = {
       }
     }, [img, content]);
   }
-};
+});
+
 exports.default = _default2;
+
+/***/ }),
+
+/***/ "5168":
+/***/ (function(module, exports, __webpack_require__) {
+
+var store = __webpack_require__("dbdb")('wks');
+var uid = __webpack_require__("62a0");
+var Symbol = __webpack_require__("e53d").Symbol;
+var USE_SYMBOL = typeof Symbol == 'function';
+
+var $exports = module.exports = function (name) {
+  return store[name] || (store[name] =
+    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
+};
+
+$exports.store = store;
+
+
+/***/ }),
+
+/***/ "51b6":
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__("a3c3");
+module.exports = __webpack_require__("584a").Object.assign;
+
 
 /***/ }),
 
@@ -19570,12 +21724,18 @@ exports.default = _default2;
 exports.__esModule = true;
 exports.default = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
-var _breadcrumbLink = __webpack_require__("12d3");
+var _breadcrumbLink = _interopRequireWildcard(__webpack_require__("12d3"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // @vue/component
-var _default = {
+var _default = _vue.default.extend({
   name: 'BBreadcrumbItem',
   functional: true,
   props: _breadcrumbLink.props,
@@ -19587,15 +21747,13 @@ var _default = {
       staticClass: 'breadcrumb-item',
       class: {
         active: props.active
-      },
-      attrs: {
-        role: 'presentation'
       }
     }), [h(_breadcrumbLink.default, {
       props: props
     }, children)]);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -19625,18 +21783,83 @@ var _default = {
   methods: {
     hasNormalizedSlot: function hasNormalizedSlot(name) {
       // Returns true if the either a $scopedSlot or $slot exists with the specified name
-      return Boolean(this.$scopedSlots[name] || this.$slots[name]);
+      return (0, _normalizeSlot2.hasNormalizedSlot)(name, this.$scopedSlots, this.$slots);
     },
     normalizeSlot: function normalizeSlot(name) {
       var scope = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       // Returns an array of rendered vNodes if slot found.
       // Returns undefined if not found.
-      var vNodes = (0, _normalizeSlot2.default)(name, scope, this.$scopedSlots, this.$slots);
+      var vNodes = (0, _normalizeSlot2.normalizeSlot)(name, scope, this.$scopedSlots, this.$slots);
       return vNodes ? (0, _array.concat)(vNodes) : vNodes;
     }
   }
 };
 exports.default = _default;
+
+/***/ }),
+
+/***/ "53e2":
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
+var has = __webpack_require__("07e3");
+var toObject = __webpack_require__("241e");
+var IE_PROTO = __webpack_require__("5559")('IE_PROTO');
+var ObjectProto = Object.prototype;
+
+module.exports = Object.getPrototypeOf || function (O) {
+  O = toObject(O);
+  if (has(O, IE_PROTO)) return O[IE_PROTO];
+  if (typeof O.constructor == 'function' && O instanceof O.constructor) {
+    return O.constructor.prototype;
+  } return O instanceof Object ? ObjectProto : null;
+};
+
+
+/***/ }),
+
+/***/ "549b":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var ctx = __webpack_require__("d864");
+var $export = __webpack_require__("63b6");
+var toObject = __webpack_require__("241e");
+var call = __webpack_require__("b0dc");
+var isArrayIter = __webpack_require__("3702");
+var toLength = __webpack_require__("b447");
+var createProperty = __webpack_require__("20fd");
+var getIterFn = __webpack_require__("7cd6");
+
+$export($export.S + $export.F * !__webpack_require__("4ee1")(function (iter) { Array.from(iter); }), 'Array', {
+  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
+  from: function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
+    var O = toObject(arrayLike);
+    var C = typeof this == 'function' ? this : Array;
+    var aLen = arguments.length;
+    var mapfn = aLen > 1 ? arguments[1] : undefined;
+    var mapping = mapfn !== undefined;
+    var index = 0;
+    var iterFn = getIterFn(O);
+    var length, result, step, iterator;
+    if (mapping) mapfn = ctx(mapfn, aLen > 2 ? arguments[2] : undefined, 2);
+    // if object isn't iterable or it's array with default iterator - use simple case
+    if (iterFn != undefined && !(C == Array && isArrayIter(iterFn))) {
+      for (iterator = iterFn.call(O), result = new C(); !(step = iterator.next()).done; index++) {
+        createProperty(result, index, mapping ? call(iterator, mapfn, [step.value, index], true) : step.value);
+      }
+    } else {
+      length = toLength(O.length);
+      for (result = new C(length); length > index; index++) {
+        createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
+      }
+    }
+    result.length = index;
+    return result;
+  }
+});
+
 
 /***/ }),
 
@@ -19668,11 +21891,14 @@ var store = global[SHARED] || (global[SHARED] = {});
 exports.__esModule = true;
 exports.default = void 0;
 
+var _inspect = __webpack_require__("0d5a");
+
 /**
+ * Transform the first character to uppercase
  * @param {string} str
  */
 var upperFirst = function upperFirst(str) {
-  if (typeof str !== 'string') {
+  if (!(0, _inspect.isString)(str)) {
     str = String(str);
   }
 
@@ -19706,21 +21932,25 @@ module.exports = function (key) {
 exports.__esModule = true;
 exports.default = void 0;
 
-var _popper = __webpack_require__("f0bd");
+var _popper = _interopRequireDefault(__webpack_require__("6043"));
 
-var _popover = __webpack_require__("daa8");
+var _popover = _interopRequireDefault(__webpack_require__("daa8"));
+
+var _warn = _interopRequireDefault(__webpack_require__("93e0"));
+
+var _config = __webpack_require__("eb60");
 
 var _env = __webpack_require__("4565");
 
+var _inspect = __webpack_require__("0d5a");
+
 var _object = __webpack_require__("24e2");
 
-var _warn = __webpack_require__("93e0");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 // Key which we use to store tooltip object on element
 var BV_POPOVER = '__BV_PopOver__'; // Valid event triggers
@@ -19739,16 +21969,20 @@ var validTriggers = {
 var parseBindings = function parseBindings(bindings)
 /* istanbul ignore next: not easy to test */
 {
-  // We start out with a blank config
-  var config = {}; // Process bindings.value
+  // We start out with a basic config
+  var config = {
+    boundary: String((0, _config.getComponentConfig)('BPopover', 'boundary')),
+    boundaryPadding: parseInt((0, _config.getComponentConfig)('BPopover', 'boundaryPadding'), 10) || 0 // Process bindings.value
 
-  if (typeof bindings.value === 'string') {
+  };
+
+  if ((0, _inspect.isString)(bindings.value)) {
     // Value is popover content (html optionally supported)
     config.content = bindings.value;
-  } else if (typeof bindings.value === 'function') {
+  } else if ((0, _inspect.isFunction)(bindings.value)) {
     // Content generator function
     config.content = bindings.value;
-  } else if (_typeof(bindings.value) === 'object') {
+  } else if ((0, _inspect.isObject)(bindings.value)) {
     // Value is config object, so merge
     config = _objectSpread({}, config, bindings.value);
   } // If argument, assume element ID of container element
@@ -19771,7 +22005,7 @@ var parseBindings = function parseBindings(bindings)
     } else if (/^(auto|top(left|right)?|bottom(left|right)?|left(top|bottom)?|right(top|bottom)?)$/.test(mod)) {
       // placement of popover
       config.placement = mod;
-    } else if (/^(window|viewport)$/.test(mod)) {
+    } else if (/^(window|viewport|scrollParent)$/.test(mod)) {
       // Boundary of popover
       config.boundary = mod;
     } else if (/^d\d+$/.test(mod)) {
@@ -19794,7 +22028,7 @@ var parseBindings = function parseBindings(bindings)
 
   var selectedTriggers = {}; // Parse current config object trigger
 
-  var triggers = typeof config.trigger === 'string' ? config.trigger.trim().split(/\s+/) : [];
+  var triggers = (0, _inspect.isString)(config.trigger) ? config.trigger.trim().split(/\s+/) : [];
   triggers.forEach(function (trigger) {
     if (validTriggers[trigger]) {
       selectedTriggers[trigger] = true;
@@ -19824,7 +22058,7 @@ var parseBindings = function parseBindings(bindings)
 
 
 var applyPopover = function applyPopover(el, bindings, vnode) {
-  if (!_env.inBrowser) {
+  if (!_env.isBrowser) {
     /* istanbul ignore next */
     return;
   } // Popper is required for PopOvers to work
@@ -19914,7 +22148,13 @@ if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _inspect = __webpack_require__("0d5a");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -19934,7 +22174,8 @@ var props = {
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BListGroup',
   functional: true,
   props: props,
@@ -19949,11 +22190,12 @@ var _default = {
       class: _defineProperty({
         'list-group-flush': props.flush,
         'list-group-horizontal': horizontal === true
-      }, "list-group-horizontal-".concat(horizontal), typeof horizontal === 'string')
+      }, "list-group-horizontal-".concat(horizontal), (0, _inspect.isString)(horizontal))
     };
     return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, componentData), children);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -19967,18 +22209,27 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
-var _pluckProps = __webpack_require__("9c97");
+var _pluckProps = _interopRequireDefault(__webpack_require__("9c97"));
 
 var _array = __webpack_require__("bb2f");
 
-var _link = __webpack_require__("4e40");
+var _config = __webpack_require__("eb60");
+
+var _link = _interopRequireWildcard(__webpack_require__("4e40"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var NAME = 'BListGroupItem';
 var actionTags = ['a', 'router-link', 'button', 'b-link'];
 var linkProps = (0, _link.propsFactory)();
 delete linkProps.href.default;
@@ -19999,14 +22250,17 @@ var props = _objectSpread({
   },
   variant: {
     type: String,
-    default: null
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'variant');
+    }
   }
 }, linkProps); // @vue/component
 
 
 exports.props = props;
-var _default = {
-  name: 'BListGroupItem',
+
+var _default2 = _vue.default.extend({
+  name: NAME,
   functional: true,
   props: props,
   render: function render(h, _ref) {
@@ -20042,8 +22296,9 @@ var _default = {
     };
     return h(tag, (0, _vueFunctionalDataMerge.mergeData)(data, componentData), children);
   }
-};
-exports.default = _default;
+});
+
+exports.default = _default2;
 
 /***/ }),
 
@@ -20088,8 +22343,17 @@ exports.default = void 0;
 
 var _html = __webpack_require__("be11");
 
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
+
+var _formCheckbox = _interopRequireDefault(__webpack_require__("bdb1"));
+
+var _formRadio = _interopRequireDefault(__webpack_require__("2c38"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 // @vue/component
 var _default = {
+  mixins: [_normalizeSlot.default],
   model: {
     prop: 'checked',
     event: 'input'
@@ -20159,10 +22423,9 @@ var _default = {
   render: function render(h) {
     var _this = this;
 
-    var $slots = this.$slots;
     var inputs = this.formOptions.map(function (option, idx) {
       var uid = "_BV_option_".concat(idx, "_");
-      return h(_this.is_RadioGroup ? 'b-form-radio' : 'b-form-checkbox', {
+      return h(_this.is_RadioGroup ? _formRadio.default : _formCheckbox.default, {
         key: uid,
         props: {
           id: _this.safeId(uid),
@@ -20188,7 +22451,7 @@ var _default = {
         'aria-required': this.required ? 'true' : null,
         'aria-invalid': this.computedAriaInvalid
       }
-    }, [$slots.first, inputs, $slots.default]);
+    }, [this.normalizeSlot('first'), inputs, this.normalizeSlot('default')]);
   }
 };
 exports.default = _default;
@@ -20204,9 +22467,13 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _buttonToolbar = __webpack_require__("bb0c");
+var _buttonToolbar = _interopRequireDefault(__webpack_require__("bb0c"));
+
+exports.BButtonToolbar = _buttonToolbar.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BButtonToolbar: _buttonToolbar.default,
@@ -20280,9 +22547,13 @@ module.exports = $export;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
 var _array = __webpack_require__("bb2f");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -20320,7 +22591,8 @@ var props = {
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BRow',
   functional: true,
   props: props,
@@ -20337,7 +22609,8 @@ var _default = {
       }, _defineProperty(_class, "align-items-".concat(props.alignV), props.alignV), _defineProperty(_class, "justify-content-".concat(props.alignH), props.alignH), _defineProperty(_class, "align-content-".concat(props.alignContent), props.alignContent), _class)
     }), children);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -20367,6 +22640,14 @@ module.exports = function (that, target, C) {
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var props = {
@@ -20381,12 +22662,19 @@ var props = {
   disabled: {
     type: Boolean,
     default: false
+  },
+  variant: {
+    type: String,
+    default: null
   } // @vue/component
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BDropdownItemButton',
+  mixins: [_normalizeSlot.default],
+  inheritAttrs: false,
   inject: {
     bvDropdown: {
       default: null
@@ -20405,20 +22693,24 @@ var _default = {
     }
   },
   render: function render(h) {
-    return h('button', {
+    var _class;
+
+    return h('li', [h('button', {
       staticClass: 'dropdown-item',
-      class: _defineProperty({}, this.activeClass, this.active),
-      attrs: {
+      class: (_class = {}, _defineProperty(_class, this.activeClass, this.active), _defineProperty(_class, "text-".concat(this.variant), this.variant && !(this.active || this.disabled)), _class),
+      attrs: _objectSpread({}, this.$attrs, {
         role: 'menuitem',
         type: 'button',
         disabled: this.disabled
-      },
+      }),
       on: {
         click: this.onClick
-      }
-    }, this.$slots.default);
+      },
+      ref: 'button'
+    }, this.normalizeSlot('default'))]);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -20432,18 +22724,24 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _formOptions = __webpack_require__("461c");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
+var _formOptions = _interopRequireDefault(__webpack_require__("461c"));
+
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
 
 var _html = __webpack_require__("be11");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 // @vue/component
-var _default = {
+var _default = _vue.default.extend({
   name: 'BFormDatalist',
-  mixins: [_formOptions.default],
+  mixins: [_formOptions.default, _normalizeSlot.default],
   props: {
     id: {
       type: String,
@@ -20467,9 +22765,10 @@ var _default = {
       attrs: {
         id: this.id
       }
-    }, [options, this.$slots.default]);
+    }, [options, this.normalizeSlot('default')]);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -20519,9 +22818,15 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
 var _config = __webpack_require__("eb60");
+
+var _normalizeSlot = __webpack_require__("9de7");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -20545,7 +22850,8 @@ var props = {
   } // @vue/component
 
 };
-var _default2 = {
+
+var _default2 = _vue.default.extend({
   name: NAME,
   functional: true,
   props: props,
@@ -20553,7 +22859,10 @@ var _default2 = {
     var props = _ref.props,
         data = _ref.data,
         listeners = _ref.listeners,
-        slots = _ref.slots;
+        slots = _ref.slots,
+        scopedSlots = _ref.scopedSlots;
+    var $slots = slots();
+    var $scopedSlots = scopedSlots || {};
     var componentData = {
       staticClass: 'close',
       class: _defineProperty({}, "text-".concat(props.textVariant), props.textVariant),
@@ -20576,16 +22885,2631 @@ var _default2 = {
 
     };
 
-    if (!slots().default) {
+    if (!(0, _normalizeSlot.hasNormalizedSlot)('default', $scopedSlots, $slots)) {
       componentData.domProps = {
         innerHTML: '&times;'
       };
     }
 
-    return h('button', (0, _vueFunctionalDataMerge.mergeData)(data, componentData), slots().default);
+    return h('button', (0, _vueFunctionalDataMerge.mergeData)(data, componentData), (0, _normalizeSlot.normalizeSlot)('default', {}, $scopedSlots, $slots));
+  }
+});
+
+exports.default = _default2;
+
+/***/ }),
+
+/***/ "6043":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(global) {/**!
+ * @fileOverview Kickass library to create and place poppers near their reference elements.
+ * @version 1.15.0
+ * @license
+ * Copyright (c) 2016 Federico Zivolo and contributors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+var isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
+
+var longerTimeoutBrowsers = ['Edge', 'Trident', 'Firefox'];
+var timeoutDuration = 0;
+for (var i = 0; i < longerTimeoutBrowsers.length; i += 1) {
+  if (isBrowser && navigator.userAgent.indexOf(longerTimeoutBrowsers[i]) >= 0) {
+    timeoutDuration = 1;
+    break;
+  }
+}
+
+function microtaskDebounce(fn) {
+  var called = false;
+  return function () {
+    if (called) {
+      return;
+    }
+    called = true;
+    window.Promise.resolve().then(function () {
+      called = false;
+      fn();
+    });
+  };
+}
+
+function taskDebounce(fn) {
+  var scheduled = false;
+  return function () {
+    if (!scheduled) {
+      scheduled = true;
+      setTimeout(function () {
+        scheduled = false;
+        fn();
+      }, timeoutDuration);
+    }
+  };
+}
+
+var supportsMicroTasks = isBrowser && window.Promise;
+
+/**
+* Create a debounced version of a method, that's asynchronously deferred
+* but called in the minimum time possible.
+*
+* @method
+* @memberof Popper.Utils
+* @argument {Function} fn
+* @returns {Function}
+*/
+var debounce = supportsMicroTasks ? microtaskDebounce : taskDebounce;
+
+/**
+ * Check if the given variable is a function
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Any} functionToCheck - variable to check
+ * @returns {Boolean} answer to: is a function?
+ */
+function isFunction(functionToCheck) {
+  var getType = {};
+  return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+}
+
+/**
+ * Get CSS computed property of the given element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Eement} element
+ * @argument {String} property
+ */
+function getStyleComputedProperty(element, property) {
+  if (element.nodeType !== 1) {
+    return [];
+  }
+  // NOTE: 1 DOM access here
+  var window = element.ownerDocument.defaultView;
+  var css = window.getComputedStyle(element, null);
+  return property ? css[property] : css;
+}
+
+/**
+ * Returns the parentNode or the host of the element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Element} parent
+ */
+function getParentNode(element) {
+  if (element.nodeName === 'HTML') {
+    return element;
+  }
+  return element.parentNode || element.host;
+}
+
+/**
+ * Returns the scrolling parent of the given element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Element} scroll parent
+ */
+function getScrollParent(element) {
+  // Return body, `getScroll` will take care to get the correct `scrollTop` from it
+  if (!element) {
+    return document.body;
+  }
+
+  switch (element.nodeName) {
+    case 'HTML':
+    case 'BODY':
+      return element.ownerDocument.body;
+    case '#document':
+      return element.body;
+  }
+
+  // Firefox want us to check `-x` and `-y` variations as well
+
+  var _getStyleComputedProp = getStyleComputedProperty(element),
+      overflow = _getStyleComputedProp.overflow,
+      overflowX = _getStyleComputedProp.overflowX,
+      overflowY = _getStyleComputedProp.overflowY;
+
+  if (/(auto|scroll|overlay)/.test(overflow + overflowY + overflowX)) {
+    return element;
+  }
+
+  return getScrollParent(getParentNode(element));
+}
+
+var isIE11 = isBrowser && !!(window.MSInputMethodContext && document.documentMode);
+var isIE10 = isBrowser && /MSIE 10/.test(navigator.userAgent);
+
+/**
+ * Determines if the browser is Internet Explorer
+ * @method
+ * @memberof Popper.Utils
+ * @param {Number} version to check
+ * @returns {Boolean} isIE
+ */
+function isIE(version) {
+  if (version === 11) {
+    return isIE11;
+  }
+  if (version === 10) {
+    return isIE10;
+  }
+  return isIE11 || isIE10;
+}
+
+/**
+ * Returns the offset parent of the given element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Element} offset parent
+ */
+function getOffsetParent(element) {
+  if (!element) {
+    return document.documentElement;
+  }
+
+  var noOffsetParent = isIE(10) ? document.body : null;
+
+  // NOTE: 1 DOM access here
+  var offsetParent = element.offsetParent || null;
+  // Skip hidden elements which don't have an offsetParent
+  while (offsetParent === noOffsetParent && element.nextElementSibling) {
+    offsetParent = (element = element.nextElementSibling).offsetParent;
+  }
+
+  var nodeName = offsetParent && offsetParent.nodeName;
+
+  if (!nodeName || nodeName === 'BODY' || nodeName === 'HTML') {
+    return element ? element.ownerDocument.documentElement : document.documentElement;
+  }
+
+  // .offsetParent will return the closest TH, TD or TABLE in case
+  // no offsetParent is present, I hate this job...
+  if (['TH', 'TD', 'TABLE'].indexOf(offsetParent.nodeName) !== -1 && getStyleComputedProperty(offsetParent, 'position') === 'static') {
+    return getOffsetParent(offsetParent);
+  }
+
+  return offsetParent;
+}
+
+function isOffsetContainer(element) {
+  var nodeName = element.nodeName;
+
+  if (nodeName === 'BODY') {
+    return false;
+  }
+  return nodeName === 'HTML' || getOffsetParent(element.firstElementChild) === element;
+}
+
+/**
+ * Finds the root node (document, shadowDOM root) of the given element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} node
+ * @returns {Element} root node
+ */
+function getRoot(node) {
+  if (node.parentNode !== null) {
+    return getRoot(node.parentNode);
+  }
+
+  return node;
+}
+
+/**
+ * Finds the offset parent common to the two provided nodes
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element1
+ * @argument {Element} element2
+ * @returns {Element} common offset parent
+ */
+function findCommonOffsetParent(element1, element2) {
+  // This check is needed to avoid errors in case one of the elements isn't defined for any reason
+  if (!element1 || !element1.nodeType || !element2 || !element2.nodeType) {
+    return document.documentElement;
+  }
+
+  // Here we make sure to give as "start" the element that comes first in the DOM
+  var order = element1.compareDocumentPosition(element2) & Node.DOCUMENT_POSITION_FOLLOWING;
+  var start = order ? element1 : element2;
+  var end = order ? element2 : element1;
+
+  // Get common ancestor container
+  var range = document.createRange();
+  range.setStart(start, 0);
+  range.setEnd(end, 0);
+  var commonAncestorContainer = range.commonAncestorContainer;
+
+  // Both nodes are inside #document
+
+  if (element1 !== commonAncestorContainer && element2 !== commonAncestorContainer || start.contains(end)) {
+    if (isOffsetContainer(commonAncestorContainer)) {
+      return commonAncestorContainer;
+    }
+
+    return getOffsetParent(commonAncestorContainer);
+  }
+
+  // one of the nodes is inside shadowDOM, find which one
+  var element1root = getRoot(element1);
+  if (element1root.host) {
+    return findCommonOffsetParent(element1root.host, element2);
+  } else {
+    return findCommonOffsetParent(element1, getRoot(element2).host);
+  }
+}
+
+/**
+ * Gets the scroll value of the given element in the given side (top and left)
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @argument {String} side `top` or `left`
+ * @returns {number} amount of scrolled pixels
+ */
+function getScroll(element) {
+  var side = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'top';
+
+  var upperSide = side === 'top' ? 'scrollTop' : 'scrollLeft';
+  var nodeName = element.nodeName;
+
+  if (nodeName === 'BODY' || nodeName === 'HTML') {
+    var html = element.ownerDocument.documentElement;
+    var scrollingElement = element.ownerDocument.scrollingElement || html;
+    return scrollingElement[upperSide];
+  }
+
+  return element[upperSide];
+}
+
+/*
+ * Sum or subtract the element scroll values (left and top) from a given rect object
+ * @method
+ * @memberof Popper.Utils
+ * @param {Object} rect - Rect object you want to change
+ * @param {HTMLElement} element - The element from the function reads the scroll values
+ * @param {Boolean} subtract - set to true if you want to subtract the scroll values
+ * @return {Object} rect - The modifier rect object
+ */
+function includeScroll(rect, element) {
+  var subtract = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+  var scrollTop = getScroll(element, 'top');
+  var scrollLeft = getScroll(element, 'left');
+  var modifier = subtract ? -1 : 1;
+  rect.top += scrollTop * modifier;
+  rect.bottom += scrollTop * modifier;
+  rect.left += scrollLeft * modifier;
+  rect.right += scrollLeft * modifier;
+  return rect;
+}
+
+/*
+ * Helper to detect borders of a given element
+ * @method
+ * @memberof Popper.Utils
+ * @param {CSSStyleDeclaration} styles
+ * Result of `getStyleComputedProperty` on the given element
+ * @param {String} axis - `x` or `y`
+ * @return {number} borders - The borders size of the given axis
+ */
+
+function getBordersSize(styles, axis) {
+  var sideA = axis === 'x' ? 'Left' : 'Top';
+  var sideB = sideA === 'Left' ? 'Right' : 'Bottom';
+
+  return parseFloat(styles['border' + sideA + 'Width'], 10) + parseFloat(styles['border' + sideB + 'Width'], 10);
+}
+
+function getSize(axis, body, html, computedStyle) {
+  return Math.max(body['offset' + axis], body['scroll' + axis], html['client' + axis], html['offset' + axis], html['scroll' + axis], isIE(10) ? parseInt(html['offset' + axis]) + parseInt(computedStyle['margin' + (axis === 'Height' ? 'Top' : 'Left')]) + parseInt(computedStyle['margin' + (axis === 'Height' ? 'Bottom' : 'Right')]) : 0);
+}
+
+function getWindowSizes(document) {
+  var body = document.body;
+  var html = document.documentElement;
+  var computedStyle = isIE(10) && getComputedStyle(html);
+
+  return {
+    height: getSize('Height', body, html, computedStyle),
+    width: getSize('Width', body, html, computedStyle)
+  };
+}
+
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
   }
 };
-exports.default = _default2;
+
+var createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+
+
+
+
+var defineProperty = function (obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+};
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+/**
+ * Given element offsets, generate an output similar to getBoundingClientRect
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Object} offsets
+ * @returns {Object} ClientRect like output
+ */
+function getClientRect(offsets) {
+  return _extends({}, offsets, {
+    right: offsets.left + offsets.width,
+    bottom: offsets.top + offsets.height
+  });
+}
+
+/**
+ * Get bounding client rect of given element
+ * @method
+ * @memberof Popper.Utils
+ * @param {HTMLElement} element
+ * @return {Object} client rect
+ */
+function getBoundingClientRect(element) {
+  var rect = {};
+
+  // IE10 10 FIX: Please, don't ask, the element isn't
+  // considered in DOM in some circumstances...
+  // This isn't reproducible in IE10 compatibility mode of IE11
+  try {
+    if (isIE(10)) {
+      rect = element.getBoundingClientRect();
+      var scrollTop = getScroll(element, 'top');
+      var scrollLeft = getScroll(element, 'left');
+      rect.top += scrollTop;
+      rect.left += scrollLeft;
+      rect.bottom += scrollTop;
+      rect.right += scrollLeft;
+    } else {
+      rect = element.getBoundingClientRect();
+    }
+  } catch (e) {}
+
+  var result = {
+    left: rect.left,
+    top: rect.top,
+    width: rect.right - rect.left,
+    height: rect.bottom - rect.top
+  };
+
+  // subtract scrollbar size from sizes
+  var sizes = element.nodeName === 'HTML' ? getWindowSizes(element.ownerDocument) : {};
+  var width = sizes.width || element.clientWidth || result.right - result.left;
+  var height = sizes.height || element.clientHeight || result.bottom - result.top;
+
+  var horizScrollbar = element.offsetWidth - width;
+  var vertScrollbar = element.offsetHeight - height;
+
+  // if an hypothetical scrollbar is detected, we must be sure it's not a `border`
+  // we make this check conditional for performance reasons
+  if (horizScrollbar || vertScrollbar) {
+    var styles = getStyleComputedProperty(element);
+    horizScrollbar -= getBordersSize(styles, 'x');
+    vertScrollbar -= getBordersSize(styles, 'y');
+
+    result.width -= horizScrollbar;
+    result.height -= vertScrollbar;
+  }
+
+  return getClientRect(result);
+}
+
+function getOffsetRectRelativeToArbitraryNode(children, parent) {
+  var fixedPosition = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+  var isIE10 = isIE(10);
+  var isHTML = parent.nodeName === 'HTML';
+  var childrenRect = getBoundingClientRect(children);
+  var parentRect = getBoundingClientRect(parent);
+  var scrollParent = getScrollParent(children);
+
+  var styles = getStyleComputedProperty(parent);
+  var borderTopWidth = parseFloat(styles.borderTopWidth, 10);
+  var borderLeftWidth = parseFloat(styles.borderLeftWidth, 10);
+
+  // In cases where the parent is fixed, we must ignore negative scroll in offset calc
+  if (fixedPosition && isHTML) {
+    parentRect.top = Math.max(parentRect.top, 0);
+    parentRect.left = Math.max(parentRect.left, 0);
+  }
+  var offsets = getClientRect({
+    top: childrenRect.top - parentRect.top - borderTopWidth,
+    left: childrenRect.left - parentRect.left - borderLeftWidth,
+    width: childrenRect.width,
+    height: childrenRect.height
+  });
+  offsets.marginTop = 0;
+  offsets.marginLeft = 0;
+
+  // Subtract margins of documentElement in case it's being used as parent
+  // we do this only on HTML because it's the only element that behaves
+  // differently when margins are applied to it. The margins are included in
+  // the box of the documentElement, in the other cases not.
+  if (!isIE10 && isHTML) {
+    var marginTop = parseFloat(styles.marginTop, 10);
+    var marginLeft = parseFloat(styles.marginLeft, 10);
+
+    offsets.top -= borderTopWidth - marginTop;
+    offsets.bottom -= borderTopWidth - marginTop;
+    offsets.left -= borderLeftWidth - marginLeft;
+    offsets.right -= borderLeftWidth - marginLeft;
+
+    // Attach marginTop and marginLeft because in some circumstances we may need them
+    offsets.marginTop = marginTop;
+    offsets.marginLeft = marginLeft;
+  }
+
+  if (isIE10 && !fixedPosition ? parent.contains(scrollParent) : parent === scrollParent && scrollParent.nodeName !== 'BODY') {
+    offsets = includeScroll(offsets, parent);
+  }
+
+  return offsets;
+}
+
+function getViewportOffsetRectRelativeToArtbitraryNode(element) {
+  var excludeScroll = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+  var html = element.ownerDocument.documentElement;
+  var relativeOffset = getOffsetRectRelativeToArbitraryNode(element, html);
+  var width = Math.max(html.clientWidth, window.innerWidth || 0);
+  var height = Math.max(html.clientHeight, window.innerHeight || 0);
+
+  var scrollTop = !excludeScroll ? getScroll(html) : 0;
+  var scrollLeft = !excludeScroll ? getScroll(html, 'left') : 0;
+
+  var offset = {
+    top: scrollTop - relativeOffset.top + relativeOffset.marginTop,
+    left: scrollLeft - relativeOffset.left + relativeOffset.marginLeft,
+    width: width,
+    height: height
+  };
+
+  return getClientRect(offset);
+}
+
+/**
+ * Check if the given element is fixed or is inside a fixed parent
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @argument {Element} customContainer
+ * @returns {Boolean} answer to "isFixed?"
+ */
+function isFixed(element) {
+  var nodeName = element.nodeName;
+  if (nodeName === 'BODY' || nodeName === 'HTML') {
+    return false;
+  }
+  if (getStyleComputedProperty(element, 'position') === 'fixed') {
+    return true;
+  }
+  var parentNode = getParentNode(element);
+  if (!parentNode) {
+    return false;
+  }
+  return isFixed(parentNode);
+}
+
+/**
+ * Finds the first parent of an element that has a transformed property defined
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Element} first transformed parent or documentElement
+ */
+
+function getFixedPositionOffsetParent(element) {
+  // This check is needed to avoid errors in case one of the elements isn't defined for any reason
+  if (!element || !element.parentElement || isIE()) {
+    return document.documentElement;
+  }
+  var el = element.parentElement;
+  while (el && getStyleComputedProperty(el, 'transform') === 'none') {
+    el = el.parentElement;
+  }
+  return el || document.documentElement;
+}
+
+/**
+ * Computed the boundaries limits and return them
+ * @method
+ * @memberof Popper.Utils
+ * @param {HTMLElement} popper
+ * @param {HTMLElement} reference
+ * @param {number} padding
+ * @param {HTMLElement} boundariesElement - Element used to define the boundaries
+ * @param {Boolean} fixedPosition - Is in fixed position mode
+ * @returns {Object} Coordinates of the boundaries
+ */
+function getBoundaries(popper, reference, padding, boundariesElement) {
+  var fixedPosition = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
+
+  // NOTE: 1 DOM access here
+
+  var boundaries = { top: 0, left: 0 };
+  var offsetParent = fixedPosition ? getFixedPositionOffsetParent(popper) : findCommonOffsetParent(popper, reference);
+
+  // Handle viewport case
+  if (boundariesElement === 'viewport') {
+    boundaries = getViewportOffsetRectRelativeToArtbitraryNode(offsetParent, fixedPosition);
+  } else {
+    // Handle other cases based on DOM element used as boundaries
+    var boundariesNode = void 0;
+    if (boundariesElement === 'scrollParent') {
+      boundariesNode = getScrollParent(getParentNode(reference));
+      if (boundariesNode.nodeName === 'BODY') {
+        boundariesNode = popper.ownerDocument.documentElement;
+      }
+    } else if (boundariesElement === 'window') {
+      boundariesNode = popper.ownerDocument.documentElement;
+    } else {
+      boundariesNode = boundariesElement;
+    }
+
+    var offsets = getOffsetRectRelativeToArbitraryNode(boundariesNode, offsetParent, fixedPosition);
+
+    // In case of HTML, we need a different computation
+    if (boundariesNode.nodeName === 'HTML' && !isFixed(offsetParent)) {
+      var _getWindowSizes = getWindowSizes(popper.ownerDocument),
+          height = _getWindowSizes.height,
+          width = _getWindowSizes.width;
+
+      boundaries.top += offsets.top - offsets.marginTop;
+      boundaries.bottom = height + offsets.top;
+      boundaries.left += offsets.left - offsets.marginLeft;
+      boundaries.right = width + offsets.left;
+    } else {
+      // for all the other DOM elements, this one is good
+      boundaries = offsets;
+    }
+  }
+
+  // Add paddings
+  padding = padding || 0;
+  var isPaddingNumber = typeof padding === 'number';
+  boundaries.left += isPaddingNumber ? padding : padding.left || 0;
+  boundaries.top += isPaddingNumber ? padding : padding.top || 0;
+  boundaries.right -= isPaddingNumber ? padding : padding.right || 0;
+  boundaries.bottom -= isPaddingNumber ? padding : padding.bottom || 0;
+
+  return boundaries;
+}
+
+function getArea(_ref) {
+  var width = _ref.width,
+      height = _ref.height;
+
+  return width * height;
+}
+
+/**
+ * Utility used to transform the `auto` placement to the placement with more
+ * available space.
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function computeAutoPlacement(placement, refRect, popper, reference, boundariesElement) {
+  var padding = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0;
+
+  if (placement.indexOf('auto') === -1) {
+    return placement;
+  }
+
+  var boundaries = getBoundaries(popper, reference, padding, boundariesElement);
+
+  var rects = {
+    top: {
+      width: boundaries.width,
+      height: refRect.top - boundaries.top
+    },
+    right: {
+      width: boundaries.right - refRect.right,
+      height: boundaries.height
+    },
+    bottom: {
+      width: boundaries.width,
+      height: boundaries.bottom - refRect.bottom
+    },
+    left: {
+      width: refRect.left - boundaries.left,
+      height: boundaries.height
+    }
+  };
+
+  var sortedAreas = Object.keys(rects).map(function (key) {
+    return _extends({
+      key: key
+    }, rects[key], {
+      area: getArea(rects[key])
+    });
+  }).sort(function (a, b) {
+    return b.area - a.area;
+  });
+
+  var filteredAreas = sortedAreas.filter(function (_ref2) {
+    var width = _ref2.width,
+        height = _ref2.height;
+    return width >= popper.clientWidth && height >= popper.clientHeight;
+  });
+
+  var computedPlacement = filteredAreas.length > 0 ? filteredAreas[0].key : sortedAreas[0].key;
+
+  var variation = placement.split('-')[1];
+
+  return computedPlacement + (variation ? '-' + variation : '');
+}
+
+/**
+ * Get offsets to the reference element
+ * @method
+ * @memberof Popper.Utils
+ * @param {Object} state
+ * @param {Element} popper - the popper element
+ * @param {Element} reference - the reference element (the popper will be relative to this)
+ * @param {Element} fixedPosition - is in fixed position mode
+ * @returns {Object} An object containing the offsets which will be applied to the popper
+ */
+function getReferenceOffsets(state, popper, reference) {
+  var fixedPosition = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+
+  var commonOffsetParent = fixedPosition ? getFixedPositionOffsetParent(popper) : findCommonOffsetParent(popper, reference);
+  return getOffsetRectRelativeToArbitraryNode(reference, commonOffsetParent, fixedPosition);
+}
+
+/**
+ * Get the outer sizes of the given element (offset size + margins)
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Object} object containing width and height properties
+ */
+function getOuterSizes(element) {
+  var window = element.ownerDocument.defaultView;
+  var styles = window.getComputedStyle(element);
+  var x = parseFloat(styles.marginTop || 0) + parseFloat(styles.marginBottom || 0);
+  var y = parseFloat(styles.marginLeft || 0) + parseFloat(styles.marginRight || 0);
+  var result = {
+    width: element.offsetWidth + y,
+    height: element.offsetHeight + x
+  };
+  return result;
+}
+
+/**
+ * Get the opposite placement of the given one
+ * @method
+ * @memberof Popper.Utils
+ * @argument {String} placement
+ * @returns {String} flipped placement
+ */
+function getOppositePlacement(placement) {
+  var hash = { left: 'right', right: 'left', bottom: 'top', top: 'bottom' };
+  return placement.replace(/left|right|bottom|top/g, function (matched) {
+    return hash[matched];
+  });
+}
+
+/**
+ * Get offsets to the popper
+ * @method
+ * @memberof Popper.Utils
+ * @param {Object} position - CSS position the Popper will get applied
+ * @param {HTMLElement} popper - the popper element
+ * @param {Object} referenceOffsets - the reference offsets (the popper will be relative to this)
+ * @param {String} placement - one of the valid placement options
+ * @returns {Object} popperOffsets - An object containing the offsets which will be applied to the popper
+ */
+function getPopperOffsets(popper, referenceOffsets, placement) {
+  placement = placement.split('-')[0];
+
+  // Get popper node sizes
+  var popperRect = getOuterSizes(popper);
+
+  // Add position, width and height to our offsets object
+  var popperOffsets = {
+    width: popperRect.width,
+    height: popperRect.height
+  };
+
+  // depending by the popper placement we have to compute its offsets slightly differently
+  var isHoriz = ['right', 'left'].indexOf(placement) !== -1;
+  var mainSide = isHoriz ? 'top' : 'left';
+  var secondarySide = isHoriz ? 'left' : 'top';
+  var measurement = isHoriz ? 'height' : 'width';
+  var secondaryMeasurement = !isHoriz ? 'height' : 'width';
+
+  popperOffsets[mainSide] = referenceOffsets[mainSide] + referenceOffsets[measurement] / 2 - popperRect[measurement] / 2;
+  if (placement === secondarySide) {
+    popperOffsets[secondarySide] = referenceOffsets[secondarySide] - popperRect[secondaryMeasurement];
+  } else {
+    popperOffsets[secondarySide] = referenceOffsets[getOppositePlacement(secondarySide)];
+  }
+
+  return popperOffsets;
+}
+
+/**
+ * Mimics the `find` method of Array
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Array} arr
+ * @argument prop
+ * @argument value
+ * @returns index or -1
+ */
+function find(arr, check) {
+  // use native find if supported
+  if (Array.prototype.find) {
+    return arr.find(check);
+  }
+
+  // use `filter` to obtain the same behavior of `find`
+  return arr.filter(check)[0];
+}
+
+/**
+ * Return the index of the matching object
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Array} arr
+ * @argument prop
+ * @argument value
+ * @returns index or -1
+ */
+function findIndex(arr, prop, value) {
+  // use native findIndex if supported
+  if (Array.prototype.findIndex) {
+    return arr.findIndex(function (cur) {
+      return cur[prop] === value;
+    });
+  }
+
+  // use `find` + `indexOf` if `findIndex` isn't supported
+  var match = find(arr, function (obj) {
+    return obj[prop] === value;
+  });
+  return arr.indexOf(match);
+}
+
+/**
+ * Loop trough the list of modifiers and run them in order,
+ * each of them will then edit the data object.
+ * @method
+ * @memberof Popper.Utils
+ * @param {dataObject} data
+ * @param {Array} modifiers
+ * @param {String} ends - Optional modifier name used as stopper
+ * @returns {dataObject}
+ */
+function runModifiers(modifiers, data, ends) {
+  var modifiersToRun = ends === undefined ? modifiers : modifiers.slice(0, findIndex(modifiers, 'name', ends));
+
+  modifiersToRun.forEach(function (modifier) {
+    if (modifier['function']) {
+      // eslint-disable-line dot-notation
+      console.warn('`modifier.function` is deprecated, use `modifier.fn`!');
+    }
+    var fn = modifier['function'] || modifier.fn; // eslint-disable-line dot-notation
+    if (modifier.enabled && isFunction(fn)) {
+      // Add properties to offsets to make them a complete clientRect object
+      // we do this before each modifier to make sure the previous one doesn't
+      // mess with these values
+      data.offsets.popper = getClientRect(data.offsets.popper);
+      data.offsets.reference = getClientRect(data.offsets.reference);
+
+      data = fn(data, modifier);
+    }
+  });
+
+  return data;
+}
+
+/**
+ * Updates the position of the popper, computing the new offsets and applying
+ * the new style.<br />
+ * Prefer `scheduleUpdate` over `update` because of performance reasons.
+ * @method
+ * @memberof Popper
+ */
+function update() {
+  // if popper is destroyed, don't perform any further update
+  if (this.state.isDestroyed) {
+    return;
+  }
+
+  var data = {
+    instance: this,
+    styles: {},
+    arrowStyles: {},
+    attributes: {},
+    flipped: false,
+    offsets: {}
+  };
+
+  // compute reference element offsets
+  data.offsets.reference = getReferenceOffsets(this.state, this.popper, this.reference, this.options.positionFixed);
+
+  // compute auto placement, store placement inside the data object,
+  // modifiers will be able to edit `placement` if needed
+  // and refer to originalPlacement to know the original value
+  data.placement = computeAutoPlacement(this.options.placement, data.offsets.reference, this.popper, this.reference, this.options.modifiers.flip.boundariesElement, this.options.modifiers.flip.padding);
+
+  // store the computed placement inside `originalPlacement`
+  data.originalPlacement = data.placement;
+
+  data.positionFixed = this.options.positionFixed;
+
+  // compute the popper offsets
+  data.offsets.popper = getPopperOffsets(this.popper, data.offsets.reference, data.placement);
+
+  data.offsets.popper.position = this.options.positionFixed ? 'fixed' : 'absolute';
+
+  // run the modifiers
+  data = runModifiers(this.modifiers, data);
+
+  // the first `update` will call `onCreate` callback
+  // the other ones will call `onUpdate` callback
+  if (!this.state.isCreated) {
+    this.state.isCreated = true;
+    this.options.onCreate(data);
+  } else {
+    this.options.onUpdate(data);
+  }
+}
+
+/**
+ * Helper used to know if the given modifier is enabled.
+ * @method
+ * @memberof Popper.Utils
+ * @returns {Boolean}
+ */
+function isModifierEnabled(modifiers, modifierName) {
+  return modifiers.some(function (_ref) {
+    var name = _ref.name,
+        enabled = _ref.enabled;
+    return enabled && name === modifierName;
+  });
+}
+
+/**
+ * Get the prefixed supported property name
+ * @method
+ * @memberof Popper.Utils
+ * @argument {String} property (camelCase)
+ * @returns {String} prefixed property (camelCase or PascalCase, depending on the vendor prefix)
+ */
+function getSupportedPropertyName(property) {
+  var prefixes = [false, 'ms', 'Webkit', 'Moz', 'O'];
+  var upperProp = property.charAt(0).toUpperCase() + property.slice(1);
+
+  for (var i = 0; i < prefixes.length; i++) {
+    var prefix = prefixes[i];
+    var toCheck = prefix ? '' + prefix + upperProp : property;
+    if (typeof document.body.style[toCheck] !== 'undefined') {
+      return toCheck;
+    }
+  }
+  return null;
+}
+
+/**
+ * Destroys the popper.
+ * @method
+ * @memberof Popper
+ */
+function destroy() {
+  this.state.isDestroyed = true;
+
+  // touch DOM only if `applyStyle` modifier is enabled
+  if (isModifierEnabled(this.modifiers, 'applyStyle')) {
+    this.popper.removeAttribute('x-placement');
+    this.popper.style.position = '';
+    this.popper.style.top = '';
+    this.popper.style.left = '';
+    this.popper.style.right = '';
+    this.popper.style.bottom = '';
+    this.popper.style.willChange = '';
+    this.popper.style[getSupportedPropertyName('transform')] = '';
+  }
+
+  this.disableEventListeners();
+
+  // remove the popper if user explicity asked for the deletion on destroy
+  // do not use `remove` because IE11 doesn't support it
+  if (this.options.removeOnDestroy) {
+    this.popper.parentNode.removeChild(this.popper);
+  }
+  return this;
+}
+
+/**
+ * Get the window associated with the element
+ * @argument {Element} element
+ * @returns {Window}
+ */
+function getWindow(element) {
+  var ownerDocument = element.ownerDocument;
+  return ownerDocument ? ownerDocument.defaultView : window;
+}
+
+function attachToScrollParents(scrollParent, event, callback, scrollParents) {
+  var isBody = scrollParent.nodeName === 'BODY';
+  var target = isBody ? scrollParent.ownerDocument.defaultView : scrollParent;
+  target.addEventListener(event, callback, { passive: true });
+
+  if (!isBody) {
+    attachToScrollParents(getScrollParent(target.parentNode), event, callback, scrollParents);
+  }
+  scrollParents.push(target);
+}
+
+/**
+ * Setup needed event listeners used to update the popper position
+ * @method
+ * @memberof Popper.Utils
+ * @private
+ */
+function setupEventListeners(reference, options, state, updateBound) {
+  // Resize event listener on window
+  state.updateBound = updateBound;
+  getWindow(reference).addEventListener('resize', state.updateBound, { passive: true });
+
+  // Scroll event listener on scroll parents
+  var scrollElement = getScrollParent(reference);
+  attachToScrollParents(scrollElement, 'scroll', state.updateBound, state.scrollParents);
+  state.scrollElement = scrollElement;
+  state.eventsEnabled = true;
+
+  return state;
+}
+
+/**
+ * It will add resize/scroll events and start recalculating
+ * position of the popper element when they are triggered.
+ * @method
+ * @memberof Popper
+ */
+function enableEventListeners() {
+  if (!this.state.eventsEnabled) {
+    this.state = setupEventListeners(this.reference, this.options, this.state, this.scheduleUpdate);
+  }
+}
+
+/**
+ * Remove event listeners used to update the popper position
+ * @method
+ * @memberof Popper.Utils
+ * @private
+ */
+function removeEventListeners(reference, state) {
+  // Remove resize event listener on window
+  getWindow(reference).removeEventListener('resize', state.updateBound);
+
+  // Remove scroll event listener on scroll parents
+  state.scrollParents.forEach(function (target) {
+    target.removeEventListener('scroll', state.updateBound);
+  });
+
+  // Reset state
+  state.updateBound = null;
+  state.scrollParents = [];
+  state.scrollElement = null;
+  state.eventsEnabled = false;
+  return state;
+}
+
+/**
+ * It will remove resize/scroll events and won't recalculate popper position
+ * when they are triggered. It also won't trigger `onUpdate` callback anymore,
+ * unless you call `update` method manually.
+ * @method
+ * @memberof Popper
+ */
+function disableEventListeners() {
+  if (this.state.eventsEnabled) {
+    cancelAnimationFrame(this.scheduleUpdate);
+    this.state = removeEventListeners(this.reference, this.state);
+  }
+}
+
+/**
+ * Tells if a given input is a number
+ * @method
+ * @memberof Popper.Utils
+ * @param {*} input to check
+ * @return {Boolean}
+ */
+function isNumeric(n) {
+  return n !== '' && !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+/**
+ * Set the style to the given popper
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element - Element to apply the style to
+ * @argument {Object} styles
+ * Object with a list of properties and values which will be applied to the element
+ */
+function setStyles(element, styles) {
+  Object.keys(styles).forEach(function (prop) {
+    var unit = '';
+    // add unit if the value is numeric and is one of the following
+    if (['width', 'height', 'top', 'right', 'bottom', 'left'].indexOf(prop) !== -1 && isNumeric(styles[prop])) {
+      unit = 'px';
+    }
+    element.style[prop] = styles[prop] + unit;
+  });
+}
+
+/**
+ * Set the attributes to the given popper
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element - Element to apply the attributes to
+ * @argument {Object} styles
+ * Object with a list of properties and values which will be applied to the element
+ */
+function setAttributes(element, attributes) {
+  Object.keys(attributes).forEach(function (prop) {
+    var value = attributes[prop];
+    if (value !== false) {
+      element.setAttribute(prop, attributes[prop]);
+    } else {
+      element.removeAttribute(prop);
+    }
+  });
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} data.styles - List of style properties - values to apply to popper element
+ * @argument {Object} data.attributes - List of attribute properties - values to apply to popper element
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The same data object
+ */
+function applyStyle(data) {
+  // any property present in `data.styles` will be applied to the popper,
+  // in this way we can make the 3rd party modifiers add custom styles to it
+  // Be aware, modifiers could override the properties defined in the previous
+  // lines of this modifier!
+  setStyles(data.instance.popper, data.styles);
+
+  // any property present in `data.attributes` will be applied to the popper,
+  // they will be set as HTML attributes of the element
+  setAttributes(data.instance.popper, data.attributes);
+
+  // if arrowElement is defined and arrowStyles has some properties
+  if (data.arrowElement && Object.keys(data.arrowStyles).length) {
+    setStyles(data.arrowElement, data.arrowStyles);
+  }
+
+  return data;
+}
+
+/**
+ * Set the x-placement attribute before everything else because it could be used
+ * to add margins to the popper margins needs to be calculated to get the
+ * correct popper offsets.
+ * @method
+ * @memberof Popper.modifiers
+ * @param {HTMLElement} reference - The reference element used to position the popper
+ * @param {HTMLElement} popper - The HTML element used as popper
+ * @param {Object} options - Popper.js options
+ */
+function applyStyleOnLoad(reference, popper, options, modifierOptions, state) {
+  // compute reference element offsets
+  var referenceOffsets = getReferenceOffsets(state, popper, reference, options.positionFixed);
+
+  // compute auto placement, store placement inside the data object,
+  // modifiers will be able to edit `placement` if needed
+  // and refer to originalPlacement to know the original value
+  var placement = computeAutoPlacement(options.placement, referenceOffsets, popper, reference, options.modifiers.flip.boundariesElement, options.modifiers.flip.padding);
+
+  popper.setAttribute('x-placement', placement);
+
+  // Apply `position` to popper before anything else because
+  // without the position applied we can't guarantee correct computations
+  setStyles(popper, { position: options.positionFixed ? 'fixed' : 'absolute' });
+
+  return options;
+}
+
+/**
+ * @function
+ * @memberof Popper.Utils
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Boolean} shouldRound - If the offsets should be rounded at all
+ * @returns {Object} The popper's position offsets rounded
+ *
+ * The tale of pixel-perfect positioning. It's still not 100% perfect, but as
+ * good as it can be within reason.
+ * Discussion here: https://github.com/FezVrasta/popper.js/pull/715
+ *
+ * Low DPI screens cause a popper to be blurry if not using full pixels (Safari
+ * as well on High DPI screens).
+ *
+ * Firefox prefers no rounding for positioning and does not have blurriness on
+ * high DPI screens.
+ *
+ * Only horizontal placement and left/right values need to be considered.
+ */
+function getRoundedOffsets(data, shouldRound) {
+  var _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+  var round = Math.round,
+      floor = Math.floor;
+
+  var noRound = function noRound(v) {
+    return v;
+  };
+
+  var referenceWidth = round(reference.width);
+  var popperWidth = round(popper.width);
+
+  var isVertical = ['left', 'right'].indexOf(data.placement) !== -1;
+  var isVariation = data.placement.indexOf('-') !== -1;
+  var sameWidthParity = referenceWidth % 2 === popperWidth % 2;
+  var bothOddWidth = referenceWidth % 2 === 1 && popperWidth % 2 === 1;
+
+  var horizontalToInteger = !shouldRound ? noRound : isVertical || isVariation || sameWidthParity ? round : floor;
+  var verticalToInteger = !shouldRound ? noRound : round;
+
+  return {
+    left: horizontalToInteger(bothOddWidth && !isVariation && shouldRound ? popper.left - 1 : popper.left),
+    top: verticalToInteger(popper.top),
+    bottom: verticalToInteger(popper.bottom),
+    right: horizontalToInteger(popper.right)
+  };
+}
+
+var isFirefox = isBrowser && /Firefox/i.test(navigator.userAgent);
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function computeStyle(data, options) {
+  var x = options.x,
+      y = options.y;
+  var popper = data.offsets.popper;
+
+  // Remove this legacy support in Popper.js v2
+
+  var legacyGpuAccelerationOption = find(data.instance.modifiers, function (modifier) {
+    return modifier.name === 'applyStyle';
+  }).gpuAcceleration;
+  if (legacyGpuAccelerationOption !== undefined) {
+    console.warn('WARNING: `gpuAcceleration` option moved to `computeStyle` modifier and will not be supported in future versions of Popper.js!');
+  }
+  var gpuAcceleration = legacyGpuAccelerationOption !== undefined ? legacyGpuAccelerationOption : options.gpuAcceleration;
+
+  var offsetParent = getOffsetParent(data.instance.popper);
+  var offsetParentRect = getBoundingClientRect(offsetParent);
+
+  // Styles
+  var styles = {
+    position: popper.position
+  };
+
+  var offsets = getRoundedOffsets(data, window.devicePixelRatio < 2 || !isFirefox);
+
+  var sideA = x === 'bottom' ? 'top' : 'bottom';
+  var sideB = y === 'right' ? 'left' : 'right';
+
+  // if gpuAcceleration is set to `true` and transform is supported,
+  //  we use `translate3d` to apply the position to the popper we
+  // automatically use the supported prefixed version if needed
+  var prefixedProperty = getSupportedPropertyName('transform');
+
+  // now, let's make a step back and look at this code closely (wtf?)
+  // If the content of the popper grows once it's been positioned, it
+  // may happen that the popper gets misplaced because of the new content
+  // overflowing its reference element
+  // To avoid this problem, we provide two options (x and y), which allow
+  // the consumer to define the offset origin.
+  // If we position a popper on top of a reference element, we can set
+  // `x` to `top` to make the popper grow towards its top instead of
+  // its bottom.
+  var left = void 0,
+      top = void 0;
+  if (sideA === 'bottom') {
+    // when offsetParent is <html> the positioning is relative to the bottom of the screen (excluding the scrollbar)
+    // and not the bottom of the html element
+    if (offsetParent.nodeName === 'HTML') {
+      top = -offsetParent.clientHeight + offsets.bottom;
+    } else {
+      top = -offsetParentRect.height + offsets.bottom;
+    }
+  } else {
+    top = offsets.top;
+  }
+  if (sideB === 'right') {
+    if (offsetParent.nodeName === 'HTML') {
+      left = -offsetParent.clientWidth + offsets.right;
+    } else {
+      left = -offsetParentRect.width + offsets.right;
+    }
+  } else {
+    left = offsets.left;
+  }
+  if (gpuAcceleration && prefixedProperty) {
+    styles[prefixedProperty] = 'translate3d(' + left + 'px, ' + top + 'px, 0)';
+    styles[sideA] = 0;
+    styles[sideB] = 0;
+    styles.willChange = 'transform';
+  } else {
+    // othwerise, we use the standard `top`, `left`, `bottom` and `right` properties
+    var invertTop = sideA === 'bottom' ? -1 : 1;
+    var invertLeft = sideB === 'right' ? -1 : 1;
+    styles[sideA] = top * invertTop;
+    styles[sideB] = left * invertLeft;
+    styles.willChange = sideA + ', ' + sideB;
+  }
+
+  // Attributes
+  var attributes = {
+    'x-placement': data.placement
+  };
+
+  // Update `data` attributes, styles and arrowStyles
+  data.attributes = _extends({}, attributes, data.attributes);
+  data.styles = _extends({}, styles, data.styles);
+  data.arrowStyles = _extends({}, data.offsets.arrow, data.arrowStyles);
+
+  return data;
+}
+
+/**
+ * Helper used to know if the given modifier depends from another one.<br />
+ * It checks if the needed modifier is listed and enabled.
+ * @method
+ * @memberof Popper.Utils
+ * @param {Array} modifiers - list of modifiers
+ * @param {String} requestingName - name of requesting modifier
+ * @param {String} requestedName - name of requested modifier
+ * @returns {Boolean}
+ */
+function isModifierRequired(modifiers, requestingName, requestedName) {
+  var requesting = find(modifiers, function (_ref) {
+    var name = _ref.name;
+    return name === requestingName;
+  });
+
+  var isRequired = !!requesting && modifiers.some(function (modifier) {
+    return modifier.name === requestedName && modifier.enabled && modifier.order < requesting.order;
+  });
+
+  if (!isRequired) {
+    var _requesting = '`' + requestingName + '`';
+    var requested = '`' + requestedName + '`';
+    console.warn(requested + ' modifier is required by ' + _requesting + ' modifier in order to work, be sure to include it before ' + _requesting + '!');
+  }
+  return isRequired;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function arrow(data, options) {
+  var _data$offsets$arrow;
+
+  // arrow depends on keepTogether in order to work
+  if (!isModifierRequired(data.instance.modifiers, 'arrow', 'keepTogether')) {
+    return data;
+  }
+
+  var arrowElement = options.element;
+
+  // if arrowElement is a string, suppose it's a CSS selector
+  if (typeof arrowElement === 'string') {
+    arrowElement = data.instance.popper.querySelector(arrowElement);
+
+    // if arrowElement is not found, don't run the modifier
+    if (!arrowElement) {
+      return data;
+    }
+  } else {
+    // if the arrowElement isn't a query selector we must check that the
+    // provided DOM node is child of its popper node
+    if (!data.instance.popper.contains(arrowElement)) {
+      console.warn('WARNING: `arrow.element` must be child of its popper element!');
+      return data;
+    }
+  }
+
+  var placement = data.placement.split('-')[0];
+  var _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+
+  var isVertical = ['left', 'right'].indexOf(placement) !== -1;
+
+  var len = isVertical ? 'height' : 'width';
+  var sideCapitalized = isVertical ? 'Top' : 'Left';
+  var side = sideCapitalized.toLowerCase();
+  var altSide = isVertical ? 'left' : 'top';
+  var opSide = isVertical ? 'bottom' : 'right';
+  var arrowElementSize = getOuterSizes(arrowElement)[len];
+
+  //
+  // extends keepTogether behavior making sure the popper and its
+  // reference have enough pixels in conjunction
+  //
+
+  // top/left side
+  if (reference[opSide] - arrowElementSize < popper[side]) {
+    data.offsets.popper[side] -= popper[side] - (reference[opSide] - arrowElementSize);
+  }
+  // bottom/right side
+  if (reference[side] + arrowElementSize > popper[opSide]) {
+    data.offsets.popper[side] += reference[side] + arrowElementSize - popper[opSide];
+  }
+  data.offsets.popper = getClientRect(data.offsets.popper);
+
+  // compute center of the popper
+  var center = reference[side] + reference[len] / 2 - arrowElementSize / 2;
+
+  // Compute the sideValue using the updated popper offsets
+  // take popper margin in account because we don't have this info available
+  var css = getStyleComputedProperty(data.instance.popper);
+  var popperMarginSide = parseFloat(css['margin' + sideCapitalized], 10);
+  var popperBorderSide = parseFloat(css['border' + sideCapitalized + 'Width'], 10);
+  var sideValue = center - data.offsets.popper[side] - popperMarginSide - popperBorderSide;
+
+  // prevent arrowElement from being placed not contiguously to its popper
+  sideValue = Math.max(Math.min(popper[len] - arrowElementSize, sideValue), 0);
+
+  data.arrowElement = arrowElement;
+  data.offsets.arrow = (_data$offsets$arrow = {}, defineProperty(_data$offsets$arrow, side, Math.round(sideValue)), defineProperty(_data$offsets$arrow, altSide, ''), _data$offsets$arrow);
+
+  return data;
+}
+
+/**
+ * Get the opposite placement variation of the given one
+ * @method
+ * @memberof Popper.Utils
+ * @argument {String} placement variation
+ * @returns {String} flipped placement variation
+ */
+function getOppositeVariation(variation) {
+  if (variation === 'end') {
+    return 'start';
+  } else if (variation === 'start') {
+    return 'end';
+  }
+  return variation;
+}
+
+/**
+ * List of accepted placements to use as values of the `placement` option.<br />
+ * Valid placements are:
+ * - `auto`
+ * - `top`
+ * - `right`
+ * - `bottom`
+ * - `left`
+ *
+ * Each placement can have a variation from this list:
+ * - `-start`
+ * - `-end`
+ *
+ * Variations are interpreted easily if you think of them as the left to right
+ * written languages. Horizontally (`top` and `bottom`), `start` is left and `end`
+ * is right.<br />
+ * Vertically (`left` and `right`), `start` is top and `end` is bottom.
+ *
+ * Some valid examples are:
+ * - `top-end` (on top of reference, right aligned)
+ * - `right-start` (on right of reference, top aligned)
+ * - `bottom` (on bottom, centered)
+ * - `auto-end` (on the side with more space available, alignment depends by placement)
+ *
+ * @static
+ * @type {Array}
+ * @enum {String}
+ * @readonly
+ * @method placements
+ * @memberof Popper
+ */
+var placements = ['auto-start', 'auto', 'auto-end', 'top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-end', 'bottom', 'bottom-start', 'left-end', 'left', 'left-start'];
+
+// Get rid of `auto` `auto-start` and `auto-end`
+var validPlacements = placements.slice(3);
+
+/**
+ * Given an initial placement, returns all the subsequent placements
+ * clockwise (or counter-clockwise).
+ *
+ * @method
+ * @memberof Popper.Utils
+ * @argument {String} placement - A valid placement (it accepts variations)
+ * @argument {Boolean} counter - Set to true to walk the placements counterclockwise
+ * @returns {Array} placements including their variations
+ */
+function clockwise(placement) {
+  var counter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+  var index = validPlacements.indexOf(placement);
+  var arr = validPlacements.slice(index + 1).concat(validPlacements.slice(0, index));
+  return counter ? arr.reverse() : arr;
+}
+
+var BEHAVIORS = {
+  FLIP: 'flip',
+  CLOCKWISE: 'clockwise',
+  COUNTERCLOCKWISE: 'counterclockwise'
+};
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function flip(data, options) {
+  // if `inner` modifier is enabled, we can't use the `flip` modifier
+  if (isModifierEnabled(data.instance.modifiers, 'inner')) {
+    return data;
+  }
+
+  if (data.flipped && data.placement === data.originalPlacement) {
+    // seems like flip is trying to loop, probably there's not enough space on any of the flippable sides
+    return data;
+  }
+
+  var boundaries = getBoundaries(data.instance.popper, data.instance.reference, options.padding, options.boundariesElement, data.positionFixed);
+
+  var placement = data.placement.split('-')[0];
+  var placementOpposite = getOppositePlacement(placement);
+  var variation = data.placement.split('-')[1] || '';
+
+  var flipOrder = [];
+
+  switch (options.behavior) {
+    case BEHAVIORS.FLIP:
+      flipOrder = [placement, placementOpposite];
+      break;
+    case BEHAVIORS.CLOCKWISE:
+      flipOrder = clockwise(placement);
+      break;
+    case BEHAVIORS.COUNTERCLOCKWISE:
+      flipOrder = clockwise(placement, true);
+      break;
+    default:
+      flipOrder = options.behavior;
+  }
+
+  flipOrder.forEach(function (step, index) {
+    if (placement !== step || flipOrder.length === index + 1) {
+      return data;
+    }
+
+    placement = data.placement.split('-')[0];
+    placementOpposite = getOppositePlacement(placement);
+
+    var popperOffsets = data.offsets.popper;
+    var refOffsets = data.offsets.reference;
+
+    // using floor because the reference offsets may contain decimals we are not going to consider here
+    var floor = Math.floor;
+    var overlapsRef = placement === 'left' && floor(popperOffsets.right) > floor(refOffsets.left) || placement === 'right' && floor(popperOffsets.left) < floor(refOffsets.right) || placement === 'top' && floor(popperOffsets.bottom) > floor(refOffsets.top) || placement === 'bottom' && floor(popperOffsets.top) < floor(refOffsets.bottom);
+
+    var overflowsLeft = floor(popperOffsets.left) < floor(boundaries.left);
+    var overflowsRight = floor(popperOffsets.right) > floor(boundaries.right);
+    var overflowsTop = floor(popperOffsets.top) < floor(boundaries.top);
+    var overflowsBottom = floor(popperOffsets.bottom) > floor(boundaries.bottom);
+
+    var overflowsBoundaries = placement === 'left' && overflowsLeft || placement === 'right' && overflowsRight || placement === 'top' && overflowsTop || placement === 'bottom' && overflowsBottom;
+
+    // flip the variation if required
+    var isVertical = ['top', 'bottom'].indexOf(placement) !== -1;
+
+    // flips variation if reference element overflows boundaries
+    var flippedVariationByRef = !!options.flipVariations && (isVertical && variation === 'start' && overflowsLeft || isVertical && variation === 'end' && overflowsRight || !isVertical && variation === 'start' && overflowsTop || !isVertical && variation === 'end' && overflowsBottom);
+
+    // flips variation if popper content overflows boundaries
+    var flippedVariationByContent = !!options.flipVariationsByContent && (isVertical && variation === 'start' && overflowsRight || isVertical && variation === 'end' && overflowsLeft || !isVertical && variation === 'start' && overflowsBottom || !isVertical && variation === 'end' && overflowsTop);
+
+    var flippedVariation = flippedVariationByRef || flippedVariationByContent;
+
+    if (overlapsRef || overflowsBoundaries || flippedVariation) {
+      // this boolean to detect any flip loop
+      data.flipped = true;
+
+      if (overlapsRef || overflowsBoundaries) {
+        placement = flipOrder[index + 1];
+      }
+
+      if (flippedVariation) {
+        variation = getOppositeVariation(variation);
+      }
+
+      data.placement = placement + (variation ? '-' + variation : '');
+
+      // this object contains `position`, we want to preserve it along with
+      // any additional property we may add in the future
+      data.offsets.popper = _extends({}, data.offsets.popper, getPopperOffsets(data.instance.popper, data.offsets.reference, data.placement));
+
+      data = runModifiers(data.instance.modifiers, data, 'flip');
+    }
+  });
+  return data;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function keepTogether(data) {
+  var _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+
+  var placement = data.placement.split('-')[0];
+  var floor = Math.floor;
+  var isVertical = ['top', 'bottom'].indexOf(placement) !== -1;
+  var side = isVertical ? 'right' : 'bottom';
+  var opSide = isVertical ? 'left' : 'top';
+  var measurement = isVertical ? 'width' : 'height';
+
+  if (popper[side] < floor(reference[opSide])) {
+    data.offsets.popper[opSide] = floor(reference[opSide]) - popper[measurement];
+  }
+  if (popper[opSide] > floor(reference[side])) {
+    data.offsets.popper[opSide] = floor(reference[side]);
+  }
+
+  return data;
+}
+
+/**
+ * Converts a string containing value + unit into a px value number
+ * @function
+ * @memberof {modifiers~offset}
+ * @private
+ * @argument {String} str - Value + unit string
+ * @argument {String} measurement - `height` or `width`
+ * @argument {Object} popperOffsets
+ * @argument {Object} referenceOffsets
+ * @returns {Number|String}
+ * Value in pixels, or original string if no values were extracted
+ */
+function toValue(str, measurement, popperOffsets, referenceOffsets) {
+  // separate value from unit
+  var split = str.match(/((?:\-|\+)?\d*\.?\d*)(.*)/);
+  var value = +split[1];
+  var unit = split[2];
+
+  // If it's not a number it's an operator, I guess
+  if (!value) {
+    return str;
+  }
+
+  if (unit.indexOf('%') === 0) {
+    var element = void 0;
+    switch (unit) {
+      case '%p':
+        element = popperOffsets;
+        break;
+      case '%':
+      case '%r':
+      default:
+        element = referenceOffsets;
+    }
+
+    var rect = getClientRect(element);
+    return rect[measurement] / 100 * value;
+  } else if (unit === 'vh' || unit === 'vw') {
+    // if is a vh or vw, we calculate the size based on the viewport
+    var size = void 0;
+    if (unit === 'vh') {
+      size = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    } else {
+      size = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    }
+    return size / 100 * value;
+  } else {
+    // if is an explicit pixel unit, we get rid of the unit and keep the value
+    // if is an implicit unit, it's px, and we return just the value
+    return value;
+  }
+}
+
+/**
+ * Parse an `offset` string to extrapolate `x` and `y` numeric offsets.
+ * @function
+ * @memberof {modifiers~offset}
+ * @private
+ * @argument {String} offset
+ * @argument {Object} popperOffsets
+ * @argument {Object} referenceOffsets
+ * @argument {String} basePlacement
+ * @returns {Array} a two cells array with x and y offsets in numbers
+ */
+function parseOffset(offset, popperOffsets, referenceOffsets, basePlacement) {
+  var offsets = [0, 0];
+
+  // Use height if placement is left or right and index is 0 otherwise use width
+  // in this way the first offset will use an axis and the second one
+  // will use the other one
+  var useHeight = ['right', 'left'].indexOf(basePlacement) !== -1;
+
+  // Split the offset string to obtain a list of values and operands
+  // The regex addresses values with the plus or minus sign in front (+10, -20, etc)
+  var fragments = offset.split(/(\+|\-)/).map(function (frag) {
+    return frag.trim();
+  });
+
+  // Detect if the offset string contains a pair of values or a single one
+  // they could be separated by comma or space
+  var divider = fragments.indexOf(find(fragments, function (frag) {
+    return frag.search(/,|\s/) !== -1;
+  }));
+
+  if (fragments[divider] && fragments[divider].indexOf(',') === -1) {
+    console.warn('Offsets separated by white space(s) are deprecated, use a comma (,) instead.');
+  }
+
+  // If divider is found, we divide the list of values and operands to divide
+  // them by ofset X and Y.
+  var splitRegex = /\s*,\s*|\s+/;
+  var ops = divider !== -1 ? [fragments.slice(0, divider).concat([fragments[divider].split(splitRegex)[0]]), [fragments[divider].split(splitRegex)[1]].concat(fragments.slice(divider + 1))] : [fragments];
+
+  // Convert the values with units to absolute pixels to allow our computations
+  ops = ops.map(function (op, index) {
+    // Most of the units rely on the orientation of the popper
+    var measurement = (index === 1 ? !useHeight : useHeight) ? 'height' : 'width';
+    var mergeWithPrevious = false;
+    return op
+    // This aggregates any `+` or `-` sign that aren't considered operators
+    // e.g.: 10 + +5 => [10, +, +5]
+    .reduce(function (a, b) {
+      if (a[a.length - 1] === '' && ['+', '-'].indexOf(b) !== -1) {
+        a[a.length - 1] = b;
+        mergeWithPrevious = true;
+        return a;
+      } else if (mergeWithPrevious) {
+        a[a.length - 1] += b;
+        mergeWithPrevious = false;
+        return a;
+      } else {
+        return a.concat(b);
+      }
+    }, [])
+    // Here we convert the string values into number values (in px)
+    .map(function (str) {
+      return toValue(str, measurement, popperOffsets, referenceOffsets);
+    });
+  });
+
+  // Loop trough the offsets arrays and execute the operations
+  ops.forEach(function (op, index) {
+    op.forEach(function (frag, index2) {
+      if (isNumeric(frag)) {
+        offsets[index] += frag * (op[index2 - 1] === '-' ? -1 : 1);
+      }
+    });
+  });
+  return offsets;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @argument {Number|String} options.offset=0
+ * The offset value as described in the modifier description
+ * @returns {Object} The data object, properly modified
+ */
+function offset(data, _ref) {
+  var offset = _ref.offset;
+  var placement = data.placement,
+      _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+
+  var basePlacement = placement.split('-')[0];
+
+  var offsets = void 0;
+  if (isNumeric(+offset)) {
+    offsets = [+offset, 0];
+  } else {
+    offsets = parseOffset(offset, popper, reference, basePlacement);
+  }
+
+  if (basePlacement === 'left') {
+    popper.top += offsets[0];
+    popper.left -= offsets[1];
+  } else if (basePlacement === 'right') {
+    popper.top += offsets[0];
+    popper.left += offsets[1];
+  } else if (basePlacement === 'top') {
+    popper.left += offsets[0];
+    popper.top -= offsets[1];
+  } else if (basePlacement === 'bottom') {
+    popper.left += offsets[0];
+    popper.top += offsets[1];
+  }
+
+  data.popper = popper;
+  return data;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function preventOverflow(data, options) {
+  var boundariesElement = options.boundariesElement || getOffsetParent(data.instance.popper);
+
+  // If offsetParent is the reference element, we really want to
+  // go one step up and use the next offsetParent as reference to
+  // avoid to make this modifier completely useless and look like broken
+  if (data.instance.reference === boundariesElement) {
+    boundariesElement = getOffsetParent(boundariesElement);
+  }
+
+  // NOTE: DOM access here
+  // resets the popper's position so that the document size can be calculated excluding
+  // the size of the popper element itself
+  var transformProp = getSupportedPropertyName('transform');
+  var popperStyles = data.instance.popper.style; // assignment to help minification
+  var top = popperStyles.top,
+      left = popperStyles.left,
+      transform = popperStyles[transformProp];
+
+  popperStyles.top = '';
+  popperStyles.left = '';
+  popperStyles[transformProp] = '';
+
+  var boundaries = getBoundaries(data.instance.popper, data.instance.reference, options.padding, boundariesElement, data.positionFixed);
+
+  // NOTE: DOM access here
+  // restores the original style properties after the offsets have been computed
+  popperStyles.top = top;
+  popperStyles.left = left;
+  popperStyles[transformProp] = transform;
+
+  options.boundaries = boundaries;
+
+  var order = options.priority;
+  var popper = data.offsets.popper;
+
+  var check = {
+    primary: function primary(placement) {
+      var value = popper[placement];
+      if (popper[placement] < boundaries[placement] && !options.escapeWithReference) {
+        value = Math.max(popper[placement], boundaries[placement]);
+      }
+      return defineProperty({}, placement, value);
+    },
+    secondary: function secondary(placement) {
+      var mainSide = placement === 'right' ? 'left' : 'top';
+      var value = popper[mainSide];
+      if (popper[placement] > boundaries[placement] && !options.escapeWithReference) {
+        value = Math.min(popper[mainSide], boundaries[placement] - (placement === 'right' ? popper.width : popper.height));
+      }
+      return defineProperty({}, mainSide, value);
+    }
+  };
+
+  order.forEach(function (placement) {
+    var side = ['left', 'top'].indexOf(placement) !== -1 ? 'primary' : 'secondary';
+    popper = _extends({}, popper, check[side](placement));
+  });
+
+  data.offsets.popper = popper;
+
+  return data;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function shift(data) {
+  var placement = data.placement;
+  var basePlacement = placement.split('-')[0];
+  var shiftvariation = placement.split('-')[1];
+
+  // if shift shiftvariation is specified, run the modifier
+  if (shiftvariation) {
+    var _data$offsets = data.offsets,
+        reference = _data$offsets.reference,
+        popper = _data$offsets.popper;
+
+    var isVertical = ['bottom', 'top'].indexOf(basePlacement) !== -1;
+    var side = isVertical ? 'left' : 'top';
+    var measurement = isVertical ? 'width' : 'height';
+
+    var shiftOffsets = {
+      start: defineProperty({}, side, reference[side]),
+      end: defineProperty({}, side, reference[side] + reference[measurement] - popper[measurement])
+    };
+
+    data.offsets.popper = _extends({}, popper, shiftOffsets[shiftvariation]);
+  }
+
+  return data;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function hide(data) {
+  if (!isModifierRequired(data.instance.modifiers, 'hide', 'preventOverflow')) {
+    return data;
+  }
+
+  var refRect = data.offsets.reference;
+  var bound = find(data.instance.modifiers, function (modifier) {
+    return modifier.name === 'preventOverflow';
+  }).boundaries;
+
+  if (refRect.bottom < bound.top || refRect.left > bound.right || refRect.top > bound.bottom || refRect.right < bound.left) {
+    // Avoid unnecessary DOM access if visibility hasn't changed
+    if (data.hide === true) {
+      return data;
+    }
+
+    data.hide = true;
+    data.attributes['x-out-of-boundaries'] = '';
+  } else {
+    // Avoid unnecessary DOM access if visibility hasn't changed
+    if (data.hide === false) {
+      return data;
+    }
+
+    data.hide = false;
+    data.attributes['x-out-of-boundaries'] = false;
+  }
+
+  return data;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function inner(data) {
+  var placement = data.placement;
+  var basePlacement = placement.split('-')[0];
+  var _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+
+  var isHoriz = ['left', 'right'].indexOf(basePlacement) !== -1;
+
+  var subtractLength = ['top', 'left'].indexOf(basePlacement) === -1;
+
+  popper[isHoriz ? 'left' : 'top'] = reference[basePlacement] - (subtractLength ? popper[isHoriz ? 'width' : 'height'] : 0);
+
+  data.placement = getOppositePlacement(placement);
+  data.offsets.popper = getClientRect(popper);
+
+  return data;
+}
+
+/**
+ * Modifier function, each modifier can have a function of this type assigned
+ * to its `fn` property.<br />
+ * These functions will be called on each update, this means that you must
+ * make sure they are performant enough to avoid performance bottlenecks.
+ *
+ * @function ModifierFn
+ * @argument {dataObject} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {dataObject} The data object, properly modified
+ */
+
+/**
+ * Modifiers are plugins used to alter the behavior of your poppers.<br />
+ * Popper.js uses a set of 9 modifiers to provide all the basic functionalities
+ * needed by the library.
+ *
+ * Usually you don't want to override the `order`, `fn` and `onLoad` props.
+ * All the other properties are configurations that could be tweaked.
+ * @namespace modifiers
+ */
+var modifiers = {
+  /**
+   * Modifier used to shift the popper on the start or end of its reference
+   * element.<br />
+   * It will read the variation of the `placement` property.<br />
+   * It can be one either `-end` or `-start`.
+   * @memberof modifiers
+   * @inner
+   */
+  shift: {
+    /** @prop {number} order=100 - Index used to define the order of execution */
+    order: 100,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: shift
+  },
+
+  /**
+   * The `offset` modifier can shift your popper on both its axis.
+   *
+   * It accepts the following units:
+   * - `px` or unit-less, interpreted as pixels
+   * - `%` or `%r`, percentage relative to the length of the reference element
+   * - `%p`, percentage relative to the length of the popper element
+   * - `vw`, CSS viewport width unit
+   * - `vh`, CSS viewport height unit
+   *
+   * For length is intended the main axis relative to the placement of the popper.<br />
+   * This means that if the placement is `top` or `bottom`, the length will be the
+   * `width`. In case of `left` or `right`, it will be the `height`.
+   *
+   * You can provide a single value (as `Number` or `String`), or a pair of values
+   * as `String` divided by a comma or one (or more) white spaces.<br />
+   * The latter is a deprecated method because it leads to confusion and will be
+   * removed in v2.<br />
+   * Additionally, it accepts additions and subtractions between different units.
+   * Note that multiplications and divisions aren't supported.
+   *
+   * Valid examples are:
+   * ```
+   * 10
+   * '10%'
+   * '10, 10'
+   * '10%, 10'
+   * '10 + 10%'
+   * '10 - 5vh + 3%'
+   * '-10px + 5vh, 5px - 6%'
+   * ```
+   * > **NB**: If you desire to apply offsets to your poppers in a way that may make them overlap
+   * > with their reference element, unfortunately, you will have to disable the `flip` modifier.
+   * > You can read more on this at this [issue](https://github.com/FezVrasta/popper.js/issues/373).
+   *
+   * @memberof modifiers
+   * @inner
+   */
+  offset: {
+    /** @prop {number} order=200 - Index used to define the order of execution */
+    order: 200,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: offset,
+    /** @prop {Number|String} offset=0
+     * The offset value as described in the modifier description
+     */
+    offset: 0
+  },
+
+  /**
+   * Modifier used to prevent the popper from being positioned outside the boundary.
+   *
+   * A scenario exists where the reference itself is not within the boundaries.<br />
+   * We can say it has "escaped the boundaries" — or just "escaped".<br />
+   * In this case we need to decide whether the popper should either:
+   *
+   * - detach from the reference and remain "trapped" in the boundaries, or
+   * - if it should ignore the boundary and "escape with its reference"
+   *
+   * When `escapeWithReference` is set to`true` and reference is completely
+   * outside its boundaries, the popper will overflow (or completely leave)
+   * the boundaries in order to remain attached to the edge of the reference.
+   *
+   * @memberof modifiers
+   * @inner
+   */
+  preventOverflow: {
+    /** @prop {number} order=300 - Index used to define the order of execution */
+    order: 300,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: preventOverflow,
+    /**
+     * @prop {Array} [priority=['left','right','top','bottom']]
+     * Popper will try to prevent overflow following these priorities by default,
+     * then, it could overflow on the left and on top of the `boundariesElement`
+     */
+    priority: ['left', 'right', 'top', 'bottom'],
+    /**
+     * @prop {number} padding=5
+     * Amount of pixel used to define a minimum distance between the boundaries
+     * and the popper. This makes sure the popper always has a little padding
+     * between the edges of its container
+     */
+    padding: 5,
+    /**
+     * @prop {String|HTMLElement} boundariesElement='scrollParent'
+     * Boundaries used by the modifier. Can be `scrollParent`, `window`,
+     * `viewport` or any DOM element.
+     */
+    boundariesElement: 'scrollParent'
+  },
+
+  /**
+   * Modifier used to make sure the reference and its popper stay near each other
+   * without leaving any gap between the two. Especially useful when the arrow is
+   * enabled and you want to ensure that it points to its reference element.
+   * It cares only about the first axis. You can still have poppers with margin
+   * between the popper and its reference element.
+   * @memberof modifiers
+   * @inner
+   */
+  keepTogether: {
+    /** @prop {number} order=400 - Index used to define the order of execution */
+    order: 400,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: keepTogether
+  },
+
+  /**
+   * This modifier is used to move the `arrowElement` of the popper to make
+   * sure it is positioned between the reference element and its popper element.
+   * It will read the outer size of the `arrowElement` node to detect how many
+   * pixels of conjunction are needed.
+   *
+   * It has no effect if no `arrowElement` is provided.
+   * @memberof modifiers
+   * @inner
+   */
+  arrow: {
+    /** @prop {number} order=500 - Index used to define the order of execution */
+    order: 500,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: arrow,
+    /** @prop {String|HTMLElement} element='[x-arrow]' - Selector or node used as arrow */
+    element: '[x-arrow]'
+  },
+
+  /**
+   * Modifier used to flip the popper's placement when it starts to overlap its
+   * reference element.
+   *
+   * Requires the `preventOverflow` modifier before it in order to work.
+   *
+   * **NOTE:** this modifier will interrupt the current update cycle and will
+   * restart it if it detects the need to flip the placement.
+   * @memberof modifiers
+   * @inner
+   */
+  flip: {
+    /** @prop {number} order=600 - Index used to define the order of execution */
+    order: 600,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: flip,
+    /**
+     * @prop {String|Array} behavior='flip'
+     * The behavior used to change the popper's placement. It can be one of
+     * `flip`, `clockwise`, `counterclockwise` or an array with a list of valid
+     * placements (with optional variations)
+     */
+    behavior: 'flip',
+    /**
+     * @prop {number} padding=5
+     * The popper will flip if it hits the edges of the `boundariesElement`
+     */
+    padding: 5,
+    /**
+     * @prop {String|HTMLElement} boundariesElement='viewport'
+     * The element which will define the boundaries of the popper position.
+     * The popper will never be placed outside of the defined boundaries
+     * (except if `keepTogether` is enabled)
+     */
+    boundariesElement: 'viewport',
+    /**
+     * @prop {Boolean} flipVariations=false
+     * The popper will switch placement variation between `-start` and `-end` when
+     * the reference element overlaps its boundaries.
+     *
+     * The original placement should have a set variation.
+     */
+    flipVariations: false,
+    /**
+     * @prop {Boolean} flipVariationsByContent=false
+     * The popper will switch placement variation between `-start` and `-end` when
+     * the popper element overlaps its reference boundaries.
+     *
+     * The original placement should have a set variation.
+     */
+    flipVariationsByContent: false
+  },
+
+  /**
+   * Modifier used to make the popper flow toward the inner of the reference element.
+   * By default, when this modifier is disabled, the popper will be placed outside
+   * the reference element.
+   * @memberof modifiers
+   * @inner
+   */
+  inner: {
+    /** @prop {number} order=700 - Index used to define the order of execution */
+    order: 700,
+    /** @prop {Boolean} enabled=false - Whether the modifier is enabled or not */
+    enabled: false,
+    /** @prop {ModifierFn} */
+    fn: inner
+  },
+
+  /**
+   * Modifier used to hide the popper when its reference element is outside of the
+   * popper boundaries. It will set a `x-out-of-boundaries` attribute which can
+   * be used to hide with a CSS selector the popper when its reference is
+   * out of boundaries.
+   *
+   * Requires the `preventOverflow` modifier before it in order to work.
+   * @memberof modifiers
+   * @inner
+   */
+  hide: {
+    /** @prop {number} order=800 - Index used to define the order of execution */
+    order: 800,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: hide
+  },
+
+  /**
+   * Computes the style that will be applied to the popper element to gets
+   * properly positioned.
+   *
+   * Note that this modifier will not touch the DOM, it just prepares the styles
+   * so that `applyStyle` modifier can apply it. This separation is useful
+   * in case you need to replace `applyStyle` with a custom implementation.
+   *
+   * This modifier has `850` as `order` value to maintain backward compatibility
+   * with previous versions of Popper.js. Expect the modifiers ordering method
+   * to change in future major versions of the library.
+   *
+   * @memberof modifiers
+   * @inner
+   */
+  computeStyle: {
+    /** @prop {number} order=850 - Index used to define the order of execution */
+    order: 850,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: computeStyle,
+    /**
+     * @prop {Boolean} gpuAcceleration=true
+     * If true, it uses the CSS 3D transformation to position the popper.
+     * Otherwise, it will use the `top` and `left` properties
+     */
+    gpuAcceleration: true,
+    /**
+     * @prop {string} [x='bottom']
+     * Where to anchor the X axis (`bottom` or `top`). AKA X offset origin.
+     * Change this if your popper should grow in a direction different from `bottom`
+     */
+    x: 'bottom',
+    /**
+     * @prop {string} [x='left']
+     * Where to anchor the Y axis (`left` or `right`). AKA Y offset origin.
+     * Change this if your popper should grow in a direction different from `right`
+     */
+    y: 'right'
+  },
+
+  /**
+   * Applies the computed styles to the popper element.
+   *
+   * All the DOM manipulations are limited to this modifier. This is useful in case
+   * you want to integrate Popper.js inside a framework or view library and you
+   * want to delegate all the DOM manipulations to it.
+   *
+   * Note that if you disable this modifier, you must make sure the popper element
+   * has its position set to `absolute` before Popper.js can do its work!
+   *
+   * Just disable this modifier and define your own to achieve the desired effect.
+   *
+   * @memberof modifiers
+   * @inner
+   */
+  applyStyle: {
+    /** @prop {number} order=900 - Index used to define the order of execution */
+    order: 900,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: applyStyle,
+    /** @prop {Function} */
+    onLoad: applyStyleOnLoad,
+    /**
+     * @deprecated since version 1.10.0, the property moved to `computeStyle` modifier
+     * @prop {Boolean} gpuAcceleration=true
+     * If true, it uses the CSS 3D transformation to position the popper.
+     * Otherwise, it will use the `top` and `left` properties
+     */
+    gpuAcceleration: undefined
+  }
+};
+
+/**
+ * The `dataObject` is an object containing all the information used by Popper.js.
+ * This object is passed to modifiers and to the `onCreate` and `onUpdate` callbacks.
+ * @name dataObject
+ * @property {Object} data.instance The Popper.js instance
+ * @property {String} data.placement Placement applied to popper
+ * @property {String} data.originalPlacement Placement originally defined on init
+ * @property {Boolean} data.flipped True if popper has been flipped by flip modifier
+ * @property {Boolean} data.hide True if the reference element is out of boundaries, useful to know when to hide the popper
+ * @property {HTMLElement} data.arrowElement Node used as arrow by arrow modifier
+ * @property {Object} data.styles Any CSS property defined here will be applied to the popper. It expects the JavaScript nomenclature (eg. `marginBottom`)
+ * @property {Object} data.arrowStyles Any CSS property defined here will be applied to the popper arrow. It expects the JavaScript nomenclature (eg. `marginBottom`)
+ * @property {Object} data.boundaries Offsets of the popper boundaries
+ * @property {Object} data.offsets The measurements of popper, reference and arrow elements
+ * @property {Object} data.offsets.popper `top`, `left`, `width`, `height` values
+ * @property {Object} data.offsets.reference `top`, `left`, `width`, `height` values
+ * @property {Object} data.offsets.arrow] `top` and `left` offsets, only one of them will be different from 0
+ */
+
+/**
+ * Default options provided to Popper.js constructor.<br />
+ * These can be overridden using the `options` argument of Popper.js.<br />
+ * To override an option, simply pass an object with the same
+ * structure of the `options` object, as the 3rd argument. For example:
+ * ```
+ * new Popper(ref, pop, {
+ *   modifiers: {
+ *     preventOverflow: { enabled: false }
+ *   }
+ * })
+ * ```
+ * @type {Object}
+ * @static
+ * @memberof Popper
+ */
+var Defaults = {
+  /**
+   * Popper's placement.
+   * @prop {Popper.placements} placement='bottom'
+   */
+  placement: 'bottom',
+
+  /**
+   * Set this to true if you want popper to position it self in 'fixed' mode
+   * @prop {Boolean} positionFixed=false
+   */
+  positionFixed: false,
+
+  /**
+   * Whether events (resize, scroll) are initially enabled.
+   * @prop {Boolean} eventsEnabled=true
+   */
+  eventsEnabled: true,
+
+  /**
+   * Set to true if you want to automatically remove the popper when
+   * you call the `destroy` method.
+   * @prop {Boolean} removeOnDestroy=false
+   */
+  removeOnDestroy: false,
+
+  /**
+   * Callback called when the popper is created.<br />
+   * By default, it is set to no-op.<br />
+   * Access Popper.js instance with `data.instance`.
+   * @prop {onCreate}
+   */
+  onCreate: function onCreate() {},
+
+  /**
+   * Callback called when the popper is updated. This callback is not called
+   * on the initialization/creation of the popper, but only on subsequent
+   * updates.<br />
+   * By default, it is set to no-op.<br />
+   * Access Popper.js instance with `data.instance`.
+   * @prop {onUpdate}
+   */
+  onUpdate: function onUpdate() {},
+
+  /**
+   * List of modifiers used to modify the offsets before they are applied to the popper.
+   * They provide most of the functionalities of Popper.js.
+   * @prop {modifiers}
+   */
+  modifiers: modifiers
+};
+
+/**
+ * @callback onCreate
+ * @param {dataObject} data
+ */
+
+/**
+ * @callback onUpdate
+ * @param {dataObject} data
+ */
+
+// Utils
+// Methods
+var Popper = function () {
+  /**
+   * Creates a new Popper.js instance.
+   * @class Popper
+   * @param {Element|referenceObject} reference - The reference element used to position the popper
+   * @param {Element} popper - The HTML / XML element used as the popper
+   * @param {Object} options - Your custom options to override the ones defined in [Defaults](#defaults)
+   * @return {Object} instance - The generated Popper.js instance
+   */
+  function Popper(reference, popper) {
+    var _this = this;
+
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    classCallCheck(this, Popper);
+
+    this.scheduleUpdate = function () {
+      return requestAnimationFrame(_this.update);
+    };
+
+    // make update() debounced, so that it only runs at most once-per-tick
+    this.update = debounce(this.update.bind(this));
+
+    // with {} we create a new object with the options inside it
+    this.options = _extends({}, Popper.Defaults, options);
+
+    // init state
+    this.state = {
+      isDestroyed: false,
+      isCreated: false,
+      scrollParents: []
+    };
+
+    // get reference and popper elements (allow jQuery wrappers)
+    this.reference = reference && reference.jquery ? reference[0] : reference;
+    this.popper = popper && popper.jquery ? popper[0] : popper;
+
+    // Deep merge modifiers options
+    this.options.modifiers = {};
+    Object.keys(_extends({}, Popper.Defaults.modifiers, options.modifiers)).forEach(function (name) {
+      _this.options.modifiers[name] = _extends({}, Popper.Defaults.modifiers[name] || {}, options.modifiers ? options.modifiers[name] : {});
+    });
+
+    // Refactoring modifiers' list (Object => Array)
+    this.modifiers = Object.keys(this.options.modifiers).map(function (name) {
+      return _extends({
+        name: name
+      }, _this.options.modifiers[name]);
+    })
+    // sort the modifiers by order
+    .sort(function (a, b) {
+      return a.order - b.order;
+    });
+
+    // modifiers have the ability to execute arbitrary code when Popper.js get inited
+    // such code is executed in the same order of its modifier
+    // they could add new properties to their options configuration
+    // BE AWARE: don't add options to `options.modifiers.name` but to `modifierOptions`!
+    this.modifiers.forEach(function (modifierOptions) {
+      if (modifierOptions.enabled && isFunction(modifierOptions.onLoad)) {
+        modifierOptions.onLoad(_this.reference, _this.popper, _this.options, modifierOptions, _this.state);
+      }
+    });
+
+    // fire the first update to position the popper in the right place
+    this.update();
+
+    var eventsEnabled = this.options.eventsEnabled;
+    if (eventsEnabled) {
+      // setup event listeners, they will take care of update the position in specific situations
+      this.enableEventListeners();
+    }
+
+    this.state.eventsEnabled = eventsEnabled;
+  }
+
+  // We can't use class properties because they don't get listed in the
+  // class prototype and break stuff like Sinon stubs
+
+
+  createClass(Popper, [{
+    key: 'update',
+    value: function update$$1() {
+      return update.call(this);
+    }
+  }, {
+    key: 'destroy',
+    value: function destroy$$1() {
+      return destroy.call(this);
+    }
+  }, {
+    key: 'enableEventListeners',
+    value: function enableEventListeners$$1() {
+      return enableEventListeners.call(this);
+    }
+  }, {
+    key: 'disableEventListeners',
+    value: function disableEventListeners$$1() {
+      return disableEventListeners.call(this);
+    }
+
+    /**
+     * Schedules an update. It will run on the next UI update available.
+     * @method scheduleUpdate
+     * @memberof Popper
+     */
+
+
+    /**
+     * Collection of utilities useful when writing custom modifiers.
+     * Starting from version 1.7, this method is available only if you
+     * include `popper-utils.js` before `popper.js`.
+     *
+     * **DEPRECATION**: This way to access PopperUtils is deprecated
+     * and will be removed in v2! Use the PopperUtils module directly instead.
+     * Due to the high instability of the methods contained in Utils, we can't
+     * guarantee them to follow semver. Use them at your own risk!
+     * @static
+     * @private
+     * @type {Object}
+     * @deprecated since version 1.8
+     * @member Utils
+     * @memberof Popper
+     */
+
+  }]);
+  return Popper;
+}();
+
+/**
+ * The `referenceObject` is an object that provides an interface compatible with Popper.js
+ * and lets you use it as replacement of a real DOM node.<br />
+ * You can use this method to position a popper relatively to a set of coordinates
+ * in case you don't have a DOM node to use as reference.
+ *
+ * ```
+ * new Popper(referenceObject, popperNode);
+ * ```
+ *
+ * NB: This feature isn't supported in Internet Explorer 10.
+ * @name referenceObject
+ * @property {Function} data.getBoundingClientRect
+ * A function that returns a set of coordinates compatible with the native `getBoundingClientRect` method.
+ * @property {number} data.clientWidth
+ * An ES6 getter that will return the width of the virtual reference element.
+ * @property {number} data.clientHeight
+ * An ES6 getter that will return the height of the virtual reference element.
+ */
+
+
+Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
+Popper.placements = placements;
+Popper.Defaults = Defaults;
+
+/* harmony default export */ __webpack_exports__["default"] = (Popper);
+//# sourceMappingURL=popper.js.map
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("c8ba")))
 
 /***/ }),
 
@@ -20616,6 +25540,9 @@ module.exports = function (key) {
 
 exports.__esModule = true;
 exports.default = void 0;
+
+var _inspect = __webpack_require__("0d5a");
+
 var _default = {
   methods: {
     renderTopRow: function renderTopRow() {
@@ -20630,7 +25557,7 @@ var _default = {
       return h('tr', {
         key: 'top-row',
         staticClass: 'b-table-top-row',
-        class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-top') : this.tbodyTrClass],
+        class: [(0, _inspect.isFunction)(this.tbodyTrClass) ? this.tbodyTrClass(null, 'row-top') : this.tbodyTrClass],
         attrs: {
           role: 'row'
         }
@@ -21710,19 +26637,31 @@ module.exports = $export;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _nav = __webpack_require__("92e4");
+var _nav = _interopRequireDefault(__webpack_require__("92e4"));
 
-var _navItem = __webpack_require__("eee9");
+exports.BNav = _nav.default;
 
-var _navText = __webpack_require__("e599");
+var _navItem = _interopRequireDefault(__webpack_require__("eee9"));
 
-var _navForm = __webpack_require__("a07b");
+exports.BNavItem = _navItem.default;
 
-var _navItemDropdown = __webpack_require__("485d");
+var _navText = _interopRequireDefault(__webpack_require__("e599"));
 
-var _dropdown = __webpack_require__("c7b9");
+exports.BNavText = _navText.default;
+
+var _navForm = _interopRequireDefault(__webpack_require__("a07b"));
+
+exports.BNavForm = _navForm.default;
+
+var _navItemDropdown = _interopRequireDefault(__webpack_require__("485d"));
+
+exports.BNavItemDropdown = _navItemDropdown.default;
+
+var _dropdown = _interopRequireDefault(__webpack_require__("c7b9"));
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BNav: _nav.default,
@@ -21784,16 +26723,22 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
-var _inputGroupAddon = __webpack_require__("9d25");
+var _inputGroupAddon = _interopRequireWildcard(__webpack_require__("9d25"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 // @vue/component
-var _default = {
+var _default = _vue.default.extend({
   name: 'BInputGroupAppend',
   functional: true,
   props: _inputGroupAddon.commonProps,
@@ -21808,7 +26753,8 @@ var _default = {
       })
     }), children);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -21820,28 +26766,35 @@ exports.default = _default;
 
 
 exports.__esModule = true;
-exports.default = void 0;
+exports.default = exports.props = void 0;
 
-var _id = __webpack_require__("eae0");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
 
-var _form = __webpack_require__("5f07");
+var _id = _interopRequireDefault(__webpack_require__("eae0"));
 
-var _formOptions = __webpack_require__("461c");
+var _form = _interopRequireDefault(__webpack_require__("5f07"));
 
-var _formRadioCheckGroup = __webpack_require__("5c02");
+var _formOptions = _interopRequireDefault(__webpack_require__("461c"));
 
-var _formSize = __webpack_require__("6e1b");
+var _formRadioCheckGroup = _interopRequireDefault(__webpack_require__("5c02"));
 
-var _formState = __webpack_require__("41fb");
+var _formSize = _interopRequireDefault(__webpack_require__("6e1b"));
 
-var _formRadio = __webpack_require__("2c38");
+var _formState = _interopRequireDefault(__webpack_require__("41fb"));
 
-// @vue/component
-var _default = {
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var props = {
+  checked: {
+    type: [String, Object, Number, Boolean],
+    default: null
+  } // @vue/component
+
+};
+exports.props = props;
+
+var _default = _vue.default.extend({
   name: 'BFormRadioGroup',
-  components: {
-    BFormRadio: _formRadio.default
-  },
   mixins: [_id.default, _form.default, _formRadioCheckGroup.default, // Includes render function
   _formOptions.default, _formSize.default, _formState.default],
   provide: function provide() {
@@ -21849,12 +26802,7 @@ var _default = {
       bvRadioGroup: this
     };
   },
-  props: {
-    checked: {
-      type: [String, Object, Number, Boolean],
-      default: null
-    }
-  },
+  props: props,
   data: function data() {
     return {
       localChecked: this.checked
@@ -21865,7 +26813,8 @@ var _default = {
       return true;
     }
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -21961,6 +26910,183 @@ module.exports = function (it) {
   return toString.call(it).slice(8, -1);
 };
 
+
+/***/ }),
+
+/***/ "6bc1":
+/***/ (function(module, exports) {
+
+// 7.2.9 SameValue(x, y)
+module.exports = Object.is || function is(x, y) {
+  // eslint-disable-next-line no-self-compare
+  return x === y ? x !== 0 || 1 / x === 1 / y : x != x && y != y;
+};
+
+
+/***/ }),
+
+/***/ "6ce7":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.Tooltip = exports.Toast = exports.Tabs = exports.Table = exports.Spinner = exports.Progress = exports.Popover = exports.PaginationNav = exports.Pagination = exports.Navbar = exports.Nav = exports.Modal = exports.Media = exports.ListGroup = exports.Link = exports.Jumbotron = exports.Image = exports.FormSelect = exports.FormFile = exports.FormTextarea = exports.FormInput = exports.FormRadio = exports.FormCheckbox = exports.FormGroup = exports.Form = exports.Embed = exports.Dropdown = exports.Collapse = exports.Layout = exports.Carousel = exports.Card = exports.InputGroup = exports.ButtonToolbar = exports.ButtonGroup = exports.Button = exports.Breadcrumb = exports.Badge = exports.Alert = void 0;
+
+var _alert = _interopRequireDefault(__webpack_require__("9e25"));
+
+exports.Alert = _alert.default;
+
+var _badge = _interopRequireDefault(__webpack_require__("7cb0"));
+
+exports.Badge = _badge.default;
+
+var _breadcrumb = _interopRequireDefault(__webpack_require__("6def"));
+
+exports.Breadcrumb = _breadcrumb.default;
+
+var _button = _interopRequireDefault(__webpack_require__("0866"));
+
+exports.Button = _button.default;
+
+var _buttonGroup = _interopRequireDefault(__webpack_require__("8b96"));
+
+exports.ButtonGroup = _buttonGroup.default;
+
+var _buttonToolbar = _interopRequireDefault(__webpack_require__("5c3f"));
+
+exports.ButtonToolbar = _buttonToolbar.default;
+
+var _inputGroup = _interopRequireDefault(__webpack_require__("00df"));
+
+exports.InputGroup = _inputGroup.default;
+
+var _card = _interopRequireDefault(__webpack_require__("c4bd"));
+
+exports.Card = _card.default;
+
+var _carousel = _interopRequireDefault(__webpack_require__("a88f"));
+
+exports.Carousel = _carousel.default;
+
+var _layout = _interopRequireDefault(__webpack_require__("9d37"));
+
+exports.Layout = _layout.default;
+
+var _collapse = _interopRequireDefault(__webpack_require__("f3fa"));
+
+exports.Collapse = _collapse.default;
+
+var _dropdown = _interopRequireDefault(__webpack_require__("c7b9"));
+
+exports.Dropdown = _dropdown.default;
+
+var _embed = _interopRequireDefault(__webpack_require__("32ec"));
+
+exports.Embed = _embed.default;
+
+var _form = _interopRequireDefault(__webpack_require__("7d54"));
+
+exports.Form = _form.default;
+
+var _formGroup = _interopRequireDefault(__webpack_require__("7a5c"));
+
+exports.FormGroup = _formGroup.default;
+
+var _formCheckbox = _interopRequireDefault(__webpack_require__("efe3"));
+
+exports.FormCheckbox = _formCheckbox.default;
+
+var _formRadio = _interopRequireDefault(__webpack_require__("3110"));
+
+exports.FormRadio = _formRadio.default;
+
+var _formInput = _interopRequireDefault(__webpack_require__("b407"));
+
+exports.FormInput = _formInput.default;
+
+var _formTextarea = _interopRequireDefault(__webpack_require__("a05c"));
+
+exports.FormTextarea = _formTextarea.default;
+
+var _formFile = _interopRequireDefault(__webpack_require__("a60a"));
+
+exports.FormFile = _formFile.default;
+
+var _formSelect = _interopRequireDefault(__webpack_require__("8b08"));
+
+exports.FormSelect = _formSelect.default;
+
+var _image = _interopRequireDefault(__webpack_require__("2635"));
+
+exports.Image = _image.default;
+
+var _jumbotron = _interopRequireDefault(__webpack_require__("1bee"));
+
+exports.Jumbotron = _jumbotron.default;
+
+var _link = _interopRequireDefault(__webpack_require__("3b34"));
+
+exports.Link = _link.default;
+
+var _listGroup = _interopRequireDefault(__webpack_require__("057b"));
+
+exports.ListGroup = _listGroup.default;
+
+var _media = _interopRequireDefault(__webpack_require__("d71d"));
+
+exports.Media = _media.default;
+
+var _modal = _interopRequireDefault(__webpack_require__("256b"));
+
+exports.Modal = _modal.default;
+
+var _nav = _interopRequireDefault(__webpack_require__("6423"));
+
+exports.Nav = _nav.default;
+
+var _navbar = _interopRequireDefault(__webpack_require__("edd0"));
+
+exports.Navbar = _navbar.default;
+
+var _pagination = _interopRequireDefault(__webpack_require__("887d"));
+
+exports.Pagination = _pagination.default;
+
+var _paginationNav = _interopRequireDefault(__webpack_require__("f8d0"));
+
+exports.PaginationNav = _paginationNav.default;
+
+var _popover = _interopRequireDefault(__webpack_require__("f38f"));
+
+exports.Popover = _popover.default;
+
+var _progress = _interopRequireDefault(__webpack_require__("b528"));
+
+exports.Progress = _progress.default;
+
+var _spinner = _interopRequireDefault(__webpack_require__("076e"));
+
+exports.Spinner = _spinner.default;
+
+var _table = _interopRequireDefault(__webpack_require__("b740"));
+
+exports.Table = _table.default;
+
+var _tabs = _interopRequireDefault(__webpack_require__("1018"));
+
+exports.Tabs = _tabs.default;
+
+var _toast = _interopRequireDefault(__webpack_require__("8596"));
+
+exports.Toast = _toast.default;
+
+var _tooltip = _interopRequireDefault(__webpack_require__("249f"));
+
+exports.Tooltip = _tooltip.default;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
 
@@ -29032,13 +34158,21 @@ if (false) {}
 exports.__esModule = true;
 exports.default = void 0;
 
-var _breadcrumb = __webpack_require__("f4fc");
+var _breadcrumb = _interopRequireDefault(__webpack_require__("f4fc"));
 
-var _breadcrumbItem = __webpack_require__("5279");
+exports.BBreadcrumb = _breadcrumb.default;
 
-var _breadcrumbLink = __webpack_require__("12d3");
+var _breadcrumbItem = _interopRequireDefault(__webpack_require__("5279"));
+
+exports.BBreadcrumbItem = _breadcrumbItem.default;
+
+var _breadcrumbLink = _interopRequireDefault(__webpack_require__("12d3"));
+
+exports.BBreadcrumbLink = _breadcrumbLink.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BBreadcrumb: _breadcrumb.default,
@@ -29094,15 +34228,19 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
-var _prefixPropName = __webpack_require__("e109");
+var _prefixPropName = _interopRequireDefault(__webpack_require__("e109"));
 
-var _copyProps = __webpack_require__("0942");
+var _copyProps = _interopRequireDefault(__webpack_require__("0942"));
 
 var _html = __webpack_require__("be11");
 
-var _cardMixin = __webpack_require__("45f0");
+var _cardMixin = _interopRequireDefault(__webpack_require__("45f0"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -29125,7 +34263,8 @@ var props = _objectSpread({}, (0, _copyProps.default)(_cardMixin.default.props, 
 });
 
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BCardFooter',
   functional: true,
   props: props,
@@ -29142,7 +34281,8 @@ var _default = {
       domProps: (0, _html.htmlOrText)(props.footerHtml, props.footer)
     })]);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -29155,7 +34295,10 @@ exports.default = _default;
 
 exports.__esModule = true;
 exports.default = void 0;
-var _default = {
+
+var _config = __webpack_require__("eb60");
+
+var _default2 = {
   props: {
     footClone: {
       type: Boolean,
@@ -29163,7 +34306,9 @@ var _default = {
     },
     footVariant: {
       type: String,
-      default: ''
+      default: function _default() {
+        return (0, _config.getComponentConfig)('BTable', 'footVariant');
+      }
     },
     tfootClass: {
       type: [String, Array, Object],
@@ -29177,7 +34322,7 @@ var _default = {
   computed: {
     footClasses: function footClasses() {
       var variant = this.footVariant || this.headVariant || null;
-      return [variant ? 'thead-' + variant : '', this.tfootClass];
+      return [variant ? "thead-".concat(variant) : '', this.tfootClass];
     }
   },
   methods: {
@@ -29188,7 +34333,31 @@ var _default = {
     }
   }
 };
-exports.default = _default;
+exports.default = _default2;
+
+/***/ }),
+
+/***/ "71c1":
+/***/ (function(module, exports, __webpack_require__) {
+
+var toInteger = __webpack_require__("3a38");
+var defined = __webpack_require__("25eb");
+// true  -> String#at
+// false -> String#codePointAt
+module.exports = function (TO_STRING) {
+  return function (that, pos) {
+    var s = String(defined(that));
+    var i = toInteger(pos);
+    var l = s.length;
+    var a, b;
+    if (i < 0 || i >= l) return TO_STRING ? '' : undefined;
+    a = s.charCodeAt(i);
+    return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff
+      ? TO_STRING ? s.charAt(i) : a
+      : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
+  };
+};
+
 
 /***/ }),
 
@@ -29216,6 +34385,515 @@ module.exports = function (index, length) {
   return index < 0 ? max(index + length, 0) : min(index, length);
 };
 
+
+/***/ }),
+
+/***/ "782b":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
+var _portalVue = __webpack_require__("2b88");
+
+var _bvEvent = _interopRequireDefault(__webpack_require__("f8bb"));
+
+var _config = __webpack_require__("eb60");
+
+var _dom = __webpack_require__("1611");
+
+var _listenOnRoot = _interopRequireDefault(__webpack_require__("edbc"));
+
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
+
+var _buttonClose = _interopRequireDefault(__webpack_require__("600b"));
+
+var _toaster = _interopRequireDefault(__webpack_require__("4eb8"));
+
+var _link = _interopRequireDefault(__webpack_require__("4e40"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// --- Constants ---
+var NAME = 'BToast';
+var MIN_DURATION = 1000;
+var props = {
+  id: {
+    type: String,
+    default: null
+  },
+  visible: {
+    type: Boolean,
+    default: false
+  },
+  title: {
+    type: String,
+    default: null
+  },
+  toaster: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'toaster');
+    }
+  },
+  variant: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'variant');
+    }
+  },
+  isStatus: {
+    // Switches role to 'status' and aria-live to 'polite'
+    type: Boolean,
+    default: false
+  },
+  appendToast: {
+    type: Boolean,
+    default: false
+  },
+  noAutoHide: {
+    type: Boolean,
+    default: false
+  },
+  autoHideDelay: {
+    type: [Number, String],
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'autoHideDelay');
+    }
+  },
+  noCloseButton: {
+    type: Boolean,
+    default: false
+  },
+  noFade: {
+    type: Boolean,
+    default: false
+  },
+  noHoverPause: {
+    type: Boolean,
+    default: false
+  },
+  solid: {
+    type: Boolean,
+    default: false
+  },
+  toastClass: {
+    type: [String, Object, Array],
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'toastClass');
+    }
+  },
+  headerClass: {
+    type: [String, Object, Array],
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'headerClass');
+    }
+  },
+  bodyClass: {
+    type: [String, Object, Array],
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'bodyClass');
+    }
+  },
+  href: {
+    type: String,
+    default: null
+  },
+  to: {
+    type: [String, Object],
+    default: null
+  },
+  static: {
+    // Render the toast in place, rather than in a portal-target
+    type: Boolean,
+    default: false
+  } // Transition props defaults
+
+};
+exports.props = props;
+var DEFAULT_TRANSITION_PROPS = {
+  name: '',
+  enterClass: '',
+  enterActiveClass: '',
+  enterToClass: '',
+  leaveClass: 'show',
+  leaveActiveClass: '',
+  leaveToClass: '' // @vue/component
+
+};
+
+var _default2 = _vue.default.extend({
+  name: NAME,
+  mixins: [_listenOnRoot.default, _normalizeSlot.default],
+  inheritAttrs: false,
+  model: {
+    prop: 'visible',
+    event: 'change'
+  },
+  props: props,
+  data: function data() {
+    return {
+      isMounted: false,
+      doRender: false,
+      localShow: false,
+      showClass: false,
+      isTransitioning: false,
+      order: 0,
+      timer: null,
+      dismissStarted: 0,
+      resumeDismiss: 0
+    };
+  },
+  computed: {
+    toastClasses: function toastClasses() {
+      return [this.toastClass, {
+        show: this.showClass,
+        fade: !this.noFade
+      }];
+    },
+    bToastClasses: function bToastClasses() {
+      return _defineProperty({
+        'b-toast-solid': this.solid,
+        'b-toast-append': this.appendToast,
+        'b-toast-prepend': !this.appendToast
+      }, "b-toast-".concat(this.variant), this.variant);
+    },
+    slotScope: function slotScope() {
+      return {
+        hide: this.hide
+      };
+    },
+    computedDuration: function computedDuration() {
+      // Minimum supported duration is 1 second
+      return Math.max(parseInt(this.autoHideDelay, 10) || 0, MIN_DURATION);
+    },
+    computedToaster: function computedToaster() {
+      return String(this.toaster);
+    },
+    transitionHandlers: function transitionHandlers() {
+      return {
+        beforeEnter: this.onBeforeEnter,
+        afterEnter: this.onAfterEnter,
+        beforeLeave: this.onBeforeLeave,
+        afterLeave: this.onAfterLeave
+      };
+    }
+  },
+  watch: {
+    visible: function visible(newVal) {
+      newVal ? this.show() : this.hide();
+    },
+    localShow: function localShow(newVal) {
+      if (newVal !== this.visible) {
+        this.$emit('change', newVal);
+      }
+    },
+    toaster: function toaster(newVal)
+    /* istanbul ignore next */
+    {
+      var _this = this;
+
+      // If toaster target changed, make sure toaster exists
+      this.$nextTick(function () {
+        return _this.ensureToaster;
+      });
+    },
+    static: function _static(newVal)
+    /* istanbul ignore next */
+    {
+      // If static changes to true, and the toast is showing,
+      // ensure the toaster target exists
+      if (newVal && this.localShow) {
+        this.ensureToaster();
+      }
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    this.isMounted = true;
+    this.$nextTick(function () {
+      if (_this2.visible) {
+        (0, _dom.requestAF)(function () {
+          _this2.show();
+        });
+      }
+    }); // Listen for global $root show events
+
+    this.listenOnRoot('bv::show::toast', function (id) {
+      if (id === _this2.id) {
+        _this2.show();
+      }
+    }); // Listen for global $root hide events
+
+    this.listenOnRoot('bv::hide::toast', function (id) {
+      if (!id || id === _this2.id) {
+        _this2.hide();
+      }
+    }); // Make sure we hide when toaster is destroyed
+
+    /* istanbul ignore next: difficult to test */
+
+    this.listenOnRoot('bv::toaster::destroyed', function (toaster) {
+      if (toaster === _this2.computedToaster) {
+        _this2.hide();
+      }
+    });
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.clearDismissTimer();
+  },
+  methods: {
+    show: function show() {
+      var _this3 = this;
+
+      if (!this.localShow) {
+        this.ensureToaster();
+        var showEvt = this.buildEvent('show');
+        this.emitEvent(showEvt);
+        this.dismissStarted = this.resumeDismiss = 0;
+        this.order = Date.now() * (this.appendToast ? 1 : -1);
+        this.doRender = true;
+        this.$nextTick(function () {
+          // we show the toast after we have rendered the portal
+          _this3.localShow = true;
+        });
+      }
+    },
+    hide: function hide() {
+      if (this.localShow) {
+        var hideEvt = this.buildEvent('hide');
+        this.emitEvent(hideEvt);
+        this.setHoverHandler(false);
+        this.dismissStarted = this.resumeDismiss = 0;
+        this.clearDismissTimer();
+        this.localShow = false;
+      }
+    },
+    buildEvent: function buildEvent(type) {
+      var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return new _bvEvent.default(type, _objectSpread({
+        cancelable: false,
+        target: this.$el,
+        relatedTarget: null
+      }, opts, {
+        vueTarget: this,
+        componentId: this.id || null
+      }));
+    },
+    emitEvent: function emitEvent(bvEvt) {
+      var type = bvEvt.type;
+      this.$root.$emit("bv::toast:".concat(type), bvEvt);
+      this.$emit(type, bvEvt);
+    },
+    ensureToaster: function ensureToaster() {
+      if (this.static) {
+        return;
+      }
+
+      if (!_portalVue.Wormhole.hasTarget(this.computedToaster)) {
+        var div = document.createElement('div');
+        document.body.appendChild(div);
+        var toaster = new _toaster.default({
+          parent: this.$root,
+          propsData: {
+            name: this.computedToaster
+          }
+        });
+        toaster.$mount(div);
+      }
+    },
+    startDismissTimer: function startDismissTimer() {
+      this.clearDismissTimer();
+
+      if (!this.noAutoHide) {
+        this.timer = setTimeout(this.hide, this.resumeDismiss || this.computedDuration);
+        this.dismissStarted = Date.now();
+        this.resumeDismiss = 0;
+      }
+    },
+    clearDismissTimer: function clearDismissTimer() {
+      clearTimeout(this.timer);
+      this.timer = null;
+    },
+    setHoverHandler: function setHoverHandler(on) {
+      var method = on ? _dom.eventOn : _dom.eventOff;
+      method(this.$refs.btoast, 'mouseenter', this.onPause, {
+        passive: true,
+        capture: false
+      });
+      method(this.$refs.btoast, 'mouseleave', this.onUnPause, {
+        passive: true,
+        capture: false
+      });
+    },
+    onPause: function onPause(evt) {
+      // Determine time remaining, and then pause timer
+      if (this.noAutoHide || this.noHoverPause || !this.timer || this.resumeDismiss) {
+        return;
+      }
+
+      var passed = Date.now() - this.dismissStarted;
+
+      if (passed > 0) {
+        this.clearDismissTimer();
+        this.resumeDismiss = Math.max(this.computedDuration - passed, MIN_DURATION);
+      }
+    },
+    onUnPause: function onUnPause(evt) {
+      // Restart with max of time remaining or 1 second
+      if (this.noAutoHide || this.noHoverPause || !this.resumeDismiss) {
+        this.resumeDismiss = this.dismissStarted = 0;
+        return;
+      }
+
+      this.startDismissTimer();
+    },
+    onLinkClick: function onLinkClick() {
+      var _this4 = this;
+
+      // We delay the close to allow time for the
+      // browser to process the link click
+      this.$nextTick(function () {
+        (0, _dom.requestAF)(function () {
+          _this4.hide();
+        });
+      });
+    },
+    onBeforeEnter: function onBeforeEnter() {
+      var _this5 = this;
+
+      this.isTransitioning = true;
+      (0, _dom.requestAF)(function () {
+        _this5.showClass = true;
+      });
+    },
+    onAfterEnter: function onAfterEnter() {
+      this.isTransitioning = false;
+      var hiddenEvt = this.buildEvent('shown');
+      this.emitEvent(hiddenEvt);
+      this.startDismissTimer();
+      this.setHoverHandler(true);
+    },
+    onBeforeLeave: function onBeforeLeave() {
+      var _this6 = this;
+
+      this.isTransitioning = true;
+      (0, _dom.requestAF)(function () {
+        _this6.showClass = false;
+      });
+    },
+    onAfterLeave: function onAfterLeave() {
+      this.isTransitioning = false;
+      this.order = 0;
+      this.resumeDismiss = this.dismissStarted = 0;
+      var hiddenEvt = this.buildEvent('hidden');
+      this.emitEvent(hiddenEvt);
+      this.doRender = false;
+    },
+    makeToast: function makeToast(h) {
+      var _this7 = this;
+
+      // Render helper for generating the toast
+      // Assemble the header content
+      var $headerContent = [];
+      var $title = this.normalizeSlot('toast-title', this.slotScope);
+
+      if ($title) {
+        $headerContent.push($title);
+      } else if (this.title) {
+        $headerContent.push(h('strong', {
+          staticClass: 'mr-2'
+        }, this.title));
+      }
+
+      if (!this.noCloseButton) {
+        $headerContent.push(h(_buttonClose.default, {
+          staticClass: 'ml-auto mb-1',
+          on: {
+            click: function click(evt) {
+              _this7.hide();
+            }
+          }
+        }));
+      } // Assemble the header (if needed)
+
+
+      var $header = h(false);
+
+      if ($headerContent.length > 0) {
+        $header = h('header', {
+          staticClass: 'toast-header',
+          class: this.headerClass
+        }, $headerContent);
+      } // Toast body
+
+
+      var isLink = this.href || this.to;
+      var $body = h(isLink ? _link.default : 'div', {
+        staticClass: 'toast-body',
+        class: this.bodyClass,
+        props: isLink ? {
+          to: this.to,
+          href: this.href
+        } : {},
+        on: isLink ? {
+          click: this.onLinkClick
+        } : {}
+      }, [this.normalizeSlot('default', this.slotScope) || h(false)]); // Build the toast
+
+      var $toast = h('div', {
+        key: 'toast',
+        ref: 'toast',
+        staticClass: 'toast',
+        class: this.toastClasses,
+        attrs: _objectSpread({}, this.$attrs, {
+          id: this.id || null,
+          tabindex: '-1',
+          role: this.isStatus ? 'status' : 'alert',
+          'aria-live': this.isStatus ? 'polite' : 'assertive',
+          'aria-atomic': 'true'
+        })
+      }, [$header, $body]);
+      return $toast;
+    }
+  },
+  render: function render(h) {
+    if (!this.doRender || !this.isMounted) {
+      return h(false);
+    }
+
+    var name = "b-toast-".concat(this._uid);
+    return h(_portalVue.Portal, {
+      props: {
+        name: name,
+        to: this.computedToaster,
+        order: this.order,
+        slim: true,
+        disabled: this.static
+      }
+    }, [h('div', {
+      key: name,
+      ref: 'btoast',
+      staticClass: 'b-toast',
+      class: this.bToastClasses
+    }, [h('transition', {
+      props: DEFAULT_TRANSITION_PROPS,
+      on: this.transitionHandlers
+    }, [this.localShow ? this.makeToast(h) : null])])]);
+  }
+});
+
+exports.default = _default2;
 
 /***/ }),
 
@@ -29431,9 +35109,13 @@ module.exports = function (exec) {
 exports.__esModule = true;
 exports.default = void 0;
 
-var _formGroup = __webpack_require__("d239");
+var _formGroup = _interopRequireDefault(__webpack_require__("d239"));
+
+exports.BFormGroup = _formGroup.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BFormGroup: _formGroup.default,
@@ -29457,7 +35139,11 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var props = {
   tag: {
@@ -29466,7 +35152,8 @@ var props = {
   }
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BMediaBody',
   functional: true,
   props: props,
@@ -29478,7 +35165,8 @@ var _default = {
       staticClass: 'media-body'
     }), children);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -29490,154 +35178,343 @@ exports.default = _default;
 
 
 exports.__esModule = true;
+var _exportNames = {};
+exports.default = void 0;
+
+var _plugins = __webpack_require__("0a8d");
+
+var componentPlugins = _interopRequireWildcard(__webpack_require__("440a"));
+
+Object.keys(componentPlugins).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = componentPlugins[key];
+});
+
+var _pluginsLegacy = __webpack_require__("6ce7");
+
+Object.keys(_pluginsLegacy).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _pluginsLegacy[key];
+});
 
 var _alert = __webpack_require__("9e25");
 
-exports.Alert = _alert.default;
+Object.keys(_alert).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _alert[key];
+});
 
 var _badge = __webpack_require__("7cb0");
 
-exports.Badge = _badge.default;
+Object.keys(_badge).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _badge[key];
+});
 
 var _breadcrumb = __webpack_require__("6def");
 
-exports.Breadcrumb = _breadcrumb.default;
+Object.keys(_breadcrumb).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _breadcrumb[key];
+});
 
 var _button = __webpack_require__("0866");
 
-exports.Button = _button.default;
+Object.keys(_button).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _button[key];
+});
 
 var _buttonGroup = __webpack_require__("8b96");
 
-exports.ButtonGroup = _buttonGroup.default;
+Object.keys(_buttonGroup).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _buttonGroup[key];
+});
 
 var _buttonToolbar = __webpack_require__("5c3f");
 
-exports.ButtonToolbar = _buttonToolbar.default;
+Object.keys(_buttonToolbar).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _buttonToolbar[key];
+});
 
 var _inputGroup = __webpack_require__("00df");
 
-exports.InputGroup = _inputGroup.default;
+Object.keys(_inputGroup).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _inputGroup[key];
+});
 
 var _card = __webpack_require__("c4bd");
 
-exports.Card = _card.default;
+Object.keys(_card).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _card[key];
+});
 
 var _carousel = __webpack_require__("a88f");
 
-exports.Carousel = _carousel.default;
+Object.keys(_carousel).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _carousel[key];
+});
 
 var _layout = __webpack_require__("9d37");
 
-exports.Layout = _layout.default;
+Object.keys(_layout).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _layout[key];
+});
 
 var _collapse = __webpack_require__("f3fa");
 
-exports.Collapse = _collapse.default;
+Object.keys(_collapse).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _collapse[key];
+});
 
 var _dropdown = __webpack_require__("c7b9");
 
-exports.Dropdown = _dropdown.default;
+Object.keys(_dropdown).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _dropdown[key];
+});
 
 var _embed = __webpack_require__("32ec");
 
-exports.Embed = _embed.default;
+Object.keys(_embed).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _embed[key];
+});
 
 var _form = __webpack_require__("7d54");
 
-exports.Form = _form.default;
+Object.keys(_form).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _form[key];
+});
 
 var _formGroup = __webpack_require__("7a5c");
 
-exports.FormGroup = _formGroup.default;
+Object.keys(_formGroup).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _formGroup[key];
+});
 
 var _formCheckbox = __webpack_require__("efe3");
 
-exports.FormCheckbox = _formCheckbox.default;
+Object.keys(_formCheckbox).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _formCheckbox[key];
+});
 
 var _formRadio = __webpack_require__("3110");
 
-exports.FormRadio = _formRadio.default;
+Object.keys(_formRadio).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _formRadio[key];
+});
 
 var _formInput = __webpack_require__("b407");
 
-exports.FormInput = _formInput.default;
+Object.keys(_formInput).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _formInput[key];
+});
 
 var _formTextarea = __webpack_require__("a05c");
 
-exports.FormTextarea = _formTextarea.default;
+Object.keys(_formTextarea).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _formTextarea[key];
+});
 
 var _formFile = __webpack_require__("a60a");
 
-exports.FormFile = _formFile.default;
+Object.keys(_formFile).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _formFile[key];
+});
 
 var _formSelect = __webpack_require__("8b08");
 
-exports.FormSelect = _formSelect.default;
+Object.keys(_formSelect).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _formSelect[key];
+});
 
 var _image = __webpack_require__("2635");
 
-exports.Image = _image.default;
+Object.keys(_image).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _image[key];
+});
 
 var _jumbotron = __webpack_require__("1bee");
 
-exports.Jumbotron = _jumbotron.default;
+Object.keys(_jumbotron).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _jumbotron[key];
+});
 
 var _link = __webpack_require__("3b34");
 
-exports.Link = _link.default;
+Object.keys(_link).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _link[key];
+});
 
 var _listGroup = __webpack_require__("057b");
 
-exports.ListGroup = _listGroup.default;
+Object.keys(_listGroup).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _listGroup[key];
+});
 
 var _media = __webpack_require__("d71d");
 
-exports.Media = _media.default;
+Object.keys(_media).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _media[key];
+});
 
 var _modal = __webpack_require__("256b");
 
-exports.Modal = _modal.default;
+Object.keys(_modal).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _modal[key];
+});
 
 var _nav = __webpack_require__("6423");
 
-exports.Nav = _nav.default;
+Object.keys(_nav).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _nav[key];
+});
 
 var _navbar = __webpack_require__("edd0");
 
-exports.Navbar = _navbar.default;
+Object.keys(_navbar).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _navbar[key];
+});
 
 var _pagination = __webpack_require__("887d");
 
-exports.Pagination = _pagination.default;
+Object.keys(_pagination).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _pagination[key];
+});
 
 var _paginationNav = __webpack_require__("f8d0");
 
-exports.PaginationNav = _paginationNav.default;
+Object.keys(_paginationNav).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _paginationNav[key];
+});
 
 var _popover = __webpack_require__("f38f");
 
-exports.Popover = _popover.default;
+Object.keys(_popover).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _popover[key];
+});
 
 var _progress = __webpack_require__("b528");
 
-exports.Progress = _progress.default;
+Object.keys(_progress).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _progress[key];
+});
 
 var _spinner = __webpack_require__("076e");
 
-exports.Spinner = _spinner.default;
+Object.keys(_spinner).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _spinner[key];
+});
 
 var _table = __webpack_require__("b740");
 
-exports.Table = _table.default;
+Object.keys(_table).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _table[key];
+});
 
 var _tabs = __webpack_require__("1018");
 
-exports.Tabs = _tabs.default;
+Object.keys(_tabs).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _tabs[key];
+});
+
+var _toast = __webpack_require__("8596");
+
+Object.keys(_toast).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _toast[key];
+});
 
 var _tooltip = __webpack_require__("249f");
 
-exports.Tooltip = _tooltip.default;
+Object.keys(_tooltip).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _tooltip[key];
+});
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+// Export all component group plugins as named exports
+// Export all legacy name component group plugins as named exports
+// Export all individual components as named exports
+// Export default as a plugin that installs all the component group plugins
+var _default = {
+  install: (0, _plugins.installFactory)({
+    plugins: componentPlugins
+  })
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -29650,7 +35527,11 @@ exports.Tooltip = _tooltip.default;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -29666,7 +35547,8 @@ var props = {
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BMediaAside',
   functional: true,
   props: props,
@@ -29679,7 +35561,8 @@ var _default = {
       class: _defineProperty({}, "align-self-".concat(props.verticalAlign), props.verticalAlign)
     }), children);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -29693,9 +35576,13 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _badge = __webpack_require__("211d");
+var _badge = _interopRequireDefault(__webpack_require__("211d"));
+
+exports.BBadge = _badge.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BBadge: _badge.default
@@ -29706,6 +35593,21 @@ var _default = {
   })
 };
 exports.default = _default;
+
+/***/ }),
+
+/***/ "7cd6":
+/***/ (function(module, exports, __webpack_require__) {
+
+var classof = __webpack_require__("40c3");
+var ITERATOR = __webpack_require__("5168")('iterator');
+var Iterators = __webpack_require__("481b");
+module.exports = __webpack_require__("584a").getIteratorMethod = function (it) {
+  if (it != undefined) return it[ITERATOR]
+    || it['@@iterator']
+    || Iterators[classof(it)];
+};
+
 
 /***/ }),
 
@@ -29720,15 +35622,19 @@ exports.default = void 0;
 
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
-var _memoize = __webpack_require__("64bb");
+var _memoize = _interopRequireDefault(__webpack_require__("64bb"));
 
-var _suffixPropName = __webpack_require__("19fe");
-
-var _object = __webpack_require__("24e2");
+var _suffixPropName = _interopRequireDefault(__webpack_require__("19fe"));
 
 var _array = __webpack_require__("bb2f");
 
+var _inspect = __webpack_require__("0d5a");
+
+var _object = __webpack_require__("24e2");
+
 var _config = __webpack_require__("eb60");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -29755,39 +35661,38 @@ function strNum() {
     type: [String, Number],
     default: null
   };
-} // Async (lazy) component
-// So that we can generate breakpoint specific props once the config has been updated.
-//
-// See: https://vuejs.org/v2/guide/components-dynamic-async.html#Async-Components
+} // Memoized function for better performance on generating class names
 
 
-var _default = function _default(resolve, reject) {
-  // Grab the breakpoints from the config (exclude the '' (xs) breakpoint)
-  var breakpoints = (0, _config.getBreakpointsUp)().filter(Boolean); // Memoized function for better performance on generating class names
+var computeBkPtClass = (0, _memoize.default)(function computeBkPt(type, breakpoint, val) {
+  var className = type;
 
-  var computeBkPtClass = (0, _memoize.default)(function computeBkPt(type, breakpoint, val) {
-    var className = type;
+  if ((0, _inspect.isUndefined)(val) || (0, _inspect.isNull)(val) || val === false) {
+    return undefined;
+  }
 
-    if (val === false || val === null || val === undefined) {
-      return undefined;
-    }
-
-    if (breakpoint) {
-      className += "-".concat(breakpoint);
-    } // Handling the boolean style prop when accepting [Boolean, String, Number]
-    // means Vue will not convert <b-col sm></b-col> to sm: true for us.
-    // Since the default is false, an empty string indicates the prop's presence.
+  if (breakpoint) {
+    className += "-".concat(breakpoint);
+  } // Handling the boolean style prop when accepting [Boolean, String, Number]
+  // means Vue will not convert <b-col sm></b-col> to sm: true for us.
+  // Since the default is false, an empty string indicates the prop's presence.
 
 
-    if (type === 'col' && (val === '' || val === true)) {
-      // .col-md
-      return className.toLowerCase();
-    } // .order-md-6
-
-
-    className += "-".concat(val);
+  if (type === 'col' && (val === '' || val === true)) {
+    // .col-md
     return className.toLowerCase();
-  }); // Supports classes like: .col-sm, .col-md-6, .col-lg-auto
+  } // .order-md-6
+
+
+  className += "-".concat(val);
+  return className.toLowerCase();
+}); // Cached copy of the breakpoint prop names
+
+var breakpointPropMap = (0, _object.create)(null); // Lazy evaled props factory for BCol
+
+var generateProps = function generateProps() {
+  // Grab the breakpoints from the cached config (exclude the '' (xs) breakpoint)
+  var breakpoints = (0, _config.getBreakpointsUpCached)().filter(Boolean); // Supports classes like: .col-sm, .col-md-6, .col-lg-auto
 
   var breakpointCol = breakpoints.reduce(function (propMap, breakpoint) {
     if (breakpoint) {
@@ -29810,81 +35715,90 @@ var _default = function _default(resolve, reject) {
   }, (0, _object.create)(null)); // For loop doesn't need to check hasOwnProperty
   // when using an object created from null
 
-  var breakpointPropMap = (0, _object.assign)((0, _object.create)(null), {
+  breakpointPropMap = (0, _object.assign)((0, _object.create)(null), {
     col: (0, _object.keys)(breakpointCol),
     offset: (0, _object.keys)(breakpointOffset),
     order: (0, _object.keys)(breakpointOrder)
-  });
-  /**
-   * We need ".col" to default in when no other props are passed,
-   * but always render when col=true.
-   */
-  // @vue/component
+  }); // Return the generated props
 
-  var BCol = {
-    name: 'BCol',
-    functional: true,
-    props: _objectSpread({
-      // Generic flexbox .col (xs)
-      col: {
-        type: Boolean,
-        default: false
-      },
-      // .col-[1-12]|auto  (xs)
-      cols: strNum()
-    }, breakpointCol, {
-      offset: strNum()
-    }, breakpointOffset, {
-      order: strNum()
-    }, breakpointOrder, {
-      // Flex alignment
-      alignSelf: {
-        type: String,
-        default: null,
-        validator: function validator(str) {
-          return (0, _array.arrayIncludes)(['auto', 'start', 'end', 'center', 'baseline', 'stretch'], str);
-        }
-      },
-      tag: {
-        type: String,
-        default: 'div'
+  return _objectSpread({
+    // Generic flexbox .col (xs)
+    col: {
+      type: Boolean,
+      default: false
+    },
+    // .col-[1-12]|auto  (xs)
+    cols: strNum()
+  }, breakpointCol, {
+    offset: strNum()
+  }, breakpointOffset, {
+    order: strNum()
+  }, breakpointOrder, {
+    // Flex alignment
+    alignSelf: {
+      type: String,
+      default: null,
+      validator: function validator(str) {
+        return (0, _array.arrayIncludes)(['auto', 'start', 'end', 'center', 'baseline', 'stretch'], str);
       }
-    }),
-    render: function render(h, _ref) {
-      var _classList$push;
-
-      var props = _ref.props,
-          data = _ref.data,
-          children = _ref.children;
-      var classList = []; // Loop through `col`, `offset`, `order` breakpoint props
-
-      for (var type in breakpointPropMap) {
-        // Returns colSm, offset, offsetSm, orderMd, etc.
-        var _keys = breakpointPropMap[type];
-
-        for (var i = 0; i < _keys.length; i++) {
-          // computeBkPt(col, colSm => Sm, value=[String, Number, Boolean])
-          var c = computeBkPtClass(type, _keys[i].replace(type, ''), props[_keys[i]]); // If a class is returned, push it onto the array.
-
-          if (c) {
-            classList.push(c);
-          }
-        }
-      }
-
-      classList.push((_classList$push = {
-        // Default to .col if no other classes generated nor `cols` specified.
-        col: props.col || classList.length === 0 && !props.cols
-      }, _defineProperty(_classList$push, "col-".concat(props.cols), props.cols), _defineProperty(_classList$push, "offset-".concat(props.offset), props.offset), _defineProperty(_classList$push, "order-".concat(props.order), props.order), _defineProperty(_classList$push, "align-self-".concat(props.alignSelf), props.alignSelf), _classList$push));
-      return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
-        class: classList
-      }), children);
+    },
+    tag: {
+      type: String,
+      default: 'div'
     }
-  }; // Return the config on demand
+  });
+}; // We do not use Vue.extend here as that would evaluate the props
+// immediately, which we do not want to happen
+// @vue/component
 
-  resolve(BCol);
+
+var _default = {
+  name: 'BCol',
+  functional: true,
+
+  get props() {
+    // Allow props to be lazy evaled on first access and
+    // then they become a non-getter afterwards.
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#Smart_self-overwriting_lazy_getters
+    delete this.props; // eslint-disable-next-line no-return-assign
+
+    return this.props = generateProps();
+  },
+
+  render: function render(h, _ref) {
+    var _classList$push;
+
+    var props = _ref.props,
+        data = _ref.data,
+        children = _ref.children;
+    var classList = []; // Loop through `col`, `offset`, `order` breakpoint props
+
+    for (var type in breakpointPropMap) {
+      // Returns colSm, offset, offsetSm, orderMd, etc.
+      var _keys = breakpointPropMap[type];
+
+      for (var i = 0; i < _keys.length; i++) {
+        // computeBkPt(col, colSm => Sm, value=[String, Number, Boolean])
+        var c = computeBkPtClass(type, _keys[i].replace(type, ''), props[_keys[i]]); // If a class is returned, push it onto the array.
+
+        if (c) {
+          classList.push(c);
+        }
+      }
+    }
+
+    var hasColClasses = classList.some(function (className) {
+      return /^col-/.test(className);
+    });
+    classList.push((_classList$push = {
+      // Default to .col if no other col-{bp}-* classes generated nor `cols` specified.
+      col: props.col || !hasColClasses && !props.cols
+    }, _defineProperty(_classList$push, "col-".concat(props.cols), props.cols), _defineProperty(_classList$push, "offset-".concat(props.offset), props.offset), _defineProperty(_classList$push, "order-".concat(props.order), props.order), _defineProperty(_classList$push, "align-self-".concat(props.alignSelf), props.alignSelf), _classList$push));
+    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      class: classList
+    }), children);
+  }
 };
-
 exports.default = _default;
 
 /***/ }),
@@ -29898,29 +35812,43 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _form = __webpack_require__("0596");
+var _form = _interopRequireDefault(__webpack_require__("0596"));
 
-var _formDatalist = __webpack_require__("5e8f");
+exports.BForm = _form.default;
 
-var _formRow = __webpack_require__("a198");
+var _formDatalist = _interopRequireDefault(__webpack_require__("5e8f"));
 
-var _formText = __webpack_require__("0903");
+exports.BFormDatalist = _formDatalist.default;
 
-var _formInvalidFeedback = __webpack_require__("ebd1");
+var _formText = _interopRequireDefault(__webpack_require__("0903"));
 
-var _formValidFeedback = __webpack_require__("ad48");
+exports.BFormText = _formText.default;
+
+var _formInvalidFeedback = _interopRequireDefault(__webpack_require__("ebd1"));
+
+exports.BFormInvalidFeedback = _formInvalidFeedback.default;
+
+var _formValidFeedback = _interopRequireDefault(__webpack_require__("ad48"));
+
+exports.BFormValidFeedback = _formValidFeedback.default;
+
+var _formRow = _interopRequireDefault(__webpack_require__("1665"));
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BForm: _form.default,
   BFormDatalist: _formDatalist.default,
   BDatalist: _formDatalist.default,
-  BFormRow: _formRow.default,
   BFormText: _formText.default,
   BFormInvalidFeedback: _formInvalidFeedback.default,
   BFormFeedback: _formInvalidFeedback.default,
-  BFormValidFeedback: _formValidFeedback.default
+  BFormValidFeedback: _formValidFeedback.default,
+  // Added here for convenience
+  BFormRow: _formRow.default // BFormRow is not exported here as a named export, as it is exported by Layout
+
 };
 var _default = {
   install: (0, _plugins.installFactory)({
@@ -29928,6 +35856,26 @@ var _default = {
   })
 };
 exports.default = _default;
+
+/***/ }),
+
+/***/ "7e90":
+/***/ (function(module, exports, __webpack_require__) {
+
+var dP = __webpack_require__("d9f6");
+var anObject = __webpack_require__("e4ae");
+var getKeys = __webpack_require__("c3a1");
+
+module.exports = __webpack_require__("8e60") ? Object.defineProperties : function defineProperties(O, Properties) {
+  anObject(O);
+  var keys = getKeys(Properties);
+  var length = keys.length;
+  var i = 0;
+  var P;
+  while (length > i) dP.f(O, P = keys[i++], Properties[P]);
+  return O;
+};
+
 
 /***/ }),
 
@@ -29953,6 +35901,9 @@ module.exports = function (it, tag, stat) {
 
 exports.__esModule = true;
 exports.default = void 0;
+
+var _inspect = __webpack_require__("0d5a");
+
 var _default = {
   props: {
     busy: {
@@ -29989,7 +35940,7 @@ var _default = {
 
       return false;
     },
-    // Renter the busy indecator or return null if not busy
+    // Renter the busy indicator or return null if not busy
     renderBusy: function renderBusy() {
       var h = this.$createElement; // Return a busy indicator row, or null if not busy
 
@@ -30005,7 +35956,7 @@ var _default = {
         return h('tr', {
           key: 'table-busy-slot',
           staticClass: 'b-table-busy-slot',
-          class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'table-busy') : this.tbodyTrClass],
+          class: [(0, _inspect.isFunction)(this.tbodyTrClass) ? this.tbodyTrClass(null, 'table-busy') : this.tbodyTrClass],
           attrs: trAttrs
         }, [h('td', {
           attrs: tdAttrs
@@ -30054,22 +36005,27 @@ NAME in FProto || __webpack_require__("9e1e") && dP(FProto, NAME, {
 exports.__esModule = true;
 exports.default = void 0;
 
-var _warn = __webpack_require__("93e0");
+var _keyCodes = _interopRequireDefault(__webpack_require__("06e4"));
 
-var _range = __webpack_require__("db63");
+var _range = _interopRequireDefault(__webpack_require__("db63"));
 
-var _keyCodes = __webpack_require__("06e4");
+var _toString = _interopRequireDefault(__webpack_require__("40f6"));
+
+var _warn = _interopRequireDefault(__webpack_require__("93e0"));
+
+var _inspect = __webpack_require__("0d5a");
 
 var _dom = __webpack_require__("1611");
 
-var _toString = __webpack_require__("40f6");
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
 
-var _normalizeSlot = __webpack_require__("532a");
+var _link = _interopRequireDefault(__webpack_require__("4e40"));
 
-var _link = __webpack_require__("4e40");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /*
- * Comon props, computed, data, render function, and methods for b-pagination and b-pagination-nav
+ * Common props, computed, data, render function, and methods
+ * for <b-pagination> and <b-pagination-nav>
  */
 // Threshold of limit size when we start/stop showing ellipsis
 var ELLIPSIS_THRESHOLD = 3; // Default # of buttons limit
@@ -30123,7 +36079,7 @@ var props = {
       var num = parseInt(value, 10);
       /* istanbul ignore if */
 
-      if (value !== null && (isNaN(num) || num < 1)) {
+      if (!(0, _inspect.isNull)(value) && (isNaN(num) || num < 1)) {
         (0, _warn.default)('pagination: v-model value must be a number greater than 0');
         return false;
       }
@@ -30168,7 +36124,8 @@ var props = {
   },
   firstText: {
     type: String,
-    default: '«'
+    default: "\xAB" // '«'
+
   },
   labelPrevPage: {
     type: String,
@@ -30176,7 +36133,8 @@ var props = {
   },
   prevText: {
     type: String,
-    default: '‹'
+    default: "\u2039" // '‹'
+
   },
   labelNextPage: {
     type: String,
@@ -30184,7 +36142,8 @@ var props = {
   },
   nextText: {
     type: String,
-    default: '›'
+    default: "\u203A" // '›'
+
   },
   labelLastPage: {
     type: String,
@@ -30192,7 +36151,8 @@ var props = {
   },
   lastText: {
     type: String,
-    default: '»'
+    default: "\xBB" // '»'
+
   },
   labelPage: {
     type: [String, Function],
@@ -30204,14 +36164,12 @@ var props = {
   },
   ellipsisText: {
     type: String,
-    default: '…'
+    default: "\u2026" // '…'
+
   } // @vue/component
 
 };
 var _default = {
-  components: {
-    BLink: _link.default
-  },
   mixins: [_normalizeSlot.default],
   model: {
     prop: 'value',
@@ -30486,7 +36444,7 @@ var _default = {
         index: pageNum - 1
       };
       var btnContent = _this7.normalizeSlot(btnSlot, scope) || (0, _toString.default)(btnText) || h(false);
-      var inner = h(isDisabled ? 'span' : 'b-link', {
+      var inner = h(isDisabled ? 'span' : _link.default, {
         staticClass: 'page-link',
         props: isDisabled ? {} : _this7.linkProps(linkTo),
         attrs: {
@@ -30520,7 +36478,7 @@ var _default = {
 
     var makeEllipsis = function makeEllipsis(isLast) {
       return h('li', {
-        key: "elipsis-".concat(isLast ? 'last' : 'first'),
+        key: "ellipsis-".concat(isLast ? 'last' : 'first'),
         staticClass: 'page-item',
         class: ['disabled', 'bv-d-xs-down-none', fill ? 'flex-fill' : ''],
         attrs: {
@@ -30546,7 +36504,7 @@ var _default = {
         role: 'menuitemradio',
         'aria-disabled': disabled ? 'true' : null,
         'aria-controls': _this7.ariaControls || null,
-        'aria-label': typeof _this7.labelPage === 'function' ? _this7.labelPage(page.number) : "".concat(_this7.labelPage, " ").concat(page.number),
+        'aria-label': (0, _inspect.isFunction)(_this7.labelPage) ? _this7.labelPage(page.number) : "".concat(_this7.labelPage, " ").concat(page.number),
         'aria-checked': active ? 'true' : 'false',
         'aria-posinset': page.number,
         'aria-setsize': numberOfPages,
@@ -30561,7 +36519,7 @@ var _default = {
         active: active,
         disabled: disabled
       };
-      var inner = h(disabled ? 'span' : 'b-link', {
+      var inner = h(disabled ? 'span' : _link.default, {
         props: disabled ? {} : _this7.linkProps(page.number),
         staticClass: 'page-link',
         attrs: attrs,
@@ -30590,7 +36548,7 @@ var _default = {
 
     buttons.push(makeEndBtn(currPage + 1, this.labelNextPage, 'next-text', this.nextText, numberOfPages, 'bookend-goto-next')); // Goto Last Page button bookend
 
-    buttons.push(this.hideGotoEndButtons ? h(false) : makeEndBtn(numberOfPages, this.labelLastPage, 'last-text', this.lastText, numberOfPages, 'bookend-goto-last')); // Assemble the paginatiom buttons
+    buttons.push(this.hideGotoEndButtons ? h(false) : makeEndBtn(numberOfPages, this.labelLastPage, 'last-text', this.lastText, numberOfPages, 'bookend-goto-last')); // Assemble the pagination buttons
 
     var pagination = h('ul', {
       ref: 'ul',
@@ -30642,9 +36600,13 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _pagination = __webpack_require__("8146");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
+var _pagination = _interopRequireDefault(__webpack_require__("8146"));
 
 var _dom = __webpack_require__("1611");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var DEFAULT_PER_PAGE = 20;
 var DEFAULT_TOTAL_ROWS = 0;
@@ -30675,7 +36637,8 @@ var props = {
   // @vue/component
 
 };
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BPagination',
   mixins: [_pagination.default],
   props: props,
@@ -30686,8 +36649,14 @@ var _default = {
     }
   },
   watch: {
-    numberOfPages: function numberOfPages(newVal, OldVal) {
+    numberOfPages: function numberOfPages(newVal) {
+      if (newVal === this.localNumPages) {
+        /* istanbul ignore next */
+        return;
+      }
+
       this.localNumPages = newVal;
+      this.currentPage = 1;
     }
   },
   created: function created() {
@@ -30752,7 +36721,8 @@ var _default = {
       };
     }
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -30774,7 +36744,7 @@ module.exports = {};
 
 /***/ }),
 
-/***/ "8597":
+/***/ "8596":
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30783,34 +36753,103 @@ module.exports = {};
 exports.__esModule = true;
 exports.default = void 0;
 
-var _popover = __webpack_require__("daa8");
+var _toast = _interopRequireDefault(__webpack_require__("782b"));
 
-var _warn = __webpack_require__("93e0");
+exports.BToast = _toast.default;
 
-var _toolpop = __webpack_require__("c542");
+var _toaster = _interopRequireDefault(__webpack_require__("4eb8"));
 
-// @vue/component
+exports.BToaster = _toaster.default;
+
+var _bvToast = _interopRequireDefault(__webpack_require__("3163"));
+
+var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var components = {
+  BToast: _toast.default,
+  BToaster: _toaster.default
+};
+var plugins = {
+  // $bvToast injection
+  BVToastPlugin: _bvToast.default
+};
 var _default = {
-  name: 'BPopover',
-  mixins: [_toolpop.default],
-  props: {
-    title: {
-      type: String,
-      default: ''
-    },
-    content: {
-      type: String,
-      default: ''
-    },
-    triggers: {
-      type: [String, Array],
-      default: 'click'
-    },
-    placement: {
-      type: String,
-      default: 'right'
+  install: (0, _plugins.installFactory)({
+    components: components,
+    plugins: plugins
+  })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "8597":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.props = void 0;
+
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
+var _popover = _interopRequireDefault(__webpack_require__("daa8"));
+
+var _warn = _interopRequireDefault(__webpack_require__("93e0"));
+
+var _config = __webpack_require__("eb60");
+
+var _safeTypes = __webpack_require__("ac0f");
+
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
+
+var _toolpop = _interopRequireDefault(__webpack_require__("c542"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var NAME = 'BPopover';
+var props = {
+  title: {
+    type: String,
+    default: ''
+  },
+  content: {
+    type: String,
+    default: ''
+  },
+  triggers: {
+    type: [String, Array],
+    default: 'click'
+  },
+  placement: {
+    type: String,
+    default: 'right'
+  },
+  boundary: {
+    // String: scrollParent, window, or viewport
+    // Element: element reference
+    type: [String, _safeTypes.HTMLElement],
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'boundary');
     }
   },
+  boundaryPadding: {
+    type: Number,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'boundaryPadding');
+    }
+  } // @vue/component
+
+};
+exports.props = props;
+
+var _default2 = _vue.default.extend({
+  name: NAME,
+  mixins: [_toolpop.default, _normalizeSlot.default],
+  props: props,
   data: function data() {
     return {};
   },
@@ -30818,6 +36857,7 @@ var _default = {
     createToolpop: function createToolpop() {
       // getTarget is in toolpop mixin
       var target = this.getTarget();
+      /* istanbul ignore else */
 
       if (target) {
         this._toolpop = new _popover.default(target, this.getConfig(), this.$root);
@@ -30840,12 +36880,13 @@ var _default = {
       }
     }, [h('div', {
       ref: 'title'
-    }, this.$slots.title), h('div', {
+    }, this.normalizeSlot('title')), h('div', {
       ref: 'content'
-    }, this.$slots.default)]);
+    }, this.normalizeSlot('default'))]);
   }
-};
-exports.default = _default;
+});
+
+exports.default = _default2;
 
 /***/ }),
 
@@ -30881,9 +36922,13 @@ exports.f = __webpack_require__("9e1e") ? Object.defineProperty : function defin
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
 var _config = __webpack_require__("eb60");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var NAME = 'BCardSubTitle';
 var props = {
@@ -30904,7 +36949,8 @@ var props = {
 
 };
 exports.props = props;
-var _default2 = {
+
+var _default2 = _vue.default.extend({
   name: NAME,
   functional: true,
   props: props,
@@ -30917,7 +36963,8 @@ var _default2 = {
       class: [props.subTitleTextVariant ? "text-".concat(props.subTitleTextVariant) : null]
     }), children || props.subTitle);
   }
-};
+});
+
 exports.default = _default2;
 
 /***/ }),
@@ -30931,9 +36978,13 @@ exports.default = _default2;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _pagination = __webpack_require__("8339");
+var _pagination = _interopRequireDefault(__webpack_require__("8339"));
+
+exports.BPagination = _pagination.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BPagination: _pagination.default
@@ -30956,33 +37007,27 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _warn = __webpack_require__("93e0");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
 
-var _looseEqual = __webpack_require__("96cd");
+var _looseEqual = _interopRequireDefault(__webpack_require__("96cd"));
 
-var _toString = __webpack_require__("40f6");
+var _toString = _interopRequireDefault(__webpack_require__("40f6"));
+
+var _warn = _interopRequireDefault(__webpack_require__("93e0"));
 
 var _dom = __webpack_require__("1611");
 
 var _env = __webpack_require__("4565");
 
-var _object = __webpack_require__("24e2");
-
-var _array = __webpack_require__("bb2f");
+var _inspect = __webpack_require__("0d5a");
 
 var _router = __webpack_require__("185a");
 
-var _pagination = __webpack_require__("8146");
+var _pagination = _interopRequireDefault(__webpack_require__("8146"));
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// TODO: move this to an instance method in pagination mixin
-function sanitizeNumPages(value) {
-  var num = parseInt(value, 10) || 1;
-  return num < 1 ? 1 : num;
-} // Props object
-
-
+// Props object
 var props = {
   // pagination-nav specific props
   numberOfPages: {
@@ -31043,11 +37088,18 @@ var props = {
   noPrefetch: {
     type: Boolean,
     default: false
-  } // Our render function is brought in via the pagination mixin
-  // @vue/component
+  } // TODO: move this to an instance method in pagination mixin
 
 };
-var _default = {
+
+var sanitizeNumPages = function sanitizeNumPages(value) {
+  var num = parseInt(value, 10) || 1;
+  return num < 1 ? 1 : num;
+}; // Our render function is brought in via the pagination mixin
+// @vue/component
+
+
+var _default = _vue.default.extend({
   name: 'BPaginationNav',
   mixins: [_pagination.default],
   props: props,
@@ -31103,7 +37155,7 @@ var _default = {
   },
   methods: {
     setNumPages: function setNumPages() {
-      if ((0, _array.isArray)(this.pages) && this.pages.length > 0) {
+      if ((0, _inspect.isArray)(this.pages) && this.pages.length > 0) {
         this.localNumPages = this.pages.length;
       } else {
         this.localNumPages = sanitizeNumPages(this.numberOfPages);
@@ -31136,7 +37188,7 @@ var _default = {
       });
     },
     getPageInfo: function getPageInfo(pageNum) {
-      if (!(0, _array.isArray)(this.pages) || this.pages.length === 0 || this.pages[pageNum - 1] === undefined) {
+      if (!(0, _inspect.isArray)(this.pages) || this.pages.length === 0 || (0, _inspect.isUndefined)(this.pages[pageNum - 1])) {
         var link = "".concat(this.baseUrl).concat(pageNum);
         return {
           link: this.useRouter ? {
@@ -31148,11 +37200,11 @@ var _default = {
 
       var info = this.pages[pageNum - 1];
 
-      if ((0, _object.isObject)(info)) {
+      if ((0, _inspect.isObject)(info)) {
         var _link = info.link;
         return {
-          // Mormalize link for router use
-          link: (0, _object.isObject)(_link) ? _link : this.useRouter ? {
+          // Normalize link for router use
+          link: (0, _inspect.isObject)(_link) ? _link : this.useRouter ? {
             path: _link
           } : _link,
           // Make sure text has a value
@@ -31168,7 +37220,7 @@ var _default = {
     makePage: function makePage(pageNum) {
       var info = this.getPageInfo(pageNum);
 
-      if (this.pageGen && typeof this.pageGen === 'function') {
+      if (this.pageGen && (0, _inspect.isFunction)(this.pageGen)) {
         return this.pageGen(pageNum, info);
       }
 
@@ -31177,7 +37229,7 @@ var _default = {
     makeLink: function makeLink(pageNum) {
       var info = this.getPageInfo(pageNum);
 
-      if (this.linkGen && typeof this.linkGen === 'function') {
+      if (this.linkGen && (0, _inspect.isFunction)(this.linkGen)) {
         return this.linkGen(pageNum, info);
       }
 
@@ -31199,7 +37251,7 @@ var _default = {
         noPrefetch: this.noPrefetch
       };
 
-      if (this.useRouter || _typeof(link) === 'object') {
+      if (this.useRouter || (0, _inspect.isObject)(link)) {
         props.to = link;
       } else {
         props.href = link;
@@ -31209,23 +37261,40 @@ var _default = {
     },
     resolveLink: function resolveLink() {
       var to = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-
       // Given a to (or href string), convert to normalized route-like structure
       // Works only client side!!
-      try {
-        var link = document.createElement('a'); // Convert the `to` to a HREF via a temporary `a` tag
+      var link;
 
+      try {
+        // Convert the `to` to a HREF via a temporary `a` tag
+        link = document.createElement('a');
         link.href = (0, _router.computeHref)({
           to: to
-        }, 'a', '/', '/'); // Once href is assigned, the returned href will be normalized to the full URL bits
+        }, 'a', '/', '/'); // We need to add the anchor to the document to make sure the
+        // `pathname` is correctly detected in any browser (i.e. IE)
+
+        document.body.appendChild(link); // Once href is assigned, the link will be normalized to the full URL bits
+
+        var _link2 = link,
+            pathname = _link2.pathname,
+            hash = _link2.hash,
+            search = _link2.search; // Remove link from document
+
+        document.body.removeChild(link); // Return the location in a route-like object
 
         return {
-          path: link.pathname,
-          hash: link.hash,
-          query: (0, _router.parseQuery)(link.search)
+          path: pathname,
+          hash: hash,
+          query: (0, _router.parseQuery)(search)
         };
       } catch (e) {
         /* istanbul ignore next */
+        try {
+          link && link.parentNode && link.parentNode.removeChild(link);
+        } catch (e) {}
+        /* istanbul ignore next */
+
+
         return {};
       }
     },
@@ -31253,15 +37322,15 @@ var _default = {
 
       /* istanbul ignore else */
 
-      if (!this.noPageDetect && !guess && (_env.inBrowser || !_env.inBrowser && $router)) {
+      if (!this.noPageDetect && !guess && (_env.isBrowser || !_env.isBrowser && $router)) {
         // Current route (if router available)
-        var currRoute = $router ? {
+        var currRoute = $router && $route ? {
           path: $route.path,
           hash: $route.hash,
           query: $route.query
         } : {}; // Current page full HREF (if client side). Can't be done as a computed prop!
 
-        var loc = _env.inBrowser ? window.location || document.location : null;
+        var loc = _env.isBrowser ? window.location || document.location : null;
         var currLink = loc ? {
           path: loc.pathname,
           hash: loc.hash,
@@ -31271,15 +37340,16 @@ var _default = {
         for (var page = 1; !guess && page <= this.localNumPages; page++) {
           var to = this.makeLink(page);
 
-          if ($router && ((0, _object.isObject)(to) || this.useRouter)) {
+          if ($router && ((0, _inspect.isObject)(to) || this.useRouter)) {
             // Resolve the page via the $router
             guess = (0, _looseEqual.default)(this.resolveRoute(to), currRoute) ? page : null;
-          } else if (_env.inBrowser) {
+          } else if (_env.isBrowser) {
             // If no $router available (or !this.useRouter when `to` is a string)
             // we compare using parsed URIs
             guess = (0, _looseEqual.default)(this.resolveLink(to), currLink) ? page : null;
           } else {
-            // probably SSR, but no $router so we can't guess, so lets break out of loop
+            // probably SSR, but no $router so we can't guess, so lets break out of
+            // the loop early
 
             /* istanbul ignore next */
             guess = -1;
@@ -31293,8 +37363,19 @@ var _default = {
       this.currentPage = guess > 0 ? guess : 0;
     }
   }
-};
+});
+
 exports.default = _default;
+
+/***/ }),
+
+/***/ "8a86":
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.3.10 Object.is(value1, value2)
+var $export = __webpack_require__("63b6");
+$export($export.S, 'Object', { is: __webpack_require__("6bc1") });
+
 
 /***/ }),
 
@@ -31316,9 +37397,13 @@ module.exports = __webpack_require__("584a").Object.keys;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _formSelect = __webpack_require__("ff35");
+var _formSelect = _interopRequireDefault(__webpack_require__("ff35"));
+
+exports.BFormSelect = _formSelect.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BFormSelect: _formSelect.default,
@@ -31342,9 +37427,13 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _buttonGroup = __webpack_require__("2e08");
+var _buttonGroup = _interopRequireDefault(__webpack_require__("2e08"));
+
+exports.BButtonGroup = _buttonGroup.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BButtonGroup: _buttonGroup.default,
@@ -31420,6 +37509,39 @@ module.exports = !__webpack_require__("294c")(function () {
 
 /***/ }),
 
+/***/ "8f60":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var create = __webpack_require__("a159");
+var descriptor = __webpack_require__("aebd");
+var setToStringTag = __webpack_require__("45f2");
+var IteratorPrototype = {};
+
+// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
+__webpack_require__("35e8")(IteratorPrototype, __webpack_require__("5168")('iterator'), function () { return this; });
+
+module.exports = function (Constructor, NAME, next) {
+  Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
+  setToStringTag(Constructor, NAME + ' Iterator');
+};
+
+
+/***/ }),
+
+/***/ "9003":
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.2.2 IsArray(argument)
+var cof = __webpack_require__("6b4c");
+module.exports = Array.isArray || function isArray(arg) {
+  return cof(arg) == 'Array';
+};
+
+
+/***/ }),
+
 /***/ "9093":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31443,11 +37565,17 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
-var _imgLazy = __webpack_require__("294b");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
+var _imgLazy = _interopRequireWildcard(__webpack_require__("294b"));
 
 var _object = __webpack_require__("24e2");
 
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -31455,7 +37583,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 // Copy of `<b-img-lazy>` props, and remove conflicting/non-applicable props
 // The `omit()` util creates a new object, so we can just pass the original props
-var lazyProps = (0, _object.omit)(_imgLazy.default.props, ['left', 'right', 'center', 'block', 'rounded', 'thumbnail', 'fluid', 'fluidGrow']);
+var lazyProps = (0, _object.omit)(_imgLazy.props, ['left', 'right', 'center', 'block', 'rounded', 'thumbnail', 'fluid', 'fluidGrow']);
 
 var props = _objectSpread({}, lazyProps, {
   top: {
@@ -31488,7 +37616,8 @@ var props = _objectSpread({}, lazyProps, {
 });
 
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BCardImgLazy',
   functional: true,
   props: props,
@@ -31519,7 +37648,8 @@ var _default = {
       props: lazyProps
     }));
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -32238,6 +38368,14 @@ if(false) {}
 
 /***/ }),
 
+/***/ "9138":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__("35e8");
+
+
+/***/ }),
+
 /***/ "91b6":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32247,21 +38385,25 @@ if(false) {}
 exports.__esModule = true;
 exports.default = void 0;
 
-var _popper = __webpack_require__("f0bd");
+var _popper = _interopRequireDefault(__webpack_require__("6043"));
 
-var _tooltip = __webpack_require__("16ae");
+var _tooltip = _interopRequireDefault(__webpack_require__("16ae"));
+
+var _warn = _interopRequireDefault(__webpack_require__("93e0"));
+
+var _config = __webpack_require__("eb60");
 
 var _env = __webpack_require__("4565");
 
+var _inspect = __webpack_require__("0d5a");
+
 var _object = __webpack_require__("24e2");
 
-var _warn = __webpack_require__("93e0");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 // Key which we use to store tooltip object on element
 var BV_TOOLTIP = '__BV_ToolTip__'; // Valid event triggers
@@ -32280,16 +38422,20 @@ var validTriggers = {
 var parseBindings = function parseBindings(bindings)
 /* istanbul ignore next: not easy to test */
 {
-  // We start out with a blank config
-  var config = {}; // Process bindings.value
+  // We start out with a basic config
+  var config = {
+    boundary: String((0, _config.getComponentConfig)('BTooltip', 'boundary')),
+    boundaryPadding: parseInt((0, _config.getComponentConfig)('BTooltip', 'boundaryPadding'), 10) || 0 // Process bindings.value
 
-  if (typeof bindings.value === 'string') {
+  };
+
+  if ((0, _inspect.isString)(bindings.value)) {
     // Value is tooltip content (html optionally supported)
     config.title = bindings.value;
-  } else if (typeof bindings.value === 'function') {
+  } else if ((0, _inspect.isFunction)(bindings.value)) {
     // Title generator function
     config.title = bindings.value;
-  } else if (_typeof(bindings.value) === 'object') {
+  } else if ((0, _inspect.isObject)(bindings.value)) {
     // Value is config object, so merge
     config = _objectSpread({}, config, bindings.value);
   } // If argument, assume element ID of container element
@@ -32312,7 +38458,7 @@ var parseBindings = function parseBindings(bindings)
     } else if (/^(auto|top(left|right)?|bottom(left|right)?|left(top|bottom)?|right(top|bottom)?)$/.test(mod)) {
       // Placement of tooltip
       config.placement = mod;
-    } else if (/^(window|viewport)$/.test(mod)) {
+    } else if (/^(window|viewport|scrollParent)$/.test(mod)) {
       // Boundary of tooltip
       config.boundary = mod;
     } else if (/^d\d+$/.test(mod)) {
@@ -32335,7 +38481,7 @@ var parseBindings = function parseBindings(bindings)
 
   var selectedTriggers = {}; // Parse current config object trigger
 
-  var triggers = typeof config.trigger === 'string' ? config.trigger.trim().split(/\s+/) : [];
+  var triggers = (0, _inspect.isString)(config.trigger) ? config.trigger.trim().split(/\s+/) : [];
   triggers.forEach(function (trigger) {
     if (validTriggers[trigger]) {
       selectedTriggers[trigger] = true;
@@ -32365,7 +38511,7 @@ var parseBindings = function parseBindings(bindings)
 
 
 var applyTooltip = function applyTooltip(el, bindings, vnode) {
-  if (!_env.inBrowser) {
+  if (!_env.isBrowser) {
     /* istanbul ignore next */
     return;
   }
@@ -32447,10 +38593,16 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
-var _warn = __webpack_require__("93e0");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// -- Constants --
+var DEPRECATED_MSG = 'Setting prop "is-nav-bar" is deprecated. Use the <b-navbar-nav> component instead.';
 var props = {
   tag: {
     type: String,
@@ -32464,6 +38616,10 @@ var props = {
     type: Boolean,
     default: false
   },
+  align: {
+    type: String,
+    default: null
+  },
   tabs: {
     type: Boolean,
     default: false
@@ -32476,41 +38632,95 @@ var props = {
     type: Boolean,
     default: false
   },
-  isNavBar: {
+  small: {
     type: Boolean,
     default: false
-  } // @vue/component
+  },
+  isNavBar: {
+    type: Boolean,
+    default: false,
+    // `deprecated` -> Don't use this prop
+    // `deprecation` -> Refers to a change in prop usage
+    deprecated: DEPRECATED_MSG
+  } // -- Utils --
 
 };
 exports.props = props;
-var _default = {
+
+var computeJustifyContent = function computeJustifyContent(value) {
+  // Normalize value
+  value = value === 'left' ? 'start' : value === 'right' ? 'end' : value;
+  return "justify-content-".concat(value);
+}; // @vue/component
+
+
+var _default = _vue.default.extend({
   name: 'BNav',
   functional: true,
   props: props,
   render: function render(h, _ref) {
+    var _class;
+
     var props = _ref.props,
         data = _ref.data,
         children = _ref.children;
-
-    if (props.isNavBar) {
-      /* istanbul ignore next */
-      (0, _warn.default)("b-nav: Prop 'is-nav-bar' is deprecated. Please use component '<b-navbar-nav>' instead.");
-    }
-
     return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
-      class: {
+      class: (_class = {
         nav: !props.isNavBar,
         'navbar-nav': props.isNavBar,
         'nav-tabs': props.tabs && !props.isNavBar,
         'nav-pills': props.pills && !props.isNavBar,
         'flex-column': props.vertical && !props.isNavBar,
-        'nav-fill': props.fill,
-        'nav-justified': props.justified
-      }
+        'nav-fill': !props.vertical && props.fill,
+        'nav-justified': !props.vertical && props.justified
+      }, _defineProperty(_class, computeJustifyContent(props.align), !props.vertical && props.align), _defineProperty(_class, "small", props.small), _class)
     }), children);
   }
-};
+});
+
 exports.default = _default;
+
+/***/ }),
+
+/***/ "9306":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// 19.1.2.1 Object.assign(target, source, ...)
+var getKeys = __webpack_require__("c3a1");
+var gOPS = __webpack_require__("9aa9");
+var pIE = __webpack_require__("355d");
+var toObject = __webpack_require__("241e");
+var IObject = __webpack_require__("335c");
+var $assign = Object.assign;
+
+// should work with symbols and should have deterministic property order (V8 bug)
+module.exports = !$assign || __webpack_require__("294c")(function () {
+  var A = {};
+  var B = {};
+  // eslint-disable-next-line no-undef
+  var S = Symbol();
+  var K = 'abcdefghijklmnopqrst';
+  A[S] = 7;
+  K.split('').forEach(function (k) { B[k] = k; });
+  return $assign({}, A)[S] != 7 || Object.keys($assign({}, B)).join('') != K;
+}) ? function assign(target, source) { // eslint-disable-line no-unused-vars
+  var T = toObject(target);
+  var aLen = arguments.length;
+  var index = 1;
+  var getSymbols = gOPS.f;
+  var isEnum = pIE.f;
+  while (aLen > index) {
+    var S = IObject(arguments[index++]);
+    var keys = getSymbols ? getKeys(S).concat(getSymbols(S)) : getKeys(S);
+    var length = keys.length;
+    var j = 0;
+    var key;
+    while (length > j) if (isEnum.call(S, key = keys[j++])) T[key] = S[key];
+  } return T;
+} : $assign;
+
 
 /***/ }),
 
@@ -32521,23 +38731,368 @@ exports.default = _default;
 
 
 exports.__esModule = true;
-exports.default = void 0;
+exports.default = exports.warnNoMutationObserverSupport = exports.warnNoPromiseSupport = exports.warnNotClient = exports.warn = void 0;
 
 var _env = __webpack_require__("4565");
 
 /**
- * Log a warning message to the console with bootstrap-vue formatting sugar.
+ * Log a warning message to the console with BootstrapVue formatting
  * @param {string} message
  */
-
+var warn = function warn(message)
 /* istanbul ignore next */
-var warn = function warn(message) {
+{
   if (!(0, _env.getNoWarn)()) {
     console.warn("[BootstrapVue warn]: ".concat(message));
   }
 };
+/**
+ * Warn when no Promise support is given
+ * @param {string} source
+ * @returns {boolean} warned
+ */
 
+
+exports.warn = warn;
+
+var warnNotClient = function warnNotClient(source) {
+  /* istanbul ignore else */
+  if (_env.isBrowser) {
+    return false;
+  } else {
+    warn("".concat(source, ": Can not be called during SSR."));
+    return true;
+  }
+};
+/**
+ * Warn when no Promise support is given
+ * @param {string} source
+ * @returns {boolean} warned
+ */
+
+
+exports.warnNotClient = warnNotClient;
+
+var warnNoPromiseSupport = function warnNoPromiseSupport(source) {
+  /* istanbul ignore else */
+  if (_env.hasPromiseSupport) {
+    return false;
+  } else {
+    warn("".concat(source, ": Requires Promise support."));
+    return true;
+  }
+};
+/**
+ * Warn when no MutationObserver support is given
+ * @param {string} source
+ * @returns {boolean} warned
+ */
+
+
+exports.warnNoPromiseSupport = warnNoPromiseSupport;
+
+var warnNoMutationObserverSupport = function warnNoMutationObserverSupport(source) {
+  /* istanbul ignore else */
+  if (_env.hasMutationObserverSupport) {
+    return false;
+  } else {
+    warn("".concat(source, ": Requires MutationObserver support."));
+    return true;
+  }
+}; // Default export
+
+
+exports.warnNoMutationObserverSupport = warnNoMutationObserverSupport;
 var _default = warn;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "9539":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
+var _portalVue = __webpack_require__("2b88");
+
+var _dom = __webpack_require__("1611");
+
+var _env = __webpack_require__("4565");
+
+var _inspect = __webpack_require__("0d5a");
+
+var _modalTarget = _interopRequireWildcard(__webpack_require__("f9e2"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Private ModalManager helper
+ * Handles controlling modal stacking zIndexes and body adjustments/classes
+ */
+// --- Constants ---
+// Default modal backdrop z-index
+var DEFAULT_ZINDEX = 1040; // Selectors for padding/margin adjustments
+
+var Selector = {
+  FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
+  STICKY_CONTENT: '.sticky-top',
+  NAVBAR_TOGGLER: '.navbar-toggler' // @vue/component
+
+};
+
+var ModalManager = _vue.default.extend({
+  data: function data() {
+    return {
+      modals: [],
+      baseZIndex: null,
+      scrollbarWidth: null,
+      isBodyOverflowing: false
+    };
+  },
+  computed: {
+    modalCount: function modalCount() {
+      return this.modals.length;
+    },
+    modalsAreOpen: function modalsAreOpen() {
+      return this.modalCount > 0;
+    },
+    modalTargetName: function modalTargetName() {
+      return _modalTarget.modalTargetName;
+    }
+  },
+  watch: {
+    modalCount: function modalCount(newCount, oldCount) {
+      if (_env.isBrowser) {
+        this.getScrollbarWidth();
+
+        if (newCount > 0 && oldCount === 0) {
+          // Transitioning to modal(s) open
+          this.checkScrollbar();
+          this.setScrollbar();
+          (0, _dom.addClass)(document.body, 'modal-open');
+        } else if (newCount === 0 && oldCount > 0) {
+          // Transitioning to modal(s) closed
+          this.resetScrollbar();
+          (0, _dom.removeClass)(document.body, 'modal-open');
+        }
+
+        (0, _dom.setAttr)(document.body, 'data-modal-open-count', String(newCount));
+      }
+    },
+    modals: function modals(newVal, oldVal) {
+      var _this = this;
+
+      this.checkScrollbar();
+      (0, _dom.requestAF)(function () {
+        _this.updateModals(newVal || []);
+      });
+    }
+  },
+  methods: {
+    // Public methods
+    registerModal: function registerModal(modal) {
+      var _this2 = this;
+
+      // Make sure the modal target exists
+      if (!modal.static) {
+        this.ensureTarget(modal);
+      } // Register the modal if not already registered
+
+
+      if (modal && this.modals.indexOf(modal) === -1) {
+        // Add modal to modals array
+        this.modals.push(modal);
+        modal.$once('hook:beforeDestroy', function () {
+          _this2.unregisterModal(modal);
+        });
+      }
+    },
+    unregisterModal: function unregisterModal(modal) {
+      var index = this.modals.indexOf(modal);
+
+      if (index > -1) {
+        // Remove modal from modals array
+        this.modals.splice(index, 1); // Reset the modal's data
+
+        if (!(modal._isBeingDestroyed || modal._isDestroyed)) {
+          this.resetModal(modal);
+        }
+      }
+    },
+    getBaseZIndex: function getBaseZIndex() {
+      if ((0, _inspect.isNull)(this.baseZIndex) && _env.isBrowser) {
+        // Create a temporary `div.modal-backdrop` to get computed z-index
+        var div = document.createElement('div');
+        div.className = 'modal-backdrop d-none';
+        div.style.display = 'none';
+        document.body.appendChild(div);
+        this.baseZIndex = parseInt((0, _dom.getCS)(div).zIndex || DEFAULT_ZINDEX, 10);
+        document.body.removeChild(div);
+      }
+
+      return this.baseZIndex || DEFAULT_ZINDEX;
+    },
+    getScrollbarWidth: function getScrollbarWidth() {
+      if ((0, _inspect.isNull)(this.scrollbarWidth) && _env.isBrowser) {
+        // Create a temporary `div.measure-scrollbar` to get computed z-index
+        var div = document.createElement('div');
+        div.className = 'modal-scrollbar-measure';
+        document.body.appendChild(div);
+        this.scrollbarWidth = (0, _dom.getBCR)(div).width - div.clientWidth;
+        document.body.removeChild(div);
+      }
+
+      return this.scrollbarWidth || 0;
+    },
+    // Private methods
+    ensureTarget: function ensureTarget(modal) {
+      var _this3 = this;
+
+      if (_env.isBrowser && !_portalVue.Wormhole.hasTarget(this.modalTargetName)) {
+        var div = document.createElement('div');
+        document.body.appendChild(div);
+        var target = new _modalTarget.default({
+          // Set parent/root to the modal's $root
+          parent: modal.$root
+        });
+        target.$mount(div);
+        target.$once('hook:beforeDestroy', function () {
+          _this3.modals.forEach(function (modal) {
+            // Hide any modals that may be in the target, if
+            // target is destroyed, using the 'FORCE' trigger
+            // which makes the hide event non-cancelable
+            if (!modal.static) {
+              modal.hide('FORCED');
+            }
+          });
+        });
+      }
+    },
+    updateModals: function updateModals(modals) {
+      var _this4 = this;
+
+      var baseZIndex = this.getBaseZIndex();
+      var scrollbarWidth = this.getScrollbarWidth();
+      modals.forEach(function (modal, index) {
+        // We update data values on each modal
+        modal.zIndex = baseZIndex + index;
+        modal.scrollbarWidth = scrollbarWidth;
+        modal.isTop = index === _this4.modals.length - 1;
+        modal.isBodyOverflowing = _this4.isBodyOverflowing;
+      });
+    },
+    resetModal: function resetModal(modal) {
+      if (modal) {
+        modal.zIndex = this.getBaseZIndex();
+        modal.isTop = true;
+        modal.isBodyOverflowing = false;
+      }
+    },
+    checkScrollbar: function checkScrollbar() {
+      // Determine if the body element is overflowing
+      var _getBCR = (0, _dom.getBCR)(document.body),
+          left = _getBCR.left,
+          right = _getBCR.right;
+
+      this.isBodyOverflowing = left + right < window.innerWidth;
+    },
+    setScrollbar: function setScrollbar() {
+      var body = document.body; // Storage place to cache changes to margins and padding
+      // Note: This assumes the following element types are not added to the
+      // document after the modal has opened.
+
+      body._paddingChangedForModal = body._paddingChangedForModal || [];
+      body._marginChangedForModal = body._marginChangedForModal || [];
+
+      if (this.isBodyOverflowing) {
+        var scrollbarWidth = this.scrollbarWidth; // Adjust fixed content padding
+
+        /* istanbul ignore next: difficult to test in JSDOM */
+
+        (0, _dom.selectAll)(Selector.FIXED_CONTENT).forEach(function (el) {
+          var actualPadding = el.style.paddingRight;
+          var calculatedPadding = (0, _dom.getCS)(el).paddingRight || 0;
+          (0, _dom.setAttr)(el, 'data-padding-right', actualPadding);
+          el.style.paddingRight = "".concat(parseFloat(calculatedPadding) + scrollbarWidth, "px");
+
+          body._paddingChangedForModal.push(el);
+        }); // Adjust sticky content margin
+
+        /* istanbul ignore next: difficult to test in JSDOM */
+
+        (0, _dom.selectAll)(Selector.STICKY_CONTENT).forEach(function (el) {
+          var actualMargin = el.style.marginRight;
+          var calculatedMargin = (0, _dom.getCS)(el).marginRight || 0;
+          (0, _dom.setAttr)(el, 'data-margin-right', actualMargin);
+          el.style.marginRight = "".concat(parseFloat(calculatedMargin) - scrollbarWidth, "px");
+
+          body._marginChangedForModal.push(el);
+        }); // Adjust <b-navbar-toggler> margin
+
+        /* istanbul ignore next: difficult to test in JSDOM */
+
+        (0, _dom.selectAll)(Selector.NAVBAR_TOGGLER).forEach(function (el) {
+          var actualMargin = el.style.marginRight;
+          var calculatedMargin = (0, _dom.getCS)(el).marginRight || 0;
+          (0, _dom.setAttr)(el, 'data-margin-right', actualMargin);
+          el.style.marginRight = "".concat(parseFloat(calculatedMargin) + scrollbarWidth, "px");
+
+          body._marginChangedForModal.push(el);
+        }); // Adjust body padding
+
+        var actualPadding = body.style.paddingRight;
+        var calculatedPadding = (0, _dom.getCS)(body).paddingRight;
+        (0, _dom.setAttr)(body, 'data-padding-right', actualPadding);
+        body.style.paddingRight = "".concat(parseFloat(calculatedPadding) + scrollbarWidth, "px");
+      }
+    },
+    resetScrollbar: function resetScrollbar() {
+      var body = document.body;
+
+      if (body._paddingChangedForModal) {
+        // Restore fixed content padding
+        body._paddingChangedForModal.forEach(function (el) {
+          /* istanbul ignore next: difficult to test in JSDOM */
+          if ((0, _dom.hasAttr)(el, 'data-padding-right')) {
+            el.style.paddingRight = (0, _dom.getAttr)(el, 'data-padding-right') || '';
+            (0, _dom.removeAttr)(el, 'data-padding-right');
+          }
+        });
+      }
+
+      if (body._marginChangedForModal) {
+        // Restore sticky content and navbar-toggler margin
+        body._marginChangedForModal.forEach(function (el) {
+          /* istanbul ignore next: difficult to test in JSDOM */
+          if ((0, _dom.hasAttr)(el, 'data-margin-right')) {
+            el.style.marginRight = (0, _dom.getAttr)(el, 'data-margin-right') || '';
+            (0, _dom.removeAttr)(el, 'data-margin-right');
+          }
+        });
+      }
+
+      body._paddingChangedForModal = null;
+      body._marginChangedForModal = null; // Restore body padding
+
+      if ((0, _dom.hasAttr)(body, 'data-padding-right')) {
+        body.style.paddingRight = (0, _dom.getAttr)(body, 'data-padding-right') || '';
+        (0, _dom.removeAttr)(body, 'data-padding-right');
+      }
+    }
+  }
+}); // Export our ModalManager
+
+
+var _default = new ModalManager();
+
 exports.default = _default;
 
 /***/ }),
@@ -32551,7 +39106,13 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var props = {
   id: {
@@ -32560,27 +39121,37 @@ var props = {
   },
   tag: {
     type: String,
-    default: 'h6'
+    default: 'header'
+  },
+  variant: {
+    type: String,
+    default: null
   } // @vue/component
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BDropdownHeader',
   functional: true,
+  inheritAttrs: false,
   props: props,
   render: function render(h, _ref) {
     var props = _ref.props,
         data = _ref.data,
         children = _ref.children;
-    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+    return h('li', [h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
       staticClass: 'dropdown-header',
+      class: _defineProperty({}, "text-".concat(props.variant), props.variant),
       attrs: {
-        id: props.id || null
-      }
-    }), children);
+        id: props.id || null,
+        role: 'heading'
+      },
+      ref: 'header'
+    }), children)]);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -32594,16 +39165,12 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _array = __webpack_require__("bb2f");
-
 var _object = __webpack_require__("24e2");
 
-var isDate = function isDate(obj) {
-  return obj instanceof Date;
-}; // Assumes both a and b are arrays!
+var _inspect = __webpack_require__("0d5a");
+
+// Assumes both a and b are arrays!
 // Handles when arrays are "sparse" (array.every(...) doesn't handle sparse)
-
-
 var compareArrays = function compareArrays(a, b) {
   if (a.length !== b.length) {
     return false;
@@ -32629,22 +39196,22 @@ var looseEqual = function looseEqual(a, b) {
     return true;
   }
 
-  var aValidType = isDate(a);
-  var bValidType = isDate(b);
+  var aValidType = (0, _inspect.isDate)(a);
+  var bValidType = (0, _inspect.isDate)(b);
 
   if (aValidType || bValidType) {
     return aValidType && bValidType ? a.getTime() === b.getTime() : false;
   }
 
-  aValidType = (0, _array.isArray)(a);
-  bValidType = (0, _array.isArray)(b);
+  aValidType = (0, _inspect.isArray)(a);
+  bValidType = (0, _inspect.isArray)(b);
 
   if (aValidType || bValidType) {
     return aValidType && bValidType ? compareArrays(a, b) : false;
   }
 
-  aValidType = (0, _object.isObject)(a);
-  bValidType = (0, _object.isObject)(b);
+  aValidType = (0, _inspect.isObject)(a);
+  bValidType = (0, _inspect.isObject)(b);
 
   if (aValidType || bValidType) {
     /* istanbul ignore if: this if will probably never be called */
@@ -32681,6 +39248,14 @@ exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "9aa9":
+/***/ (function(module, exports) {
+
+exports.f = Object.getOwnPropertySymbols;
+
 
 /***/ }),
 
@@ -32734,13 +39309,22 @@ module.exports = function (key) {
 exports.__esModule = true;
 exports.default = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+var _config = __webpack_require__("eb60");
+
+var _normalizeSlot = __webpack_require__("9de7");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-// @vue/component
-var _default = {
-  name: 'BSpinner',
+var NAME = 'BSpinner'; // @vue/component
+
+var _default2 = _vue.default.extend({
+  name: NAME,
   functional: true,
   props: {
     type: {
@@ -32754,7 +39338,9 @@ var _default = {
     },
     variant: {
       type: String,
-      default: null
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'variant');
+      }
     },
     small: {
       type: Boolean,
@@ -32774,26 +39360,29 @@ var _default = {
 
     var props = _ref.props,
         data = _ref.data,
-        slots = _ref.slots;
-    var label = h(false);
-    var hasLabel = slots().label || props.label;
+        slots = _ref.slots,
+        scopedSlots = _ref.scopedSlots;
+    var $slots = slots();
+    var $scopedSlots = scopedSlots || {};
+    var label = (0, _normalizeSlot.normalizeSlot)('label', {}, $scopedSlots, $slots) || props.label;
 
-    if (hasLabel) {
+    if (label) {
       label = h('span', {
         staticClass: 'sr-only'
-      }, hasLabel);
+      }, label);
     }
 
     return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
       attrs: {
-        role: hasLabel ? props.role || 'status' : null,
-        'aria-hidden': hasLabel ? null : 'true'
+        role: label ? props.role || 'status' : null,
+        'aria-hidden': label ? null : 'true'
       },
       class: (_class = {}, _defineProperty(_class, "spinner-".concat(props.type), Boolean(props.type)), _defineProperty(_class, "spinner-".concat(props.type, "-sm"), props.small), _defineProperty(_class, "text-".concat(props.variant), Boolean(props.variant)), _class)
-    }), [label]);
+    }), [label || h(false)]);
   }
-};
-exports.default = _default;
+});
+
+exports.default = _default2;
 
 /***/ }),
 
@@ -32806,11 +39395,13 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
+var _identity = _interopRequireDefault(__webpack_require__("fccc"));
+
+var _inspect = __webpack_require__("0d5a");
+
 var _object = __webpack_require__("24e2");
 
-var _array = __webpack_require__("bb2f");
-
-var _identity = __webpack_require__("fccc");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Given an array of properties or an object of property keys,
@@ -32824,7 +39415,7 @@ var _identity = __webpack_require__("fccc");
  */
 var pluckProps = function pluckProps(keysToPluck, objToPluck) {
   var transformFn = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _identity.default;
-  return ((0, _array.isArray)(keysToPluck) ? keysToPluck.slice() : (0, _object.keys)(keysToPluck)).reduce(function (memo, prop) {
+  return ((0, _inspect.isArray)(keysToPluck) ? keysToPluck.slice() : (0, _object.keys)(keysToPluck)).reduce(function (memo, prop) {
     memo[transformFn(prop)] = objToPluck[prop];
     return memo;
   }, {});
@@ -32844,9 +39435,13 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = exports.commonProps = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
-var _inputGroupText = __webpack_require__("df74");
+var _inputGroupText = _interopRequireDefault(__webpack_require__("df74"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -32868,7 +39463,8 @@ var commonProps = {
 
 };
 exports.commonProps = commonProps;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BInputGroupAddon',
   functional: true,
   props: _objectSpread({}, commonProps, {
@@ -32891,7 +39487,8 @@ var _default = {
       }
     }), props.isText ? [h(_inputGroupText.default, children)] : children);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -32905,15 +39502,25 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _container = __webpack_require__("1520");
+var _container = _interopRequireDefault(__webpack_require__("1520"));
 
-var _row = __webpack_require__("5d69");
+exports.BContainer = _container.default;
 
-var _col = __webpack_require__("7d02");
+var _row = _interopRequireDefault(__webpack_require__("5d69"));
 
-var _formRow = __webpack_require__("1665");
+exports.BRow = _row.default;
+
+var _col = _interopRequireDefault(__webpack_require__("7d02"));
+
+exports.BCol = _col.default;
+
+var _formRow = _interopRequireDefault(__webpack_require__("1665"));
+
+exports.BFormRow = _formRow.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BContainer: _container.default,
@@ -32939,27 +39546,41 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
-var _default = {
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var _default = _vue.default.extend({
   name: 'BDropdownText',
   functional: true,
+  inheritAttrs: false,
   props: {
     tag: {
       type: String,
       default: 'p'
+    },
+    variant: {
+      type: String,
+      default: null
     }
   },
   render: function render(h, _ref) {
     var props = _ref.props,
         data = _ref.data,
         children = _ref.children;
-    return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+    return h('li', [h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
+      staticClass: 'b-dropdown-text',
+      class: _defineProperty({}, "text-".concat(props.variant), props.variant),
       props: props,
-      staticClass: 'b-dropdown-text'
-    }), children);
+      ref: 'text'
+    }), children)]);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -32971,8 +39592,29 @@ exports.default = _default;
 
 
 exports.__esModule = true;
-exports.default = void 0;
+exports.default = exports.normalizeSlot = exports.hasNormalizedSlot = void 0;
 
+var _inspect = __webpack_require__("0d5a");
+
+// Note for functional components:
+// In functional components, `slots` is a function so it must be called
+// first before passing to the below methods. `scopedSlots` is always an
+// object and may be undefined (for Vue < 2.6.x)
+
+/**
+ * Returns true if either scoped or unscoped named slot eists
+ *
+ * @param {String} name
+ * @param {Object} scopedSlots
+ * @param {Object} slots
+ * @returns {Array|undefined} vNodes
+ */
+var hasNormalizedSlot = function hasNormalizedSlot(name) {
+  var $scopedSlots = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var $slots = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  // Returns true if the either a $scopedSlot or $slot exists with the specified name
+  return Boolean($scopedSlots[name] || $slots[name]);
+};
 /**
  * Returns vNodes for named slot either scoped or unscoped
  *
@@ -32982,15 +39624,22 @@ exports.default = void 0;
  * @param {Object} slots
  * @returns {Array|undefined} vNodes
  */
+
+
+exports.hasNormalizedSlot = hasNormalizedSlot;
+
 var normalizeSlot = function normalizeSlot(name) {
   var scope = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   var $scopedSlots = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   var $slots = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
   // Note: in Vue 2.6.x, all names slots are also scoped slots
   var slot = $scopedSlots[name] || $slots[name];
-  return typeof slot === 'function' ? slot(scope) : slot;
-};
+  return (0, _inspect.isFunction)(slot) ? slot(scope) : slot;
+}; // Named exports
 
+
+exports.normalizeSlot = normalizeSlot;
+// Default export (backwards compatability)
 var _default = normalizeSlot;
 exports.default = _default;
 
@@ -33029,9 +39678,13 @@ module.exports = !__webpack_require__("79e5")(function () {
 exports.__esModule = true;
 exports.default = void 0;
 
-var _alert = __webpack_require__("23f0");
+var _alert = _interopRequireDefault(__webpack_require__("23f0"));
+
+exports.BAlert = _alert.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BAlert: _alert.default
@@ -33054,16 +39707,22 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
-var _inputGroupAddon = __webpack_require__("9d25");
+var _inputGroupAddon = _interopRequireWildcard(__webpack_require__("9d25"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 // @vue/component
-var _default = {
+var _default = _vue.default.extend({
   name: 'BInputGroupPrepend',
   functional: true,
   props: _inputGroupAddon.commonProps,
@@ -33078,7 +39737,8 @@ var _default = {
       })
     }), children);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -33092,25 +39752,33 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
-var _prefixPropName = __webpack_require__("e109");
+var _prefixPropName = _interopRequireDefault(__webpack_require__("e109"));
 
-var _unprefixPropName = __webpack_require__("12b6");
+var _unprefixPropName = _interopRequireDefault(__webpack_require__("12b6"));
 
-var _copyProps = __webpack_require__("0942");
+var _copyProps = _interopRequireDefault(__webpack_require__("0942"));
 
-var _pluckProps = __webpack_require__("9c97");
+var _pluckProps = _interopRequireDefault(__webpack_require__("9c97"));
 
-var _cardMixin = __webpack_require__("45f0");
+var _normalizeSlot = __webpack_require__("9de7");
 
-var _cardBody = __webpack_require__("b967");
+var _cardMixin = _interopRequireDefault(__webpack_require__("45f0"));
 
-var _cardHeader = __webpack_require__("1fae");
+var _cardBody = _interopRequireWildcard(__webpack_require__("b967"));
 
-var _cardFooter = __webpack_require__("6f77");
+var _cardHeader = _interopRequireWildcard(__webpack_require__("1fae"));
 
-var _cardImg = __webpack_require__("23c9");
+var _cardFooter = _interopRequireWildcard(__webpack_require__("6f77"));
+
+var _cardImg = _interopRequireWildcard(__webpack_require__("23c9"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
@@ -33140,7 +39808,8 @@ var props = _objectSpread({}, _cardBody.props, _cardHeader.props, _cardFooter.pr
 });
 
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BCard',
   functional: true,
   props: props,
@@ -33149,8 +39818,11 @@ var _default = {
 
     var props = _ref.props,
         data = _ref.data,
-        slots = _ref.slots;
-    var $slots = slots(); // Create placeholder elements for each section
+        slots = _ref.slots,
+        scopedSlots = _ref.scopedSlots;
+    var $slots = slots(); // Vue < 2.6.x may return undefined for scopedSlots
+
+    var $scopedSlots = scopedSlots || {}; // Create placeholder elements for each section
 
     var imgFirst = h(false);
     var header = h(false);
@@ -33170,25 +39842,25 @@ var _default = {
       }
     }
 
-    if (props.header || $slots.header) {
+    if (props.header || (0, _normalizeSlot.hasNormalizedSlot)('header', $scopedSlots, $slots)) {
       header = h(_cardHeader.default, {
         props: (0, _pluckProps.default)(_cardHeader.props, props)
-      }, $slots.header);
+      }, (0, _normalizeSlot.normalizeSlot)('header', {}, $scopedSlots, $slots));
     }
 
-    if (props.noBody) {
-      content = $slots.default || [];
-    } else {
+    content = (0, _normalizeSlot.normalizeSlot)('default', {}, $scopedSlots, $slots) || [];
+
+    if (!props.noBody) {
       // Wrap content in card-body
       content = [h(_cardBody.default, {
         props: (0, _pluckProps.default)(_cardBody.props, props)
-      }, $slots.default)];
+      }, _toConsumableArray(content))];
     }
 
-    if (props.footer || $slots.footer) {
+    if (props.footer || (0, _normalizeSlot.hasNormalizedSlot)('footer', $scopedSlots, $slots)) {
       footer = h(_cardFooter.default, {
         props: (0, _pluckProps.default)(_cardFooter.props, props)
-      }, $slots.footer);
+      }, (0, _normalizeSlot.normalizeSlot)('footer', {}, $scopedSlots, $slots));
     }
 
     return h(props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, {
@@ -33199,7 +39871,8 @@ var _default = {
       }, _defineProperty(_class, "text-".concat(props.align), Boolean(props.align)), _defineProperty(_class, "bg-".concat(props.bgVariant), Boolean(props.bgVariant)), _defineProperty(_class, "border-".concat(props.borderVariant), Boolean(props.borderVariant)), _defineProperty(_class, "text-".concat(props.textVariant), Boolean(props.textVariant)), _class)
     }), [imgFirst, header].concat(_toConsumableArray(content), [footer, imgLast]));
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -33213,9 +39886,13 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _formTextarea = __webpack_require__("0c40");
+var _formTextarea = _interopRequireDefault(__webpack_require__("0c40"));
+
+exports.BFormTextarea = _formTextarea.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BFormTextarea: _formTextarea.default,
@@ -33237,36 +39914,44 @@ exports.default = _default;
 
 
 exports.__esModule = true;
-exports.default = void 0;
+exports.default = exports.props = void 0;
 
-var _form = __webpack_require__("0596");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
 
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
-// @vue/component
-var _default = {
+var _form = _interopRequireWildcard(__webpack_require__("0596"));
+
+var _object = __webpack_require__("24e2");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var props = (0, _object.omit)(_form.props, ['inline']); // @vue/component
+
+exports.props = props;
+
+var _default = _vue.default.extend({
   name: 'BNavForm',
   functional: true,
-  props: {
-    id: {
-      type: String,
-      default: null
-    }
-  },
+  props: props,
   render: function render(h, _ref) {
     var props = _ref.props,
         data = _ref.data,
         children = _ref.children;
     return h(_form.default, (0, _vueFunctionalDataMerge.mergeData)(data, {
-      attrs: {
-        id: props.id
-      },
-      props: {
+      props: _objectSpread({}, props, {
         inline: true
-      }
+      })
     }), children);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -33282,19 +39967,51 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ "a198":
+/***/ "a159":
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
+var anObject = __webpack_require__("e4ae");
+var dPs = __webpack_require__("7e90");
+var enumBugKeys = __webpack_require__("1691");
+var IE_PROTO = __webpack_require__("5559")('IE_PROTO');
+var Empty = function () { /* empty */ };
+var PROTOTYPE = 'prototype';
 
+// Create object with fake `null` prototype: use iframe Object with cleared prototype
+var createDict = function () {
+  // Thrash, waste and sodomy: IE GC bug
+  var iframe = __webpack_require__("1ec9")('iframe');
+  var i = enumBugKeys.length;
+  var lt = '<';
+  var gt = '>';
+  var iframeDocument;
+  iframe.style.display = 'none';
+  __webpack_require__("32fc").appendChild(iframe);
+  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
+  // createDict = iframe.contentWindow.Object;
+  // html.removeChild(iframe);
+  iframeDocument = iframe.contentWindow.document;
+  iframeDocument.open();
+  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
+  iframeDocument.close();
+  createDict = iframeDocument.F;
+  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];
+  return createDict();
+};
 
-exports.__esModule = true;
-exports.default = void 0;
+module.exports = Object.create || function create(O, Properties) {
+  var result;
+  if (O !== null) {
+    Empty[PROTOTYPE] = anObject(O);
+    result = new Empty();
+    Empty[PROTOTYPE] = null;
+    // add "__proto__" for Object.getPrototypeOf polyfill
+    result[IE_PROTO] = O;
+  } else result = createDict();
+  return Properties === undefined ? result : dPs(result, Properties);
+};
 
-var _formRow = __webpack_require__("1665");
-
-var _default = _formRow.default;
-exports.default = _default;
 
 /***/ }),
 
@@ -33307,19 +40024,28 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _id = __webpack_require__("eae0");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
+var _id = _interopRequireDefault(__webpack_require__("eae0"));
+
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
+
+var _warn = _interopRequireDefault(__webpack_require__("93e0"));
 
 var _dom = __webpack_require__("1611");
 
-// @vue/component
-var _default2 = {
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DEPRECATED_MSG = 'Setting prop "href" is deprecated. Use the <b-nav> component instead.'; // @vue/component
+
+var _default2 = _vue.default.extend({
   name: 'BTab',
-  mixins: [_id.default],
+  mixins: [_id.default, _normalizeSlot.default],
   inject: {
     bvTabs: {
       default: function _default() {
         return {
-          // Don't set a tab index if not rendered inside `<b-tabs>`
+          // Don't set a tab index if not rendered inside <b-tabs>
           noKeyNav: true
         };
       }
@@ -33368,9 +40094,12 @@ var _default2 = {
     href: {
       // This should be deprecated, as tabs are not navigation (URL) based
       // <b-nav> + <b-card> + <router-view>/<nuxt-child> should be used instead
-      // And we dont support router-links here
+      // We don't support router-links here
       type: String,
-      default: '#'
+      default: '#',
+      // `deprecated` -> Don't use this prop
+      // `deprecation` -> Refers to a change in prop usage
+      deprecated: DEPRECATED_MSG
     },
     lazy: {
       type: Boolean,
@@ -33385,7 +40114,14 @@ var _default2 = {
   },
   computed: {
     tabClasses: function tabClasses() {
-      return [this.bvTabs.card && !this.noBody ? 'card-body' : '', this.show ? 'show' : '', this.computedFade ? 'fade' : '', this.disabled ? 'disabled' : '', this.localActive ? 'active' : ''];
+      return [{
+        show: this.show,
+        active: this.localActive,
+        fade: this.computedFade,
+        disabled: this.disabled,
+        'card-body': this.bvTabs.card && !this.noBody
+      }, // Apply <b-tabs> `activeTabClass` styles when this tab is active
+      this.localActive ? this.bvTabs.activeTabClass : null];
     },
     controlledBy: function controlledBy() {
       return this.buttonId || this.safeId('__BV_tab_button__');
@@ -33414,7 +40150,7 @@ var _default2 = {
         } else {
           if (!this.deactivate()) {
             // Tab couldn't be deactivated, so we reset the synced active prop
-            // Deactivation will fail if no other tabs to activate.
+            // Deactivation will fail if no other tabs to activate
             this.$emit('update:active', this.localActive);
           }
         }
@@ -33431,12 +40167,17 @@ var _default2 = {
   },
   mounted: function mounted() {
     // Initially show on mount if active and not disabled
-    this.show = this.localActive;
+    this.show = this.localActive; // Deprecate use of `href` prop
+
+    if (this.href && this.href !== '#') {
+      /* istanbul ignore next */
+      (0, _warn.default)("b-tab: ".concat(DEPRECATED_MSG));
+    }
   },
   updated: function updated() {
     // Force the tab button content to update (since slots are not reactive)
     // Only done if we have a title slot, as the title prop is reactive
-    if (this.$slots.title && this.bvTabs.updateButton) {
+    if (this.hasNormalizedSlot('title') && this.bvTabs.updateButton) {
       this.bvTabs.updateButton(this);
     }
   },
@@ -33445,8 +40186,8 @@ var _default2 = {
     beforeEnter: function beforeEnter() {
       var _this = this;
 
-      // change opacity (add 'show' class) 1 frame after display
-      // otherwise css transition won't happen
+      // Change opacity (add 'show' class) 1 frame after display,
+      // otherwise CSS transition won't happen
       (0, _dom.requestAF)(function () {
         _this.show = true;
       });
@@ -33460,7 +40201,7 @@ var _default2 = {
       if (this.bvTabs.activateTab && !this.disabled) {
         return this.bvTabs.activateTab(this);
       } else {
-        // Not inside a b-tabs component or tab is disabled
+        // Not inside a <b-tabs> component or tab is disabled
         return false;
       }
     },
@@ -33468,7 +40209,7 @@ var _default2 = {
       if (this.bvTabs.deactivateTab && this.localActive) {
         return this.bvTabs.deactivateTab(this);
       } else {
-        // Not inside a b-tabs component or not active to begin with
+        // Not inside a <b-tabs> component or not active to begin with
         return false;
       }
     }
@@ -33478,7 +40219,7 @@ var _default2 = {
       ref: 'panel',
       staticClass: 'tab-pane',
       class: this.tabClasses,
-      directives: [// TODO: convert to style object in render
+      directives: [// TODO: Convert to style object in render
       {
         name: 'show',
         rawName: 'v-show',
@@ -33490,11 +40231,10 @@ var _default2 = {
         id: this.safeId(),
         tabindex: this.localActive && !this.bvTabs.noKeyNav ? '0' : null,
         'aria-hidden': this.localActive ? 'false' : 'true',
-        'aria-expanded': this.localActive ? 'true' : 'false',
         'aria-labelledby': this.controlledBy || null
       }
     }, // Render content lazily if requested
-    [this.localActive || !this.computedLazy ? this.$slots.default : h(false)]);
+    [this.localActive || !this.computedLazy ? this.normalizeSlot('default') : h(false)]);
     return h('transition', {
       props: {
         mode: 'out-in',
@@ -33512,7 +40252,8 @@ var _default2 = {
       }
     }, [content]);
   }
-};
+});
+
 exports.default = _default2;
 
 /***/ }),
@@ -33526,20 +40267,26 @@ exports.default = _default2;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _stringifyRecordValues = __webpack_require__("3b14");
+var _looseEqual = _interopRequireDefault(__webpack_require__("96cd"));
 
-var _looseEqual = __webpack_require__("96cd");
+var _warn = _interopRequireDefault(__webpack_require__("93e0"));
 
-var _warn = __webpack_require__("93e0");
+var _inspect = __webpack_require__("0d5a");
+
+var _stringifyRecordValues = _interopRequireDefault(__webpack_require__("3b14"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var DEPRECATION_MSG = 'Supplying a function to prop "filter" is deprecated. Use "filter-function" instead.';
 var _default = {
   props: {
     filter: {
-      // Pasing a function to filter is deprecated and should be avoided
+      // Passing a function to filter is deprecated and should be avoided
       type: [String, RegExp, Object, Array, Function],
       default: null,
-      deprecated: DEPRECATION_MSG
+      // `deprecated` -> Don't use this prop
+      // `deprecation` -> Refers to a change in prop usage
+      deprecation: DEPRECATION_MSG
     },
     filterFunction: {
       type: Function,
@@ -33566,13 +40313,13 @@ var _default = {
     },
     localFilter: function localFilter() {
       // Returns a sanitized/normalized version of filter prop
-      if (typeof this.filter === 'function') {
+      if ((0, _inspect.isFunction)(this.filter)) {
         // this.localFilterFn will contain the correct function ref.
         // Deprecate setting prop filter to a function
 
         /* istanbul ignore next */
         return '';
-      } else if (typeof this.filterFunction !== 'function' && !(typeof this.filter === 'string' || this.filter instanceof RegExp)) {
+      } else if (!(0, _inspect.isFunction)(this.filterFunction) && !((0, _inspect.isString)(this.filter) || (0, _inspect.isRegExp)(this.filter))) {
         // Using internal filter function, which only accepts string or regexp at the moment
         return '';
       } else {
@@ -33584,9 +40331,9 @@ var _default = {
       var filter = this.filter;
       var filterFn = this.filterFunction; // Sanitized/normalize filter-function prop
 
-      if (typeof filterFn === 'function') {
+      if ((0, _inspect.isFunction)(filterFn)) {
         return filterFn;
-      } else if (typeof filter === 'function') {
+      } else if ((0, _inspect.isFunction)(filter)) {
         // Deprecate setting prop filter to a function
 
         /* istanbul ignore next */
@@ -33670,7 +40417,7 @@ var _default = {
       // Rather than directly grabbing this.computedLocalFilterFn or this.filterFunction
       // we have it passed, so that the caller computed prop will be reactive to changes
       // in the original filter-function (as this routine is a method)
-      if (!filterFn || typeof filterFn !== 'function' || !criteria || (0, _looseEqual.default)(criteria, []) || (0, _looseEqual.default)(criteria, {})) {
+      if (!filterFn || !(0, _inspect.isFunction)(filterFn) || !criteria || (0, _looseEqual.default)(criteria, []) || (0, _looseEqual.default)(criteria, {})) {
         return null;
       } // Build the wrapped filter test function, passing the criteria to the provided function
 
@@ -33686,7 +40433,7 @@ var _default = {
     },
     defaultFilterFnFactory: function defaultFilterFnFactory(criteria) {
       // Generates the default filter function, using the given filter criteria
-      if (!criteria || !(typeof criteria === 'string' || criteria instanceof RegExp)) {
+      if (!criteria || !((0, _inspect.isString)(criteria) || (0, _inspect.isRegExp)(criteria))) {
         // Built in filter can only support strings or RegExp criteria (at the moment)
         return null;
       } // Build the regexp needed for filtering
@@ -33694,7 +40441,7 @@ var _default = {
 
       var regexp = criteria;
 
-      if (typeof regexp === 'string') {
+      if ((0, _inspect.isString)(regexp)) {
         // Escape special RegExp characters in the string and convert contiguous
         // whitespace to \s+ matches
         var pattern = criteria.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&').replace(/[\s\uFEFF\xA0]+/g, '\\s+'); // Build the RegExp (no need for global flag, as we only need
@@ -33732,6 +40479,17 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "a3c3":
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.3.1 Object.assign(target, source)
+var $export = __webpack_require__("63b6");
+
+$export($export.S + $export.F, 'Object', { assign: __webpack_require__("9306") });
+
+
+/***/ }),
+
 /***/ "a4bb":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33748,11 +40506,15 @@ module.exports = __webpack_require__("8aae");
 exports.__esModule = true;
 exports.default = void 0;
 
+var _looseEqual = _interopRequireDefault(__webpack_require__("96cd"));
+
 var _dom = __webpack_require__("1611");
 
 var _env = __webpack_require__("4565");
 
 var _target = __webpack_require__("f347");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Target listen types
 var listenTypes = {
@@ -33761,23 +40523,56 @@ var listenTypes = {
 };
 var BV_TOGGLE = '__BV_toggle__';
 var BV_TOGGLE_STATE = '__BV_toggle_STATE__';
-var BV_TOGGLE_CONTROLS = '__BV_toggle_CONTROLS__'; // Emitted control event for collapse (emitted to collapse)
+var BV_TOGGLE_CONTROLS = '__BV_toggle_CONTROLS__';
+var BV_TOGGLE_TARGETS = '__BV_toggle_TARGETS__'; // Emitted control event for collapse (emitted to collapse)
 
 var EVENT_TOGGLE = 'bv::toggle::collapse'; // Listen to event for toggle state update (emitted by collapse)
 
-var EVENT_STATE = 'bv::collapse::state'; // Reset and remove a property from the provided element
+var EVENT_STATE = 'bv::collapse::state'; // Private event emitted on $root to ensure the toggle state is always synced.
+// Gets emitted even if the state of b-collapse has not changed.
+// This event is NOT to be documented as people should not be using it.
+
+var EVENT_STATE_SYNC = 'bv::collapse::sync::state'; // Private event we send to collapse to request state update sync event
+
+var EVENT_STATE_REQUEST = 'bv::request::collapse::state'; // Reset and remove a property from the provided element
 
 var resetProp = function resetProp(el, prop) {
   el[prop] = null;
   delete el[prop];
+}; // Handle targets update
+
+
+var handleTargets = function handleTargets(_ref) {
+  var targets = _ref.targets,
+      vnode = _ref.vnode;
+  targets.forEach(function (target) {
+    vnode.context.$root.$emit(EVENT_TOGGLE, target);
+  });
 }; // Handle directive updates
 
 /* istanbul ignore next: not easy to test */
 
 
 var handleUpdate = function handleUpdate(el, binding, vnode) {
-  if (!_env.inBrowser) {
+  if (!_env.isBrowser) {
     return;
+  }
+
+  if (!(0, _looseEqual.default)((0, _target.getTargets)(binding), el[BV_TOGGLE_TARGETS])) {
+    // Targets have changed, so update accordingly
+    (0, _target.unbindTargets)(vnode, binding, listenTypes);
+    var targets = (0, _target.bindTargets)(vnode, binding, listenTypes, handleTargets); // Update targets array to element
+
+    el[BV_TOGGLE_TARGETS] = targets; // Add aria attributes to element
+
+    el[BV_TOGGLE_CONTROLS] = targets.join(' '); // ensure aria-controls is up to date
+
+    (0, _dom.setAttr)(el, 'aria-controls', el[BV_TOGGLE_CONTROLS]); // Request a state update from targets so that we can ensure
+    // expanded state is correct
+
+    targets.forEach(function (target) {
+      vnode.context.$root.$emit(EVENT_STATE_REQUEST, target);
+    });
   } // Ensure the collapse class and aria-* attributes persist
   // after element is updated (either by parent re-rendering
   // or changes to this element or it's contents
@@ -33800,16 +40595,12 @@ var handleUpdate = function handleUpdate(el, binding, vnode) {
 
 var _default = {
   bind: function bind(el, binding, vnode) {
-    var targets = (0, _target.bindTargets)(vnode, binding, listenTypes, function (_ref) {
-      var targets = _ref.targets,
-          vnode = _ref.vnode;
-      targets.forEach(function (target) {
-        vnode.context.$root.$emit(EVENT_TOGGLE, target);
-      });
-    });
+    var targets = (0, _target.bindTargets)(vnode, binding, listenTypes, handleTargets);
 
-    if (_env.inBrowser && vnode.context && targets.length > 0) {
-      // Add aria attributes to element
+    if (_env.isBrowser && vnode.context && targets.length > 0) {
+      // Add targets array to element
+      el[BV_TOGGLE_TARGETS] = targets; // Add aria attributes to element
+
       el[BV_TOGGLE_CONTROLS] = targets.join(' '); // State is initially collapsed until we receive a state event
 
       el[BV_TOGGLE_STATE] = false;
@@ -33822,6 +40613,8 @@ var _default = {
 
 
       el[BV_TOGGLE] = function toggleDirectiveHandler(id, state) {
+        var targets = el[BV_TOGGLE_TARGETS] || [];
+
         if (targets.indexOf(id) !== -1) {
           // Set aria-expanded state
           (0, _dom.setAttr)(el, 'aria-expanded', state ? 'true' : 'false'); // Set/Clear 'collapsed' class state
@@ -33834,10 +40627,12 @@ var _default = {
             (0, _dom.addClass)(el, 'collapsed');
           }
         }
-      }; // Listen for toggle state changes
+      }; // Listen for toggle state changes (public)
 
 
-      vnode.context.$root.$on(EVENT_STATE, el[BV_TOGGLE]);
+      vnode.context.$root.$on(EVENT_STATE, el[BV_TOGGLE]); // Listen for toggle state sync (private)
+
+      vnode.context.$root.$on(EVENT_STATE_SYNC, el[BV_TOGGLE]);
     }
   },
   componentUpdated: handleUpdate,
@@ -33849,12 +40644,14 @@ var _default = {
 
     if (el[BV_TOGGLE]) {
       vnode.context.$root.$off(EVENT_STATE, el[BV_TOGGLE]);
+      vnode.context.$root.$off(EVENT_STATE_SYNC, el[BV_TOGGLE]);
     } // Reset custom  props
 
 
     resetProp(el, BV_TOGGLE);
     resetProp(el, BV_TOGGLE_STATE);
-    resetProp(el, BV_TOGGLE_CONTROLS); // Reset classes/attrs
+    resetProp(el, BV_TOGGLE_CONTROLS);
+    resetProp(el, BV_TOGGLE_TARGETS); // Reset classes/attrs
 
     (0, _dom.removeClass)(el, 'collapsed');
     (0, _dom.removeAttr)(el, 'aria-expanded');
@@ -33875,9 +40672,13 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _formFile = __webpack_require__("07b5");
+var _formFile = _interopRequireDefault(__webpack_require__("07b5"));
+
+exports.BFormFile = _formFile.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BFormFile: _formFile.default,
@@ -33901,19 +40702,30 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _observeDom = __webpack_require__("bf9c");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
 
-var _keyCodes = __webpack_require__("06e4");
+var _keyCodes = _interopRequireDefault(__webpack_require__("06e4"));
 
-var _noop = __webpack_require__("cab0");
+var _noop = _interopRequireDefault(__webpack_require__("cab0"));
+
+var _observeDom = _interopRequireDefault(__webpack_require__("bf9c"));
+
+var _config = __webpack_require__("eb60");
 
 var _dom = __webpack_require__("1611");
 
 var _env = __webpack_require__("4565");
 
-var _id = __webpack_require__("eae0");
+var _inspect = __webpack_require__("0d5a");
 
-// Slide directional classes
+var _id = _interopRequireDefault(__webpack_require__("eae0"));
+
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var NAME = 'BCarousel'; // Slide directional classes
+
 var DIRECTION = {
   next: {
     dirClass: 'carousel-item-left',
@@ -33950,7 +40762,7 @@ var EventOptions = {
 
 function getTransitionEndEvent(el) {
   for (var name in TransitionEndEvents) {
-    if (el.style[name] !== undefined) {
+    if (!(0, _inspect.isUndefined)(el.style[name])) {
       return TransitionEndEvents[name];
     }
   } // fallback
@@ -33962,9 +40774,9 @@ function getTransitionEndEvent(el) {
 } // @vue/component
 
 
-var _default = {
+var _default2 = _vue.default.extend({
   name: 'BCarousel',
-  mixins: [_id.default],
+  mixins: [_id.default, _normalizeSlot.default],
   provide: function provide() {
     return {
       bvCarousel: this
@@ -33977,19 +40789,27 @@ var _default = {
   props: {
     labelPrev: {
       type: String,
-      default: 'Previous Slide'
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'labelPrev');
+      }
     },
     labelNext: {
       type: String,
-      default: 'Next Slide'
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'labelNext');
+      }
     },
     labelGotoSlide: {
       type: String,
-      default: 'Goto Slide'
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'labelGotoSlide');
+      }
     },
     labelIndicators: {
       type: String,
-      default: 'Select a slide to display'
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'labelIndicators');
+      }
     },
     interval: {
       type: Number,
@@ -34111,9 +40931,7 @@ var _default = {
       attributeFilter: ['id']
     });
   },
-  beforeDestroy: function beforeDestroy()
-  /* istanbul ignore next: difficult to test */
-  {
+  beforeDestroy: function beforeDestroy() {
     clearTimeout(this._animationTimeout);
     clearTimeout(this._touchTimeout);
     clearInterval(this._intervalId);
@@ -34131,7 +40949,7 @@ var _default = {
       // Don't animate when page is not visible
 
       /* istanbul ignore if: difficult to test */
-      if (_env.inBrowser && document.visibilityState && document.hidden) {
+      if (_env.isBrowser && document.visibilityState && document.hidden) {
         return;
       }
 
@@ -34194,8 +41012,9 @@ var _default = {
       }
     },
     // Restart auto rotate slides when focus/hover leaves the carousel
-    restart: function restart(evt) {
-      /* istanbul ignore if: difficult to test */
+    restart: function restart(evt)
+    /* istanbul ignore next: difficult to test */
+    {
       if (!this.$el.contains(document.activeElement)) {
         this.start();
       }
@@ -34367,9 +41186,9 @@ var _default = {
     touchStart: function touchStart(evt)
     /* istanbul ignore next: JSDOM doesn't support touch events */
     {
-      if (_env.hasPointerEvent && PointerType[evt.pointerType.toUpperCase()]) {
+      if (_env.hasPointerEventSupport && PointerType[evt.pointerType.toUpperCase()]) {
         this.touchStartX = evt.clientX;
-      } else if (!_env.hasPointerEvent) {
+      } else if (!_env.hasPointerEventSupport) {
         this.touchStartX = evt.touches[0].clientX;
       }
     },
@@ -34386,7 +41205,7 @@ var _default = {
     touchEnd: function touchEnd(evt)
     /* istanbul ignore next: JSDOM doesn't support touch events */
     {
-      if (_env.hasPointerEvent && PointerType[evt.pointerType.toUpperCase()]) {
+      if (_env.hasPointerEventSupport && PointerType[evt.pointerType.toUpperCase()]) {
         this.touchDeltaX = evt.clientX - this.touchStartX;
       }
 
@@ -34418,7 +41237,7 @@ var _default = {
         id: this.safeId('__BV_inner_'),
         role: 'list'
       }
-    }, [this.$slots.default]); // Prev and next controls
+    }, [this.normalizeSlot('default')]); // Prev and next controls
 
     var controls = h(false);
 
@@ -34538,10 +41357,10 @@ var _default = {
     };
 
     if (!this.noTouch && _env.hasTouchSupport) {
-      // Attach appropriate listeners (passive mode)
+      // Attach appropriate listeners (prepend event name with '&' for passive mode)
 
       /* istanbul ignore next: JSDOM doesn't support touch events */
-      if (_env.hasPointerEvent) {
+      if (_env.hasPointerEventSupport) {
         on['&pointerdown'] = this.touchStart;
         on['&pointerup'] = this.touchEnd;
       } else {
@@ -34557,7 +41376,7 @@ var _default = {
       class: {
         slide: !this.noAnimation,
         'carousel-fade': !this.noAnimation && this.fade,
-        'pointer-event': !this.noTouch && _env.hasTouchSupport && _env.hasPointerEvent
+        'pointer-event': !this.noTouch && _env.hasTouchSupport && _env.hasPointerEventSupport
       },
       style: {
         background: this.background
@@ -34570,8 +41389,9 @@ var _default = {
       on: on
     }, [inner, controls, indicators]);
   }
-};
-exports.default = _default;
+});
+
+exports.default = _default2;
 
 /***/ }),
 
@@ -34584,11 +41404,17 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _carousel = __webpack_require__("a85f");
+var _carousel = _interopRequireDefault(__webpack_require__("a85f"));
 
-var _carouselSlide = __webpack_require__("5106");
+exports.BCarousel = _carousel.default;
+
+var _carouselSlide = _interopRequireDefault(__webpack_require__("5106"));
+
+exports.BCarouselSlide = _carouselSlide.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BCarousel: _carousel.default,
@@ -36004,7 +42830,11 @@ module.exports = exporter;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var props = {
   textTag: {
@@ -36014,7 +42844,8 @@ var props = {
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BCardText',
   functional: true,
   props: props,
@@ -36026,8 +42857,29 @@ var _default = {
       staticClass: 'card-text'
     }), children);
   }
-};
+});
+
 exports.default = _default;
+
+/***/ }),
+
+/***/ "ac0f":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.HTMLElement = void 0;
+
+var _env = __webpack_require__("4565");
+
+/**
+ * SSR safe types
+ */
+var w = _env.hasWindowSupport ? window : {};
+var HTMLElement = w.HTMLElement || Object;
+exports.HTMLElement = HTMLElement;
 
 /***/ }),
 
@@ -36116,7 +42968,11 @@ for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var props = {
   id: {
@@ -36138,11 +42994,20 @@ var props = {
   state: {
     type: [Boolean, String],
     default: null
+  },
+  ariaLive: {
+    type: String,
+    default: null
+  },
+  role: {
+    type: String,
+    default: null
   } // @vue/component
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BFormValidFeedback',
   functional: true,
   props: props,
@@ -36158,11 +43023,15 @@ var _default = {
         'd-block': show
       },
       attrs: {
-        id: props.id
+        id: props.id,
+        role: props.role,
+        'aria-live': props.ariaLive,
+        'aria-atomic': props.ariaLive ? 'true' : null
       }
     }), children);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -36182,6 +43051,25 @@ module.exports = function (bitmap, value) {
 
 /***/ }),
 
+/***/ "b0dc":
+/***/ (function(module, exports, __webpack_require__) {
+
+// call something on iterator step with safe closing on error
+var anObject = __webpack_require__("e4ae");
+module.exports = function (iterator, fn, value, entries) {
+  try {
+    return entries ? fn(anObject(value)[0], value[1]) : fn(value);
+  // 7.4.6 IteratorClose(iterator, completion)
+  } catch (e) {
+    var ret = iterator['return'];
+    if (ret !== undefined) anObject(ret.call(iterator));
+    throw e;
+  }
+};
+
+
+/***/ }),
+
 /***/ "b0df":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -36191,9 +43079,7 @@ module.exports = function (bitmap, value) {
 exports.__esModule = true;
 exports.default = void 0;
 
-var _array = __webpack_require__("bb2f");
-
-var _object = __webpack_require__("24e2");
+var _inspect = __webpack_require__("0d5a");
 
 /**
  * Get property defined by dot/array notation in string.
@@ -36208,9 +43094,9 @@ var _object = __webpack_require__("24e2");
 var get = function get(obj, path) {
   var defaultValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
   // Handle array of path values
-  path = (0, _array.isArray)(path) ? path.join('.') : path; // If no path or no object passed
+  path = (0, _inspect.isArray)(path) ? path.join('.') : path; // If no path or no object passed
 
-  if (!path || !(0, _object.isObject)(obj)) {
+  if (!path || !(0, _inspect.isObject)(obj)) {
     return defaultValue;
   } // Handle edge case where user has dot(s) in top-level item field key
   // See https://github.com/bootstrap-vue/bootstrap-vue/issues/2762
@@ -36230,7 +43116,7 @@ var get = function get(obj, path) {
 
 
   return steps.every(function (step) {
-    return (0, _object.isObject)(obj) && obj.hasOwnProperty(step) && (obj = obj[step]);
+    return (0, _inspect.isObject)(obj) && obj.hasOwnProperty(step) && (obj = obj[step]) != null;
   }) ? obj : defaultValue;
 };
 
@@ -36248,9 +43134,13 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _formInput = __webpack_require__("4216");
+var _formInput = _interopRequireDefault(__webpack_require__("4216"));
+
+exports.BFormInput = _formInput.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BFormInput: _formInput.default,
@@ -36327,11 +43217,17 @@ module.exports = function (it) {
 exports.__esModule = true;
 exports.default = void 0;
 
-var _progress = __webpack_require__("c4c4");
+var _progress = _interopRequireDefault(__webpack_require__("c4c4"));
 
-var _progressBar = __webpack_require__("cf15");
+exports.BProgress = _progress.default;
+
+var _progressBar = _interopRequireDefault(__webpack_require__("cf15"));
+
+exports.BProgressBar = _progressBar.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BProgress: _progress.default,
@@ -36362,24 +43258,33 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
-var _config = __webpack_require__("eb60");
-
-var _pluckProps = __webpack_require__("9c97");
+var _pluckProps = _interopRequireDefault(__webpack_require__("9c97"));
 
 var _array = __webpack_require__("bb2f");
 
-var _object = __webpack_require__("24e2");
+var _config = __webpack_require__("eb60");
 
 var _dom = __webpack_require__("1611");
 
-var _link = __webpack_require__("4e40");
+var _inspect = __webpack_require__("0d5a");
+
+var _object = __webpack_require__("24e2");
+
+var _link = _interopRequireWildcard(__webpack_require__("4e40"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+// --- Constants --
 var NAME = 'BButton';
 var btnProps = {
   block: {
@@ -36408,6 +43313,10 @@ var btnProps = {
     type: String,
     default: 'button'
   },
+  pill: {
+    type: Boolean,
+    default: false
+  },
   pressed: {
     // tri-state prop: true, false or null
     // => on, off, not a toggle
@@ -36420,33 +43329,33 @@ delete linkProps.href.default;
 delete linkProps.to.default;
 var linkPropKeys = (0, _object.keys)(linkProps);
 
-var props = _objectSpread({}, linkProps, btnProps); // Focus handler for toggle buttons.  Needs class of 'focus' when focused.
+var props = _objectSpread({}, linkProps, btnProps); // --- Helper methods ---
+// Focus handler for toggle buttons.  Needs class of 'focus' when focused.
 
 
 exports.props = props;
 
-function handleFocus(evt) {
+var handleFocus = function handleFocus(evt) {
   if (evt.type === 'focusin') {
     (0, _dom.addClass)(evt.target, 'focus');
   } else if (evt.type === 'focusout') {
     (0, _dom.removeClass)(evt.target, 'focus');
   }
-} // Helper functons to minimize runtime memory footprint when lots of buttons on page
-// Is the requested button a link?
+}; // Is the requested button a link?
 
 
-function isLink(props) {
+var isLink = function isLink(props) {
   // If tag prop is set to `a`, we use a b-link to get proper disabled handling
   return Boolean(props.href || props.to || props.tag && String(props.tag).toLowerCase() === 'a');
-} // Is the button to be a toggle button?
+}; // Is the button to be a toggle button?
 
 
-function isToggle(props) {
-  return typeof props.pressed === 'boolean';
-} // Is the button "really" a button?
+var isToggle = function isToggle(props) {
+  return (0, _inspect.isBoolean)(props.pressed);
+}; // Is the button "really" a button?
 
 
-function isButton(props) {
+var isButton = function isButton(props) {
   if (isLink(props)) {
     return false;
   } else if (props.tag && String(props.tag).toLowerCase() !== 'button') {
@@ -36454,27 +43363,27 @@ function isButton(props) {
   }
 
   return true;
-} // Is the requested tag not a button or link?
+}; // Is the requested tag not a button or link?
 
 
-function isNonStandardTag(props) {
+var isNonStandardTag = function isNonStandardTag(props) {
   return !isLink(props) && !isButton(props);
-} // Compute required classes (non static classes)
+}; // Compute required classes (non static classes)
 
 
-function computeClass(props) {
+var computeClass = function computeClass(props) {
   var _ref;
 
-  return ["btn-".concat(props.variant || (0, _config.getComponentConfig)(NAME, 'variant')), (_ref = {}, _defineProperty(_ref, "btn-".concat(props.size), Boolean(props.size)), _defineProperty(_ref, 'btn-block', props.block), _defineProperty(_ref, "disabled", props.disabled), _defineProperty(_ref, "active", props.pressed), _ref)];
-} // Compute the link props to pass to b-link (if required)
+  return ["btn-".concat(props.variant || (0, _config.getComponentConfig)(NAME, 'variant')), (_ref = {}, _defineProperty(_ref, "btn-".concat(props.size), Boolean(props.size)), _defineProperty(_ref, 'btn-block', props.block), _defineProperty(_ref, 'rounded-pill', props.pill), _defineProperty(_ref, "disabled", props.disabled), _defineProperty(_ref, "active", props.pressed), _ref)];
+}; // Compute the link props to pass to b-link (if required)
 
 
-function computeLinkProps(props) {
+var computeLinkProps = function computeLinkProps(props) {
   return isLink(props) ? (0, _pluckProps.default)(linkPropKeys, props) : null;
-} // Compute the attributes for a button
+}; // Compute the attributes for a button
 
 
-function computeAttrs(props, data) {
+var computeAttrs = function computeAttrs(props, data) {
   var button = isButton(props);
   var link = isLink(props);
   var toggle = isToggle(props);
@@ -36507,10 +43416,10 @@ function computeAttrs(props, data) {
     // when disabled, and adding a tabindex of '0' to non buttons or non links.
     tabindex: props.disabled && !button ? '-1' : tabindex
   };
-} // @vue/component
+}; // @vue/component
 
 
-var _default2 = {
+var _default2 = _vue.default.extend({
   name: NAME,
   functional: true,
   props: props,
@@ -36532,7 +43441,7 @@ var _default2 = {
           // Concat will normalize the value to an array
           // without double wrapping an array value in an array.
           (0, _array.concat)(listeners['update:pressed']).forEach(function (fn) {
-            if (typeof fn === 'function') {
+            if ((0, _inspect.isFunction)(fn)) {
               fn(!props.pressed);
             }
           });
@@ -36554,7 +43463,8 @@ var _default2 = {
     };
     return h(link ? _link.default : props.tag, (0, _vueFunctionalDataMerge.mergeData)(data, componentData), children);
   }
-};
+});
+
 exports.default = _default2;
 
 /***/ }),
@@ -36568,13 +43478,15 @@ exports.default = _default2;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _looseEqual = __webpack_require__("96cd");
+var _looseEqual = _interopRequireDefault(__webpack_require__("96cd"));
 
-var _array = __webpack_require__("bb2f");
+var _warn = _interopRequireDefault(__webpack_require__("93e0"));
 
-var _warn = __webpack_require__("93e0");
+var _inspect = __webpack_require__("0d5a");
 
-var _listenOnRoot = __webpack_require__("edbc");
+var _listenOnRoot = _interopRequireDefault(__webpack_require__("edbc"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _default = {
   mixins: [_listenOnRoot.default],
@@ -36605,7 +43517,7 @@ var _default = {
       // Used to trigger the provider function via a watcher. Only the fields that
       // are needed for triggering a provider update are included. Note that the
       // regular this.context is sent to the provider during fetches though, as they
-      // may neeed all the prop info.
+      // may need all the prop info.
       var ctx = {
         apiUrl: this.apiUrl
       };
@@ -36677,13 +43589,13 @@ var _default = {
           this.$nextTick(this._providerUpdate);
         } else {
           /* istanbul ignore next */
-          this.localItems = (0, _array.isArray)(this.items) ? this.items.slice() : [];
+          this.localItems = (0, _inspect.isArray)(this.items) ? this.items.slice() : [];
         }
       }
     },
     // Provider related methods
     _providerSetLocal: function _providerSetLocal(items) {
-      this.localItems = (0, _array.isArray)(items) ? items.slice() : [];
+      this.localItems = (0, _inspect.isArray)(items) ? items.slice() : [];
       this.localBusy = false;
       this.$emit('refreshed'); // New root emit
 
@@ -36696,7 +43608,7 @@ var _default = {
       if (!this.hasProvider) {
         // Do nothing if no provider
         return;
-      } // If table is busy, wait until refereshed before calling again
+      } // If table is busy, wait until refreshed before calling again
 
 
       if (this.computedBusy) {
@@ -36715,13 +43627,13 @@ var _default = {
           // Call provider function passing it the context and optional callback
           var data = this.items(this.context, this._providerSetLocal);
 
-          if (data && data.then && typeof data.then === 'function') {
+          if (data && data.then && (0, _inspect.isFunction)(data.then)) {
             // Provider returned Promise
             data.then(function (items) {
               // Provider resolved with items
               _this2._providerSetLocal(items);
             });
-          } else if ((0, _array.isArray)(data)) {
+          } else if ((0, _inspect.isArray)(data)) {
             // Provider returned Array data
             this._providerSetLocal(data);
           } else if (this.items.length !== 2) {
@@ -36730,7 +43642,7 @@ var _default = {
             // busy state as most likely there was an error in the provider function
 
             /* istanbul ignore next */
-            (0, _warn.default)("b-table provider function didn't request calback and did not return a promise or data");
+            (0, _warn.default)("b-table provider function didn't request callback and did not return a promise or data");
             /* istanbul ignore next */
 
             this.localBusy = false;
@@ -36761,9 +43673,13 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _table = __webpack_require__("07d0");
+var _table = _interopRequireDefault(__webpack_require__("07d0"));
+
+exports.BTable = _table.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BTable: _table.default
@@ -36772,6 +43688,359 @@ var _default = {
   install: (0, _plugins.installFactory)({
     components: components
   })
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "b7af":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
+var _modal = _interopRequireWildcard(__webpack_require__("3a5b"));
+
+var _array = __webpack_require__("bb2f");
+
+var _config = __webpack_require__("eb60");
+
+var _inspect = __webpack_require__("0d5a");
+
+var _object = __webpack_require__("24e2");
+
+var _warn = __webpack_require__("93e0");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+// --- Constants ---
+var PROP_NAME = '$bvModal';
+var PROP_NAME_PRIV = '_bv__modal'; // Base modal props that are allowed
+// Some may be ignored or overridden on some message boxes
+// Prop ID is allowed, but really only should be used for testing
+// We need to add it in explicitly as it comes from the `idMixin`
+
+var BASE_PROPS = ['id'].concat(_toConsumableArray((0, _object.keys)((0, _object.omit)(_modal.props, ['busy', 'lazy', 'noStacking', "static", 'visible'])))); // Fallback event resolver (returns undefined)
+
+var defaultResolver = function defaultResolver(bvModalEvt) {}; // Map prop names to modal slot names
+
+
+var propsToSlots = {
+  msgBoxContent: 'default',
+  title: 'modal-title',
+  okTitle: 'modal-ok',
+  cancelTitle: 'modal-cancel' // --- Utility methods ---
+  // Method to filter only recognized props that are not undefined
+
+};
+
+var filterOptions = function filterOptions(options) {
+  return BASE_PROPS.reduce(function (memo, key) {
+    if (!(0, _inspect.isUndefined)(options[key])) {
+      memo[key] = options[key];
+    }
+
+    return memo;
+  }, {});
+}; // Create a private sub-component that extends BModal
+// which self-destructs after hidden
+// @vue/component
+
+
+var MsgBox = _vue.default.extend({
+  name: 'BMsgBox',
+  extends: _modal.default,
+  destroyed: function destroyed() {
+    // Make sure we not in document any more
+    if (this.$el && this.$el.parentNode) {
+      this.$el.parentNode.removeChild(this.$el);
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    // Self destruct handler
+    var handleDestroy = function handleDestroy() {
+      var self = _this;
+
+      _this.$nextTick(function () {
+        // In a `setTimeout()` to release control back to application
+        setTimeout(function () {
+          return self.$destroy();
+        }, 0);
+      });
+    }; // Self destruct if parent destroyed
+
+
+    this.$parent.$once('hook:destroyed', handleDestroy); // Self destruct after hidden
+
+    this.$once('hidden', handleDestroy); // Self destruct on route change
+
+    /* istanbul ignore if */
+
+    if (this.$router && this.$route) {
+      var unwatch = this.$watch('$router', handleDestroy);
+      this.$once('hook:beforeDestroy', unwatch);
+    } // Should we also self destruct on parent deactivation?
+    // Show the `MsgBox`
+
+
+    this.show();
+  }
+}); // Method to generate the on-demand modal message box
+// Returns a promise that resolves to a value returned by the resolve
+
+
+var asyncMsgBox = function asyncMsgBox(props, $parent) {
+  var resolver = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultResolver;
+
+  if ((0, _warn.warnNotClient)(PROP_NAME) || (0, _warn.warnNoPromiseSupport)(PROP_NAME)) {
+    // Should this throw an error?
+
+    /* istanbul ignore next */
+    return;
+  } // Create an instance of `MsgBox` component
+
+
+  var msgBox = new MsgBox({
+    // We set parent as the local VM so these modals can emit events on
+    // the app `$root`, as needed by things like tooltips and popovers
+    // And it helps to ensure `MsgBox` is destroyed when parent is destroyed
+    parent: $parent,
+    // Preset the prop values
+    propsData: _objectSpread({}, filterOptions((0, _config.getComponentConfig)('BModal') || {}), {
+      // Defaults that user can override
+      hideHeaderClose: true,
+      hideHeader: !(props.title || props.titleHtml)
+    }, (0, _object.omit)(props, ['msgBoxContent']), {
+      // Props that can't be overridden
+      lazy: false,
+      busy: false,
+      visible: false,
+      noStacking: false,
+      noEnforceFocus: false
+    })
+  }); // Convert certain props to scoped slots
+
+  (0, _object.keys)(propsToSlots).forEach(function (prop) {
+    if (!(0, _inspect.isUndefined)(props[prop])) {
+      // Can be a string, or array of VNodes.
+      // Alternatively, user can use HTML version of prop to pass an HTML string.
+      msgBox.$slots[propsToSlots[prop]] = (0, _array.concat)(props[prop]);
+    }
+  }); // Create a mount point (a DIV)
+
+  var div = document.createElement('div');
+  document.body.appendChild(div); // Return a promise that resolves when hidden, or rejects on destroyed
+
+  return new Promise(function (resolve, reject) {
+    var resolved = false;
+    msgBox.$once('hook:destroyed', function () {
+      if (!resolved) {
+        /* istanbul ignore next */
+        reject(new Error('BootstrapVue MsgBox destroyed before resolve'));
+      }
+    });
+    msgBox.$on('hide', function (bvModalEvt) {
+      if (!bvModalEvt.defaultPrevented) {
+        var result = resolver(bvModalEvt); // If resolver didn't cancel hide, we resolve
+
+        if (!bvModalEvt.defaultPrevented) {
+          resolved = true;
+          resolve(result);
+        }
+      }
+    }); // Mount the `MsgBox`, which will auto-trigger it to show
+
+    msgBox.$mount(div);
+  });
+}; // BvModal instance property class
+
+
+var BvModal =
+/*#__PURE__*/
+function () {
+  function BvModal(vm) {
+    _classCallCheck(this, BvModal);
+
+    // Assign the new properties to this instance
+    (0, _object.assign)(this, {
+      _vm: vm,
+      _root: vm.$root
+    }); // Set these properties as read-only and non-enumerable
+
+    (0, _object.defineProperties)(this, {
+      _vm: (0, _object.readonlyDescriptor)(),
+      _root: (0, _object.readonlyDescriptor)()
+    });
+  } // --- Instance methods ---
+  // Show modal with the specified ID args are for future use
+
+
+  _createClass(BvModal, [{
+    key: "show",
+    value: function show(id) {
+      if (id && this._root) {
+        var _this$_root;
+
+        for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+          args[_key - 1] = arguments[_key];
+        }
+
+        (_this$_root = this._root).$emit.apply(_this$_root, ['bv::show::modal', id].concat(args));
+      }
+    } // Hide modal with the specified ID args are for future use
+
+  }, {
+    key: "hide",
+    value: function hide(id) {
+      if (id && this._root) {
+        var _this$_root2;
+
+        for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+          args[_key2 - 1] = arguments[_key2];
+        }
+
+        (_this$_root2 = this._root).$emit.apply(_this$_root2, ['bv::hide::modal', id].concat(args));
+      }
+    } // TODO: Could make Promise versions of above that first checks
+    //       if modal is in document (by ID) and if not found reject
+    //       the Promise. Otherwise waits for hide/hidden event and
+    //       then resolves returning the `BvModalEvent` object
+    //       (which contains the details)
+    // The following methods require Promise support!
+    // IE 11 and others do not support Promise natively, so users
+    // should have a Polyfill loaded (which they need anyways for IE 11 support)
+    // Opens a user defined message box and returns a promise
+
+  }, {
+    key: "msgBox",
+    value: function msgBox(content) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var resolver = arguments.length > 2 ? arguments[2] : undefined;
+
+      if (!content || (0, _warn.warnNoPromiseSupport)(PROP_NAME) || (0, _warn.warnNotClient)(PROP_NAME) || !(0, _inspect.isFunction)(resolver)) {
+        // Should this throw an error?
+
+        /* istanbul ignore next */
+        return;
+      }
+
+      var props = _objectSpread({}, filterOptions(options), {
+        msgBoxContent: content
+      });
+
+      return asyncMsgBox(props, this._vm, resolver);
+    } // Open a message box with OK button only and returns a promise
+
+  }, {
+    key: "msgBoxOk",
+    value: function msgBoxOk(message) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+      // Pick the modal props we support from options
+      var props = _objectSpread({}, options, {
+        // Add in overrides and our content prop
+        okOnly: true,
+        okDisabled: false,
+        hideFooter: false,
+        msgBoxContent: message
+      });
+
+      return this.msgBox(message, props, function (bvModalEvt) {
+        // Always resolve to true for OK
+        return true;
+      });
+    } // Open a message box modal with OK and CANCEL buttons
+    // and returns a promise
+
+  }, {
+    key: "msgBoxConfirm",
+    value: function msgBoxConfirm(message) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+      // Set the modal props we support from options
+      var props = _objectSpread({}, options, {
+        // Add in overrides and our content prop
+        okOnly: false,
+        okDisabled: false,
+        cancelDisabled: false,
+        hideFooter: false
+      });
+
+      return this.msgBox(message, props, function (bvModalEvt) {
+        var trigger = bvModalEvt.trigger;
+        return trigger === 'ok' ? true : trigger === 'cancel' ? false : null;
+      });
+    }
+  }]);
+
+  return BvModal;
+}(); // Method to install `$bvModal` VM injection
+
+
+var install = function install(_Vue) {
+  if (install.installed) {
+    // Only install once
+
+    /* istanbul ignore next */
+    return;
+  }
+
+  install.installed = true; // Add our instance mixin
+
+  _Vue.mixin({
+    beforeCreate: function beforeCreate() {
+      // Because we need access to `$root` for `$emits`, and VM for parenting,
+      // we have to create a fresh instance of `BvModal` for each VM
+      this[PROP_NAME_PRIV] = new BvModal(this);
+    }
+  }); // Define our read-only `$bvModal` instance property
+  // Placed in an if just in case in HMR mode
+
+
+  if (!_Vue.prototype.hasOwnProperty(PROP_NAME)) {
+    (0, _object.defineProperty)(_Vue.prototype, PROP_NAME, {
+      get: function get() {
+        /* istanbul ignore next */
+        if (!this || !this[PROP_NAME_PRIV]) {
+          (0, _warn.warn)("'".concat(PROP_NAME, "' must be accessed from a Vue instance 'this' context"));
+        }
+
+        return this[PROP_NAME_PRIV];
+      }
+    });
+  }
+};
+
+install.installed = false;
+var _default = {
+  install: install
 };
 exports.default = _default;
 
@@ -36864,19 +44133,25 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
-var _prefixPropName = __webpack_require__("e109");
+var _prefixPropName = _interopRequireDefault(__webpack_require__("e109"));
 
-var _copyProps = __webpack_require__("0942");
+var _copyProps = _interopRequireDefault(__webpack_require__("0942"));
 
-var _pluckProps = __webpack_require__("9c97");
+var _pluckProps = _interopRequireDefault(__webpack_require__("9c97"));
 
-var _cardMixin = __webpack_require__("45f0");
+var _cardMixin = _interopRequireDefault(__webpack_require__("45f0"));
 
-var _cardTitle = __webpack_require__("cf89");
+var _cardTitle = _interopRequireWildcard(__webpack_require__("cf89"));
 
-var _cardSubTitle = __webpack_require__("886b");
+var _cardSubTitle = _interopRequireWildcard(__webpack_require__("886b"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
@@ -36904,7 +44179,8 @@ var props = _objectSpread({}, (0, _copyProps.default)(_cardMixin.default.props, 
 });
 
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BCardBody',
   functional: true,
   props: props,
@@ -36938,7 +44214,8 @@ var _default = {
       }, _defineProperty(_ref2, "bg-".concat(props.bodyBgVariant), Boolean(props.bodyBgVariant)), _defineProperty(_ref2, "border-".concat(props.bodyBorderVariant), Boolean(props.bodyBorderVariant)), _defineProperty(_ref2, "text-".concat(props.bodyTextVariant), Boolean(props.bodyTextVariant)), _ref2), props.bodyClass || {}]
     }), [cardTitle, cardSubTitle].concat(_toConsumableArray(cardContent)));
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -36952,14 +44229,21 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _dom = __webpack_require__("1611");
 
-var _keyCodes = __webpack_require__("06e4");
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
+
+var _keyCodes = _interopRequireDefault(__webpack_require__("06e4"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ITEM_SELECTOR = ['.btn:not(.disabled):not([disabled]):not(.dropdown-item)', '.form-control:not(.disabled):not([disabled])', 'select:not(.disabled):not([disabled])', 'input[type="checkbox"]:not(.disabled)', 'input[type="radio"]:not(.disabled)'].join(','); // @vue/component
 
-var _default = {
+var _default = _vue.default.extend({
   name: 'BButtonToolbar',
+  mixins: [_normalizeSlot.default],
   props: {
     justify: {
       type: Boolean,
@@ -37059,9 +44343,10 @@ var _default = {
         focusin: this.onFocusin,
         keydown: this.onKeydown
       } : {}
-    }, [this.$slots.default]);
+    }, [this.normalizeSlot('default')]);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -37075,160 +44360,16 @@ exports.default = _default;
 exports.__esModule = true;
 exports.concat = exports.arrayIncludes = exports.isArray = exports.from = void 0;
 
-// Production steps of ECMA-262, Edition 6, 22.1.2.1
-// es6-ified by @alexsasharegan
+var _from = _interopRequireDefault(__webpack_require__("d2d5"));
 
-/* istanbul ignore if */
-if (!Array.from) {
-  Array.from = function () {
-    var toStr = Object.prototype.toString;
+var _isArray = _interopRequireDefault(__webpack_require__("f410"));
 
-    var isCallable = function isCallable(fn) {
-      return typeof fn === 'function' || toStr.call(fn) === '[object Function]';
-    };
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-    var toInteger = function toInteger(value) {
-      var number = Number(value);
-
-      if (isNaN(number)) {
-        return 0;
-      }
-
-      if (number === 0 || !isFinite(number)) {
-        return number;
-      }
-
-      return (number > 0 ? 1 : -1) * Math.floor(Math.abs(number));
-    };
-
-    var maxSafeInteger = Math.pow(2, 53) - 1;
-
-    var toLength = function toLength(value) {
-      return Math.min(Math.max(toInteger(value), 0), maxSafeInteger);
-    }; // The length property of the from method is 1.
-
-
-    return function from(arrayLike
-    /*, mapFn, thisArg */
-    ) {
-      // 1. Let C be the this value.
-      var C = this; // 2. Let items be ToObject(arrayLike).
-
-      var items = Object(arrayLike); // 3. ReturnIfAbrupt(items).
-
-      if (arrayLike == null) {
-        throw new TypeError('Array.from requires an array-like object - not null or undefined');
-      } // 4. If mapfn is undefined, then let mapping be false.
-
-
-      var mapFn = arguments.length > 1 ? arguments[1] : void undefined;
-      var T;
-
-      if (typeof mapFn !== 'undefined') {
-        // 5. else
-        // 5. a If IsCallable(mapfn) is false, throw a TypeError exception.
-        if (!isCallable(mapFn)) {
-          throw new TypeError('Array.from: when provided, the second argument must be a function');
-        } // 5. b. If thisArg was supplied, let T be thisArg; else let T be undefined.
-
-
-        if (arguments.length > 2) {
-          T = arguments[2];
-        }
-      } // 10. Let lenValue be Get(items, "length").
-      // 11. Let len be ToLength(lenValue).
-
-
-      var len = toLength(items.length); // 13. If IsConstructor(C) is true, then
-      // 13. a. Let A be the result of calling the [[Construct]] internal method
-      // of C with an argument list containing the single item len.
-      // 14. a. Else, Let A be ArrayCreate(len).
-
-      var A = isCallable(C) ? Object(new C(len)) : new Array(len); // 16. Let k be 0.
-
-      var k = 0; // 17. Repeat, while k < len… (also steps a - h)
-
-      var kValue;
-
-      while (k < len) {
-        kValue = items[k];
-
-        if (mapFn) {
-          A[k] = typeof T === 'undefined' ? mapFn(kValue, k) : mapFn.call(T, kValue, k);
-        } else {
-          A[k] = kValue;
-        }
-
-        k += 1;
-      } // 18. Let putStatus be Put(A, "length", len, true).
-
-
-      A.length = len; // 20. Return A.
-
-      return A;
-    };
-  }();
-} // https://tc39.github.io/ecma262/#sec-array.prototype.find
-// Needed for IE support
-
-/* istanbul ignore if */
-
-
-if (!Array.prototype.find) {
-  // eslint-disable-next-line no-extend-native
-  Object.defineProperty(Array.prototype, 'find', {
-    value: function value(predicate) {
-      // 1. Let O be ? ToObject(this value).
-      if (this == null) {
-        throw new TypeError('"this" is null or not defined');
-      }
-
-      var o = Object(this); // 2. Let len be ? ToLength(? Get(O, "length")).
-
-      var len = o.length >>> 0; // 3. If IsCallable(predicate) is false, throw a TypeError exception.
-
-      if (typeof predicate !== 'function') {
-        throw new TypeError('predicate must be a function');
-      } // 4. If thisArg was supplied, let T be thisArg; else let T be undefined.
-
-
-      var thisArg = arguments[1]; // 5. Let k be 0.
-
-      var k = 0; // 6. Repeat, while k < len
-
-      while (k < len) {
-        // a. Let Pk be ! ToString(k).
-        // b. Let kValue be ? Get(O, Pk).
-        // c. Let testResult be ToBoolean(? Call(predicate, T, « kValue, k, O »)).
-        // d. If testResult is true, return kValue.
-        var kValue = o[k];
-
-        if (predicate.call(thisArg, kValue, k, o)) {
-          return kValue;
-        } // e. Increase k by 1.
-
-
-        k++;
-      } // 7. Return undefined.
-
-
-      return undefined;
-    }
-  });
-}
-/* istanbul ignore if */
-
-
-if (!Array.isArray) {
-  Array.isArray = function (arg) {
-    return Object.prototype.toString.call(arg) === '[object Array]';
-  };
-} // Static
-
-
-var from = Array.from;
+// --- Static ---
+var from = Array.from || _from.default;
 exports.from = from;
-var isArray = Array.isArray; // Instance
+var isArray = Array.isArray || _isArray.default; // --- Instance ---
 
 exports.isArray = isArray;
 
@@ -37259,24 +44400,28 @@ exports.concat = concat;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _id = __webpack_require__("eae0");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
 
-var _formRadioCheck = __webpack_require__("4fe1");
+var _looseEqual = _interopRequireDefault(__webpack_require__("96cd"));
 
-var _form = __webpack_require__("5f07");
+var _looseIndexOf = _interopRequireDefault(__webpack_require__("2d8d"));
 
-var _formSize = __webpack_require__("6e1b");
+var _inspect = __webpack_require__("0d5a");
 
-var _formState = __webpack_require__("41fb");
+var _form = _interopRequireDefault(__webpack_require__("5f07"));
 
-var _array = __webpack_require__("bb2f");
+var _formRadioCheck = _interopRequireDefault(__webpack_require__("4fe1"));
 
-var _looseEqual = __webpack_require__("96cd");
+var _formSize = _interopRequireDefault(__webpack_require__("6e1b"));
 
-var _looseIndexOf = __webpack_require__("2d8d");
+var _formState = _interopRequireDefault(__webpack_require__("41fb"));
+
+var _id = _interopRequireDefault(__webpack_require__("eae0"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // @vue/component
-var _default = {
+var _default = _vue.default.extend({
   name: 'BFormCheckbox',
   mixins: [_formRadioCheck.default, // Includes shared render function
   _id.default, _form.default, _formSize.default, _formState.default],
@@ -37317,7 +44462,7 @@ var _default = {
       var checked = this.computedLocalChecked;
       var value = this.value;
 
-      if ((0, _array.isArray)(checked)) {
+      if ((0, _inspect.isArray)(checked)) {
         return (0, _looseIndexOf.default)(checked, value) > -1;
       } else {
         return (0, _looseEqual.default)(checked, value);
@@ -37353,7 +44498,7 @@ var _default = {
           indeterminate = _ref$target.indeterminate;
       var localChecked = this.computedLocalChecked;
       var value = this.value;
-      var isArr = (0, _array.isArray)(localChecked);
+      var isArr = (0, _inspect.isArray)(localChecked);
       var uncheckedValue = isArr ? null : this.uncheckedValue; // Update computedLocalChecked
 
       if (isArr) {
@@ -37382,7 +44527,7 @@ var _default = {
     },
     setIndeterminate: function setIndeterminate(state) {
       // Indeterminate only supported in single checkbox mode
-      if ((0, _array.isArray)(this.computedLocalChecked)) {
+      if ((0, _inspect.isArray)(this.computedLocalChecked)) {
         state = false;
       }
 
@@ -37393,7 +44538,8 @@ var _default = {
       }
     }
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -37440,31 +44586,6 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ "be8c":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _modal = __webpack_require__("f429");
-
-var _plugins = __webpack_require__("0a8d");
-
-var directives = {
-  BModal: _modal.default
-};
-var _default = {
-  install: (0, _plugins.installFactory)({
-    directives: directives
-  })
-};
-exports.default = _default;
-
-/***/ }),
-
 /***/ "bf9c":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -37476,28 +44597,12 @@ exports.default = void 0;
 
 var _dom = __webpack_require__("1611");
 
-var _env = __webpack_require__("4565");
+var _warn = __webpack_require__("93e0");
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var eventListenerSupported = _env.inBrowser && window.addEventListener;
-var MutationObserver = _env.inBrowser && (window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver); // Fallback observation for legacy browsers
-// Emulate observer disconnect() method so that we can detach the events later
-
-var fakeObserverFactory = function fakeObserverFactory(el, callback)
-/* istanbul ignore next: hard to test in JSDOM */
-{
-  (0, _dom.eventOn)(el, 'DOMNodeInserted', callback, false);
-  (0, _dom.eventOn)(el, 'DOMNodeRemoved', callback, false);
-  return {
-    disconnect: function disconnect() {
-      (0, _dom.eventOff)(el, 'DOMNodeInserted', callback, false);
-      (0, _dom.eventOff)(el, 'DOMNodeRemoved', callback, false);
-    }
-  };
-};
 /**
  * Observe a DOM element changes, falls back to eventListener mode
  * @param {Element} el The DOM element to observe
@@ -37505,63 +44610,64 @@ var fakeObserverFactory = function fakeObserverFactory(el, callback)
  * @param {object} [opts={childList: true, subtree: true}] observe options
  * @see http://stackoverflow.com/questions/3219758
  */
-
-
 var observeDom = function observeDom(el, callback, opts)
 /* istanbul ignore next: difficult to test in JSDOM */
 {
-  // Handle case where we might be passed a vue instance
-  el = el ? el.$el || el : null;
+  // Handle cases where we might be passed a Vue instance
+  el = el ? el.$el || el : null; // Early exit when we have no element
+
   /* istanbul ignore next: difficult to test in JSDOM */
 
   if (!(0, _dom.isElement)(el)) {
-    // We can't observe something that isn't an element
     return null;
-  }
+  } // Exit and throw a warning when `MutationObserver` isn't available
 
-  var obs = null;
 
-  if (MutationObserver) {
-    // Define a new observer
-    obs = new MutationObserver(function (mutations) {
-      var changed = false; // A Mutation can contain several change records, so we loop through them to see what has changed.
-      // We break out of the loop early if any "significant" change has been detected
+  if ((0, _warn.warnNoMutationObserverSupport)('observeDom')) {
+    return null;
+  } // Define a new observer
 
-      for (var i = 0; i < mutations.length && !changed; i++) {
-        // The mutation record
-        var mutation = mutations[i]; // Mutation Type
 
-        var type = mutation.type; // DOM Node (could be any DOM Node type - HTMLElement, Text, comment, etc)
+  var obs = new _dom.MutationObs(function (mutations) {
+    var changed = false; // A mutation can contain several change records, so we loop
+    // through them to see what has changed
+    // We break out of the loop early if any "significant" change
+    // has been detected
 
-        var target = mutation.target;
+    for (var i = 0; i < mutations.length && !changed; i++) {
+      // The mutation record
+      var mutation = mutations[i]; // Mutation type
 
-        if (type === 'characterData' && target.nodeType === Node.TEXT_NODE) {
-          // We ignore nodes that are not TEXT (i.e. comments, etc) as they don't change layout
-          changed = true;
-        } else if (type === 'attributes') {
-          changed = true;
-        } else if (type === 'childList' && (mutation.addedNodes.length > 0 || mutation.removedNodes.length > 0)) {
-          // This includes HTMLElement and Text Nodes being added/removed/re-arranged
-          changed = true;
-        }
+      var type = mutation.type; // DOM node (could be any DOM node type - HTMLElement, Text, comment, etc.)
+
+      var target = mutation.target; // Detect whether a change happened based on type and target
+
+      if (type === 'characterData' && target.nodeType === Node.TEXT_NODE) {
+        // We ignore nodes that are not TEXT (i.e. comments, etc)
+        // as they don't change layout
+        changed = true;
+      } else if (type === 'attributes') {
+        changed = true;
+      } else if (type === 'childList' && (mutation.addedNodes.length > 0 || mutation.removedNodes.length > 0)) {
+        // This includes HTMLElement and text nodes being
+        // added/removed/re-arranged
+        changed = true;
       }
+    } // We only call the callback if a change that could affect
+    // layout/size truely happened
 
-      if (changed) {
-        // We only call the callback if a change that could affect layout/size truely happened.
-        callback();
-      }
-    }); // Have the observer observe foo for changes in children, etc
 
-    obs.observe(el, _objectSpread({
-      childList: true,
-      subtree: true
-    }, opts));
-  } else if (eventListenerSupported) {
-    // Legacy interface. most likely not used in modern browsers
-    obs = fakeObserverFactory(el, callback);
-  } // We return a reference to the observer so that obs.disconnect() can be called if necessary
+    if (changed) {
+      callback();
+    }
+  }); // Have the observer observe foo for changes in children, etc
+
+  obs.observe(el, _objectSpread({
+    childList: true,
+    subtree: true
+  }, opts)); // We return a reference to the observer so that `obs.disconnect()`
+  // can be called if necessary
   // To reduce overhead when the root element is hidden
-
 
   return obs;
 };
@@ -37579,6 +44685,9 @@ exports.default = _default;
 
 exports.__esModule = true;
 exports.default = void 0;
+
+var _inspect = __webpack_require__("0d5a");
+
 // @vue/component
 var _default = {
   model: {
@@ -37659,8 +44768,8 @@ var _default = {
     }
   },
   watch: {
-    value: function value(newVal, oldVal) {
-      if (newVal !== oldVal && newVal !== this.localValue) {
+    value: function value(newVal) {
+      if (newVal !== this.localValue) {
         this.localValue = this.stringifyValue(newVal);
       }
     }
@@ -37675,14 +44784,14 @@ var _default = {
   },
   methods: {
     stringifyValue: function stringifyValue(value) {
-      return value === null || typeof value === 'undefined' ? '' : String(value);
+      return (0, _inspect.isUndefined)(value) || (0, _inspect.isNull)(value) ? '' : String(value);
     },
-    getFormatted: function getFormatted(value, event) {
+    getFormatted: function getFormatted(value, evt) {
       var force = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
       value = this.stringifyValue(value);
 
-      if ((!this.lazyFormatter || force) && typeof this.formatter === 'function') {
-        value = this.formatter(value, event);
+      if ((!this.lazyFormatter || force) && (0, _inspect.isFunction)(this.formatter)) {
+        value = this.formatter(value, evt);
       }
 
       return value;
@@ -37690,25 +44799,31 @@ var _default = {
     updateValue: function updateValue(value) {
       value = this.stringifyValue(value);
 
-      if (this.localValue !== value) {
-        // keep the input set to the value before modifiers
+      if (value !== this.localValue) {
+        // Keep the input set to the value before modifiers
         this.localValue = value;
 
         if (this.number) {
-          // Emulate .number modifier behaviour
+          // Emulate `.number` modifier behaviour
           var num = parseFloat(value);
           value = isNaN(num) ? value : num;
         } else if (this.trim) {
-          // Emulate .trim modifier behaviour
+          // Emulate `.trim` modifier behaviour
           value = value.trim();
         } // Update the v-model
 
 
         this.$emit('update', value);
+      } else if (value !== this.$refs.input.value) {
+        // When the `localValue` hasn't changed but the actual input value
+        // is out of sync, make sure to change it to the given one
+
+        /* istanbul ignore next: hard to test */
+        this.$refs.input.value = value;
       }
     },
     onInput: function onInput(evt) {
-      // evt.target.composing is set by Vue
+      // `evt.target.composing` is set by Vue
       // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
 
       /* istanbul ignore if: hard to test composition events */
@@ -37716,9 +44831,11 @@ var _default = {
         return;
       }
 
-      var formatted = this.getFormatted(evt.target.value, evt);
+      var formatted = this.getFormatted(evt.target.value, evt); // Exit when the `formatter` function strictly returned `false`
+      // or prevented the input event
 
       if (formatted === false || evt.defaultPrevented) {
+        /* istanbul ignore next */
         evt.preventDefault();
         return;
       }
@@ -37727,7 +44844,7 @@ var _default = {
       this.$emit('input', formatted);
     },
     onChange: function onChange(evt) {
-      // evt.target.composing is set by Vue
+      // `evt.target.composing` is set by Vue
       // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
 
       /* istanbul ignore if: hard to test composition events */
@@ -37735,9 +44852,12 @@ var _default = {
         return;
       }
 
-      var formatted = this.getFormatted(evt.target.value, evt);
+      var formatted = this.getFormatted(evt.target.value, evt); // Exit when the `formatter` function strictly returned `false`
+      // or prevented the input event
 
-      if (formatted === false) {
+      if (formatted === false || evt.defaultPrevented) {
+        /* istanbul ignore next */
+        evt.preventDefault();
         return;
       }
 
@@ -37745,9 +44865,9 @@ var _default = {
       this.$emit('change', formatted);
     },
     onBlur: function onBlur(evt) {
-      // lazy formatter
+      // Lazy formatter
       if (this.lazyFormatter) {
-        var formatted = this.getFormatted(evt.target.value, evt, true);
+        var formatted = this.getFormatted(evt.target.value, evt, true); // Exit when the `formatter` function strictly returned `false`
 
         if (formatted === false) {
           return;
@@ -37786,35 +44906,39 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _popper = __webpack_require__("f0bd");
+var _popper = _interopRequireDefault(__webpack_require__("6043"));
 
-var _clickOut = __webpack_require__("788f");
+var _bvEvent = _interopRequireDefault(__webpack_require__("f8bb"));
 
-var _focusIn = __webpack_require__("1186");
+var _keyCodes = _interopRequireDefault(__webpack_require__("06e4"));
 
-var _keyCodes = __webpack_require__("06e4");
-
-var _bvEvent = __webpack_require__("f8bb");
-
-var _warn = __webpack_require__("93e0");
+var _warn = _interopRequireDefault(__webpack_require__("93e0"));
 
 var _dom = __webpack_require__("1611");
+
+var _inspect = __webpack_require__("0d5a");
+
+var _clickOut = _interopRequireDefault(__webpack_require__("788f"));
+
+var _focusIn = _interopRequireDefault(__webpack_require__("1186"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 // Return an Array of visible items
-function filterVisible(els) {
+function filterVisibles(els) {
   return (els || []).filter(_dom.isVisible);
 } // Dropdown item CSS selectors
-// TODO: .dropdown-form handling
 
 
 var Selector = {
   FORM_CHILD: '.dropdown form',
-  NAVBAR_NAV: '.navbar-nav',
-  ITEM_SELECTOR: '.dropdown-item:not(.disabled):not([disabled])' // Popper attachment positions
+  ITEM_SELECTOR: ['.dropdown-item', '.b-dropdown-form'].map(function (selector) {
+    return "".concat(selector, ":not(.disabled):not([disabled])");
+  }).join(', ') // Popper attachment positions
 
 };
 var AttachmentMap = {
@@ -37903,6 +45027,17 @@ var _default2 = {
     toggler: function toggler() {
       var toggle = this.$refs.toggle;
       return toggle ? toggle.$el || toggle : null;
+    },
+    directionClass: function directionClass() {
+      if (this.dropup) {
+        return 'dropup';
+      } else if (this.dropright) {
+        return 'dropright';
+      } else if (this.dropleft) {
+        return 'dropleft';
+      }
+
+      return '';
     }
   },
   watch: {
@@ -37957,9 +45092,7 @@ var _default2 = {
     this.whileOpenListen(false);
     this.removePopper();
   },
-  beforeDestroy: function beforeDestroy()
-  /* istanbul ignore next: not easy to test */
-  {
+  beforeDestroy: function beforeDestroy() {
     this.visible = false;
     this.whileOpenListen(false);
     this.removePopper();
@@ -37975,21 +45108,24 @@ var _default2 = {
       var _this = this;
 
       if (this.disabled) {
+        /* istanbul ignore next */
         return;
       } // Ensure other menus are closed
 
 
       this.$root.$emit('bv::dropdown::shown', this); // Are we in a navbar ?
 
-      if (this.inNavbar === null && this.isNav) {
+      if ((0, _inspect.isNull)(this.inNavbar) && this.isNav) {
+        // We should use an injection for this
+
+        /* istanbul ignore next */
         this.inNavbar = Boolean((0, _dom.closest)('.navbar', this.$el));
       } // Disable totally Popper.js for Dropdown in Navbar
-
-      /* istanbul ignore next: cant test popper in JSDOM */
 
 
       if (!this.inNavbar) {
         if (typeof _popper.default === 'undefined') {
+          /* istanbul ignore next */
           (0, _warn.default)('b-dropdown: Popper.js not found. Falling back to CSS positioning.');
         } else {
           // for dropup with alignment we use the parent element as popper container
@@ -38017,15 +45153,11 @@ var _default2 = {
       this.$emit('hidden');
       this.removePopper();
     },
-    createPopper: function createPopper(element)
-    /* istanbul ignore next: cant test popper in JSDOM */
-    {
+    createPopper: function createPopper(element) {
       this.removePopper();
       this._popper = new _popper.default(element, this.$refs.menu, this.getPopperConfig());
     },
-    removePopper: function removePopper()
-    /* istanbul ignore next: cant test popper in JSDOM */
-    {
+    removePopper: function removePopper() {
       if (this._popper) {
         // Ensure popper event listeners are removed cleanly
         this._popper.destroy();
@@ -38033,9 +45165,7 @@ var _default2 = {
 
       this._popper = null;
     },
-    getPopperConfig: function getPopperConfig()
-    /* istanbul ignore next: can't test popper in JSDOM */
-    {
+    getPopperConfig: function getPopperConfig() {
       var placement = AttachmentMap.BOTTOM;
 
       if (this.dropup) {
@@ -38101,6 +45231,7 @@ var _default2 = {
 
       // Public method to hide dropdown
       if (this.disabled) {
+        /* istanbul ignore next */
         return;
       }
 
@@ -38119,11 +45250,16 @@ var _default2 = {
 
       if (type !== 'click' && !(type === 'keydown' && (key === _keyCodes.default.ENTER || key === _keyCodes.default.SPACE || key === _keyCodes.default.DOWN))) {
         // We only toggle on Click, Enter, Space, and Arrow Down
+
+        /* istanbul ignore next */
         return;
       }
 
       if (this.disabled) {
+        /* istanbul ignore next */
         this.visible = false;
+        /* istanbul ignore next */
+
         return;
       }
 
@@ -38142,24 +45278,22 @@ var _default2 = {
     click: function click(evt) {
       // Called only in split button mode, for the split button
       if (this.disabled) {
+        /* istanbul ignore next */
         this.visible = false;
+        /* istanbul ignore next */
+
         return;
       }
 
       this.$emit('click', evt);
     },
-    onKeydown: function onKeydown(evt)
-    /* istanbul ignore next: not easy to test */
-    {
+    onKeydown: function onKeydown(evt) {
       // Called from dropdown menu context
       var key = evt.keyCode;
 
       if (key === _keyCodes.default.ESC) {
         // Close on ESC
         this.onEsc(evt);
-      } else if (key === _keyCodes.default.TAB) {
-        // Close on tab out
-        this.onTab(evt);
       } else if (key === _keyCodes.default.DOWN) {
         // Down Arrow
         this.focusNext(evt, false);
@@ -38168,9 +45302,7 @@ var _default2 = {
         this.focusNext(evt, true);
       }
     },
-    onEsc: function onEsc(evt)
-    /* istanbul ignore next: not easy to test */
-    {
+    onEsc: function onEsc(evt) {
       if (this.visible) {
         this.visible = false;
         evt.preventDefault();
@@ -38178,16 +45310,6 @@ var _default2 = {
 
         this.$once('hidden', this.focusToggler);
       }
-    },
-    onTab: function onTab(evt)
-    /* istanbul ignore next: not easy to test */
-    {// TODO: Need special handler for dealing with form inputs
-      // Tab, if in a text-like input, we should just focus next item in the dropdown
-      // Note: Inputs are in a special .dropdown-form container
-    },
-    onMouseOver: function onMouseOver(evt)
-    /* istanbul ignore next: not easy to test */
-    {// Removed mouseover focus handler
     },
     // Document click out listener
     clickOutHandler: function clickOutHandler() {
@@ -38206,7 +45328,10 @@ var _default2 = {
     focusNext: function focusNext(evt, up) {
       var _this2 = this;
 
-      if (!this.visible) {
+      if (!this.visible || evt && (0, _dom.closest)(Selector.FORM_CHILD, evt.target)) {
+        // Ignore key up/down on form elements
+
+        /* istanbul ignore next: should never happen */
         return;
       }
 
@@ -38216,6 +45341,7 @@ var _default2 = {
         var items = _this2.getItems();
 
         if (items.length < 1) {
+          /* istanbul ignore next: should never happen */
           return;
         }
 
@@ -38228,6 +45354,7 @@ var _default2 = {
         }
 
         if (index < 0) {
+          /* istanbul ignore next: should never happen */
           index = 0;
         }
 
@@ -38239,13 +45366,13 @@ var _default2 = {
         return i === idx;
       });
 
-      if (el && (0, _dom.getAttr)(el, 'tabindex') !== '-1') {
+      if (el && el.focus) {
         el.focus();
       }
     },
     getItems: function getItems() {
       // Get all items
-      return filterVisible((0, _dom.selectAll)(Selector.ITEM_SELECTOR, this.$refs.menu));
+      return filterVisibles((0, _dom.selectAll)(Selector.ITEM_SELECTOR, this.$refs.menu));
     },
     focusMenu: function focusMenu() {
       this.$refs.menu.focus && this.$refs.menu.focus();
@@ -38316,27 +45443,49 @@ module.exports = Object.keys || function keys(O) {
 exports.__esModule = true;
 exports.default = void 0;
 
-var _card = __webpack_require__("9e84");
+var _card = _interopRequireDefault(__webpack_require__("9e84"));
 
-var _cardHeader = __webpack_require__("1fae");
+exports.BCard = _card.default;
 
-var _cardBody = __webpack_require__("b967");
+var _cardHeader = _interopRequireDefault(__webpack_require__("1fae"));
 
-var _cardTitle = __webpack_require__("cf89");
+exports.BCardHeader = _cardHeader.default;
 
-var _cardSubTitle = __webpack_require__("886b");
+var _cardBody = _interopRequireDefault(__webpack_require__("b967"));
 
-var _cardFooter = __webpack_require__("6f77");
+exports.BCardBody = _cardBody.default;
 
-var _cardImg = __webpack_require__("23c9");
+var _cardTitle = _interopRequireDefault(__webpack_require__("cf89"));
 
-var _cardImgLazy = __webpack_require__("90a3");
+exports.BCardTitle = _cardTitle.default;
 
-var _cardText = __webpack_require__("aafb");
+var _cardSubTitle = _interopRequireDefault(__webpack_require__("886b"));
 
-var _cardGroup = __webpack_require__("e6c9");
+exports.BCardSubTitle = _cardSubTitle.default;
+
+var _cardFooter = _interopRequireDefault(__webpack_require__("6f77"));
+
+exports.BCardFooter = _cardFooter.default;
+
+var _cardImg = _interopRequireDefault(__webpack_require__("23c9"));
+
+exports.BCardImg = _cardImg.default;
+
+var _cardImgLazy = _interopRequireDefault(__webpack_require__("90a3"));
+
+exports.BCardImgLazy = _cardImgLazy.default;
+
+var _cardText = _interopRequireDefault(__webpack_require__("aafb"));
+
+exports.BCardText = _cardText.default;
+
+var _cardGroup = _interopRequireDefault(__webpack_require__("e6c9"));
+
+exports.BCardGroup = _cardGroup.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BCard: _card.default,
@@ -38368,14 +45517,21 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _progressBar = __webpack_require__("cf15");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
 
-// @vue/component
-var _default = {
-  name: 'BProgress',
-  components: {
-    BProgressBar: _progressBar.default
-  },
+var _config = __webpack_require__("eb60");
+
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
+
+var _progressBar = _interopRequireDefault(__webpack_require__("cf15"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var NAME = 'BProgress'; // @vue/component
+
+var _default2 = _vue.default.extend({
+  name: NAME,
+  mixins: [_normalizeSlot.default],
   provide: function provide() {
     return {
       bvProgress: this
@@ -38385,7 +45541,9 @@ var _default = {
     // These props can be inherited via the child b-progress-bar(s)
     variant: {
       type: String,
-      default: null
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'variant');
+      }
     },
     striped: {
       type: Boolean,
@@ -38429,10 +45587,10 @@ var _default = {
     }
   },
   render: function render(h) {
-    var childNodes = this.$slots.default;
+    var childNodes = this.normalizeSlot('default');
 
     if (!childNodes) {
-      childNodes = h('b-progress-bar', {
+      childNodes = h(_progressBar.default, {
         props: {
           value: this.value,
           max: this.max,
@@ -38451,8 +45609,9 @@ var _default = {
       style: this.progressHeight
     }, [childNodes]);
   }
-};
-exports.default = _default;
+});
+
+exports.default = _default2;
 
 /***/ }),
 
@@ -38465,11 +45624,17 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
-var _link = __webpack_require__("4e40");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
+var _link = _interopRequireWildcard(__webpack_require__("4e40"));
 
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
-var _pluckProps = __webpack_require__("9c97");
+var _pluckProps = _interopRequireDefault(__webpack_require__("9c97"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -38488,7 +45653,8 @@ var props = _objectSpread({}, linkProps, {
 });
 
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BNavbarBrand',
   functional: true,
   props: props,
@@ -38503,7 +45669,8 @@ var _default = {
       props: isLink ? (0, _pluckProps.default)(linkProps, props) : {}
     }), children);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -38517,20 +45684,21 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _array = __webpack_require__("bb2f");
+var _observeDom = _interopRequireDefault(__webpack_require__("bf9c"));
 
 var _dom = __webpack_require__("1611");
 
-var _ssr = __webpack_require__("c900");
+var _inspect = __webpack_require__("0d5a");
 
-var _observeDom = __webpack_require__("bf9c");
+var _safeTypes = __webpack_require__("ac0f");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
+// --- Constants ---
 var PLACEMENTS = {
   top: 'top',
   topleft: 'topleft',
@@ -38558,7 +45726,7 @@ var _default = {
   props: {
     target: {
       // String ID of element, or element/component reference
-      type: [String, Object, _ssr.HTMLElement, Function] // default: undefined
+      type: [String, Object, _safeTypes.HTMLElement, Function] // default: undefined
 
     },
     delay: {
@@ -38578,16 +45746,6 @@ var _default = {
       type: String,
       default: null
     },
-    boundary: {
-      // String: scrollParent, window, or viewport
-      // Element: element reference
-      type: [String, _ssr.HTMLElement],
-      default: 'scrollParent'
-    },
-    boundaryPadding: {
-      type: Number,
-      default: 5
-    },
     show: {
       type: Boolean,
       default: false
@@ -38597,18 +45755,24 @@ var _default = {
       default: false
     }
   },
+  data: function data() {
+    return {
+      // semaphore for preventing multiple show events
+      localShow: false
+    };
+  },
   computed: {
     baseConfig: function baseConfig() {
       var cont = this.container;
-      var delay = _typeof(this.delay) === 'object' ? this.delay : parseInt(this.delay, 10) || 0;
+      var delay = (0, _inspect.isObject)(this.delay) ? this.delay : parseInt(this.delay, 10) || 0;
       return {
         // Title prop
         title: (this.title || '').trim() || '',
-        // Contnt prop (if popover)
+        // Content prop (if popover)
         content: (this.content || '').trim() || '',
         // Tooltip/Popover placement
         placement: PLACEMENTS[this.placement] || 'auto',
-        // Container curently needs to be an ID with '#' prepended, if null then body is used
+        // Container currently needs to be an ID with '#' prepended, if null then body is used
         container: cont ? /^#/.test(cont) ? cont : "#".concat(cont) : false,
         // boundariesElement passed to popper
         boundary: this.boundary,
@@ -38621,7 +45785,7 @@ var _default = {
         // Disable fade Animation?
         animation: !this.noFade,
         // Open/Close Trigger(s)
-        trigger: (0, _array.isArray)(this.triggers) ? this.triggers.join(' ') : this.triggers,
+        trigger: (0, _inspect.isArray)(this.triggers) ? this.triggers.join(' ') : this.triggers,
         // Callbacks so we can trigger events on component
         callbacks: {
           show: this.onShow,
@@ -38636,22 +45800,19 @@ var _default = {
   },
   watch: {
     show: function show(_show, old) {
-      /* istanbul ignore if */
-      if (_show === old) {
-        /* istanbul ignore next */
-        return;
+      if (_show !== old) {
+        _show ? this.onOpen() : this.onClose();
       }
-
-      _show ? this.onOpen() : this.onClose();
     },
     disabled: function disabled(_disabled, old) {
-      /* istanbul ignore if */
-      if (_disabled === old) {
-        /* istanbul ignore next */
-        return;
+      if (_disabled !== old) {
+        _disabled ? this.onDisable() : this.onEnable();
       }
-
-      _disabled ? this.onDisable() : this.onEnable();
+    },
+    localShow: function localShow(show, old) {
+      if (show !== this.show) {
+        this.$emit('update:show', show);
+      }
     }
   },
   created: function created() {
@@ -38680,13 +45841,13 @@ var _default = {
         _this.$on('close', _this.onClose); // Listen to disable signals from others
 
 
-        _this.$on('disable', _this.onDisable); // Listen to disable signals from others
+        _this.$on('disable', _this.onDisable); // Listen to enable signals from others
 
 
         _this.$on('enable', _this.onEnable); // Observe content Child changes so we can notify popper of possible size change
 
 
-        _this.setObservers(true); // Set intially open state
+        _this.setObservers(true); // Set initially open state
 
 
         if (_this.show) {
@@ -38697,31 +45858,27 @@ var _default = {
   },
   updated: function updated() {
     // If content/props changes, etc
-
-    /* istanbul ignore next: can't test in JSDOM */
     if (this._toolpop) {
       this._toolpop.updateConfig(this.getConfig());
     }
   },
-  activated: function activated() {
+  activated: function activated()
+  /* istanbul ignore next: can't easily test in JSDOM */
+  {
     // Called when component is inside a <keep-alive> and component brought offline
-
-    /* istanbul ignore next: can't test in JSDOM */
     this.setObservers(true);
   },
-  deactivated: function deactivated() {
+  deactivated: function deactivated()
+  /* istanbul ignore next: can't easily test in JSDOM */
+  {
     // Called when component is inside a <keep-alive> and component taken offline
-
-    /* istanbul ignore next: can't test in JSDOM */
     if (this._toolpop) {
       this.setObservers(false);
 
       this._toolpop.hide();
     }
   },
-  beforeDestroy: function beforeDestroy()
-  /* istanbul ignore next: not easy to test */
-  {
+  beforeDestroy: function beforeDestroy() {
     // Shutdown our local event listeners
     this.$off('open', this.onOpen);
     this.$off('close', this.onClose);
@@ -38758,31 +45915,35 @@ var _default = {
       return cfg;
     },
     onOpen: function onOpen() {
-      if (this._toolpop) {
+      if (this._toolpop && !this.localShow) {
+        this.localShow = true;
+
         this._toolpop.show();
       }
     },
     onClose: function onClose(callback) {
-      if (this._toolpop) {
+      // What is callback for ? it is not documented
+
+      /* istanbul ignore else */
+      if (this._toolpop && this.localShow) {
         this._toolpop.hide(callback);
-      } else if (typeof callback === 'function') {
+      } else if ((0, _inspect.isFunction)(callback)) {
+        // Is this even used?
         callback();
       }
     },
     onDisable: function onDisable() {
-      /* istanbul ignore next: can't test in JSDOM */
       if (this._toolpop) {
         this._toolpop.disable();
       }
     },
     onEnable: function onEnable() {
-      /* istanbul ignore next: can't test in JSDOM */
       if (this._toolpop) {
         this._toolpop.enable();
       }
     },
     updatePosition: function updatePosition() {
-      /* istanbul ignore next: can't test in JSDOM */
+      /* istanbul ignore next: can't test in JSDOM until mutation observer is implemented */
       if (this._toolpop) {
         // Instruct popper to reposition popover if necessary
         this._toolpop.update();
@@ -38791,45 +45952,58 @@ var _default = {
     getTarget: function getTarget() {
       var target = this.target;
 
-      if (typeof target === 'function') {
+      if ((0, _inspect.isFunction)(target)) {
+        /* istanbul ignore next */
         target = target();
       }
+      /* istanbul ignore else */
 
-      if (typeof target === 'string') {
+
+      if ((0, _inspect.isString)(target)) {
         // Assume ID of element
         return (0, _dom.getById)(target);
-      } else if (_typeof(target) === 'object' && (0, _dom.isElement)(target.$el)) {
+      } else if ((0, _inspect.isObject)(target) && (0, _dom.isElement)(target.$el)) {
         // Component reference
+
+        /* istanbul ignore next */
         return target.$el;
-      } else if (_typeof(target) === 'object' && (0, _dom.isElement)(target)) {
+      } else if ((0, _inspect.isObject)(target) && (0, _dom.isElement)(target)) {
         // Element reference
+
+        /* istanbul ignore next */
         return target;
       }
+      /* istanbul ignore next */
+
 
       return null;
     },
+    // Callbacks called by Tooltip/Popover class instance
     onShow: function onShow(evt) {
       this.$emit('show', evt);
+      this.localShow = !(evt && evt.defaultPrevented);
     },
     onShown: function onShown(evt) {
       this.setObservers(true);
-      this.$emit('update:show', true);
       this.$emit('shown', evt);
+      this.localShow = true;
     },
     onHide: function onHide(evt) {
       this.$emit('hide', evt);
+      this.localShow = !!(evt && evt.defaultPrevented);
     },
     onHidden: function onHidden(evt) {
       this.setObservers(false); // bring our content back if needed to keep Vue happy
       // Tooltip class will move it back to tip when shown again
 
       this.bringItBack();
-      this.$emit('update:show', false);
       this.$emit('hidden', evt);
+      this.localShow = false;
     },
     onEnabled: function onEnabled(evt) {
+      /* istanbul ignore next */
       if (!evt || evt.type !== 'enabled') {
-        // Prevent possible endless loop if user mistakienly fires enabled instead of enable
+        // Prevent possible endless loop if user mistakenly fires enabled instead of enable
         return;
       }
 
@@ -38837,8 +46011,9 @@ var _default = {
       this.$emit('disabled');
     },
     onDisabled: function onDisabled(evt) {
+      /* istanbul ignore next */
       if (!evt || evt.type !== 'disabled') {
-        // Prevent possible endless loop if user mistakienly fires disabled instead of disable
+        // Prevent possible endless loop if user mistakenly fires disabled instead of disable
         return;
       }
 
@@ -38855,9 +46030,7 @@ var _default = {
         this.$el.appendChild(this.$refs.content);
       }
     },
-    setObservers: function setObservers(on)
-    /* istanbul ignore next: can't test in JSDOM */
-    {
+    setObservers: function setObservers(on) {
       if (on) {
         if (this.$refs.title) {
           this._obs_title = (0, _observeDom.default)(this.$refs.title, this.updatePosition.bind(this), OBSERVER_CONFIG);
@@ -39016,21 +46189,41 @@ module.exports = !__webpack_require__("9e1e") && !__webpack_require__("79e5")(fu
 exports.__esModule = true;
 exports.default = void 0;
 
-var _dropdown = __webpack_require__("e14e");
+var _dropdown = _interopRequireDefault(__webpack_require__("e14e"));
 
-var _dropdownItem = __webpack_require__("0096");
+exports.BDropdown = _dropdown.default;
 
-var _dropdownItemButton = __webpack_require__("5df9");
+var _dropdownItem = _interopRequireDefault(__webpack_require__("0096"));
 
-var _dropdownHeader = __webpack_require__("9668");
+exports.BDropdownItem = _dropdownItem.default;
 
-var _dropdownDivider = __webpack_require__("4034");
+var _dropdownItemButton = _interopRequireDefault(__webpack_require__("5df9"));
 
-var _dropdownForm = __webpack_require__("22dc");
+exports.BDropdownItemButton = _dropdownItemButton.default;
 
-var _dropdownText = __webpack_require__("9d3f");
+var _dropdownHeader = _interopRequireDefault(__webpack_require__("9668"));
+
+exports.BDropdownHeader = _dropdownHeader.default;
+
+var _dropdownDivider = _interopRequireDefault(__webpack_require__("4034"));
+
+exports.BDropdownDivider = _dropdownDivider.default;
+
+var _dropdownForm = _interopRequireDefault(__webpack_require__("22dc"));
+
+exports.BDropdownForm = _dropdownForm.default;
+
+var _dropdownText = _interopRequireDefault(__webpack_require__("9d3f"));
+
+exports.BDropdownText = _dropdownText.default;
+
+var _dropdownGroup = _interopRequireDefault(__webpack_require__("4f66"));
+
+exports.BDropdownGroup = _dropdownGroup.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BDropdown: _dropdown.default,
@@ -39048,7 +46241,9 @@ var components = {
   BDropdownForm: _dropdownForm.default,
   BDdForm: _dropdownForm.default,
   BDropdownText: _dropdownText.default,
-  BDdText: _dropdownText.default
+  BDdText: _dropdownText.default,
+  BDropdownGroup: _dropdownGroup.default,
+  BDdGroup: _dropdownGroup.default
 };
 var _default = {
   install: (0, _plugins.installFactory)({
@@ -41733,21 +48928,6 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "c900":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.HTMLElement = void 0;
-// Polyfills for SSR
-var isSSR = typeof window === 'undefined';
-var HTMLElement = isSSR ? Object : window.HTMLElement;
-exports.HTMLElement = HTMLElement;
-
-/***/ }),
-
 /***/ "ca5a":
 /***/ (function(module, exports) {
 
@@ -41839,9 +49019,13 @@ module.exports = function (it) {
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
 var _array = __webpack_require__("bb2f");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -41864,7 +49048,8 @@ var props = {
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BEmbed',
   functional: true,
   props: props,
@@ -41881,7 +49066,8 @@ var _default = {
       staticClass: 'embed-responsive-item'
     }), children)]);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -41936,11 +49122,23 @@ module.exports = function (KEY, exec) {
 exports.__esModule = true;
 exports.default = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
+var _config = __webpack_require__("eb60");
+
 var _html = __webpack_require__("be11");
 
-// @vue/component
-var _default2 = {
-  name: 'BProgressBar',
+var _inspect = __webpack_require__("0d5a");
+
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var NAME = 'BProgressBar'; // @vue/component
+
+var _default2 = _vue.default.extend({
+  name: NAME,
+  mixins: [_normalizeSlot.default],
   inject: {
     bvProgress: {
       default: function _default()
@@ -41974,7 +49172,9 @@ var _default2 = {
     },
     variant: {
       type: String,
-      default: null
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'variant');
+      }
     },
     striped: {
       type: Boolean,
@@ -42008,7 +49208,7 @@ var _default2 = {
     },
     computedMax: function computedMax() {
       // Prefer our max over parent setting
-      return typeof this.max === 'number' ? this.max : this.bvProgress.max || 100;
+      return (0, _inspect.isNumber)(this.max) ? this.max : this.bvProgress.max || 100;
     },
     computedVariant: function computedVariant() {
       // Prefer our variant over parent setting
@@ -42016,30 +49216,30 @@ var _default2 = {
     },
     computedPrecision: function computedPrecision() {
       // Prefer our precision over parent setting
-      return typeof this.precision === 'number' ? this.precision : this.bvProgress.precision || 0;
+      return (0, _inspect.isNumber)(this.precision) ? this.precision : this.bvProgress.precision || 0;
     },
     computedStriped: function computedStriped() {
       // Prefer our striped over parent setting
-      return typeof this.striped === 'boolean' ? this.striped : this.bvProgress.striped || false;
+      return (0, _inspect.isBoolean)(this.striped) ? this.striped : this.bvProgress.striped || false;
     },
     computedAnimated: function computedAnimated() {
       // Prefer our animated over parent setting
-      return typeof this.animated === 'boolean' ? this.animated : this.bvProgress.animated || false;
+      return (0, _inspect.isBoolean)(this.animated) ? this.animated : this.bvProgress.animated || false;
     },
     computedShowProgress: function computedShowProgress() {
       // Prefer our showProgress over parent setting
-      return typeof this.showProgress === 'boolean' ? this.showProgress : this.bvProgress.showProgress || false;
+      return (0, _inspect.isBoolean)(this.showProgress) ? this.showProgress : this.bvProgress.showProgress || false;
     },
     computedShowValue: function computedShowValue() {
       // Prefer our showValue over parent setting
-      return typeof this.showValue === 'boolean' ? this.showValue : this.bvProgress.showValue || false;
+      return (0, _inspect.isBoolean)(this.showValue) ? this.showValue : this.bvProgress.showValue || false;
     }
   },
   render: function render(h) {
     var childNodes = h(false);
 
-    if (this.$slots.default) {
-      childNodes = this.$slots.default;
+    if (this.hasNormalizedSlot('default')) {
+      childNodes = this.normalizeSlot('default');
     } else if (this.label || this.labelHtml) {
       childNodes = h('span', {
         domProps: (0, _html.htmlOrText)(this.labelHtml, this.label)
@@ -42062,8 +49262,18 @@ var _default2 = {
       }
     }, [childNodes]);
   }
-};
+});
+
 exports.default = _default2;
+
+/***/ }),
+
+/***/ "cf44":
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__("8a86");
+module.exports = __webpack_require__("584a").Object.is;
+
 
 /***/ }),
 
@@ -42076,7 +49286,11 @@ exports.default = _default2;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var props = {
   title: {
@@ -42090,7 +49304,8 @@ var props = {
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BCardTitle',
   functional: true,
   props: props,
@@ -42102,7 +49317,109 @@ var _default = {
       staticClass: 'card-title'
     }), children || props.title);
   }
-};
+});
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "cfd0":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.BvModalEvent = void 0;
+
+var _bvEvent = _interopRequireDefault(__webpack_require__("f8bb"));
+
+var _warn = _interopRequireDefault(__webpack_require__("93e0"));
+
+var _object = __webpack_require__("24e2");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var BvModalEvent =
+/*#__PURE__*/
+function (_BvEvent) {
+  _inherits(BvModalEvent, _BvEvent);
+
+  function BvModalEvent(type) {
+    var _this;
+
+    var eventInit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    _classCallCheck(this, BvModalEvent);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(BvModalEvent).call(this, type, eventInit)); // Freeze our new props as readonly, but leave them enumerable
+
+    (0, _object.defineProperties)(_assertThisInitialized(_this), {
+      trigger: (0, _object.readonlyDescriptor)()
+    });
+    return _this;
+  }
+
+  _createClass(BvModalEvent, [{
+    key: "cancel",
+    value: function cancel()
+    /* istanbul ignore next */
+    {
+      // Backwards compatibility for BootstrapVue 1.x
+      (0, _warn.default)('b-modal: evt.cancel() is deprecated. Please use evt.preventDefault().');
+      this.preventDefault();
+    }
+  }, {
+    key: "modalId",
+    get: function get()
+    /* istanbul ignore next */
+    {
+      // Backwards compatability <= 2.0.0-rc.19
+      (0, _warn.default)('b-modal: evt.modalId is deprecated. Please use evt.componentId.');
+      return this.componentId;
+    }
+  }], [{
+    key: "Defaults",
+    get: function get() {
+      return _objectSpread({}, _get(_getPrototypeOf(BvModalEvent), "Defaults", this), {
+        trigger: null
+      });
+    }
+  }]);
+
+  return BvModalEvent;
+}(_bvEvent.default); // Named exports
+
+
+exports.BvModalEvent = BvModalEvent;
+// Default export
+var _default = BvModalEvent;
 exports.default = _default;
 
 /***/ }),
@@ -42127,116 +49444,118 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _id = __webpack_require__("eae0");
+var _memoize = _interopRequireDefault(__webpack_require__("64bb"));
 
-var _formState = __webpack_require__("41fb");
+var _upperFirst = _interopRequireDefault(__webpack_require__("5540"));
 
-var _config = __webpack_require__("eb60");
-
-var _upperFirst = __webpack_require__("5540");
-
-var _memoize = __webpack_require__("64bb");
-
-var _warn = __webpack_require__("93e0");
-
-var _dom = __webpack_require__("1611");
+var _warn = _interopRequireDefault(__webpack_require__("93e0"));
 
 var _array = __webpack_require__("bb2f");
 
+var _config = __webpack_require__("eb60");
+
+var _dom = __webpack_require__("1611");
+
+var _env = __webpack_require__("4565");
+
+var _inspect = __webpack_require__("0d5a");
+
 var _object = __webpack_require__("24e2");
 
-var _formRow = __webpack_require__("1665");
+var _formState = _interopRequireDefault(__webpack_require__("41fb"));
 
-var _col = __webpack_require__("7d02");
+var _id = _interopRequireDefault(__webpack_require__("eae0"));
 
-var _formText = __webpack_require__("0903");
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
 
-var _formInvalidFeedback = __webpack_require__("ebd1");
+var _col = _interopRequireDefault(__webpack_require__("7d02"));
 
-var _formValidFeedback = __webpack_require__("ad48");
+var _formInvalidFeedback = _interopRequireDefault(__webpack_require__("ebd1"));
+
+var _formRow = _interopRequireDefault(__webpack_require__("1665"));
+
+var _formText = _interopRequireDefault(__webpack_require__("0903"));
+
+var _formValidFeedback = _interopRequireDefault(__webpack_require__("ad48"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-// Selector for finding first input in the form-group
-var SELECTOR = 'input:not(:disabled),textarea:not(:disabled),select:not(:disabled)'; // Memoize this function to return cached values to save time in computed functions
+// Component name
+var NAME = 'BFormGroup'; // Selector for finding first input in the form-group
 
-var makePropName = (0, _memoize.default)(function () {
-  var breakpoint = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-  var prefix = arguments.length > 1 ? arguments[1] : undefined;
-  return "".concat(prefix).concat((0, _upperFirst.default)(breakpoint));
-});
-var DEPRECATED_MSG = 'Props "horizontal" and "breakpoint" are deprecated. Use "label-cols(-{breakpoint})" props instead.'; // render helper functions (here rather than polluting the instance with more methods)
+var SELECTOR = 'input:not([disabled]),textarea:not([disabled]),select:not([disabled])';
+var DEPRECATED_MSG = 'Props "horizontal" and "breakpoint" are deprecated. Use "label-cols(-{breakpoint})" props instead.'; // Render helper functions (here rather than polluting the instance with more methods)
 
-function renderInvalidFeedback(h, ctx) {
-  var content = ctx.$slots['invalid-feedback'] || ctx.invalidFeedback;
+var renderInvalidFeedback = function renderInvalidFeedback(h, ctx) {
+  var content = ctx.normalizeSlot('invalid-feedback') || ctx.invalidFeedback;
   var invalidFeedback = h(false);
 
   if (content) {
-    invalidFeedback = h('b-form-invalid-feedback', {
+    invalidFeedback = h(_formInvalidFeedback.default, {
       props: {
         id: ctx.invalidFeedbackId,
         // If state is explicitly false, always show the feedback
         state: ctx.computedState,
-        tooltip: ctx.tooltip
+        tooltip: ctx.tooltip,
+        ariaLive: ctx.feedbackAriaLive,
+        role: ctx.feedbackAriaLive ? 'alert' : null
       },
       attrs: {
-        tabindex: content ? '-1' : null,
-        role: 'alert',
-        'aria-live': 'assertive',
-        'aria-atomic': 'true'
+        tabindex: content ? '-1' : null
       }
     }, [content]);
   }
 
   return invalidFeedback;
-}
+};
 
-function renderValidFeedback(h, ctx) {
-  var content = ctx.$slots['valid-feedback'] || ctx.validFeedback;
+var renderValidFeedback = function renderValidFeedback(h, ctx) {
+  var content = ctx.normalizeSlot('valid-feedback') || ctx.validFeedback;
   var validFeedback = h(false);
 
   if (content) {
-    validFeedback = h('b-form-valid-feedback', {
+    validFeedback = h(_formValidFeedback.default, {
       props: {
         id: ctx.validFeedbackId,
         // If state is explicitly true, always show the feedback
         state: ctx.computedState,
-        tooltip: ctx.tooltip
+        tooltip: ctx.tooltip,
+        ariaLive: ctx.feedbackAriaLive,
+        role: ctx.feedbackAriaLive ? 'alert' : null
       },
       attrs: {
-        tabindex: '-1',
-        role: 'alert',
-        'aria-live': 'assertive',
-        'aria-atomic': 'true'
+        tabindex: content ? '-1' : null
       }
     }, [content]);
   }
 
   return validFeedback;
-}
+};
 
-function renderHelpText(h, ctx) {
+var renderHelpText = function renderHelpText(h, ctx) {
   // Form help text (description)
-  var content = ctx.$slots['description'] || ctx.description;
+  var content = ctx.normalizeSlot('description') || ctx.description;
   var description = h(false);
 
   if (content) {
-    description = h('b-form-text', {
+    description = h(_formText.default, {
       attrs: {
         id: ctx.descriptionId,
-        tabindex: '-1'
+        tabindex: content ? '-1' : null
       }
     }, [content]);
   }
 
   return description;
-}
+};
 
-function renderLabel(h, ctx) {
-  // render label/legend inside b-col if necessary
-  var content = ctx.$slots['label'] || ctx.label;
+var renderLabel = function renderLabel(h, ctx) {
+  // Render label/legend inside b-col if necessary
+  var content = ctx.normalizeSlot('label') || ctx.label;
   var labelFor = ctx.labelFor;
   var isLegend = !labelFor;
   var isHorizontal = ctx.isHorizontal;
@@ -42257,11 +49576,11 @@ function renderLabel(h, ctx) {
       }, [content]);
     }
 
-    return h(isHorizontal ? 'b-col' : 'div', {
+    return h(isHorizontal ? _col.default : 'div', {
       props: isHorizontal ? ctx.labelColProps : {}
     }, [label]);
   } else {
-    return h(isHorizontal ? 'b-col' : labelTag, {
+    return h(isHorizontal ? _col.default : labelTag, {
       on: isLegend ? {
         click: ctx.legendClick
       } : {},
@@ -42271,26 +49590,33 @@ function renderLabel(h, ctx) {
       attrs: {
         id: ctx.labelId,
         for: labelFor || null,
-        // We add a tab index to legend so that screen readers will properly read the aria-labelledby in IE.
+        // We add a tab index to legend so that screen readers
+        // will properly read the aria-labelledby in IE.
         tabindex: isLegend ? '-1' : null
       },
-      class: [// When horizontal or if a legend is rendered, add col-form-label for correct sizing
-      // as Bootstrap has inconsitent font styling for legend in non-horiontal form-groups.
+      class: [// When horizontal or if a legend is rendered, add col-form-label
+      // for correct sizing as Bootstrap has inconsistent font styling
+      // for legend in non-horizontal form-groups.
       // See: https://github.com/twbs/bootstrap/issues/27805
       isHorizontal || isLegend ? 'col-form-label' : '', // Emulate label padding top of 0 on legend when not horizontal
-      !isHorizontal && isLegend ? 'pt-0' : '', // If not horizontal and not a legend, we add d-block to label so that label-align works
+      !isHorizontal && isLegend ? 'pt-0' : '', // If not horizontal and not a legend, we add d-block to label
+      // so that label-align works
       !isHorizontal && !isLegend ? 'd-block' : '', ctx.labelSize ? "col-form-label-".concat(ctx.labelSize) : '', ctx.labelAlignClasses, ctx.labelClass]
     }, [content]);
   }
-} //
-// Async (lazy) component for BFormGroup
-// Needed so that the breakpoint specific props can be computed once hte config is created
-//
+}; // -- BFormGroup Prop factory -- used for lazy generation of props
+// Memoize this function to return cached values to
+// save time in computed functions
 
 
-var _default = function _default(resolve, reject) {
-  // Grab the current config for breakpoints
-  var BREAKPOINTS = (0, _config.getBreakpointsUp)(); // Generate the labelCol breakpoint props
+var makePropName = (0, _memoize.default)(function () {
+  var breakpoint = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  var prefix = arguments.length > 1 ? arguments[1] : undefined;
+  return "".concat(prefix).concat((0, _upperFirst.default)(breakpoint));
+}); // BFormgroup prop generator for lazy generation of props
+
+var generateProps = function generateProps() {
+  var BREAKPOINTS = (0, _config.getBreakpointsUpCached)(); // Generate the labelCol breakpoint props
 
   var bpLabelColProps = BREAKPOINTS.reduce(function (props, breakpoint) {
     // i.e. label-cols, label-cols-sm, label-cols-md, ...
@@ -42309,280 +49635,306 @@ var _default = function _default(resolve, reject) {
       default: null
     };
     return props;
-  }, (0, _object.create)(null)); // @vue/component
-
-  var BFormGroup = {
-    name: 'BFormGroup',
-    components: {
-      BFormRow: _formRow.default,
-      BCol: _col.default,
-      BFormInvalidFeedback: _formInvalidFeedback.default,
-      BFormValidFeedback: _formValidFeedback.default,
-      BFormText: _formText.default
+  }, (0, _object.create)(null));
+  return _objectSpread({
+    label: {
+      type: String,
+      default: null
     },
-    mixins: [_id.default, _formState.default],
-    props: _objectSpread({
-      label: {
-        type: String,
-        default: null
-      },
-      labelFor: {
-        type: String,
-        default: null
-      },
-      labelSize: {
-        type: String,
-        default: null
-      },
-      labelSrOnly: {
-        type: Boolean,
-        default: false
-      }
-    }, bpLabelColProps, bpLabelAlignProps, {
-      labelClass: {
-        type: [String, Array, Object],
-        default: null
-      },
-      description: {
-        type: String,
-        default: null
-      },
-      invalidFeedback: {
-        type: String,
-        default: null
-      },
-      validFeedback: {
-        type: String,
-        default: null
-      },
-      tooltip: {
-        // Enable tooltip style feedback
-        type: Boolean,
-        default: false
-      },
-      validated: {
-        type: Boolean,
-        default: false
-      },
-      disabled: {
-        type: Boolean,
-        default: false
-      },
-      horizontal: {
-        // Deprecated
-        type: Boolean,
-        default: false,
-        deprecated: DEPRECATED_MSG
-      },
-      breakpoint: {
-        // Deprecated (ignored if horizontal is not true)
-        type: String,
-        default: null,
-        // legacy value 'sm',
-        deprecated: DEPRECATED_MSG
-      }
-    }),
-    computed: {
-      labelColProps: function labelColProps() {
-        var _this = this;
-
-        var props = {};
-        /* istanbul ignore next: deprecated */
-
-        if (this.horizontal) {
-          // Deprecated setting of horizontal/breakpoint props
-
-          /* istanbul ignore next */
-          (0, _warn.default)("b-form-group: ".concat(DEPRECATED_MSG)); // Legacy default is breakpoint sm and cols 3
-
-          var bp = this.breakpoint || BREAKPOINTS[1]; // 'sm'
-
-          var cols = parseInt(this.labelCols, 10) || 3;
-          props[bp] = cols > 0 ? cols : 3; // We then return the single breakpoint prop for legacy compatability
-
-          return props;
-        }
-
-        BREAKPOINTS.forEach(function (breakpoint) {
-          // Grab the value if the label column breakpoint prop
-          var propVal = _this[makePropName(breakpoint, 'labelCols')]; // Handle case where the prop's value is an empty string, which represents true
-
-
-          propVal = propVal === '' ? true : propVal || false;
-
-          if (typeof propVal !== 'boolean') {
-            // Convert to column size to number
-            propVal = parseInt(propVal, 10) || 0; // Ensure column size is greater than 0
-
-            propVal = propVal > 0 ? propVal : false;
-          }
-
-          if (propVal) {
-            // Add the prop to the list of props to give to b-col.
-            // if breakpoint is '' (labelCols=true), then we use the col prop to make equal width at xs
-            var bColPropName = breakpoint || (typeof propVal === 'boolean' ? 'col' : 'cols'); // Add it to the props
-
-            props[bColPropName] = propVal;
-          }
-        });
-        return props;
-      },
-      labelAlignClasses: function labelAlignClasses() {
-        var _this2 = this;
-
-        var classes = [];
-        BREAKPOINTS.forEach(function (breakpoint) {
-          // assemble the label column breakpoint align classes
-          var propVal = _this2[makePropName(breakpoint, 'labelAlign')] || null;
-
-          if (propVal) {
-            var className = breakpoint ? "text-".concat(breakpoint, "-").concat(propVal) : "text-".concat(propVal);
-            classes.push(className);
-          }
-        });
-        return classes;
-      },
-      isHorizontal: function isHorizontal() {
-        // Determine if the resultant form-group will be rendered
-        // horizontal (meaning it has label-col breakpoints)
-        return (0, _object.keys)(this.labelColProps).length > 0;
-      },
-      labelId: function labelId() {
-        return this.$slots['label'] || this.label ? this.safeId('_BV_label_') : null;
-      },
-      descriptionId: function descriptionId() {
-        return this.$slots['description'] || this.description ? this.safeId('_BV_description_') : null;
-      },
-      hasInvalidFeedback: function hasInvalidFeedback() {
-        // used for computing aria-describedby
-        var $slots = this.$slots;
-        return this.computedState === false && ($slots['invalid-feedback'] || this.invalidFeedback);
-      },
-      invalidFeedbackId: function invalidFeedbackId() {
-        return this.hasInvalidFeedback ? this.safeId('_BV_feedback_invalid_') : null;
-      },
-      hasValidFeedback: function hasValidFeedback() {
-        // used for computing aria-describedby
-        return this.computedState === true && (this.$slots['valid-feedback'] || this.validFeedback);
-      },
-      validFeedbackId: function validFeedbackId() {
-        return this.hasValidFeedback ? this.safeId('_BV_feedback_valid_') : null;
-      },
-      describedByIds: function describedByIds() {
-        // Screen readers will read out any content linked to by aria-describedby
-        // even if the content is hidden with 'display: none', hence we only include
-        // feedback IDs if the form-group's state is explicitly valid or invalid.
-        return [this.descriptionId, this.invalidFeedbackId, this.validFeedbackId].filter(function (i) {
-          return i;
-        }).join(' ') || null;
-      }
+    labelFor: {
+      type: String,
+      default: null
     },
-    watch: {
-      describedByIds: function describedByIds(add, remove) {
-        if (add !== remove) {
-          this.setInputDescribedBy(add, remove);
-        }
-      }
+    labelSize: {
+      type: String,
+      default: null
     },
-    mounted: function mounted() {
-      var _this3 = this;
-
-      this.$nextTick(function () {
-        // Set the adia-describedby IDs on the input specified by label-for
-        // We do this in a nextTick to ensure the children have finished rendering
-        _this3.setInputDescribedBy(_this3.describedByIds);
-      });
-    },
-    methods: {
-      legendClick: function legendClick(evt) {
-        if (this.labelFor) {
-          // don't do anything if labelFor is set
-
-          /* istanbul ignore next: clicking a label will focus the input, so no need to test */
-          return;
-        }
-
-        var tagName = evt.target ? evt.target.tagName : '';
-
-        if (/^(input|select|textarea|label|button|a)$/i.test(tagName)) {
-          // If clicked an interactive element inside legend, we just let the default happen
-
-          /* istanbul ignore next */
-          return;
-        }
-
-        var inputs = (0, _dom.selectAll)(SELECTOR, this.$refs.content).filter(_dom.isVisible);
-
-        if (inputs && inputs.length === 1 && inputs[0].focus) {
-          // if only a single input, focus it, emulating label behaviour
-          inputs[0].focus();
-        }
-      },
-      setInputDescribedBy: function setInputDescribedBy(add, remove) {
-        // Sets the `aria-describedby` attribute on the input if label-for is set.
-        // Optionally accepts a string of IDs to remove as the second parameter
-        if (this.labelFor && typeof document !== 'undefined') {
-          var input = (0, _dom.select)("#".concat(this.labelFor), this.$refs.content);
-
-          if (input) {
-            var adb = 'aria-describedby';
-            var ids = ((0, _dom.getAttr)(input, adb) || '').split(/\s+/);
-            remove = (remove || '').split(/\s+/); // Update ID list, preserving any original IDs
-
-            ids = ids.filter(function (id) {
-              return !(0, _array.arrayIncludes)(remove, id);
-            }).concat(add || '').join(' ').trim();
-
-            if (ids) {
-              (0, _dom.setAttr)(input, adb, ids);
-            } else {
-              // No IDs, so remove the attribute
-              (0, _dom.removeAttr)(input, adb);
-            }
-          }
-        }
-      }
-    },
-    render: function render(h) {
-      var isFieldset = !this.labelFor;
-      var isHorizontal = this.isHorizontal; // Generate the label
-
-      var label = renderLabel(h, this); // Generate the content
-
-      var content = h(isHorizontal ? 'b-col' : 'div', {
-        ref: 'content',
-        attrs: {
-          tabindex: isFieldset ? '-1' : null,
-          role: isFieldset ? 'group' : null,
-          'aria-labelledby': isFieldset ? this.labelId : null,
-          'aria-describedby': isFieldset ? this.ariaDescribedBy : null
-        }
-      }, [this.$slots['default'] || h(false), renderInvalidFeedback(h, this), renderValidFeedback(h, this), renderHelpText(h, this)]); // Create the form-group
-
-      var data = {
-        staticClass: 'form-group',
-        class: [this.validated ? 'was-validated' : null, this.stateClass],
-        attrs: {
-          id: this.safeId(),
-          disabled: isFieldset ? this.disabled : null,
-          role: isFieldset ? null : 'group',
-          'aria-invalid': this.computedState === false ? 'true' : null,
-          'aria-labelledby': this.labelId || null,
-          'aria-describedby': this.describedByIds || null
-        } // Return it wrapped in a form-group.
-        // Note: fieldsets do not support adding `row` or `form-row` directly to them
-        // due to browser specific render issues, so we move the form-row to an
-        // inner wrapper div when horizontal and using a fieldset
-
-      };
-      return h(isFieldset ? 'fieldset' : isHorizontal ? 'b-form-row' : 'div', data, isHorizontal && isFieldset ? [h('b-form-row', {}, [label, content])] : [label, content]);
+    labelSrOnly: {
+      type: Boolean,
+      default: false
     }
-  }; // Return the componwent options reference
+  }, bpLabelColProps, bpLabelAlignProps, {
+    labelClass: {
+      type: [String, Array, Object],
+      default: null
+    },
+    description: {
+      type: String,
+      default: null
+    },
+    invalidFeedback: {
+      type: String,
+      default: null
+    },
+    validFeedback: {
+      type: String,
+      default: null
+    },
+    tooltip: {
+      // Enable tooltip style feedback
+      type: Boolean,
+      default: false
+    },
+    feedbackAriaLive: {
+      type: String,
+      default: 'assertive'
+    },
+    validated: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    horizontal: {
+      // Deprecated
+      type: Boolean,
+      default: false,
+      deprecated: DEPRECATED_MSG
+    },
+    breakpoint: {
+      // Deprecated (ignored if horizontal is not true)
+      type: String,
+      default: null,
+      // legacy value 'sm',
+      deprecated: DEPRECATED_MSG
+    }
+  });
+}; // We do not use Vue.extend here as that would evaluate the props
+// immediately, which we do not want to happen
+// @vue/component
 
-  resolve(BFormGroup);
+
+var _default = {
+  name: NAME,
+  mixins: [_id.default, _formState.default, _normalizeSlot.default],
+
+  get props() {
+    // Allow props to be lazy evaled on first access and
+    // then they become a non-getter afterwards.
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#Smart_self-overwriting_lazy_getters
+    delete this.props; // eslint-disable-next-line no-return-assign
+
+    return this.props = generateProps();
+  },
+
+  computed: {
+    labelColProps: function labelColProps() {
+      var _this = this;
+
+      var props = {};
+      /* istanbul ignore next: deprecated */
+
+      if (this.horizontal) {
+        // Deprecated setting of horizontal/breakpoint props
+
+        /* istanbul ignore next */
+        (0, _warn.default)("b-form-group: ".concat(DEPRECATED_MSG)); // Legacy default is breakpoint sm and cols 3
+
+        var bp = this.breakpoint || (0, _config.getBreakpointsUpCached)()[1]; // 'sm'
+
+        var cols = parseInt(this.labelCols, 10) || 3;
+        props[bp] = cols > 0 ? cols : 3; // We then return the single breakpoint prop for legacy compatibility
+
+        return props;
+      }
+
+      (0, _config.getBreakpointsUpCached)().forEach(function (breakpoint) {
+        // Grab the value if the label column breakpoint prop
+        var propVal = _this[makePropName(breakpoint, 'labelCols')]; // Handle case where the prop's value is an empty string,
+        // which represents true
+
+
+        propVal = propVal === '' ? true : propVal || false;
+
+        if (!(0, _inspect.isBoolean)(propVal)) {
+          // Convert to column size to number
+          propVal = parseInt(propVal, 10) || 0; // Ensure column size is greater than 0
+
+          propVal = propVal > 0 ? propVal : false;
+        }
+
+        if (propVal) {
+          // Add the prop to the list of props to give to b-col
+          // If breakpoint is '' (labelCols=true), then we use the
+          // col prop to make equal width at xs
+          var bColPropName = breakpoint || ((0, _inspect.isBoolean)(propVal) ? 'col' : 'cols'); // Add it to the props
+
+          props[bColPropName] = propVal;
+        }
+      });
+      return props;
+    },
+    labelAlignClasses: function labelAlignClasses() {
+      var _this2 = this;
+
+      var classes = [];
+      (0, _config.getBreakpointsUpCached)().forEach(function (breakpoint) {
+        // Assemble the label column breakpoint align classes
+        var propVal = _this2[makePropName(breakpoint, 'labelAlign')] || null;
+
+        if (propVal) {
+          var className = breakpoint ? "text-".concat(breakpoint, "-").concat(propVal) : "text-".concat(propVal);
+          classes.push(className);
+        }
+      });
+      return classes;
+    },
+    isHorizontal: function isHorizontal() {
+      // Determine if the resultant form-group will be rendered
+      // horizontal (meaning it has label-col breakpoints)
+      return (0, _object.keys)(this.labelColProps).length > 0;
+    },
+    labelId: function labelId() {
+      return this.$slots['label'] || this.label ? this.safeId('_BV_label_') : null;
+    },
+    descriptionId: function descriptionId() {
+      return this.$slots['description'] || this.description ? this.safeId('_BV_description_') : null;
+    },
+    hasInvalidFeedback: function hasInvalidFeedback() {
+      // Used for computing aria-describedby
+      var $slots = this.$slots;
+      return this.computedState === false && ($slots['invalid-feedback'] || this.invalidFeedback);
+    },
+    invalidFeedbackId: function invalidFeedbackId() {
+      return this.hasInvalidFeedback ? this.safeId('_BV_feedback_invalid_') : null;
+    },
+    hasValidFeedback: function hasValidFeedback() {
+      // Used for computing aria-describedby
+      return this.computedState === true && (this.$slots['valid-feedback'] || this.validFeedback);
+    },
+    validFeedbackId: function validFeedbackId() {
+      return this.hasValidFeedback ? this.safeId('_BV_feedback_valid_') : null;
+    },
+    describedByIds: function describedByIds() {
+      // Screen readers will read out any content linked to by aria-describedby
+      // even if the content is hidden with `display: none;`, hence we only include
+      // feedback IDs if the form-group's state is explicitly valid or invalid.
+      return [this.descriptionId, this.invalidFeedbackId, this.validFeedbackId].filter(Boolean).join(' ') || null;
+    }
+  },
+  watch: {
+    describedByIds: function describedByIds(add, remove) {
+      if (add !== remove) {
+        this.setInputDescribedBy(add, remove);
+      }
+    }
+  },
+  mounted: function mounted() {
+    var _this3 = this;
+
+    this.$nextTick(function () {
+      // Set the aria-describedby IDs on the input specified by label-for
+      // We do this in a nextTick to ensure the children have finished rendering
+      _this3.setInputDescribedBy(_this3.describedByIds);
+    });
+  },
+  methods: {
+    legendClick: function legendClick(evt) {
+      if (this.labelFor) {
+        // Don't do anything if labelFor is set
+
+        /* istanbul ignore next: clicking a label will focus the input, so no need to test */
+        return;
+      }
+
+      var tagName = evt.target ? evt.target.tagName : '';
+
+      if (/^(input|select|textarea|label|button|a)$/i.test(tagName)) {
+        // If clicked an interactive element inside legend,
+        // we just let the default happen
+
+        /* istanbul ignore next */
+        return;
+      }
+
+      var inputs = (0, _dom.selectAll)(SELECTOR, this.$refs.content).filter(_dom.isVisible);
+
+      if (inputs && inputs.length === 1 && inputs[0].focus) {
+        // if only a single input, focus it, emulating label behaviour
+        inputs[0].focus();
+      }
+    },
+    setInputDescribedBy: function setInputDescribedBy(add, remove) {
+      // Sets the `aria-describedby` attribute on the input if label-for is set.
+      // Optionally accepts a string of IDs to remove as the second parameter.
+      // Preserves any aria-describedby value(s) user may have on input.
+      if (this.labelFor && _env.isBrowser) {
+        var input = (0, _dom.select)("#".concat(this.labelFor), this.$refs.content);
+
+        if (input) {
+          var adb = 'aria-describedby';
+          var ids = ((0, _dom.getAttr)(input, adb) || '').split(/\s+/);
+          add = (add || '').split(/\s+/);
+          remove = (remove || '').split(/\s+/); // Update ID list, preserving any original IDs
+          // and ensuring the ID's are unique
+
+          ids = ids.filter(function (id) {
+            return !(0, _array.arrayIncludes)(remove, id);
+          }).concat(add).filter(Boolean);
+          ids = (0, _object.keys)(ids.reduce(function (memo, id) {
+            return _objectSpread({}, memo, _defineProperty({}, id, true));
+          }, {})).join(' ').trim();
+
+          if (ids) {
+            (0, _dom.setAttr)(input, adb, ids);
+          } else {
+            // No IDs, so remove the attribute
+            (0, _dom.removeAttr)(input, adb);
+          }
+        }
+      }
+    }
+  },
+  render: function render(h) {
+    var isFieldset = !this.labelFor;
+    var isHorizontal = this.isHorizontal; // Generate the label
+
+    var label = renderLabel(h, this); // Generate the content
+
+    var content = h(isHorizontal ? _col.default : 'div', {
+      ref: 'content',
+      attrs: {
+        tabindex: isFieldset ? '-1' : null,
+        role: isFieldset ? 'group' : null
+      }
+    }, [this.normalizeSlot('default') || h(false), renderInvalidFeedback(h, this), renderValidFeedback(h, this), renderHelpText(h, this)]); // Create the form-group
+
+    var data = {
+      staticClass: 'form-group',
+      class: [this.validated ? 'was-validated' : null, this.stateClass],
+      attrs: {
+        id: this.safeId(),
+        disabled: isFieldset ? this.disabled : null,
+        role: isFieldset ? null : 'group',
+        'aria-invalid': this.computedState === false ? 'true' : null,
+        // Only apply aria-labelledby if we are a horizontal fieldset
+        // as the legend is no longer a direct child of fieldset
+        'aria-labelledby': isFieldset && isHorizontal ? this.labelId : null,
+        // Only apply aria-describedby IDs if we are a fieldset
+        // as the input will have the IDs when not a fieldset
+        'aria-describedby': isFieldset ? this.describedByIds : null
+      } // Return it wrapped in a form-group
+      // Note: Fieldsets do not support adding `row` or `form-row` directly
+      // to them due to browser specific render issues, so we move the `form-row`
+      // to an inner wrapper div when horizontal and using a fieldset
+
+    };
+    return h(isFieldset ? 'fieldset' : isHorizontal ? _formRow.default : 'div', data, isHorizontal && isFieldset ? [h(_formRow.default, {}, [label, content])] : [label, content]);
+  }
 };
-
 exports.default = _default;
+
+/***/ }),
+
+/***/ "d2d5":
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__("1654");
+__webpack_require__("549b");
+module.exports = __webpack_require__("584a").Array.from;
+
 
 /***/ }),
 
@@ -42596,31 +49948,6 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ "d4a9":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _toggle = __webpack_require__("a596");
-
-var _plugins = __webpack_require__("0a8d");
-
-var directives = {
-  BToggle: _toggle.default
-};
-var _default = {
-  install: (0, _plugins.installFactory)({
-    directives: directives
-  })
-};
-exports.default = _default;
-
-/***/ }),
-
 /***/ "d53b":
 /***/ (function(module, exports) {
 
@@ -42628,31 +49955,6 @@ module.exports = function (done, value) {
   return { value: value, done: !!done };
 };
 
-
-/***/ }),
-
-/***/ "d670":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _popover = __webpack_require__("5764");
-
-var _plugins = __webpack_require__("0a8d");
-
-var directives = {
-  BPopover: _popover.default
-};
-var _default = {
-  install: (0, _plugins.installFactory)({
-    directives: directives
-  })
-};
-exports.default = _default;
 
 /***/ }),
 
@@ -42665,13 +49967,21 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _media = __webpack_require__("3baf");
+var _media = _interopRequireDefault(__webpack_require__("3baf"));
 
-var _mediaAside = __webpack_require__("7b63");
+exports.BMedia = _media.default;
 
-var _mediaBody = __webpack_require__("7a5e");
+var _mediaAside = _interopRequireDefault(__webpack_require__("7b63"));
+
+exports.BMediaAside = _mediaAside.default;
+
+var _mediaBody = _interopRequireDefault(__webpack_require__("7a5e"));
+
+exports.BMediaBody = _mediaBody.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BMedia: _media.default,
@@ -42757,9 +50067,13 @@ exports.f = __webpack_require__("8e60") ? Object.defineProperty : function defin
 exports.__esModule = true;
 exports.default = void 0;
 
-var _tooltip = __webpack_require__("16ae");
+var _tooltip = _interopRequireDefault(__webpack_require__("16ae"));
 
 var _dom = __webpack_require__("1611");
+
+var _inspect = __webpack_require__("0d5a");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -42801,8 +50115,6 @@ var ClassName = {
 var Selector = {
   TITLE: '.popover-header',
   CONTENT: '.popover-body'
-  /* istanbul ignore next: dificult to test in Jest/JSDOM environment */
-
 };
 
 var PopOver =
@@ -42818,13 +50130,12 @@ function (_ToolTip) {
 
   _createClass(PopOver, [{
     key: "isWithContent",
-    // Method overrides
-    value: function isWithContent(tip)
-    /* istanbul ignore next */
-    {
+    // --- Method overrides ---
+    value: function isWithContent(tip) {
       tip = tip || this.$tip;
 
       if (!tip) {
+        /* istanbul ignore next */
         return false;
       }
 
@@ -42841,9 +50152,7 @@ function (_ToolTip) {
     }
   }, {
     key: "setContent",
-    value: function setContent(tip)
-    /* istanbul ignore next */
-    {
+    value: function setContent(tip) {
       // we use append for html objects to maintain js events/components
       this.setElementContent((0, _dom.select)(Selector.TITLE, tip), this.getTitle());
       this.setElementContent((0, _dom.select)(Selector.CONTENT, tip), this.getContent());
@@ -42859,7 +50168,7 @@ function (_ToolTip) {
       var tip = this.getTipElement();
       var tabClass = tip.className.match(BS_CLASS_PREFIX_REGEX);
 
-      if (tabClass !== null && tabClass.length > 0) {
+      if (!(0, _inspect.isNull)(tabClass) && tabClass.length > 0) {
         tabClass.forEach(function (cls) {
           (0, _dom.removeClass)(tip, cls);
         });
@@ -42867,21 +50176,22 @@ function (_ToolTip) {
     }
   }, {
     key: "getTitle",
-    value: function getTitle()
-    /* istanbul ignore next */
-    {
+    value: function getTitle() {
       var title = this.$config.title || '';
+      /* istanbul ignore next */
 
-      if (typeof title === 'function') {
+      if ((0, _inspect.isFunction)(title)) {
         title = title(this.$element);
       }
+      /* istanbul ignore next */
 
-      if (_typeof(title) === 'object' && title.nodeType && !title.innerHTML.trim()) {
+
+      if ((0, _inspect.isObject)(title) && title.nodeType && !title.innerHTML.trim()) {
         // We have a dom node, but without inner content, so just return an empty string
         title = '';
       }
 
-      if (typeof title === 'string') {
+      if ((0, _inspect.isString)(title)) {
         title = title.trim();
       }
 
@@ -42896,21 +50206,22 @@ function (_ToolTip) {
 
   }, {
     key: "getContent",
-    value: function getContent()
-    /* istanbul ignore next */
-    {
+    value: function getContent() {
       var content = this.$config.content || '';
+      /* istanbul ignore next */
 
-      if (typeof content === 'function') {
+      if ((0, _inspect.isFunction)(content)) {
         content = content(this.$element);
       }
+      /* istanbul ignore next */
 
-      if (_typeof(content) === 'object' && content.nodeType && !content.innerHTML.trim()) {
+
+      if ((0, _inspect.isObject)(content) && content.nodeType && !content.innerHTML.trim()) {
         // We have a dom node, but without inner content, so just return an empty string
         content = '';
       }
 
-      if (typeof content === 'string') {
+      if ((0, _inspect.isString)(content)) {
         content = content.trim();
       }
 
@@ -42918,17 +50229,13 @@ function (_ToolTip) {
     }
   }], [{
     key: "Default",
-    // Getter overrides
-    get: function get()
-    /* istanbul ignore next */
-    {
+    // --- Getter overrides ---
+    get: function get() {
       return Defaults;
     }
   }, {
     key: "NAME",
-    get: function get()
-    /* istanbul ignore next */
-    {
+    get: function get() {
       return NAME;
     }
   }]);
@@ -42993,7 +50300,11 @@ var store = global[SHARED] || (global[SHARED] = {});
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var props = {
   tag: {
@@ -43003,7 +50314,8 @@ var props = {
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BInputGroupText',
   functional: true,
   props: props,
@@ -43015,7 +50327,8 @@ var _default = {
       staticClass: 'input-group-text'
     }), children);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -43261,7 +50574,9 @@ var substr = 'ab'.substr(-1) === 'b'
 exports.__esModule = true;
 exports.default = void 0;
 
-var _upperFirst = __webpack_require__("5540");
+var _upperFirst = _interopRequireDefault(__webpack_require__("5540"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * @param {string} prefix
@@ -43294,123 +50609,123 @@ module.exports = (
 
 
 exports.__esModule = true;
-exports.default = void 0;
+exports.default = exports.props = void 0;
+
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
 
 var _html = __webpack_require__("be11");
 
 var _config = __webpack_require__("eb60");
 
-var _id = __webpack_require__("eae0");
+var _safeTypes = __webpack_require__("ac0f");
 
-var _dropdown = __webpack_require__("c190");
+var _id = _interopRequireDefault(__webpack_require__("eae0"));
 
-var _button = __webpack_require__("b664");
+var _dropdown = _interopRequireDefault(__webpack_require__("c190"));
 
-var NAME = 'BDropdown'; // @vue/component
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
 
-var _default2 = {
-  name: NAME,
-  components: {
-    BButton: _button.default
-  },
-  mixins: [_id.default, _dropdown.default],
-  props: {
-    toggleText: {
-      // This really should be toggleLabel
-      type: String,
-      default: function _default() {
-        return (0, _config.getComponentConfig)(NAME, 'toggleText');
-      }
-    },
-    size: {
-      type: String,
-      default: null
-    },
-    variant: {
-      type: String,
-      default: function _default() {
-        return (0, _config.getComponentConfig)(NAME, 'variant');
-      }
-    },
-    menuClass: {
-      type: [String, Array],
-      default: null
-    },
-    toggleTag: {
-      type: String,
-      default: 'button'
-    },
-    toggleClass: {
-      type: [String, Array],
-      default: null
-    },
-    noCaret: {
-      type: Boolean,
-      default: false
-    },
-    split: {
-      type: Boolean,
-      default: false
-    },
-    splitHref: {
-      type: String // default: undefined
+var _button = _interopRequireDefault(__webpack_require__("b664"));
 
-    },
-    splitTo: {
-      type: [String, Object] // default: undefined
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-    },
-    splitVariant: {
-      type: String,
-      default: null
-    },
-    role: {
-      type: String,
-      default: 'menu'
-    },
-    boundary: {
-      // String: `scrollParent`, `window` or `viewport`
-      // Object: HTML Element reference
-      type: [String, Object],
-      default: 'scrollParent'
+var NAME = 'BDropdown';
+var props = {
+  toggleText: {
+    // This really should be toggleLabel
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'toggleText');
     }
   },
+  size: {
+    type: String,
+    default: null
+  },
+  variant: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'variant');
+    }
+  },
+  menuClass: {
+    type: [String, Array],
+    default: null
+  },
+  toggleTag: {
+    type: String,
+    default: 'button'
+  },
+  toggleClass: {
+    type: [String, Array],
+    default: null
+  },
+  noCaret: {
+    type: Boolean,
+    default: false
+  },
+  split: {
+    type: Boolean,
+    default: false
+  },
+  splitHref: {
+    type: String // default: undefined
+
+  },
+  splitTo: {
+    type: [String, Object] // default: undefined
+
+  },
+  splitVariant: {
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'splitVariant');
+    }
+  },
+  role: {
+    type: String,
+    default: 'menu'
+  },
+  boundary: {
+    // String: `scrollParent`, `window` or `viewport`
+    // HTMLElement: HTML Element reference
+    type: [String, _safeTypes.HTMLElement],
+    default: 'scrollParent'
+  } // @vue/component
+
+};
+exports.props = props;
+
+var _default2 = _vue.default.extend({
+  name: NAME,
+  mixins: [_id.default, _dropdown.default, _normalizeSlot.default],
+  props: props,
   computed: {
     dropdownClasses: function dropdownClasses() {
-      // Position `static` is needed to allow menu to "breakout" of the scrollParent boundaries
-      // when boundary is anything other than `scrollParent`
-      // See https://github.com/twbs/bootstrap/issues/24251#issuecomment-341413786
-      var positionStatic = this.boundary !== 'scrollParent' || !this.boundary;
-      var direction = '';
-
-      if (this.dropup) {
-        direction = 'dropup';
-      } else if (this.dropright) {
-        direction = 'dropright';
-      } else if (this.dropleft) {
-        direction = 'dropleft';
-      }
-
-      return ['btn-group', 'b-dropdown', 'dropdown', direction, {
+      return [this.directionClass, {
         show: this.visible,
-        'position-static': positionStatic
+        // Position `static` is needed to allow menu to "breakout" of the scrollParent boundaries
+        // when boundary is anything other than `scrollParent`
+        // See https://github.com/twbs/bootstrap/issues/24251#issuecomment-341413786
+        'position-static': this.boundary !== 'scrollParent' || !this.boundary
       }];
     },
     menuClasses: function menuClasses() {
-      return ['dropdown-menu', {
+      return [this.menuClass, {
         'dropdown-menu-right': this.right,
         show: this.visible
-      }, this.menuClass];
+      }];
     },
     toggleClasses: function toggleClasses() {
-      return ['dropdown-toggle', {
+      return [this.toggleClass, {
         'dropdown-toggle-split': this.split,
         'dropdown-toggle-no-caret': this.noCaret && !this.split
-      }, this.toggleClass];
+      }];
     }
   },
   render: function render(h) {
     var split = h(false);
+    var buttonContent = this.normalizeSlot('button-content') || this.normalizeSlot('text') || this.html || (0, _html.stripTags)(this.text);
 
     if (this.split) {
       var btnProps = {
@@ -43428,7 +50743,7 @@ var _default2 = {
         btnProps.href = this.splitHref;
       }
 
-      split = h('b-button', {
+      split = h(_button.default, {
         ref: 'button',
         props: btnProps,
         attrs: {
@@ -43437,11 +50752,12 @@ var _default2 = {
         on: {
           click: this.click
         }
-      }, [this.$slots['button-content'] || this.$slots.text || this.html || (0, _html.stripTags)(this.text)]);
+      }, [buttonContent]);
     }
 
-    var toggle = h('b-button', {
+    var toggle = h(_button.default, {
       ref: 'toggle',
+      staticClass: 'dropdown-toggle',
       class: this.toggleClasses,
       props: {
         variant: this.variant,
@@ -43462,9 +50778,10 @@ var _default2 = {
       }
     }, [this.split ? h('span', {
       class: ['sr-only']
-    }, [this.toggleText]) : this.$slots['button-content'] || this.$slots.text || this.html || (0, _html.stripTags)(this.text)]);
-    var menu = h('div', {
+    }, [this.toggleText]) : buttonContent]);
+    var menu = h('ul', {
       ref: 'menu',
+      staticClass: 'dropdown-menu',
       class: this.menuClasses,
       attrs: {
         role: this.role,
@@ -43472,19 +50789,22 @@ var _default2 = {
         'aria-labelledby': this.safeId(this.split ? '_BV_button_' : '_BV_toggle_')
       },
       on: {
-        mouseover: this.onMouseOver,
-        keydown: this.onKeydown // tab, up, down, esc
+        keydown: this.onKeydown // up, down, esc
 
       }
-    }, [this.$slots.default]);
+    }, this.normalizeSlot('default', {
+      hide: this.hide
+    }));
     return h('div', {
+      staticClass: 'dropdown btn-group b-dropdown',
+      class: this.dropdownClasses,
       attrs: {
         id: this.safeId()
-      },
-      class: this.dropdownClasses
+      }
     }, [split, toggle, menu]);
   }
-};
+});
+
 exports.default = _default2;
 
 /***/ }),
@@ -43498,12 +50818,19 @@ exports.default = _default2;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
 var _config = __webpack_require__("eb60");
 
+var _inspect = __webpack_require__("0d5a");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var NAME = 'BNavbar';
 var props = {
   tag: {
     type: String,
@@ -43514,7 +50841,10 @@ var props = {
     default: 'light'
   },
   variant: {
-    type: String
+    type: String,
+    default: function _default() {
+      return (0, _config.getComponentConfig)(NAME, 'variant');
+    }
   },
   toggleable: {
     type: [Boolean, String],
@@ -43534,8 +50864,9 @@ var props = {
 
 };
 exports.props = props;
-var _default = {
-  name: 'BNavbar',
+
+var _default2 = _vue.default.extend({
+  name: NAME,
   functional: true,
   props: props,
   render: function render(h, _ref) {
@@ -43547,7 +50878,7 @@ var _default = {
     var breakpoint = '';
     var xs = (0, _config.getBreakpoints)()[0];
 
-    if (props.toggleable && typeof props.toggleable === 'string' && props.toggleable !== xs) {
+    if (props.toggleable && (0, _inspect.isString)(props.toggleable) && props.toggleable !== xs) {
       breakpoint = "navbar-expand-".concat(props.toggleable);
     } else if (props.toggleable === false) {
       breakpoint = 'navbar-expand';
@@ -43564,8 +50895,9 @@ var _default = {
       }
     }), children);
   }
-};
-exports.default = _default;
+});
+
+exports.default = _default2;
 
 /***/ }),
 
@@ -43590,26 +50922,38 @@ module.exports = function (it) {
 exports.__esModule = true;
 exports.default = void 0;
 
-var _listenOnRoot = __webpack_require__("edbc");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
+var _listenOnRoot = _interopRequireDefault(__webpack_require__("edbc"));
+
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
 
 var _env = __webpack_require__("4565");
 
 var _dom = __webpack_require__("1611");
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 // Events we emit on $root
 var EVENT_STATE = 'bv::collapse::state';
-var EVENT_ACCORDION = 'bv::collapse::accordion'; // Events we listen to on $root
+var EVENT_ACCORDION = 'bv::collapse::accordion'; // Private event we emit on `$root` to ensure the toggle state is
+// always synced. It gets emitted even if the state has not changed!
+// This event is NOT to be documented as people should not be using it
 
-var EVENT_TOGGLE = 'bv::toggle::collapse'; // Event Listener options
+var EVENT_STATE_SYNC = 'bv::collapse::sync::state'; // Events we listen to on `$root`
+
+var EVENT_TOGGLE = 'bv::toggle::collapse';
+var EVENT_STATE_REQUEST = 'bv::request::collapse::state'; // Event listener options
 
 var EventOptions = {
   passive: true,
   capture: false // @vue/component
 
 };
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BCollapse',
-  mixins: [_listenOnRoot.default],
+  mixins: [_listenOnRoot.default, _normalizeSlot.default],
   model: {
     prop: 'visible',
     event: 'input'
@@ -43664,41 +51008,60 @@ var _default = {
     }
   },
   created: function created() {
-    // Listen for toggle events to open/close us
+    this.show = this.visible;
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.show = this.visible; // Listen for toggle events to open/close us
+
     this.listenOnRoot(EVENT_TOGGLE, this.handleToggleEvt); // Listen to other collapses for accordion events
 
     this.listenOnRoot(EVENT_ACCORDION, this.handleAccordionEvt);
-  },
-  mounted: function mounted() {
-    if (this.isNav && _env.inBrowser) {
+
+    if (this.isNav) {
       // Set up handlers
       this.setWindowEvents(true);
       this.handleResize();
     }
 
-    this.emitState();
+    this.$nextTick(function () {
+      _this.emitState();
+    }); // Listen for "Sync state" requests from `v-b-toggle`
+
+    this.$root.$on(EVENT_STATE_REQUEST, function (id) {
+      if (id === _this.id) {
+        _this.$nextTick(_this.emitSync);
+      }
+    });
+  },
+  updated: function updated() {
+    // Emit a private event every time this component updates to ensure
+    // the toggle button is in sync with the collapse's state
+    // It is emitted regardless if the visible state changes
+    this.emitSync();
   },
   deactivated: function deactivated()
   /* istanbul ignore next */
   {
-    if (this.isNav && _env.inBrowser) {
+    if (this.isNav) {
       this.setWindowEvents(false);
     }
   },
   activated: function activated()
   /* istanbul ignore next */
   {
-    if (this.isNav && _env.inBrowser) {
+    if (this.isNav) {
       this.setWindowEvents(true);
     }
+
+    this.emitSync();
   },
-  beforeDestroy: function beforeDestroy()
-  /* istanbul ignore next */
-  {
+  beforeDestroy: function beforeDestroy() {
     // Trigger state emit if needed
     this.show = false;
 
-    if (this.isNav && _env.inBrowser) {
+    if (this.isNav && _env.isBrowser) {
       this.setWindowEvents(false);
     }
   },
@@ -43749,6 +51112,22 @@ var _default = {
         this.$root.$emit(EVENT_ACCORDION, this.id, this.accordion);
       }
     },
+    emitSync: function emitSync() {
+      // Emit a private event every time this component updates to ensure
+      // the toggle button is in sync with the collapse's state
+      // It is emitted regardless if the visible state changes
+      this.$root.$emit(EVENT_STATE_SYNC, this.id, this.show);
+    },
+    checkDisplayBlock: function checkDisplayBlock() {
+      // Check to see if the collapse has `display: block !important;` set.
+      // We can't set `display: none;` directly on this.$el, as it would
+      // trigger a new transition to start (or cancel a current one).
+      var restore = (0, _dom.hasClass)(this.$el, 'show');
+      (0, _dom.removeClass)(this.$el, 'show');
+      var isBlock = (0, _dom.getCS)(this.$el).display === 'block';
+      restore && (0, _dom.addClass)(this.$el, 'show');
+      return isBlock;
+    },
     clickHandler: function clickHandler(evt) {
       // If we are in a nav/navbar, close the collapse when non-disabled link clicked
       var el = evt.target;
@@ -43759,7 +51138,10 @@ var _default = {
       }
 
       if ((0, _dom.matches)(el, '.nav-link,.dropdown-item') || (0, _dom.closest)('.nav-link,.dropdown-item', el)) {
-        this.show = false;
+        if (!this.checkDisplayBlock()) {
+          // Only close the collapse if it is not forced to be 'display: block !important;'
+          this.show = false;
+        }
       }
     },
     handleToggleEvt: function handleToggleEvt(target) {
@@ -43804,7 +51186,7 @@ var _default = {
       on: {
         click: this.clickHandler
       }
-    }, [this.$slots.default]);
+    }, [this.normalizeSlot('default')]);
     return h('transition', {
       props: {
         enterClass: '',
@@ -43822,7 +51204,8 @@ var _default = {
       }
     }, [content]);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -43849,7 +51232,11 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var props = {
   tag: {
@@ -43859,7 +51246,8 @@ var props = {
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BNavText',
   functional: true,
   props: props,
@@ -43871,7 +51259,8 @@ var _default = {
       staticClass: 'navbar-text'
     }), children);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -43960,7 +51349,11 @@ exports = module.exports = {
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var props = {
   tag: {
@@ -43978,7 +51371,8 @@ var props = {
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BCardGroup',
   functional: true,
   props: props,
@@ -43998,7 +51392,8 @@ var _default = {
       class: baseClass
     }), children);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -44036,13 +51431,17 @@ module.exports = function (object, names) {
 exports.__esModule = true;
 exports.default = void 0;
 
-var _stableSort = __webpack_require__("2e50");
+var _stableSort = _interopRequireDefault(__webpack_require__("2e50"));
 
-var _startcase = __webpack_require__("3098");
+var _startcase = _interopRequireDefault(__webpack_require__("3098"));
 
 var _array = __webpack_require__("bb2f");
 
-var _defaultSortCompare = __webpack_require__("fc47");
+var _inspect = __webpack_require__("0d5a");
+
+var _defaultSortCompare = _interopRequireDefault(__webpack_require__("fc47"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _default = {
   props: {
@@ -44128,12 +51527,12 @@ var _default = {
         return (0, _stableSort.default)(items, function (a, b) {
           var result = null;
 
-          if (typeof sortCompare === 'function') {
+          if ((0, _inspect.isFunction)(sortCompare)) {
             // Call user provided sortCompare routine
             result = sortCompare(a, b, sortBy, sortDesc);
           }
 
-          if (result === null || result === undefined || result === false) {
+          if ((0, _inspect.isUndefined)(result) || (0, _inspect.isNull)(result) || result === false) {
             // Fallback to built-in defaultSortCompare if sortCompare
             // is not defined or returns null/false
             result = (0, _defaultSortCompare.default)(a, b, sortBy);
@@ -44255,7 +51654,7 @@ var _default = {
     },
     sortTheadThAttrs: function sortTheadThAttrs(key, field, isFoot) {
       if (!this.isSortable || isFoot && this.noFooterSorting) {
-        // No atributes if not a sortable table
+        // No attributes if not a sortable table
         return {};
       }
 
@@ -44265,7 +51664,7 @@ var _default = {
       if ((!field.label || !field.label.trim()) && !field.headerTitle) {
         // In case field's label and title are empty/blank, we need to
         // add a hint about what the column is about for non-sighted users.
-        // This is dulicated code from tbody-row mixin, but we need it
+        // This is duplicated code from tbody-row mixin, but we need it
         // here as well, since we overwrite the original aria-label.
 
         /* istanbul ignore next */
@@ -44324,16 +51723,27 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _tooltip = __webpack_require__("16ae");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
 
-var _warn = __webpack_require__("93e0");
+var _tooltip = _interopRequireDefault(__webpack_require__("16ae"));
 
-var _toolpop = __webpack_require__("c542");
+var _warn = _interopRequireDefault(__webpack_require__("93e0"));
 
-// @vue/component
-var _default = {
-  name: 'BTooltip',
-  mixins: [_toolpop.default],
+var _config = __webpack_require__("eb60");
+
+var _safeTypes = __webpack_require__("ac0f");
+
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
+
+var _toolpop = _interopRequireDefault(__webpack_require__("c542"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var NAME = 'BTooltip'; // @vue/component
+
+var _default2 = _vue.default.extend({
+  name: NAME,
+  mixins: [_toolpop.default, _normalizeSlot.default],
   props: {
     title: {
       type: String,
@@ -44346,6 +51756,20 @@ var _default = {
     placement: {
       type: String,
       default: 'top'
+    },
+    boundary: {
+      // String: scrollParent, window, or viewport
+      // Element: element reference
+      type: [String, _safeTypes.HTMLElement],
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'boundary');
+      }
+    },
+    boundaryPadding: {
+      type: Number,
+      default: function _default() {
+        return (0, _config.getComponentConfig)(NAME, 'boundaryPadding');
+      }
     }
   },
   data: function data() {
@@ -44355,6 +51779,7 @@ var _default = {
     createToolpop: function createToolpop() {
       // getTarget is in toolpop mixin
       var target = this.getTarget();
+      /* istanbul ignore else */
 
       if (target) {
         this._toolpop = new _tooltip.default(target, this.getConfig(), this.$root);
@@ -44377,10 +51802,11 @@ var _default = {
       }
     }, [h('div', {
       ref: 'title'
-    }, this.$slots.default)]);
+    }, this.normalizeSlot('default'))]);
   }
-};
-exports.default = _default;
+});
+
+exports.default = _default2;
 
 /***/ }),
 
@@ -44453,19 +51879,23 @@ exports.default = _default;
 
 
 exports.__esModule = true;
-exports.getBreakpointsDown = exports.getBreakpointsUp = exports.getBreakpoints = exports.getComponentConfig = exports.getConfigValue = exports.getDefaults = exports.getConfig = exports.resetConfig = exports.setConfig = void 0;
+exports.getBreakpointsDownCached = exports.getBreakpointsUpCached = exports.getBreakpointsCached = exports.getBreakpointsDown = exports.getBreakpointsUp = exports.getBreakpoints = exports.getComponentConfig = exports.getConfigValue = exports.getDefaults = exports.getConfig = exports.resetConfig = exports.setConfig = void 0;
 
-var _cloneDeep = __webpack_require__("f18f");
+var _cloneDeep = _interopRequireDefault(__webpack_require__("f18f"));
 
-var _get = __webpack_require__("b0df");
+var _get = _interopRequireDefault(__webpack_require__("b0df"));
 
-var _warn = __webpack_require__("93e0");
+var _memoize = _interopRequireDefault(__webpack_require__("64bb"));
 
-var _array = __webpack_require__("bb2f");
+var _warn = _interopRequireDefault(__webpack_require__("93e0"));
+
+var _inspect = __webpack_require__("0d5a");
 
 var _object = __webpack_require__("24e2");
 
-// General Bootstrap Vue configuration
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// General BootstrapVue configuration
 //
 // BREAKPOINT DEFINITIONS
 //
@@ -44515,9 +51945,16 @@ var DEFAULTS = {
     // BCard and BCardBody also inherit this prop
     subTitleTextVariant: 'muted'
   },
+  BCarousel: {
+    labelPrev: 'Previous Slide',
+    labelNext: 'Next Slide',
+    labelGotoSlide: 'Goto Slide',
+    labelIndicators: 'Select a slide to display'
+  },
   BDropdown: {
     toggleText: 'Toggle Dropdown',
-    variant: 'secondary'
+    variant: 'secondary',
+    splitVariant: null
   },
   BFormFile: {
     browseText: 'Browse',
@@ -44534,12 +51971,73 @@ var DEFAULTS = {
   BImgLazy: {
     blankColor: 'transparent'
   },
+  BJumbotron: {
+    bgVariant: null,
+    borderVariant: null,
+    textVariant: null
+  },
+  BListGroupItem: {
+    variant: null
+  },
   BModal: {
+    titleTag: 'h5',
+    size: 'md',
+    headerBgVariant: null,
+    headerBorderVariant: null,
+    headerTextVariant: null,
+    headerCloseVariant: null,
+    bodyBgVariant: null,
+    bodyTextVariant: null,
+    footerBgVariant: null,
+    footerBorderVariant: null,
+    footerTextVariant: null,
     cancelTitle: 'Cancel',
     cancelVariant: 'secondary',
     okTitle: 'OK',
     okVariant: 'primary',
     headerCloseLabel: 'Close'
+  },
+  BNavbar: {
+    variant: null
+  },
+  BNavbarToggle: {
+    label: 'Toggle navigation'
+  },
+  BProgress: {
+    variant: null
+  },
+  BProgressBar: {
+    variant: null
+  },
+  BSpinner: {
+    variant: null
+  },
+  BTable: {
+    selectedVariant: 'primary',
+    headVariant: null,
+    footVariant: null
+  },
+  BToast: {
+    toaster: 'b-toaster-top-right',
+    autoHideDelay: 5000,
+    variant: null,
+    toastClass: null,
+    headerClass: null,
+    bodyClass: null,
+    solid: false
+  },
+  BToaster: {
+    ariaLive: 'polite',
+    ariaAtomic: 'true',
+    role: null
+  },
+  BTooltip: {
+    boundary: 'scrollParent',
+    boundaryPadding: 5
+  },
+  BPopover: {
+    boundary: 'scrollParent',
+    boundaryPadding: 5
   } // This contains user defined configuration
 
 };
@@ -44560,7 +52058,7 @@ exports.getDefaults = getDefaults;
 var setConfig = function setConfig() {
   var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-  if (!(0, _object.isObject)(config)) {
+  if (!(0, _inspect.isObject)(config)) {
     /* istanbul ignore next */
     return;
   }
@@ -44582,15 +52080,15 @@ var setConfig = function setConfig() {
       // Special case for breakpoints
       var breakpoints = config.breakpoints;
 
-      if (!(0, _array.isArray)(breakpoints) || breakpoints.length < 2 || breakpoints.some(function (b) {
-        return typeof b !== 'string' || b.length === 0;
+      if (!(0, _inspect.isArray)(breakpoints) || breakpoints.length < 2 || breakpoints.some(function (b) {
+        return !(0, _inspect.isString)(b) || b.length === 0;
       })) {
         /* istanbul ignore next */
         (0, _warn.default)('config: "breakpoints" must be an array of at least 2 breakpoint names');
       } else {
         CONFIG.breakpoints = (0, _cloneDeep.default)(breakpoints);
       }
-    } else if ((0, _object.isObject)(cmpConfig)) {
+    } else if ((0, _inspect.isObject)(cmpConfig)) {
       (0, _object.keys)(cmpConfig).filter(function (key) {
         return cmpConfig.hasOwnProperty(key);
       }).forEach(function (key) {
@@ -44601,7 +52099,7 @@ var setConfig = function setConfig() {
           // If we pre-populate the config with defaults, we can skip this line
           CONFIG[cmpName] = CONFIG[cmpName] || {};
 
-          if (cmpConfig[key] !== undefined) {
+          if (!(0, _inspect.isUndefined)(cmpConfig[key])) {
             CONFIG[cmpName][key] = (0, _cloneDeep.default)(cmpConfig[key]);
           }
         }
@@ -44652,32 +52150,60 @@ exports.getComponentConfig = getComponentConfig;
 
 var getBreakpoints = function getBreakpoints() {
   return getConfigValue('breakpoints');
-}; // Convenience method for getting breakpoints with
-// the smallest breakpoint set as ''
-// Useful for components that create breakpoint specific props
+}; // Convenience method for getting all breakpoint names
+// Caches the results after first access
 
 
 exports.getBreakpoints = getBreakpoints;
+var getBreakpointsCached = (0, _memoize.default)(function () {
+  return getConfigValue('breakpoints');
+}); // Convenience method for getting breakpoints with
+// the smallest breakpoint set as ''
+// Useful for components that create breakpoint specific props
+
+exports.getBreakpointsCached = getBreakpointsCached;
 
 var getBreakpointsUp = function getBreakpointsUp() {
   var breakpoints = getBreakpoints();
   breakpoints[0] = '';
   return breakpoints;
 }; // Convenience method for getting breakpoints with
-// the largest breakpoint set as ''
+// the smallest breakpoint set as ''
 // Useful for components that create breakpoint specific props
+// Caches the results after first access
 
 
 exports.getBreakpointsUp = getBreakpointsUp;
+var getBreakpointsUpCached = (0, _memoize.default)(function () {
+  var breakpoints = getBreakpointsCached().slice();
+  breakpoints[0] = '';
+  return breakpoints;
+}); // Convenience method for getting breakpoints with
+// the largest breakpoint set as ''
+// Useful for components that create breakpoint specific props
+
+exports.getBreakpointsUpCached = getBreakpointsUpCached;
 
 var getBreakpointsDown = function getBreakpointsDown() {
   var breakpoints = getBreakpoints();
   breakpoints[breakpoints.length - 1] = '';
   return breakpoints;
-}; // Named Exports
+}; // Convenience method for getting breakpoints with
+// the largest breakpoint set as ''
+// Useful for components that create breakpoint specific props
+// Caches the results after first access
+
+/* istanbul ignore next: we don't use this method anywhere, yet */
 
 
 exports.getBreakpointsDown = getBreakpointsDown;
+var getBreakpointsDownCached = (0, _memoize.default)(function () {
+  var breakpoints = getBreakpointsCached().slice();
+  breakpoints[breakpoints.length - 1] = '';
+  return breakpoints;
+}); // Named Exports
+
+exports.getBreakpointsDownCached = getBreakpointsDownCached;
 
 /***/ }),
 
@@ -44690,7 +52216,11 @@ exports.getBreakpointsDown = getBreakpointsDown;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var props = {
   id: {
@@ -44712,11 +52242,20 @@ var props = {
   state: {
     type: [Boolean, String],
     default: null
+  },
+  ariaLive: {
+    type: String,
+    default: null
+  },
+  role: {
+    type: String,
+    default: null
   } // @vue/component
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BFormInvalidFeedback',
   functional: true,
   props: props,
@@ -44732,11 +52271,15 @@ var _default = {
         'd-block': show
       },
       attrs: {
-        id: props.id
+        id: props.id,
+        role: props.role,
+        'aria-live': props.ariaLive,
+        'aria-atomic': props.ariaLive ? 'true' : null
       }
     }), children);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -44784,6 +52327,32 @@ var _default = {
     },
 
     /**
+     * Safely register a $once event listener on the root Vue node.
+     * While Vue automatically removes listeners for individual components,
+     * when a component registers a listener on root and is destroyed,
+     * this orphans a callback because the node is gone,
+     * but the root does not clear the callback.
+     *
+     * When registering a $root listener, it also registers a listener on
+     * the component's `beforeDestroy` hook to automatically remove the
+     * event listener from the $root instance.
+     *
+     * @param {string} event
+     * @param {function} callback
+     * @chainable
+     */
+    listenOnRootOnce: function listenOnRootOnce(event, callback) {
+      var _this2 = this;
+
+      this.$root.$once(event, callback);
+      this.$on('hook:beforeDestroy', function () {
+        _this2.$root.$off(event, callback);
+      }); // Return this for easy chaining
+
+      return this;
+    },
+
+    /**
      * Convenience method for calling vm.$emit on vm.$root.
      * @param {string} event
      * @param {*} args
@@ -44816,21 +52385,31 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _navbar = __webpack_require__("e1a8");
+var _navbar = _interopRequireDefault(__webpack_require__("e1a8"));
 
-var _navbarNav = __webpack_require__("4d00");
+exports.BNavbar = _navbar.default;
 
-var _navbarBrand = __webpack_require__("c52a");
+var _navbarNav = _interopRequireDefault(__webpack_require__("4d00"));
 
-var _navbarToggle = __webpack_require__("41cd");
+exports.BNavbarNav = _navbarNav.default;
 
-var _nav = __webpack_require__("6423");
+var _navbarBrand = _interopRequireDefault(__webpack_require__("c52a"));
 
-var _collapse = __webpack_require__("f3fa");
+exports.BNavbarBrand = _navbarBrand.default;
 
-var _dropdown = __webpack_require__("c7b9");
+var _navbarToggle = _interopRequireDefault(__webpack_require__("41cd"));
+
+exports.BNavbarToggle = _navbarToggle.default;
+
+var _nav = _interopRequireDefault(__webpack_require__("6423"));
+
+var _collapse = _interopRequireDefault(__webpack_require__("f3fa"));
+
+var _dropdown = _interopRequireDefault(__webpack_require__("c7b9"));
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BNavbar: _navbar.default,
@@ -44863,9 +52442,15 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
-var _link = __webpack_require__("4e40");
+var _link = _interopRequireWildcard(__webpack_require__("4e40"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -44874,7 +52459,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var props = (0, _link.propsFactory)(); // @vue/component
 
 exports.props = props;
-var _default2 = {
+
+var _default2 = _vue.default.extend({
   name: 'BNavItem',
   functional: true,
   props: _objectSpread({}, props, {
@@ -44906,7 +52492,8 @@ var _default2 = {
       on: listeners
     }, children)]);
   }
-};
+});
+
 exports.default = _default2;
 
 /***/ }),
@@ -44920,11 +52507,17 @@ exports.default = _default2;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _formCheckbox = __webpack_require__("bdb1");
+var _formCheckbox = _interopRequireDefault(__webpack_require__("bdb1"));
 
-var _formCheckboxGroup = __webpack_require__("11ab");
+exports.BFormCheckbox = _formCheckbox.default;
+
+var _formCheckboxGroup = _interopRequireDefault(__webpack_require__("11ab"));
+
+exports.BFormCheckboxGroup = _formCheckboxGroup.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BFormCheckbox: _formCheckbox.default,
@@ -44943,2597 +52536,6 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ "f0bd":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(global) {/**!
- * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version 1.14.7
- * @license
- * Copyright (c) 2016 Federico Zivolo and contributors
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-var isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
-
-var longerTimeoutBrowsers = ['Edge', 'Trident', 'Firefox'];
-var timeoutDuration = 0;
-for (var i = 0; i < longerTimeoutBrowsers.length; i += 1) {
-  if (isBrowser && navigator.userAgent.indexOf(longerTimeoutBrowsers[i]) >= 0) {
-    timeoutDuration = 1;
-    break;
-  }
-}
-
-function microtaskDebounce(fn) {
-  var called = false;
-  return function () {
-    if (called) {
-      return;
-    }
-    called = true;
-    window.Promise.resolve().then(function () {
-      called = false;
-      fn();
-    });
-  };
-}
-
-function taskDebounce(fn) {
-  var scheduled = false;
-  return function () {
-    if (!scheduled) {
-      scheduled = true;
-      setTimeout(function () {
-        scheduled = false;
-        fn();
-      }, timeoutDuration);
-    }
-  };
-}
-
-var supportsMicroTasks = isBrowser && window.Promise;
-
-/**
-* Create a debounced version of a method, that's asynchronously deferred
-* but called in the minimum time possible.
-*
-* @method
-* @memberof Popper.Utils
-* @argument {Function} fn
-* @returns {Function}
-*/
-var debounce = supportsMicroTasks ? microtaskDebounce : taskDebounce;
-
-/**
- * Check if the given variable is a function
- * @method
- * @memberof Popper.Utils
- * @argument {Any} functionToCheck - variable to check
- * @returns {Boolean} answer to: is a function?
- */
-function isFunction(functionToCheck) {
-  var getType = {};
-  return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
-}
-
-/**
- * Get CSS computed property of the given element
- * @method
- * @memberof Popper.Utils
- * @argument {Eement} element
- * @argument {String} property
- */
-function getStyleComputedProperty(element, property) {
-  if (element.nodeType !== 1) {
-    return [];
-  }
-  // NOTE: 1 DOM access here
-  var window = element.ownerDocument.defaultView;
-  var css = window.getComputedStyle(element, null);
-  return property ? css[property] : css;
-}
-
-/**
- * Returns the parentNode or the host of the element
- * @method
- * @memberof Popper.Utils
- * @argument {Element} element
- * @returns {Element} parent
- */
-function getParentNode(element) {
-  if (element.nodeName === 'HTML') {
-    return element;
-  }
-  return element.parentNode || element.host;
-}
-
-/**
- * Returns the scrolling parent of the given element
- * @method
- * @memberof Popper.Utils
- * @argument {Element} element
- * @returns {Element} scroll parent
- */
-function getScrollParent(element) {
-  // Return body, `getScroll` will take care to get the correct `scrollTop` from it
-  if (!element) {
-    return document.body;
-  }
-
-  switch (element.nodeName) {
-    case 'HTML':
-    case 'BODY':
-      return element.ownerDocument.body;
-    case '#document':
-      return element.body;
-  }
-
-  // Firefox want us to check `-x` and `-y` variations as well
-
-  var _getStyleComputedProp = getStyleComputedProperty(element),
-      overflow = _getStyleComputedProp.overflow,
-      overflowX = _getStyleComputedProp.overflowX,
-      overflowY = _getStyleComputedProp.overflowY;
-
-  if (/(auto|scroll|overlay)/.test(overflow + overflowY + overflowX)) {
-    return element;
-  }
-
-  return getScrollParent(getParentNode(element));
-}
-
-var isIE11 = isBrowser && !!(window.MSInputMethodContext && document.documentMode);
-var isIE10 = isBrowser && /MSIE 10/.test(navigator.userAgent);
-
-/**
- * Determines if the browser is Internet Explorer
- * @method
- * @memberof Popper.Utils
- * @param {Number} version to check
- * @returns {Boolean} isIE
- */
-function isIE(version) {
-  if (version === 11) {
-    return isIE11;
-  }
-  if (version === 10) {
-    return isIE10;
-  }
-  return isIE11 || isIE10;
-}
-
-/**
- * Returns the offset parent of the given element
- * @method
- * @memberof Popper.Utils
- * @argument {Element} element
- * @returns {Element} offset parent
- */
-function getOffsetParent(element) {
-  if (!element) {
-    return document.documentElement;
-  }
-
-  var noOffsetParent = isIE(10) ? document.body : null;
-
-  // NOTE: 1 DOM access here
-  var offsetParent = element.offsetParent || null;
-  // Skip hidden elements which don't have an offsetParent
-  while (offsetParent === noOffsetParent && element.nextElementSibling) {
-    offsetParent = (element = element.nextElementSibling).offsetParent;
-  }
-
-  var nodeName = offsetParent && offsetParent.nodeName;
-
-  if (!nodeName || nodeName === 'BODY' || nodeName === 'HTML') {
-    return element ? element.ownerDocument.documentElement : document.documentElement;
-  }
-
-  // .offsetParent will return the closest TH, TD or TABLE in case
-  // no offsetParent is present, I hate this job...
-  if (['TH', 'TD', 'TABLE'].indexOf(offsetParent.nodeName) !== -1 && getStyleComputedProperty(offsetParent, 'position') === 'static') {
-    return getOffsetParent(offsetParent);
-  }
-
-  return offsetParent;
-}
-
-function isOffsetContainer(element) {
-  var nodeName = element.nodeName;
-
-  if (nodeName === 'BODY') {
-    return false;
-  }
-  return nodeName === 'HTML' || getOffsetParent(element.firstElementChild) === element;
-}
-
-/**
- * Finds the root node (document, shadowDOM root) of the given element
- * @method
- * @memberof Popper.Utils
- * @argument {Element} node
- * @returns {Element} root node
- */
-function getRoot(node) {
-  if (node.parentNode !== null) {
-    return getRoot(node.parentNode);
-  }
-
-  return node;
-}
-
-/**
- * Finds the offset parent common to the two provided nodes
- * @method
- * @memberof Popper.Utils
- * @argument {Element} element1
- * @argument {Element} element2
- * @returns {Element} common offset parent
- */
-function findCommonOffsetParent(element1, element2) {
-  // This check is needed to avoid errors in case one of the elements isn't defined for any reason
-  if (!element1 || !element1.nodeType || !element2 || !element2.nodeType) {
-    return document.documentElement;
-  }
-
-  // Here we make sure to give as "start" the element that comes first in the DOM
-  var order = element1.compareDocumentPosition(element2) & Node.DOCUMENT_POSITION_FOLLOWING;
-  var start = order ? element1 : element2;
-  var end = order ? element2 : element1;
-
-  // Get common ancestor container
-  var range = document.createRange();
-  range.setStart(start, 0);
-  range.setEnd(end, 0);
-  var commonAncestorContainer = range.commonAncestorContainer;
-
-  // Both nodes are inside #document
-
-  if (element1 !== commonAncestorContainer && element2 !== commonAncestorContainer || start.contains(end)) {
-    if (isOffsetContainer(commonAncestorContainer)) {
-      return commonAncestorContainer;
-    }
-
-    return getOffsetParent(commonAncestorContainer);
-  }
-
-  // one of the nodes is inside shadowDOM, find which one
-  var element1root = getRoot(element1);
-  if (element1root.host) {
-    return findCommonOffsetParent(element1root.host, element2);
-  } else {
-    return findCommonOffsetParent(element1, getRoot(element2).host);
-  }
-}
-
-/**
- * Gets the scroll value of the given element in the given side (top and left)
- * @method
- * @memberof Popper.Utils
- * @argument {Element} element
- * @argument {String} side `top` or `left`
- * @returns {number} amount of scrolled pixels
- */
-function getScroll(element) {
-  var side = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'top';
-
-  var upperSide = side === 'top' ? 'scrollTop' : 'scrollLeft';
-  var nodeName = element.nodeName;
-
-  if (nodeName === 'BODY' || nodeName === 'HTML') {
-    var html = element.ownerDocument.documentElement;
-    var scrollingElement = element.ownerDocument.scrollingElement || html;
-    return scrollingElement[upperSide];
-  }
-
-  return element[upperSide];
-}
-
-/*
- * Sum or subtract the element scroll values (left and top) from a given rect object
- * @method
- * @memberof Popper.Utils
- * @param {Object} rect - Rect object you want to change
- * @param {HTMLElement} element - The element from the function reads the scroll values
- * @param {Boolean} subtract - set to true if you want to subtract the scroll values
- * @return {Object} rect - The modifier rect object
- */
-function includeScroll(rect, element) {
-  var subtract = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-
-  var scrollTop = getScroll(element, 'top');
-  var scrollLeft = getScroll(element, 'left');
-  var modifier = subtract ? -1 : 1;
-  rect.top += scrollTop * modifier;
-  rect.bottom += scrollTop * modifier;
-  rect.left += scrollLeft * modifier;
-  rect.right += scrollLeft * modifier;
-  return rect;
-}
-
-/*
- * Helper to detect borders of a given element
- * @method
- * @memberof Popper.Utils
- * @param {CSSStyleDeclaration} styles
- * Result of `getStyleComputedProperty` on the given element
- * @param {String} axis - `x` or `y`
- * @return {number} borders - The borders size of the given axis
- */
-
-function getBordersSize(styles, axis) {
-  var sideA = axis === 'x' ? 'Left' : 'Top';
-  var sideB = sideA === 'Left' ? 'Right' : 'Bottom';
-
-  return parseFloat(styles['border' + sideA + 'Width'], 10) + parseFloat(styles['border' + sideB + 'Width'], 10);
-}
-
-function getSize(axis, body, html, computedStyle) {
-  return Math.max(body['offset' + axis], body['scroll' + axis], html['client' + axis], html['offset' + axis], html['scroll' + axis], isIE(10) ? parseInt(html['offset' + axis]) + parseInt(computedStyle['margin' + (axis === 'Height' ? 'Top' : 'Left')]) + parseInt(computedStyle['margin' + (axis === 'Height' ? 'Bottom' : 'Right')]) : 0);
-}
-
-function getWindowSizes(document) {
-  var body = document.body;
-  var html = document.documentElement;
-  var computedStyle = isIE(10) && getComputedStyle(html);
-
-  return {
-    height: getSize('Height', body, html, computedStyle),
-    width: getSize('Width', body, html, computedStyle)
-  };
-}
-
-var classCallCheck = function (instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-};
-
-var createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
-
-
-
-
-
-var defineProperty = function (obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-};
-
-var _extends = Object.assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
-
-  return target;
-};
-
-/**
- * Given element offsets, generate an output similar to getBoundingClientRect
- * @method
- * @memberof Popper.Utils
- * @argument {Object} offsets
- * @returns {Object} ClientRect like output
- */
-function getClientRect(offsets) {
-  return _extends({}, offsets, {
-    right: offsets.left + offsets.width,
-    bottom: offsets.top + offsets.height
-  });
-}
-
-/**
- * Get bounding client rect of given element
- * @method
- * @memberof Popper.Utils
- * @param {HTMLElement} element
- * @return {Object} client rect
- */
-function getBoundingClientRect(element) {
-  var rect = {};
-
-  // IE10 10 FIX: Please, don't ask, the element isn't
-  // considered in DOM in some circumstances...
-  // This isn't reproducible in IE10 compatibility mode of IE11
-  try {
-    if (isIE(10)) {
-      rect = element.getBoundingClientRect();
-      var scrollTop = getScroll(element, 'top');
-      var scrollLeft = getScroll(element, 'left');
-      rect.top += scrollTop;
-      rect.left += scrollLeft;
-      rect.bottom += scrollTop;
-      rect.right += scrollLeft;
-    } else {
-      rect = element.getBoundingClientRect();
-    }
-  } catch (e) {}
-
-  var result = {
-    left: rect.left,
-    top: rect.top,
-    width: rect.right - rect.left,
-    height: rect.bottom - rect.top
-  };
-
-  // subtract scrollbar size from sizes
-  var sizes = element.nodeName === 'HTML' ? getWindowSizes(element.ownerDocument) : {};
-  var width = sizes.width || element.clientWidth || result.right - result.left;
-  var height = sizes.height || element.clientHeight || result.bottom - result.top;
-
-  var horizScrollbar = element.offsetWidth - width;
-  var vertScrollbar = element.offsetHeight - height;
-
-  // if an hypothetical scrollbar is detected, we must be sure it's not a `border`
-  // we make this check conditional for performance reasons
-  if (horizScrollbar || vertScrollbar) {
-    var styles = getStyleComputedProperty(element);
-    horizScrollbar -= getBordersSize(styles, 'x');
-    vertScrollbar -= getBordersSize(styles, 'y');
-
-    result.width -= horizScrollbar;
-    result.height -= vertScrollbar;
-  }
-
-  return getClientRect(result);
-}
-
-function getOffsetRectRelativeToArbitraryNode(children, parent) {
-  var fixedPosition = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-
-  var isIE10 = isIE(10);
-  var isHTML = parent.nodeName === 'HTML';
-  var childrenRect = getBoundingClientRect(children);
-  var parentRect = getBoundingClientRect(parent);
-  var scrollParent = getScrollParent(children);
-
-  var styles = getStyleComputedProperty(parent);
-  var borderTopWidth = parseFloat(styles.borderTopWidth, 10);
-  var borderLeftWidth = parseFloat(styles.borderLeftWidth, 10);
-
-  // In cases where the parent is fixed, we must ignore negative scroll in offset calc
-  if (fixedPosition && isHTML) {
-    parentRect.top = Math.max(parentRect.top, 0);
-    parentRect.left = Math.max(parentRect.left, 0);
-  }
-  var offsets = getClientRect({
-    top: childrenRect.top - parentRect.top - borderTopWidth,
-    left: childrenRect.left - parentRect.left - borderLeftWidth,
-    width: childrenRect.width,
-    height: childrenRect.height
-  });
-  offsets.marginTop = 0;
-  offsets.marginLeft = 0;
-
-  // Subtract margins of documentElement in case it's being used as parent
-  // we do this only on HTML because it's the only element that behaves
-  // differently when margins are applied to it. The margins are included in
-  // the box of the documentElement, in the other cases not.
-  if (!isIE10 && isHTML) {
-    var marginTop = parseFloat(styles.marginTop, 10);
-    var marginLeft = parseFloat(styles.marginLeft, 10);
-
-    offsets.top -= borderTopWidth - marginTop;
-    offsets.bottom -= borderTopWidth - marginTop;
-    offsets.left -= borderLeftWidth - marginLeft;
-    offsets.right -= borderLeftWidth - marginLeft;
-
-    // Attach marginTop and marginLeft because in some circumstances we may need them
-    offsets.marginTop = marginTop;
-    offsets.marginLeft = marginLeft;
-  }
-
-  if (isIE10 && !fixedPosition ? parent.contains(scrollParent) : parent === scrollParent && scrollParent.nodeName !== 'BODY') {
-    offsets = includeScroll(offsets, parent);
-  }
-
-  return offsets;
-}
-
-function getViewportOffsetRectRelativeToArtbitraryNode(element) {
-  var excludeScroll = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-  var html = element.ownerDocument.documentElement;
-  var relativeOffset = getOffsetRectRelativeToArbitraryNode(element, html);
-  var width = Math.max(html.clientWidth, window.innerWidth || 0);
-  var height = Math.max(html.clientHeight, window.innerHeight || 0);
-
-  var scrollTop = !excludeScroll ? getScroll(html) : 0;
-  var scrollLeft = !excludeScroll ? getScroll(html, 'left') : 0;
-
-  var offset = {
-    top: scrollTop - relativeOffset.top + relativeOffset.marginTop,
-    left: scrollLeft - relativeOffset.left + relativeOffset.marginLeft,
-    width: width,
-    height: height
-  };
-
-  return getClientRect(offset);
-}
-
-/**
- * Check if the given element is fixed or is inside a fixed parent
- * @method
- * @memberof Popper.Utils
- * @argument {Element} element
- * @argument {Element} customContainer
- * @returns {Boolean} answer to "isFixed?"
- */
-function isFixed(element) {
-  var nodeName = element.nodeName;
-  if (nodeName === 'BODY' || nodeName === 'HTML') {
-    return false;
-  }
-  if (getStyleComputedProperty(element, 'position') === 'fixed') {
-    return true;
-  }
-  var parentNode = getParentNode(element);
-  if (!parentNode) {
-    return false;
-  }
-  return isFixed(parentNode);
-}
-
-/**
- * Finds the first parent of an element that has a transformed property defined
- * @method
- * @memberof Popper.Utils
- * @argument {Element} element
- * @returns {Element} first transformed parent or documentElement
- */
-
-function getFixedPositionOffsetParent(element) {
-  // This check is needed to avoid errors in case one of the elements isn't defined for any reason
-  if (!element || !element.parentElement || isIE()) {
-    return document.documentElement;
-  }
-  var el = element.parentElement;
-  while (el && getStyleComputedProperty(el, 'transform') === 'none') {
-    el = el.parentElement;
-  }
-  return el || document.documentElement;
-}
-
-/**
- * Computed the boundaries limits and return them
- * @method
- * @memberof Popper.Utils
- * @param {HTMLElement} popper
- * @param {HTMLElement} reference
- * @param {number} padding
- * @param {HTMLElement} boundariesElement - Element used to define the boundaries
- * @param {Boolean} fixedPosition - Is in fixed position mode
- * @returns {Object} Coordinates of the boundaries
- */
-function getBoundaries(popper, reference, padding, boundariesElement) {
-  var fixedPosition = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
-
-  // NOTE: 1 DOM access here
-
-  var boundaries = { top: 0, left: 0 };
-  var offsetParent = fixedPosition ? getFixedPositionOffsetParent(popper) : findCommonOffsetParent(popper, reference);
-
-  // Handle viewport case
-  if (boundariesElement === 'viewport') {
-    boundaries = getViewportOffsetRectRelativeToArtbitraryNode(offsetParent, fixedPosition);
-  } else {
-    // Handle other cases based on DOM element used as boundaries
-    var boundariesNode = void 0;
-    if (boundariesElement === 'scrollParent') {
-      boundariesNode = getScrollParent(getParentNode(reference));
-      if (boundariesNode.nodeName === 'BODY') {
-        boundariesNode = popper.ownerDocument.documentElement;
-      }
-    } else if (boundariesElement === 'window') {
-      boundariesNode = popper.ownerDocument.documentElement;
-    } else {
-      boundariesNode = boundariesElement;
-    }
-
-    var offsets = getOffsetRectRelativeToArbitraryNode(boundariesNode, offsetParent, fixedPosition);
-
-    // In case of HTML, we need a different computation
-    if (boundariesNode.nodeName === 'HTML' && !isFixed(offsetParent)) {
-      var _getWindowSizes = getWindowSizes(popper.ownerDocument),
-          height = _getWindowSizes.height,
-          width = _getWindowSizes.width;
-
-      boundaries.top += offsets.top - offsets.marginTop;
-      boundaries.bottom = height + offsets.top;
-      boundaries.left += offsets.left - offsets.marginLeft;
-      boundaries.right = width + offsets.left;
-    } else {
-      // for all the other DOM elements, this one is good
-      boundaries = offsets;
-    }
-  }
-
-  // Add paddings
-  padding = padding || 0;
-  var isPaddingNumber = typeof padding === 'number';
-  boundaries.left += isPaddingNumber ? padding : padding.left || 0;
-  boundaries.top += isPaddingNumber ? padding : padding.top || 0;
-  boundaries.right -= isPaddingNumber ? padding : padding.right || 0;
-  boundaries.bottom -= isPaddingNumber ? padding : padding.bottom || 0;
-
-  return boundaries;
-}
-
-function getArea(_ref) {
-  var width = _ref.width,
-      height = _ref.height;
-
-  return width * height;
-}
-
-/**
- * Utility used to transform the `auto` placement to the placement with more
- * available space.
- * @method
- * @memberof Popper.Utils
- * @argument {Object} data - The data object generated by update method
- * @argument {Object} options - Modifiers configuration and options
- * @returns {Object} The data object, properly modified
- */
-function computeAutoPlacement(placement, refRect, popper, reference, boundariesElement) {
-  var padding = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0;
-
-  if (placement.indexOf('auto') === -1) {
-    return placement;
-  }
-
-  var boundaries = getBoundaries(popper, reference, padding, boundariesElement);
-
-  var rects = {
-    top: {
-      width: boundaries.width,
-      height: refRect.top - boundaries.top
-    },
-    right: {
-      width: boundaries.right - refRect.right,
-      height: boundaries.height
-    },
-    bottom: {
-      width: boundaries.width,
-      height: boundaries.bottom - refRect.bottom
-    },
-    left: {
-      width: refRect.left - boundaries.left,
-      height: boundaries.height
-    }
-  };
-
-  var sortedAreas = Object.keys(rects).map(function (key) {
-    return _extends({
-      key: key
-    }, rects[key], {
-      area: getArea(rects[key])
-    });
-  }).sort(function (a, b) {
-    return b.area - a.area;
-  });
-
-  var filteredAreas = sortedAreas.filter(function (_ref2) {
-    var width = _ref2.width,
-        height = _ref2.height;
-    return width >= popper.clientWidth && height >= popper.clientHeight;
-  });
-
-  var computedPlacement = filteredAreas.length > 0 ? filteredAreas[0].key : sortedAreas[0].key;
-
-  var variation = placement.split('-')[1];
-
-  return computedPlacement + (variation ? '-' + variation : '');
-}
-
-/**
- * Get offsets to the reference element
- * @method
- * @memberof Popper.Utils
- * @param {Object} state
- * @param {Element} popper - the popper element
- * @param {Element} reference - the reference element (the popper will be relative to this)
- * @param {Element} fixedPosition - is in fixed position mode
- * @returns {Object} An object containing the offsets which will be applied to the popper
- */
-function getReferenceOffsets(state, popper, reference) {
-  var fixedPosition = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
-
-  var commonOffsetParent = fixedPosition ? getFixedPositionOffsetParent(popper) : findCommonOffsetParent(popper, reference);
-  return getOffsetRectRelativeToArbitraryNode(reference, commonOffsetParent, fixedPosition);
-}
-
-/**
- * Get the outer sizes of the given element (offset size + margins)
- * @method
- * @memberof Popper.Utils
- * @argument {Element} element
- * @returns {Object} object containing width and height properties
- */
-function getOuterSizes(element) {
-  var window = element.ownerDocument.defaultView;
-  var styles = window.getComputedStyle(element);
-  var x = parseFloat(styles.marginTop || 0) + parseFloat(styles.marginBottom || 0);
-  var y = parseFloat(styles.marginLeft || 0) + parseFloat(styles.marginRight || 0);
-  var result = {
-    width: element.offsetWidth + y,
-    height: element.offsetHeight + x
-  };
-  return result;
-}
-
-/**
- * Get the opposite placement of the given one
- * @method
- * @memberof Popper.Utils
- * @argument {String} placement
- * @returns {String} flipped placement
- */
-function getOppositePlacement(placement) {
-  var hash = { left: 'right', right: 'left', bottom: 'top', top: 'bottom' };
-  return placement.replace(/left|right|bottom|top/g, function (matched) {
-    return hash[matched];
-  });
-}
-
-/**
- * Get offsets to the popper
- * @method
- * @memberof Popper.Utils
- * @param {Object} position - CSS position the Popper will get applied
- * @param {HTMLElement} popper - the popper element
- * @param {Object} referenceOffsets - the reference offsets (the popper will be relative to this)
- * @param {String} placement - one of the valid placement options
- * @returns {Object} popperOffsets - An object containing the offsets which will be applied to the popper
- */
-function getPopperOffsets(popper, referenceOffsets, placement) {
-  placement = placement.split('-')[0];
-
-  // Get popper node sizes
-  var popperRect = getOuterSizes(popper);
-
-  // Add position, width and height to our offsets object
-  var popperOffsets = {
-    width: popperRect.width,
-    height: popperRect.height
-  };
-
-  // depending by the popper placement we have to compute its offsets slightly differently
-  var isHoriz = ['right', 'left'].indexOf(placement) !== -1;
-  var mainSide = isHoriz ? 'top' : 'left';
-  var secondarySide = isHoriz ? 'left' : 'top';
-  var measurement = isHoriz ? 'height' : 'width';
-  var secondaryMeasurement = !isHoriz ? 'height' : 'width';
-
-  popperOffsets[mainSide] = referenceOffsets[mainSide] + referenceOffsets[measurement] / 2 - popperRect[measurement] / 2;
-  if (placement === secondarySide) {
-    popperOffsets[secondarySide] = referenceOffsets[secondarySide] - popperRect[secondaryMeasurement];
-  } else {
-    popperOffsets[secondarySide] = referenceOffsets[getOppositePlacement(secondarySide)];
-  }
-
-  return popperOffsets;
-}
-
-/**
- * Mimics the `find` method of Array
- * @method
- * @memberof Popper.Utils
- * @argument {Array} arr
- * @argument prop
- * @argument value
- * @returns index or -1
- */
-function find(arr, check) {
-  // use native find if supported
-  if (Array.prototype.find) {
-    return arr.find(check);
-  }
-
-  // use `filter` to obtain the same behavior of `find`
-  return arr.filter(check)[0];
-}
-
-/**
- * Return the index of the matching object
- * @method
- * @memberof Popper.Utils
- * @argument {Array} arr
- * @argument prop
- * @argument value
- * @returns index or -1
- */
-function findIndex(arr, prop, value) {
-  // use native findIndex if supported
-  if (Array.prototype.findIndex) {
-    return arr.findIndex(function (cur) {
-      return cur[prop] === value;
-    });
-  }
-
-  // use `find` + `indexOf` if `findIndex` isn't supported
-  var match = find(arr, function (obj) {
-    return obj[prop] === value;
-  });
-  return arr.indexOf(match);
-}
-
-/**
- * Loop trough the list of modifiers and run them in order,
- * each of them will then edit the data object.
- * @method
- * @memberof Popper.Utils
- * @param {dataObject} data
- * @param {Array} modifiers
- * @param {String} ends - Optional modifier name used as stopper
- * @returns {dataObject}
- */
-function runModifiers(modifiers, data, ends) {
-  var modifiersToRun = ends === undefined ? modifiers : modifiers.slice(0, findIndex(modifiers, 'name', ends));
-
-  modifiersToRun.forEach(function (modifier) {
-    if (modifier['function']) {
-      // eslint-disable-line dot-notation
-      console.warn('`modifier.function` is deprecated, use `modifier.fn`!');
-    }
-    var fn = modifier['function'] || modifier.fn; // eslint-disable-line dot-notation
-    if (modifier.enabled && isFunction(fn)) {
-      // Add properties to offsets to make them a complete clientRect object
-      // we do this before each modifier to make sure the previous one doesn't
-      // mess with these values
-      data.offsets.popper = getClientRect(data.offsets.popper);
-      data.offsets.reference = getClientRect(data.offsets.reference);
-
-      data = fn(data, modifier);
-    }
-  });
-
-  return data;
-}
-
-/**
- * Updates the position of the popper, computing the new offsets and applying
- * the new style.<br />
- * Prefer `scheduleUpdate` over `update` because of performance reasons.
- * @method
- * @memberof Popper
- */
-function update() {
-  // if popper is destroyed, don't perform any further update
-  if (this.state.isDestroyed) {
-    return;
-  }
-
-  var data = {
-    instance: this,
-    styles: {},
-    arrowStyles: {},
-    attributes: {},
-    flipped: false,
-    offsets: {}
-  };
-
-  // compute reference element offsets
-  data.offsets.reference = getReferenceOffsets(this.state, this.popper, this.reference, this.options.positionFixed);
-
-  // compute auto placement, store placement inside the data object,
-  // modifiers will be able to edit `placement` if needed
-  // and refer to originalPlacement to know the original value
-  data.placement = computeAutoPlacement(this.options.placement, data.offsets.reference, this.popper, this.reference, this.options.modifiers.flip.boundariesElement, this.options.modifiers.flip.padding);
-
-  // store the computed placement inside `originalPlacement`
-  data.originalPlacement = data.placement;
-
-  data.positionFixed = this.options.positionFixed;
-
-  // compute the popper offsets
-  data.offsets.popper = getPopperOffsets(this.popper, data.offsets.reference, data.placement);
-
-  data.offsets.popper.position = this.options.positionFixed ? 'fixed' : 'absolute';
-
-  // run the modifiers
-  data = runModifiers(this.modifiers, data);
-
-  // the first `update` will call `onCreate` callback
-  // the other ones will call `onUpdate` callback
-  if (!this.state.isCreated) {
-    this.state.isCreated = true;
-    this.options.onCreate(data);
-  } else {
-    this.options.onUpdate(data);
-  }
-}
-
-/**
- * Helper used to know if the given modifier is enabled.
- * @method
- * @memberof Popper.Utils
- * @returns {Boolean}
- */
-function isModifierEnabled(modifiers, modifierName) {
-  return modifiers.some(function (_ref) {
-    var name = _ref.name,
-        enabled = _ref.enabled;
-    return enabled && name === modifierName;
-  });
-}
-
-/**
- * Get the prefixed supported property name
- * @method
- * @memberof Popper.Utils
- * @argument {String} property (camelCase)
- * @returns {String} prefixed property (camelCase or PascalCase, depending on the vendor prefix)
- */
-function getSupportedPropertyName(property) {
-  var prefixes = [false, 'ms', 'Webkit', 'Moz', 'O'];
-  var upperProp = property.charAt(0).toUpperCase() + property.slice(1);
-
-  for (var i = 0; i < prefixes.length; i++) {
-    var prefix = prefixes[i];
-    var toCheck = prefix ? '' + prefix + upperProp : property;
-    if (typeof document.body.style[toCheck] !== 'undefined') {
-      return toCheck;
-    }
-  }
-  return null;
-}
-
-/**
- * Destroys the popper.
- * @method
- * @memberof Popper
- */
-function destroy() {
-  this.state.isDestroyed = true;
-
-  // touch DOM only if `applyStyle` modifier is enabled
-  if (isModifierEnabled(this.modifiers, 'applyStyle')) {
-    this.popper.removeAttribute('x-placement');
-    this.popper.style.position = '';
-    this.popper.style.top = '';
-    this.popper.style.left = '';
-    this.popper.style.right = '';
-    this.popper.style.bottom = '';
-    this.popper.style.willChange = '';
-    this.popper.style[getSupportedPropertyName('transform')] = '';
-  }
-
-  this.disableEventListeners();
-
-  // remove the popper if user explicity asked for the deletion on destroy
-  // do not use `remove` because IE11 doesn't support it
-  if (this.options.removeOnDestroy) {
-    this.popper.parentNode.removeChild(this.popper);
-  }
-  return this;
-}
-
-/**
- * Get the window associated with the element
- * @argument {Element} element
- * @returns {Window}
- */
-function getWindow(element) {
-  var ownerDocument = element.ownerDocument;
-  return ownerDocument ? ownerDocument.defaultView : window;
-}
-
-function attachToScrollParents(scrollParent, event, callback, scrollParents) {
-  var isBody = scrollParent.nodeName === 'BODY';
-  var target = isBody ? scrollParent.ownerDocument.defaultView : scrollParent;
-  target.addEventListener(event, callback, { passive: true });
-
-  if (!isBody) {
-    attachToScrollParents(getScrollParent(target.parentNode), event, callback, scrollParents);
-  }
-  scrollParents.push(target);
-}
-
-/**
- * Setup needed event listeners used to update the popper position
- * @method
- * @memberof Popper.Utils
- * @private
- */
-function setupEventListeners(reference, options, state, updateBound) {
-  // Resize event listener on window
-  state.updateBound = updateBound;
-  getWindow(reference).addEventListener('resize', state.updateBound, { passive: true });
-
-  // Scroll event listener on scroll parents
-  var scrollElement = getScrollParent(reference);
-  attachToScrollParents(scrollElement, 'scroll', state.updateBound, state.scrollParents);
-  state.scrollElement = scrollElement;
-  state.eventsEnabled = true;
-
-  return state;
-}
-
-/**
- * It will add resize/scroll events and start recalculating
- * position of the popper element when they are triggered.
- * @method
- * @memberof Popper
- */
-function enableEventListeners() {
-  if (!this.state.eventsEnabled) {
-    this.state = setupEventListeners(this.reference, this.options, this.state, this.scheduleUpdate);
-  }
-}
-
-/**
- * Remove event listeners used to update the popper position
- * @method
- * @memberof Popper.Utils
- * @private
- */
-function removeEventListeners(reference, state) {
-  // Remove resize event listener on window
-  getWindow(reference).removeEventListener('resize', state.updateBound);
-
-  // Remove scroll event listener on scroll parents
-  state.scrollParents.forEach(function (target) {
-    target.removeEventListener('scroll', state.updateBound);
-  });
-
-  // Reset state
-  state.updateBound = null;
-  state.scrollParents = [];
-  state.scrollElement = null;
-  state.eventsEnabled = false;
-  return state;
-}
-
-/**
- * It will remove resize/scroll events and won't recalculate popper position
- * when they are triggered. It also won't trigger `onUpdate` callback anymore,
- * unless you call `update` method manually.
- * @method
- * @memberof Popper
- */
-function disableEventListeners() {
-  if (this.state.eventsEnabled) {
-    cancelAnimationFrame(this.scheduleUpdate);
-    this.state = removeEventListeners(this.reference, this.state);
-  }
-}
-
-/**
- * Tells if a given input is a number
- * @method
- * @memberof Popper.Utils
- * @param {*} input to check
- * @return {Boolean}
- */
-function isNumeric(n) {
-  return n !== '' && !isNaN(parseFloat(n)) && isFinite(n);
-}
-
-/**
- * Set the style to the given popper
- * @method
- * @memberof Popper.Utils
- * @argument {Element} element - Element to apply the style to
- * @argument {Object} styles
- * Object with a list of properties and values which will be applied to the element
- */
-function setStyles(element, styles) {
-  Object.keys(styles).forEach(function (prop) {
-    var unit = '';
-    // add unit if the value is numeric and is one of the following
-    if (['width', 'height', 'top', 'right', 'bottom', 'left'].indexOf(prop) !== -1 && isNumeric(styles[prop])) {
-      unit = 'px';
-    }
-    element.style[prop] = styles[prop] + unit;
-  });
-}
-
-/**
- * Set the attributes to the given popper
- * @method
- * @memberof Popper.Utils
- * @argument {Element} element - Element to apply the attributes to
- * @argument {Object} styles
- * Object with a list of properties and values which will be applied to the element
- */
-function setAttributes(element, attributes) {
-  Object.keys(attributes).forEach(function (prop) {
-    var value = attributes[prop];
-    if (value !== false) {
-      element.setAttribute(prop, attributes[prop]);
-    } else {
-      element.removeAttribute(prop);
-    }
-  });
-}
-
-/**
- * @function
- * @memberof Modifiers
- * @argument {Object} data - The data object generated by `update` method
- * @argument {Object} data.styles - List of style properties - values to apply to popper element
- * @argument {Object} data.attributes - List of attribute properties - values to apply to popper element
- * @argument {Object} options - Modifiers configuration and options
- * @returns {Object} The same data object
- */
-function applyStyle(data) {
-  // any property present in `data.styles` will be applied to the popper,
-  // in this way we can make the 3rd party modifiers add custom styles to it
-  // Be aware, modifiers could override the properties defined in the previous
-  // lines of this modifier!
-  setStyles(data.instance.popper, data.styles);
-
-  // any property present in `data.attributes` will be applied to the popper,
-  // they will be set as HTML attributes of the element
-  setAttributes(data.instance.popper, data.attributes);
-
-  // if arrowElement is defined and arrowStyles has some properties
-  if (data.arrowElement && Object.keys(data.arrowStyles).length) {
-    setStyles(data.arrowElement, data.arrowStyles);
-  }
-
-  return data;
-}
-
-/**
- * Set the x-placement attribute before everything else because it could be used
- * to add margins to the popper margins needs to be calculated to get the
- * correct popper offsets.
- * @method
- * @memberof Popper.modifiers
- * @param {HTMLElement} reference - The reference element used to position the popper
- * @param {HTMLElement} popper - The HTML element used as popper
- * @param {Object} options - Popper.js options
- */
-function applyStyleOnLoad(reference, popper, options, modifierOptions, state) {
-  // compute reference element offsets
-  var referenceOffsets = getReferenceOffsets(state, popper, reference, options.positionFixed);
-
-  // compute auto placement, store placement inside the data object,
-  // modifiers will be able to edit `placement` if needed
-  // and refer to originalPlacement to know the original value
-  var placement = computeAutoPlacement(options.placement, referenceOffsets, popper, reference, options.modifiers.flip.boundariesElement, options.modifiers.flip.padding);
-
-  popper.setAttribute('x-placement', placement);
-
-  // Apply `position` to popper before anything else because
-  // without the position applied we can't guarantee correct computations
-  setStyles(popper, { position: options.positionFixed ? 'fixed' : 'absolute' });
-
-  return options;
-}
-
-/**
- * @function
- * @memberof Popper.Utils
- * @argument {Object} data - The data object generated by `update` method
- * @argument {Boolean} shouldRound - If the offsets should be rounded at all
- * @returns {Object} The popper's position offsets rounded
- *
- * The tale of pixel-perfect positioning. It's still not 100% perfect, but as
- * good as it can be within reason.
- * Discussion here: https://github.com/FezVrasta/popper.js/pull/715
- *
- * Low DPI screens cause a popper to be blurry if not using full pixels (Safari
- * as well on High DPI screens).
- *
- * Firefox prefers no rounding for positioning and does not have blurriness on
- * high DPI screens.
- *
- * Only horizontal placement and left/right values need to be considered.
- */
-function getRoundedOffsets(data, shouldRound) {
-  var _data$offsets = data.offsets,
-      popper = _data$offsets.popper,
-      reference = _data$offsets.reference;
-  var round = Math.round,
-      floor = Math.floor;
-
-  var noRound = function noRound(v) {
-    return v;
-  };
-
-  var referenceWidth = round(reference.width);
-  var popperWidth = round(popper.width);
-
-  var isVertical = ['left', 'right'].indexOf(data.placement) !== -1;
-  var isVariation = data.placement.indexOf('-') !== -1;
-  var sameWidthParity = referenceWidth % 2 === popperWidth % 2;
-  var bothOddWidth = referenceWidth % 2 === 1 && popperWidth % 2 === 1;
-
-  var horizontalToInteger = !shouldRound ? noRound : isVertical || isVariation || sameWidthParity ? round : floor;
-  var verticalToInteger = !shouldRound ? noRound : round;
-
-  return {
-    left: horizontalToInteger(bothOddWidth && !isVariation && shouldRound ? popper.left - 1 : popper.left),
-    top: verticalToInteger(popper.top),
-    bottom: verticalToInteger(popper.bottom),
-    right: horizontalToInteger(popper.right)
-  };
-}
-
-var isFirefox = isBrowser && /Firefox/i.test(navigator.userAgent);
-
-/**
- * @function
- * @memberof Modifiers
- * @argument {Object} data - The data object generated by `update` method
- * @argument {Object} options - Modifiers configuration and options
- * @returns {Object} The data object, properly modified
- */
-function computeStyle(data, options) {
-  var x = options.x,
-      y = options.y;
-  var popper = data.offsets.popper;
-
-  // Remove this legacy support in Popper.js v2
-
-  var legacyGpuAccelerationOption = find(data.instance.modifiers, function (modifier) {
-    return modifier.name === 'applyStyle';
-  }).gpuAcceleration;
-  if (legacyGpuAccelerationOption !== undefined) {
-    console.warn('WARNING: `gpuAcceleration` option moved to `computeStyle` modifier and will not be supported in future versions of Popper.js!');
-  }
-  var gpuAcceleration = legacyGpuAccelerationOption !== undefined ? legacyGpuAccelerationOption : options.gpuAcceleration;
-
-  var offsetParent = getOffsetParent(data.instance.popper);
-  var offsetParentRect = getBoundingClientRect(offsetParent);
-
-  // Styles
-  var styles = {
-    position: popper.position
-  };
-
-  var offsets = getRoundedOffsets(data, window.devicePixelRatio < 2 || !isFirefox);
-
-  var sideA = x === 'bottom' ? 'top' : 'bottom';
-  var sideB = y === 'right' ? 'left' : 'right';
-
-  // if gpuAcceleration is set to `true` and transform is supported,
-  //  we use `translate3d` to apply the position to the popper we
-  // automatically use the supported prefixed version if needed
-  var prefixedProperty = getSupportedPropertyName('transform');
-
-  // now, let's make a step back and look at this code closely (wtf?)
-  // If the content of the popper grows once it's been positioned, it
-  // may happen that the popper gets misplaced because of the new content
-  // overflowing its reference element
-  // To avoid this problem, we provide two options (x and y), which allow
-  // the consumer to define the offset origin.
-  // If we position a popper on top of a reference element, we can set
-  // `x` to `top` to make the popper grow towards its top instead of
-  // its bottom.
-  var left = void 0,
-      top = void 0;
-  if (sideA === 'bottom') {
-    // when offsetParent is <html> the positioning is relative to the bottom of the screen (excluding the scrollbar)
-    // and not the bottom of the html element
-    if (offsetParent.nodeName === 'HTML') {
-      top = -offsetParent.clientHeight + offsets.bottom;
-    } else {
-      top = -offsetParentRect.height + offsets.bottom;
-    }
-  } else {
-    top = offsets.top;
-  }
-  if (sideB === 'right') {
-    if (offsetParent.nodeName === 'HTML') {
-      left = -offsetParent.clientWidth + offsets.right;
-    } else {
-      left = -offsetParentRect.width + offsets.right;
-    }
-  } else {
-    left = offsets.left;
-  }
-  if (gpuAcceleration && prefixedProperty) {
-    styles[prefixedProperty] = 'translate3d(' + left + 'px, ' + top + 'px, 0)';
-    styles[sideA] = 0;
-    styles[sideB] = 0;
-    styles.willChange = 'transform';
-  } else {
-    // othwerise, we use the standard `top`, `left`, `bottom` and `right` properties
-    var invertTop = sideA === 'bottom' ? -1 : 1;
-    var invertLeft = sideB === 'right' ? -1 : 1;
-    styles[sideA] = top * invertTop;
-    styles[sideB] = left * invertLeft;
-    styles.willChange = sideA + ', ' + sideB;
-  }
-
-  // Attributes
-  var attributes = {
-    'x-placement': data.placement
-  };
-
-  // Update `data` attributes, styles and arrowStyles
-  data.attributes = _extends({}, attributes, data.attributes);
-  data.styles = _extends({}, styles, data.styles);
-  data.arrowStyles = _extends({}, data.offsets.arrow, data.arrowStyles);
-
-  return data;
-}
-
-/**
- * Helper used to know if the given modifier depends from another one.<br />
- * It checks if the needed modifier is listed and enabled.
- * @method
- * @memberof Popper.Utils
- * @param {Array} modifiers - list of modifiers
- * @param {String} requestingName - name of requesting modifier
- * @param {String} requestedName - name of requested modifier
- * @returns {Boolean}
- */
-function isModifierRequired(modifiers, requestingName, requestedName) {
-  var requesting = find(modifiers, function (_ref) {
-    var name = _ref.name;
-    return name === requestingName;
-  });
-
-  var isRequired = !!requesting && modifiers.some(function (modifier) {
-    return modifier.name === requestedName && modifier.enabled && modifier.order < requesting.order;
-  });
-
-  if (!isRequired) {
-    var _requesting = '`' + requestingName + '`';
-    var requested = '`' + requestedName + '`';
-    console.warn(requested + ' modifier is required by ' + _requesting + ' modifier in order to work, be sure to include it before ' + _requesting + '!');
-  }
-  return isRequired;
-}
-
-/**
- * @function
- * @memberof Modifiers
- * @argument {Object} data - The data object generated by update method
- * @argument {Object} options - Modifiers configuration and options
- * @returns {Object} The data object, properly modified
- */
-function arrow(data, options) {
-  var _data$offsets$arrow;
-
-  // arrow depends on keepTogether in order to work
-  if (!isModifierRequired(data.instance.modifiers, 'arrow', 'keepTogether')) {
-    return data;
-  }
-
-  var arrowElement = options.element;
-
-  // if arrowElement is a string, suppose it's a CSS selector
-  if (typeof arrowElement === 'string') {
-    arrowElement = data.instance.popper.querySelector(arrowElement);
-
-    // if arrowElement is not found, don't run the modifier
-    if (!arrowElement) {
-      return data;
-    }
-  } else {
-    // if the arrowElement isn't a query selector we must check that the
-    // provided DOM node is child of its popper node
-    if (!data.instance.popper.contains(arrowElement)) {
-      console.warn('WARNING: `arrow.element` must be child of its popper element!');
-      return data;
-    }
-  }
-
-  var placement = data.placement.split('-')[0];
-  var _data$offsets = data.offsets,
-      popper = _data$offsets.popper,
-      reference = _data$offsets.reference;
-
-  var isVertical = ['left', 'right'].indexOf(placement) !== -1;
-
-  var len = isVertical ? 'height' : 'width';
-  var sideCapitalized = isVertical ? 'Top' : 'Left';
-  var side = sideCapitalized.toLowerCase();
-  var altSide = isVertical ? 'left' : 'top';
-  var opSide = isVertical ? 'bottom' : 'right';
-  var arrowElementSize = getOuterSizes(arrowElement)[len];
-
-  //
-  // extends keepTogether behavior making sure the popper and its
-  // reference have enough pixels in conjunction
-  //
-
-  // top/left side
-  if (reference[opSide] - arrowElementSize < popper[side]) {
-    data.offsets.popper[side] -= popper[side] - (reference[opSide] - arrowElementSize);
-  }
-  // bottom/right side
-  if (reference[side] + arrowElementSize > popper[opSide]) {
-    data.offsets.popper[side] += reference[side] + arrowElementSize - popper[opSide];
-  }
-  data.offsets.popper = getClientRect(data.offsets.popper);
-
-  // compute center of the popper
-  var center = reference[side] + reference[len] / 2 - arrowElementSize / 2;
-
-  // Compute the sideValue using the updated popper offsets
-  // take popper margin in account because we don't have this info available
-  var css = getStyleComputedProperty(data.instance.popper);
-  var popperMarginSide = parseFloat(css['margin' + sideCapitalized], 10);
-  var popperBorderSide = parseFloat(css['border' + sideCapitalized + 'Width'], 10);
-  var sideValue = center - data.offsets.popper[side] - popperMarginSide - popperBorderSide;
-
-  // prevent arrowElement from being placed not contiguously to its popper
-  sideValue = Math.max(Math.min(popper[len] - arrowElementSize, sideValue), 0);
-
-  data.arrowElement = arrowElement;
-  data.offsets.arrow = (_data$offsets$arrow = {}, defineProperty(_data$offsets$arrow, side, Math.round(sideValue)), defineProperty(_data$offsets$arrow, altSide, ''), _data$offsets$arrow);
-
-  return data;
-}
-
-/**
- * Get the opposite placement variation of the given one
- * @method
- * @memberof Popper.Utils
- * @argument {String} placement variation
- * @returns {String} flipped placement variation
- */
-function getOppositeVariation(variation) {
-  if (variation === 'end') {
-    return 'start';
-  } else if (variation === 'start') {
-    return 'end';
-  }
-  return variation;
-}
-
-/**
- * List of accepted placements to use as values of the `placement` option.<br />
- * Valid placements are:
- * - `auto`
- * - `top`
- * - `right`
- * - `bottom`
- * - `left`
- *
- * Each placement can have a variation from this list:
- * - `-start`
- * - `-end`
- *
- * Variations are interpreted easily if you think of them as the left to right
- * written languages. Horizontally (`top` and `bottom`), `start` is left and `end`
- * is right.<br />
- * Vertically (`left` and `right`), `start` is top and `end` is bottom.
- *
- * Some valid examples are:
- * - `top-end` (on top of reference, right aligned)
- * - `right-start` (on right of reference, top aligned)
- * - `bottom` (on bottom, centered)
- * - `auto-end` (on the side with more space available, alignment depends by placement)
- *
- * @static
- * @type {Array}
- * @enum {String}
- * @readonly
- * @method placements
- * @memberof Popper
- */
-var placements = ['auto-start', 'auto', 'auto-end', 'top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-end', 'bottom', 'bottom-start', 'left-end', 'left', 'left-start'];
-
-// Get rid of `auto` `auto-start` and `auto-end`
-var validPlacements = placements.slice(3);
-
-/**
- * Given an initial placement, returns all the subsequent placements
- * clockwise (or counter-clockwise).
- *
- * @method
- * @memberof Popper.Utils
- * @argument {String} placement - A valid placement (it accepts variations)
- * @argument {Boolean} counter - Set to true to walk the placements counterclockwise
- * @returns {Array} placements including their variations
- */
-function clockwise(placement) {
-  var counter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-  var index = validPlacements.indexOf(placement);
-  var arr = validPlacements.slice(index + 1).concat(validPlacements.slice(0, index));
-  return counter ? arr.reverse() : arr;
-}
-
-var BEHAVIORS = {
-  FLIP: 'flip',
-  CLOCKWISE: 'clockwise',
-  COUNTERCLOCKWISE: 'counterclockwise'
-};
-
-/**
- * @function
- * @memberof Modifiers
- * @argument {Object} data - The data object generated by update method
- * @argument {Object} options - Modifiers configuration and options
- * @returns {Object} The data object, properly modified
- */
-function flip(data, options) {
-  // if `inner` modifier is enabled, we can't use the `flip` modifier
-  if (isModifierEnabled(data.instance.modifiers, 'inner')) {
-    return data;
-  }
-
-  if (data.flipped && data.placement === data.originalPlacement) {
-    // seems like flip is trying to loop, probably there's not enough space on any of the flippable sides
-    return data;
-  }
-
-  var boundaries = getBoundaries(data.instance.popper, data.instance.reference, options.padding, options.boundariesElement, data.positionFixed);
-
-  var placement = data.placement.split('-')[0];
-  var placementOpposite = getOppositePlacement(placement);
-  var variation = data.placement.split('-')[1] || '';
-
-  var flipOrder = [];
-
-  switch (options.behavior) {
-    case BEHAVIORS.FLIP:
-      flipOrder = [placement, placementOpposite];
-      break;
-    case BEHAVIORS.CLOCKWISE:
-      flipOrder = clockwise(placement);
-      break;
-    case BEHAVIORS.COUNTERCLOCKWISE:
-      flipOrder = clockwise(placement, true);
-      break;
-    default:
-      flipOrder = options.behavior;
-  }
-
-  flipOrder.forEach(function (step, index) {
-    if (placement !== step || flipOrder.length === index + 1) {
-      return data;
-    }
-
-    placement = data.placement.split('-')[0];
-    placementOpposite = getOppositePlacement(placement);
-
-    var popperOffsets = data.offsets.popper;
-    var refOffsets = data.offsets.reference;
-
-    // using floor because the reference offsets may contain decimals we are not going to consider here
-    var floor = Math.floor;
-    var overlapsRef = placement === 'left' && floor(popperOffsets.right) > floor(refOffsets.left) || placement === 'right' && floor(popperOffsets.left) < floor(refOffsets.right) || placement === 'top' && floor(popperOffsets.bottom) > floor(refOffsets.top) || placement === 'bottom' && floor(popperOffsets.top) < floor(refOffsets.bottom);
-
-    var overflowsLeft = floor(popperOffsets.left) < floor(boundaries.left);
-    var overflowsRight = floor(popperOffsets.right) > floor(boundaries.right);
-    var overflowsTop = floor(popperOffsets.top) < floor(boundaries.top);
-    var overflowsBottom = floor(popperOffsets.bottom) > floor(boundaries.bottom);
-
-    var overflowsBoundaries = placement === 'left' && overflowsLeft || placement === 'right' && overflowsRight || placement === 'top' && overflowsTop || placement === 'bottom' && overflowsBottom;
-
-    // flip the variation if required
-    var isVertical = ['top', 'bottom'].indexOf(placement) !== -1;
-    var flippedVariation = !!options.flipVariations && (isVertical && variation === 'start' && overflowsLeft || isVertical && variation === 'end' && overflowsRight || !isVertical && variation === 'start' && overflowsTop || !isVertical && variation === 'end' && overflowsBottom);
-
-    if (overlapsRef || overflowsBoundaries || flippedVariation) {
-      // this boolean to detect any flip loop
-      data.flipped = true;
-
-      if (overlapsRef || overflowsBoundaries) {
-        placement = flipOrder[index + 1];
-      }
-
-      if (flippedVariation) {
-        variation = getOppositeVariation(variation);
-      }
-
-      data.placement = placement + (variation ? '-' + variation : '');
-
-      // this object contains `position`, we want to preserve it along with
-      // any additional property we may add in the future
-      data.offsets.popper = _extends({}, data.offsets.popper, getPopperOffsets(data.instance.popper, data.offsets.reference, data.placement));
-
-      data = runModifiers(data.instance.modifiers, data, 'flip');
-    }
-  });
-  return data;
-}
-
-/**
- * @function
- * @memberof Modifiers
- * @argument {Object} data - The data object generated by update method
- * @argument {Object} options - Modifiers configuration and options
- * @returns {Object} The data object, properly modified
- */
-function keepTogether(data) {
-  var _data$offsets = data.offsets,
-      popper = _data$offsets.popper,
-      reference = _data$offsets.reference;
-
-  var placement = data.placement.split('-')[0];
-  var floor = Math.floor;
-  var isVertical = ['top', 'bottom'].indexOf(placement) !== -1;
-  var side = isVertical ? 'right' : 'bottom';
-  var opSide = isVertical ? 'left' : 'top';
-  var measurement = isVertical ? 'width' : 'height';
-
-  if (popper[side] < floor(reference[opSide])) {
-    data.offsets.popper[opSide] = floor(reference[opSide]) - popper[measurement];
-  }
-  if (popper[opSide] > floor(reference[side])) {
-    data.offsets.popper[opSide] = floor(reference[side]);
-  }
-
-  return data;
-}
-
-/**
- * Converts a string containing value + unit into a px value number
- * @function
- * @memberof {modifiers~offset}
- * @private
- * @argument {String} str - Value + unit string
- * @argument {String} measurement - `height` or `width`
- * @argument {Object} popperOffsets
- * @argument {Object} referenceOffsets
- * @returns {Number|String}
- * Value in pixels, or original string if no values were extracted
- */
-function toValue(str, measurement, popperOffsets, referenceOffsets) {
-  // separate value from unit
-  var split = str.match(/((?:\-|\+)?\d*\.?\d*)(.*)/);
-  var value = +split[1];
-  var unit = split[2];
-
-  // If it's not a number it's an operator, I guess
-  if (!value) {
-    return str;
-  }
-
-  if (unit.indexOf('%') === 0) {
-    var element = void 0;
-    switch (unit) {
-      case '%p':
-        element = popperOffsets;
-        break;
-      case '%':
-      case '%r':
-      default:
-        element = referenceOffsets;
-    }
-
-    var rect = getClientRect(element);
-    return rect[measurement] / 100 * value;
-  } else if (unit === 'vh' || unit === 'vw') {
-    // if is a vh or vw, we calculate the size based on the viewport
-    var size = void 0;
-    if (unit === 'vh') {
-      size = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    } else {
-      size = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    }
-    return size / 100 * value;
-  } else {
-    // if is an explicit pixel unit, we get rid of the unit and keep the value
-    // if is an implicit unit, it's px, and we return just the value
-    return value;
-  }
-}
-
-/**
- * Parse an `offset` string to extrapolate `x` and `y` numeric offsets.
- * @function
- * @memberof {modifiers~offset}
- * @private
- * @argument {String} offset
- * @argument {Object} popperOffsets
- * @argument {Object} referenceOffsets
- * @argument {String} basePlacement
- * @returns {Array} a two cells array with x and y offsets in numbers
- */
-function parseOffset(offset, popperOffsets, referenceOffsets, basePlacement) {
-  var offsets = [0, 0];
-
-  // Use height if placement is left or right and index is 0 otherwise use width
-  // in this way the first offset will use an axis and the second one
-  // will use the other one
-  var useHeight = ['right', 'left'].indexOf(basePlacement) !== -1;
-
-  // Split the offset string to obtain a list of values and operands
-  // The regex addresses values with the plus or minus sign in front (+10, -20, etc)
-  var fragments = offset.split(/(\+|\-)/).map(function (frag) {
-    return frag.trim();
-  });
-
-  // Detect if the offset string contains a pair of values or a single one
-  // they could be separated by comma or space
-  var divider = fragments.indexOf(find(fragments, function (frag) {
-    return frag.search(/,|\s/) !== -1;
-  }));
-
-  if (fragments[divider] && fragments[divider].indexOf(',') === -1) {
-    console.warn('Offsets separated by white space(s) are deprecated, use a comma (,) instead.');
-  }
-
-  // If divider is found, we divide the list of values and operands to divide
-  // them by ofset X and Y.
-  var splitRegex = /\s*,\s*|\s+/;
-  var ops = divider !== -1 ? [fragments.slice(0, divider).concat([fragments[divider].split(splitRegex)[0]]), [fragments[divider].split(splitRegex)[1]].concat(fragments.slice(divider + 1))] : [fragments];
-
-  // Convert the values with units to absolute pixels to allow our computations
-  ops = ops.map(function (op, index) {
-    // Most of the units rely on the orientation of the popper
-    var measurement = (index === 1 ? !useHeight : useHeight) ? 'height' : 'width';
-    var mergeWithPrevious = false;
-    return op
-    // This aggregates any `+` or `-` sign that aren't considered operators
-    // e.g.: 10 + +5 => [10, +, +5]
-    .reduce(function (a, b) {
-      if (a[a.length - 1] === '' && ['+', '-'].indexOf(b) !== -1) {
-        a[a.length - 1] = b;
-        mergeWithPrevious = true;
-        return a;
-      } else if (mergeWithPrevious) {
-        a[a.length - 1] += b;
-        mergeWithPrevious = false;
-        return a;
-      } else {
-        return a.concat(b);
-      }
-    }, [])
-    // Here we convert the string values into number values (in px)
-    .map(function (str) {
-      return toValue(str, measurement, popperOffsets, referenceOffsets);
-    });
-  });
-
-  // Loop trough the offsets arrays and execute the operations
-  ops.forEach(function (op, index) {
-    op.forEach(function (frag, index2) {
-      if (isNumeric(frag)) {
-        offsets[index] += frag * (op[index2 - 1] === '-' ? -1 : 1);
-      }
-    });
-  });
-  return offsets;
-}
-
-/**
- * @function
- * @memberof Modifiers
- * @argument {Object} data - The data object generated by update method
- * @argument {Object} options - Modifiers configuration and options
- * @argument {Number|String} options.offset=0
- * The offset value as described in the modifier description
- * @returns {Object} The data object, properly modified
- */
-function offset(data, _ref) {
-  var offset = _ref.offset;
-  var placement = data.placement,
-      _data$offsets = data.offsets,
-      popper = _data$offsets.popper,
-      reference = _data$offsets.reference;
-
-  var basePlacement = placement.split('-')[0];
-
-  var offsets = void 0;
-  if (isNumeric(+offset)) {
-    offsets = [+offset, 0];
-  } else {
-    offsets = parseOffset(offset, popper, reference, basePlacement);
-  }
-
-  if (basePlacement === 'left') {
-    popper.top += offsets[0];
-    popper.left -= offsets[1];
-  } else if (basePlacement === 'right') {
-    popper.top += offsets[0];
-    popper.left += offsets[1];
-  } else if (basePlacement === 'top') {
-    popper.left += offsets[0];
-    popper.top -= offsets[1];
-  } else if (basePlacement === 'bottom') {
-    popper.left += offsets[0];
-    popper.top += offsets[1];
-  }
-
-  data.popper = popper;
-  return data;
-}
-
-/**
- * @function
- * @memberof Modifiers
- * @argument {Object} data - The data object generated by `update` method
- * @argument {Object} options - Modifiers configuration and options
- * @returns {Object} The data object, properly modified
- */
-function preventOverflow(data, options) {
-  var boundariesElement = options.boundariesElement || getOffsetParent(data.instance.popper);
-
-  // If offsetParent is the reference element, we really want to
-  // go one step up and use the next offsetParent as reference to
-  // avoid to make this modifier completely useless and look like broken
-  if (data.instance.reference === boundariesElement) {
-    boundariesElement = getOffsetParent(boundariesElement);
-  }
-
-  // NOTE: DOM access here
-  // resets the popper's position so that the document size can be calculated excluding
-  // the size of the popper element itself
-  var transformProp = getSupportedPropertyName('transform');
-  var popperStyles = data.instance.popper.style; // assignment to help minification
-  var top = popperStyles.top,
-      left = popperStyles.left,
-      transform = popperStyles[transformProp];
-
-  popperStyles.top = '';
-  popperStyles.left = '';
-  popperStyles[transformProp] = '';
-
-  var boundaries = getBoundaries(data.instance.popper, data.instance.reference, options.padding, boundariesElement, data.positionFixed);
-
-  // NOTE: DOM access here
-  // restores the original style properties after the offsets have been computed
-  popperStyles.top = top;
-  popperStyles.left = left;
-  popperStyles[transformProp] = transform;
-
-  options.boundaries = boundaries;
-
-  var order = options.priority;
-  var popper = data.offsets.popper;
-
-  var check = {
-    primary: function primary(placement) {
-      var value = popper[placement];
-      if (popper[placement] < boundaries[placement] && !options.escapeWithReference) {
-        value = Math.max(popper[placement], boundaries[placement]);
-      }
-      return defineProperty({}, placement, value);
-    },
-    secondary: function secondary(placement) {
-      var mainSide = placement === 'right' ? 'left' : 'top';
-      var value = popper[mainSide];
-      if (popper[placement] > boundaries[placement] && !options.escapeWithReference) {
-        value = Math.min(popper[mainSide], boundaries[placement] - (placement === 'right' ? popper.width : popper.height));
-      }
-      return defineProperty({}, mainSide, value);
-    }
-  };
-
-  order.forEach(function (placement) {
-    var side = ['left', 'top'].indexOf(placement) !== -1 ? 'primary' : 'secondary';
-    popper = _extends({}, popper, check[side](placement));
-  });
-
-  data.offsets.popper = popper;
-
-  return data;
-}
-
-/**
- * @function
- * @memberof Modifiers
- * @argument {Object} data - The data object generated by `update` method
- * @argument {Object} options - Modifiers configuration and options
- * @returns {Object} The data object, properly modified
- */
-function shift(data) {
-  var placement = data.placement;
-  var basePlacement = placement.split('-')[0];
-  var shiftvariation = placement.split('-')[1];
-
-  // if shift shiftvariation is specified, run the modifier
-  if (shiftvariation) {
-    var _data$offsets = data.offsets,
-        reference = _data$offsets.reference,
-        popper = _data$offsets.popper;
-
-    var isVertical = ['bottom', 'top'].indexOf(basePlacement) !== -1;
-    var side = isVertical ? 'left' : 'top';
-    var measurement = isVertical ? 'width' : 'height';
-
-    var shiftOffsets = {
-      start: defineProperty({}, side, reference[side]),
-      end: defineProperty({}, side, reference[side] + reference[measurement] - popper[measurement])
-    };
-
-    data.offsets.popper = _extends({}, popper, shiftOffsets[shiftvariation]);
-  }
-
-  return data;
-}
-
-/**
- * @function
- * @memberof Modifiers
- * @argument {Object} data - The data object generated by update method
- * @argument {Object} options - Modifiers configuration and options
- * @returns {Object} The data object, properly modified
- */
-function hide(data) {
-  if (!isModifierRequired(data.instance.modifiers, 'hide', 'preventOverflow')) {
-    return data;
-  }
-
-  var refRect = data.offsets.reference;
-  var bound = find(data.instance.modifiers, function (modifier) {
-    return modifier.name === 'preventOverflow';
-  }).boundaries;
-
-  if (refRect.bottom < bound.top || refRect.left > bound.right || refRect.top > bound.bottom || refRect.right < bound.left) {
-    // Avoid unnecessary DOM access if visibility hasn't changed
-    if (data.hide === true) {
-      return data;
-    }
-
-    data.hide = true;
-    data.attributes['x-out-of-boundaries'] = '';
-  } else {
-    // Avoid unnecessary DOM access if visibility hasn't changed
-    if (data.hide === false) {
-      return data;
-    }
-
-    data.hide = false;
-    data.attributes['x-out-of-boundaries'] = false;
-  }
-
-  return data;
-}
-
-/**
- * @function
- * @memberof Modifiers
- * @argument {Object} data - The data object generated by `update` method
- * @argument {Object} options - Modifiers configuration and options
- * @returns {Object} The data object, properly modified
- */
-function inner(data) {
-  var placement = data.placement;
-  var basePlacement = placement.split('-')[0];
-  var _data$offsets = data.offsets,
-      popper = _data$offsets.popper,
-      reference = _data$offsets.reference;
-
-  var isHoriz = ['left', 'right'].indexOf(basePlacement) !== -1;
-
-  var subtractLength = ['top', 'left'].indexOf(basePlacement) === -1;
-
-  popper[isHoriz ? 'left' : 'top'] = reference[basePlacement] - (subtractLength ? popper[isHoriz ? 'width' : 'height'] : 0);
-
-  data.placement = getOppositePlacement(placement);
-  data.offsets.popper = getClientRect(popper);
-
-  return data;
-}
-
-/**
- * Modifier function, each modifier can have a function of this type assigned
- * to its `fn` property.<br />
- * These functions will be called on each update, this means that you must
- * make sure they are performant enough to avoid performance bottlenecks.
- *
- * @function ModifierFn
- * @argument {dataObject} data - The data object generated by `update` method
- * @argument {Object} options - Modifiers configuration and options
- * @returns {dataObject} The data object, properly modified
- */
-
-/**
- * Modifiers are plugins used to alter the behavior of your poppers.<br />
- * Popper.js uses a set of 9 modifiers to provide all the basic functionalities
- * needed by the library.
- *
- * Usually you don't want to override the `order`, `fn` and `onLoad` props.
- * All the other properties are configurations that could be tweaked.
- * @namespace modifiers
- */
-var modifiers = {
-  /**
-   * Modifier used to shift the popper on the start or end of its reference
-   * element.<br />
-   * It will read the variation of the `placement` property.<br />
-   * It can be one either `-end` or `-start`.
-   * @memberof modifiers
-   * @inner
-   */
-  shift: {
-    /** @prop {number} order=100 - Index used to define the order of execution */
-    order: 100,
-    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
-    enabled: true,
-    /** @prop {ModifierFn} */
-    fn: shift
-  },
-
-  /**
-   * The `offset` modifier can shift your popper on both its axis.
-   *
-   * It accepts the following units:
-   * - `px` or unit-less, interpreted as pixels
-   * - `%` or `%r`, percentage relative to the length of the reference element
-   * - `%p`, percentage relative to the length of the popper element
-   * - `vw`, CSS viewport width unit
-   * - `vh`, CSS viewport height unit
-   *
-   * For length is intended the main axis relative to the placement of the popper.<br />
-   * This means that if the placement is `top` or `bottom`, the length will be the
-   * `width`. In case of `left` or `right`, it will be the `height`.
-   *
-   * You can provide a single value (as `Number` or `String`), or a pair of values
-   * as `String` divided by a comma or one (or more) white spaces.<br />
-   * The latter is a deprecated method because it leads to confusion and will be
-   * removed in v2.<br />
-   * Additionally, it accepts additions and subtractions between different units.
-   * Note that multiplications and divisions aren't supported.
-   *
-   * Valid examples are:
-   * ```
-   * 10
-   * '10%'
-   * '10, 10'
-   * '10%, 10'
-   * '10 + 10%'
-   * '10 - 5vh + 3%'
-   * '-10px + 5vh, 5px - 6%'
-   * ```
-   * > **NB**: If you desire to apply offsets to your poppers in a way that may make them overlap
-   * > with their reference element, unfortunately, you will have to disable the `flip` modifier.
-   * > You can read more on this at this [issue](https://github.com/FezVrasta/popper.js/issues/373).
-   *
-   * @memberof modifiers
-   * @inner
-   */
-  offset: {
-    /** @prop {number} order=200 - Index used to define the order of execution */
-    order: 200,
-    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
-    enabled: true,
-    /** @prop {ModifierFn} */
-    fn: offset,
-    /** @prop {Number|String} offset=0
-     * The offset value as described in the modifier description
-     */
-    offset: 0
-  },
-
-  /**
-   * Modifier used to prevent the popper from being positioned outside the boundary.
-   *
-   * A scenario exists where the reference itself is not within the boundaries.<br />
-   * We can say it has "escaped the boundaries" — or just "escaped".<br />
-   * In this case we need to decide whether the popper should either:
-   *
-   * - detach from the reference and remain "trapped" in the boundaries, or
-   * - if it should ignore the boundary and "escape with its reference"
-   *
-   * When `escapeWithReference` is set to`true` and reference is completely
-   * outside its boundaries, the popper will overflow (or completely leave)
-   * the boundaries in order to remain attached to the edge of the reference.
-   *
-   * @memberof modifiers
-   * @inner
-   */
-  preventOverflow: {
-    /** @prop {number} order=300 - Index used to define the order of execution */
-    order: 300,
-    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
-    enabled: true,
-    /** @prop {ModifierFn} */
-    fn: preventOverflow,
-    /**
-     * @prop {Array} [priority=['left','right','top','bottom']]
-     * Popper will try to prevent overflow following these priorities by default,
-     * then, it could overflow on the left and on top of the `boundariesElement`
-     */
-    priority: ['left', 'right', 'top', 'bottom'],
-    /**
-     * @prop {number} padding=5
-     * Amount of pixel used to define a minimum distance between the boundaries
-     * and the popper. This makes sure the popper always has a little padding
-     * between the edges of its container
-     */
-    padding: 5,
-    /**
-     * @prop {String|HTMLElement} boundariesElement='scrollParent'
-     * Boundaries used by the modifier. Can be `scrollParent`, `window`,
-     * `viewport` or any DOM element.
-     */
-    boundariesElement: 'scrollParent'
-  },
-
-  /**
-   * Modifier used to make sure the reference and its popper stay near each other
-   * without leaving any gap between the two. Especially useful when the arrow is
-   * enabled and you want to ensure that it points to its reference element.
-   * It cares only about the first axis. You can still have poppers with margin
-   * between the popper and its reference element.
-   * @memberof modifiers
-   * @inner
-   */
-  keepTogether: {
-    /** @prop {number} order=400 - Index used to define the order of execution */
-    order: 400,
-    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
-    enabled: true,
-    /** @prop {ModifierFn} */
-    fn: keepTogether
-  },
-
-  /**
-   * This modifier is used to move the `arrowElement` of the popper to make
-   * sure it is positioned between the reference element and its popper element.
-   * It will read the outer size of the `arrowElement` node to detect how many
-   * pixels of conjunction are needed.
-   *
-   * It has no effect if no `arrowElement` is provided.
-   * @memberof modifiers
-   * @inner
-   */
-  arrow: {
-    /** @prop {number} order=500 - Index used to define the order of execution */
-    order: 500,
-    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
-    enabled: true,
-    /** @prop {ModifierFn} */
-    fn: arrow,
-    /** @prop {String|HTMLElement} element='[x-arrow]' - Selector or node used as arrow */
-    element: '[x-arrow]'
-  },
-
-  /**
-   * Modifier used to flip the popper's placement when it starts to overlap its
-   * reference element.
-   *
-   * Requires the `preventOverflow` modifier before it in order to work.
-   *
-   * **NOTE:** this modifier will interrupt the current update cycle and will
-   * restart it if it detects the need to flip the placement.
-   * @memberof modifiers
-   * @inner
-   */
-  flip: {
-    /** @prop {number} order=600 - Index used to define the order of execution */
-    order: 600,
-    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
-    enabled: true,
-    /** @prop {ModifierFn} */
-    fn: flip,
-    /**
-     * @prop {String|Array} behavior='flip'
-     * The behavior used to change the popper's placement. It can be one of
-     * `flip`, `clockwise`, `counterclockwise` or an array with a list of valid
-     * placements (with optional variations)
-     */
-    behavior: 'flip',
-    /**
-     * @prop {number} padding=5
-     * The popper will flip if it hits the edges of the `boundariesElement`
-     */
-    padding: 5,
-    /**
-     * @prop {String|HTMLElement} boundariesElement='viewport'
-     * The element which will define the boundaries of the popper position.
-     * The popper will never be placed outside of the defined boundaries
-     * (except if `keepTogether` is enabled)
-     */
-    boundariesElement: 'viewport'
-  },
-
-  /**
-   * Modifier used to make the popper flow toward the inner of the reference element.
-   * By default, when this modifier is disabled, the popper will be placed outside
-   * the reference element.
-   * @memberof modifiers
-   * @inner
-   */
-  inner: {
-    /** @prop {number} order=700 - Index used to define the order of execution */
-    order: 700,
-    /** @prop {Boolean} enabled=false - Whether the modifier is enabled or not */
-    enabled: false,
-    /** @prop {ModifierFn} */
-    fn: inner
-  },
-
-  /**
-   * Modifier used to hide the popper when its reference element is outside of the
-   * popper boundaries. It will set a `x-out-of-boundaries` attribute which can
-   * be used to hide with a CSS selector the popper when its reference is
-   * out of boundaries.
-   *
-   * Requires the `preventOverflow` modifier before it in order to work.
-   * @memberof modifiers
-   * @inner
-   */
-  hide: {
-    /** @prop {number} order=800 - Index used to define the order of execution */
-    order: 800,
-    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
-    enabled: true,
-    /** @prop {ModifierFn} */
-    fn: hide
-  },
-
-  /**
-   * Computes the style that will be applied to the popper element to gets
-   * properly positioned.
-   *
-   * Note that this modifier will not touch the DOM, it just prepares the styles
-   * so that `applyStyle` modifier can apply it. This separation is useful
-   * in case you need to replace `applyStyle` with a custom implementation.
-   *
-   * This modifier has `850` as `order` value to maintain backward compatibility
-   * with previous versions of Popper.js. Expect the modifiers ordering method
-   * to change in future major versions of the library.
-   *
-   * @memberof modifiers
-   * @inner
-   */
-  computeStyle: {
-    /** @prop {number} order=850 - Index used to define the order of execution */
-    order: 850,
-    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
-    enabled: true,
-    /** @prop {ModifierFn} */
-    fn: computeStyle,
-    /**
-     * @prop {Boolean} gpuAcceleration=true
-     * If true, it uses the CSS 3D transformation to position the popper.
-     * Otherwise, it will use the `top` and `left` properties
-     */
-    gpuAcceleration: true,
-    /**
-     * @prop {string} [x='bottom']
-     * Where to anchor the X axis (`bottom` or `top`). AKA X offset origin.
-     * Change this if your popper should grow in a direction different from `bottom`
-     */
-    x: 'bottom',
-    /**
-     * @prop {string} [x='left']
-     * Where to anchor the Y axis (`left` or `right`). AKA Y offset origin.
-     * Change this if your popper should grow in a direction different from `right`
-     */
-    y: 'right'
-  },
-
-  /**
-   * Applies the computed styles to the popper element.
-   *
-   * All the DOM manipulations are limited to this modifier. This is useful in case
-   * you want to integrate Popper.js inside a framework or view library and you
-   * want to delegate all the DOM manipulations to it.
-   *
-   * Note that if you disable this modifier, you must make sure the popper element
-   * has its position set to `absolute` before Popper.js can do its work!
-   *
-   * Just disable this modifier and define your own to achieve the desired effect.
-   *
-   * @memberof modifiers
-   * @inner
-   */
-  applyStyle: {
-    /** @prop {number} order=900 - Index used to define the order of execution */
-    order: 900,
-    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
-    enabled: true,
-    /** @prop {ModifierFn} */
-    fn: applyStyle,
-    /** @prop {Function} */
-    onLoad: applyStyleOnLoad,
-    /**
-     * @deprecated since version 1.10.0, the property moved to `computeStyle` modifier
-     * @prop {Boolean} gpuAcceleration=true
-     * If true, it uses the CSS 3D transformation to position the popper.
-     * Otherwise, it will use the `top` and `left` properties
-     */
-    gpuAcceleration: undefined
-  }
-};
-
-/**
- * The `dataObject` is an object containing all the information used by Popper.js.
- * This object is passed to modifiers and to the `onCreate` and `onUpdate` callbacks.
- * @name dataObject
- * @property {Object} data.instance The Popper.js instance
- * @property {String} data.placement Placement applied to popper
- * @property {String} data.originalPlacement Placement originally defined on init
- * @property {Boolean} data.flipped True if popper has been flipped by flip modifier
- * @property {Boolean} data.hide True if the reference element is out of boundaries, useful to know when to hide the popper
- * @property {HTMLElement} data.arrowElement Node used as arrow by arrow modifier
- * @property {Object} data.styles Any CSS property defined here will be applied to the popper. It expects the JavaScript nomenclature (eg. `marginBottom`)
- * @property {Object} data.arrowStyles Any CSS property defined here will be applied to the popper arrow. It expects the JavaScript nomenclature (eg. `marginBottom`)
- * @property {Object} data.boundaries Offsets of the popper boundaries
- * @property {Object} data.offsets The measurements of popper, reference and arrow elements
- * @property {Object} data.offsets.popper `top`, `left`, `width`, `height` values
- * @property {Object} data.offsets.reference `top`, `left`, `width`, `height` values
- * @property {Object} data.offsets.arrow] `top` and `left` offsets, only one of them will be different from 0
- */
-
-/**
- * Default options provided to Popper.js constructor.<br />
- * These can be overridden using the `options` argument of Popper.js.<br />
- * To override an option, simply pass an object with the same
- * structure of the `options` object, as the 3rd argument. For example:
- * ```
- * new Popper(ref, pop, {
- *   modifiers: {
- *     preventOverflow: { enabled: false }
- *   }
- * })
- * ```
- * @type {Object}
- * @static
- * @memberof Popper
- */
-var Defaults = {
-  /**
-   * Popper's placement.
-   * @prop {Popper.placements} placement='bottom'
-   */
-  placement: 'bottom',
-
-  /**
-   * Set this to true if you want popper to position it self in 'fixed' mode
-   * @prop {Boolean} positionFixed=false
-   */
-  positionFixed: false,
-
-  /**
-   * Whether events (resize, scroll) are initially enabled.
-   * @prop {Boolean} eventsEnabled=true
-   */
-  eventsEnabled: true,
-
-  /**
-   * Set to true if you want to automatically remove the popper when
-   * you call the `destroy` method.
-   * @prop {Boolean} removeOnDestroy=false
-   */
-  removeOnDestroy: false,
-
-  /**
-   * Callback called when the popper is created.<br />
-   * By default, it is set to no-op.<br />
-   * Access Popper.js instance with `data.instance`.
-   * @prop {onCreate}
-   */
-  onCreate: function onCreate() {},
-
-  /**
-   * Callback called when the popper is updated. This callback is not called
-   * on the initialization/creation of the popper, but only on subsequent
-   * updates.<br />
-   * By default, it is set to no-op.<br />
-   * Access Popper.js instance with `data.instance`.
-   * @prop {onUpdate}
-   */
-  onUpdate: function onUpdate() {},
-
-  /**
-   * List of modifiers used to modify the offsets before they are applied to the popper.
-   * They provide most of the functionalities of Popper.js.
-   * @prop {modifiers}
-   */
-  modifiers: modifiers
-};
-
-/**
- * @callback onCreate
- * @param {dataObject} data
- */
-
-/**
- * @callback onUpdate
- * @param {dataObject} data
- */
-
-// Utils
-// Methods
-var Popper = function () {
-  /**
-   * Creates a new Popper.js instance.
-   * @class Popper
-   * @param {HTMLElement|referenceObject} reference - The reference element used to position the popper
-   * @param {HTMLElement} popper - The HTML element used as the popper
-   * @param {Object} options - Your custom options to override the ones defined in [Defaults](#defaults)
-   * @return {Object} instance - The generated Popper.js instance
-   */
-  function Popper(reference, popper) {
-    var _this = this;
-
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    classCallCheck(this, Popper);
-
-    this.scheduleUpdate = function () {
-      return requestAnimationFrame(_this.update);
-    };
-
-    // make update() debounced, so that it only runs at most once-per-tick
-    this.update = debounce(this.update.bind(this));
-
-    // with {} we create a new object with the options inside it
-    this.options = _extends({}, Popper.Defaults, options);
-
-    // init state
-    this.state = {
-      isDestroyed: false,
-      isCreated: false,
-      scrollParents: []
-    };
-
-    // get reference and popper elements (allow jQuery wrappers)
-    this.reference = reference && reference.jquery ? reference[0] : reference;
-    this.popper = popper && popper.jquery ? popper[0] : popper;
-
-    // Deep merge modifiers options
-    this.options.modifiers = {};
-    Object.keys(_extends({}, Popper.Defaults.modifiers, options.modifiers)).forEach(function (name) {
-      _this.options.modifiers[name] = _extends({}, Popper.Defaults.modifiers[name] || {}, options.modifiers ? options.modifiers[name] : {});
-    });
-
-    // Refactoring modifiers' list (Object => Array)
-    this.modifiers = Object.keys(this.options.modifiers).map(function (name) {
-      return _extends({
-        name: name
-      }, _this.options.modifiers[name]);
-    })
-    // sort the modifiers by order
-    .sort(function (a, b) {
-      return a.order - b.order;
-    });
-
-    // modifiers have the ability to execute arbitrary code when Popper.js get inited
-    // such code is executed in the same order of its modifier
-    // they could add new properties to their options configuration
-    // BE AWARE: don't add options to `options.modifiers.name` but to `modifierOptions`!
-    this.modifiers.forEach(function (modifierOptions) {
-      if (modifierOptions.enabled && isFunction(modifierOptions.onLoad)) {
-        modifierOptions.onLoad(_this.reference, _this.popper, _this.options, modifierOptions, _this.state);
-      }
-    });
-
-    // fire the first update to position the popper in the right place
-    this.update();
-
-    var eventsEnabled = this.options.eventsEnabled;
-    if (eventsEnabled) {
-      // setup event listeners, they will take care of update the position in specific situations
-      this.enableEventListeners();
-    }
-
-    this.state.eventsEnabled = eventsEnabled;
-  }
-
-  // We can't use class properties because they don't get listed in the
-  // class prototype and break stuff like Sinon stubs
-
-
-  createClass(Popper, [{
-    key: 'update',
-    value: function update$$1() {
-      return update.call(this);
-    }
-  }, {
-    key: 'destroy',
-    value: function destroy$$1() {
-      return destroy.call(this);
-    }
-  }, {
-    key: 'enableEventListeners',
-    value: function enableEventListeners$$1() {
-      return enableEventListeners.call(this);
-    }
-  }, {
-    key: 'disableEventListeners',
-    value: function disableEventListeners$$1() {
-      return disableEventListeners.call(this);
-    }
-
-    /**
-     * Schedules an update. It will run on the next UI update available.
-     * @method scheduleUpdate
-     * @memberof Popper
-     */
-
-
-    /**
-     * Collection of utilities useful when writing custom modifiers.
-     * Starting from version 1.7, this method is available only if you
-     * include `popper-utils.js` before `popper.js`.
-     *
-     * **DEPRECATION**: This way to access PopperUtils is deprecated
-     * and will be removed in v2! Use the PopperUtils module directly instead.
-     * Due to the high instability of the methods contained in Utils, we can't
-     * guarantee them to follow semver. Use them at your own risk!
-     * @static
-     * @private
-     * @type {Object}
-     * @deprecated since version 1.8
-     * @member Utils
-     * @memberof Popper
-     */
-
-  }]);
-  return Popper;
-}();
-
-/**
- * The `referenceObject` is an object that provides an interface compatible with Popper.js
- * and lets you use it as replacement of a real DOM node.<br />
- * You can use this method to position a popper relatively to a set of coordinates
- * in case you don't have a DOM node to use as reference.
- *
- * ```
- * new Popper(referenceObject, popperNode);
- * ```
- *
- * NB: This feature isn't supported in Internet Explorer 10.
- * @name referenceObject
- * @property {Function} data.getBoundingClientRect
- * A function that returns a set of coordinates compatible with the native `getBoundingClientRect` method.
- * @property {number} data.clientWidth
- * An ES6 getter that will return the width of the virtual reference element.
- * @property {number} data.clientHeight
- * An ES6 getter that will return the height of the virtual reference element.
- */
-
-
-Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
-Popper.placements = placements;
-Popper.Defaults = Defaults;
-
-/* harmony default export */ __webpack_exports__["default"] = (Popper);
-//# sourceMappingURL=popper.js.map
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("c8ba")))
-
-/***/ }),
-
 /***/ "f18f":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -47543,7 +52545,7 @@ Popper.Defaults = Defaults;
 exports.__esModule = true;
 exports.default = exports.cloneDeep = void 0;
 
-var _array = __webpack_require__("bb2f");
+var _inspect = __webpack_require__("0d5a");
 
 var _object = __webpack_require__("24e2");
 
@@ -47562,13 +52564,13 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 var cloneDeep = function cloneDeep(obj) {
   var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : obj;
 
-  if ((0, _array.isArray)(obj)) {
+  if ((0, _inspect.isArray)(obj)) {
     return obj.reduce(function (result, val) {
       return [].concat(_toConsumableArray(result), [cloneDeep(val, val)]);
     }, []);
   }
 
-  if ((0, _object.isPlainObject)(obj)) {
+  if ((0, _inspect.isPlainObject)(obj)) {
     return (0, _object.keys)(obj).reduce(function (result, key) {
       return _objectSpread({}, result, _defineProperty({}, key, cloneDeep(obj[key], obj[key])));
     }, {});
@@ -47597,7 +52599,7 @@ exports.default = _default;
 
 
 exports.__esModule = true;
-exports.default = exports.unbindTargets = exports.bindTargets = void 0;
+exports.default = exports.getTargets = exports.unbindTargets = exports.bindTargets = void 0;
 
 var _object = __webpack_require__("24e2");
 
@@ -47610,7 +52612,7 @@ var allListenTypes = {
 };
 var BVBoundListeners = '__BV_boundEventListeners__';
 
-var bindTargets = function bindTargets(vnode, binding, listenTypes, fn) {
+var getTargets = function getTargets(binding) {
   var targets = (0, _object.keys)(binding.modifiers || {}).filter(function (t) {
     return !allListenTypes[t];
   });
@@ -47618,6 +52620,14 @@ var bindTargets = function bindTargets(vnode, binding, listenTypes, fn) {
   if (binding.value) {
     targets.push(binding.value);
   }
+
+  return targets;
+};
+
+exports.getTargets = getTargets;
+
+var bindTargets = function bindTargets(vnode, binding, listenTypes, fn) {
+  var targets = getTargets(binding);
 
   var listener = function listener() {
     fn({
@@ -47671,22 +52681,26 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _popover = __webpack_require__("8597");
+var _popover = _interopRequireDefault(__webpack_require__("8597"));
 
-var _popover2 = __webpack_require__("d670");
+exports.BPopover = _popover.default;
+
+var _popover2 = _interopRequireDefault(__webpack_require__("5764"));
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BPopover: _popover.default
 };
-var plugins = {
-  BPopoverDirectivePlugin: _popover2.default
+var directives = {
+  VBPopover: _popover2.default
 };
 var _default = {
   install: (0, _plugins.installFactory)({
     components: components,
-    plugins: plugins
+    directives: directives
   })
 };
 exports.default = _default;
@@ -47702,25 +52716,38 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _collapse = __webpack_require__("e4c5");
+var _collapse = _interopRequireDefault(__webpack_require__("e4c5"));
 
-var _toggle = __webpack_require__("d4a9");
+exports.BCollapse = _collapse.default;
+
+var _toggle = _interopRequireDefault(__webpack_require__("a596"));
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BCollapse: _collapse.default
 };
-var plugins = {
-  BToggleDirectivePlugin: _toggle.default
+var directives = {
+  VBToggle: _toggle.default
 };
 var _default = {
   install: (0, _plugins.installFactory)({
     components: components,
-    plugins: plugins
+    directives: directives
   })
 };
 exports.default = _default;
+
+/***/ }),
+
+/***/ "f410":
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__("1af6");
+module.exports = __webpack_require__("584a").Array.isArray;
+
 
 /***/ }),
 
@@ -47790,19 +52817,21 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
-var _array = __webpack_require__("bb2f");
+var _toString = _interopRequireDefault(__webpack_require__("40f6"));
 
-var _toString = __webpack_require__("40f6");
+var _inspect = __webpack_require__("0d5a");
 
-var _breadcrumbItem = __webpack_require__("5279");
+var _breadcrumbItem = _interopRequireDefault(__webpack_require__("5279"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var props = {
   items: {
@@ -47812,7 +52841,8 @@ var props = {
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BBreadcrumb',
   functional: true,
   props: props,
@@ -47822,10 +52852,10 @@ var _default = {
         children = _ref.children;
     var childNodes = children; // Build child nodes from items if given.
 
-    if ((0, _array.isArray)(props.items)) {
+    if ((0, _inspect.isArray)(props.items)) {
       var activeDefined = false;
       childNodes = props.items.map(function (item, idx) {
-        if (_typeof(item) !== 'object') {
+        if (!(0, _inspect.isObject)(item)) {
           item = {
             text: (0, _toString.default)(item)
           };
@@ -47855,7 +52885,8 @@ var _default = {
       staticClass: 'breadcrumb'
     }), childNodes);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -47888,7 +52919,7 @@ module.exports = function (it) {
 
 
 exports.__esModule = true;
-exports.default = void 0;
+exports.default = exports.BvEvent = void 0;
 
 var _object = __webpack_require__("24e2");
 
@@ -47914,7 +52945,7 @@ function () {
     // and the type last so it can't be overwritten.
 
 
-    (0, _object.assign)(this, BvEvent.defaults(), eventInit, {
+    (0, _object.assign)(this, BvEvent.Defaults, this.constructor.Defaults, eventInit, {
       type: type
     }); // Freeze some props as readonly, but leave them enumerable.
 
@@ -47924,7 +52955,8 @@ function () {
       nativeEvent: (0, _object.readonlyDescriptor)(),
       target: (0, _object.readonlyDescriptor)(),
       relatedTarget: (0, _object.readonlyDescriptor)(),
-      vueTarget: (0, _object.readonlyDescriptor)()
+      vueTarget: (0, _object.readonlyDescriptor)(),
+      componentId: (0, _object.readonlyDescriptor)()
     }); // Create a private variable using closure scoping.
 
     var defaultPrevented = false; // Recreate preventDefault method. One way setter.
@@ -47946,22 +52978,26 @@ function () {
   }
 
   _createClass(BvEvent, null, [{
-    key: "defaults",
-    value: function defaults() {
+    key: "Defaults",
+    get: function get() {
       return {
         type: '',
         cancelable: true,
         nativeEvent: null,
         target: null,
         relatedTarget: null,
-        vueTarget: null
+        vueTarget: null,
+        componentId: null
       };
     }
   }]);
 
   return BvEvent;
-}();
+}(); // Named Exports
 
+
+exports.BvEvent = BvEvent;
+// Default Export
 var _default = BvEvent;
 exports.default = _default;
 
@@ -47976,9 +53012,13 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = void 0;
 
-var _paginationNav = __webpack_require__("8934");
+var _paginationNav = _interopRequireDefault(__webpack_require__("8934"));
+
+exports.BPaginationNav = _paginationNav.default;
 
 var _plugins = __webpack_require__("0a8d");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var components = {
   BPaginationNav: _paginationNav.default
@@ -47988,6 +53028,85 @@ var _default = {
     components: components
   })
 };
+exports.default = _default;
+
+/***/ }),
+
+/***/ "f9e2":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.modalTargetName = void 0;
+
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
+var _portalVue = __webpack_require__("2b88");
+
+var _dom = __webpack_require__("1611");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var NAME = 'BModalTarget';
+var modalTargetName = "BV-".concat(NAME); // Pivate internal component used by ModalManager.
+// Not to be used directly by humans.
+// @vue/component
+
+exports.modalTargetName = modalTargetName;
+
+var _default = _vue.default.extend({
+  name: NAME,
+  data: function data() {
+    return {
+      doRender: false
+    };
+  },
+  destroyed: function destroyed()
+  /* istanbul ignore next */
+  {
+    // Ensure we get removed from DOM when destroyed
+    if (this.$el && this.$el.parentNode) {
+      this.$el.parentNode.removeChild(this.$el);
+    }
+  },
+  beforeMount: function beforeMount() {
+    var self = this; // There can be only one modal target in the document
+
+    /* istanbul ignore if */
+
+    if (_portalVue.Wormhole.hasTarget(modalTargetName)) {
+      this.$once('hook:mounted', function () {
+        self.$nextTick(function () {
+          (0, _dom.requestAF)(function () {
+            self.$destroy();
+          });
+        });
+      });
+    } else {
+      this.doRender = true;
+    }
+  },
+  render: function render(h) {
+    /* istanbul ignore else */
+    if (this.doRender) {
+      return h(_portalVue.PortalTarget, {
+        staticClass: 'b-modal-target',
+        props: {
+          tag: 'div',
+          name: modalTargetName,
+          multiple: true,
+          transition: null,
+          slim: false
+        }
+      });
+    } else {
+      return h('div');
+    }
+  }
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -48406,12 +53525,12 @@ var NDropdown_component = normalizeComponent(
 )
 
 /* harmony default export */ var NDropdown = (NDropdown_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NModal.vue?vue&type=template&id=6d700f1c&
-var NModalvue_type_template_id_6d700f1c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-modal',_vm._g(_vm._b({ref:"modal",staticClass:"n-modal",style:({ 'max-width': _vm.size + 'rem' }),attrs:{"centered":_vm.centered,"hide-header-close":"","no-fade":"","hide-header":_vm.isHeaderHidden,"content-class":_vm.contentClass},on:{"hide":_vm.close},model:{value:(_vm.show),callback:function ($$v) {_vm.show=$$v},expression:"show"}},'b-modal',_vm.$attrs,false),_vm.$listeners),[(_vm.type !== 'confirm')?_c('div',{attrs:{"slot":"modal-header"},slot:"modal-header"},[_vm._v("\n    "+_vm._s(_vm.title)+"\n    "),_c('n-button',{staticClass:"modal-close",attrs:{"round":"","button-type":"icon","variant":"danger","title":"Close"},nativeOn:{"click":function($event){return _vm.close()}}},[_c('close-icon',{attrs:{"size":28}})],1)],1):_vm._e(),_vm._t("default"),_c('div',{staticClass:"w-100",attrs:{"slot":"modal-footer"},slot:"modal-footer"},[_vm._t("modal-footer")],2)],2)}
-var NModalvue_type_template_id_6d700f1c_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NModal.vue?vue&type=template&id=383f7362&
+var NModalvue_type_template_id_383f7362_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-modal',_vm._g(_vm._b({staticClass:"n-modal",style:({ 'max-width': _vm.size + 'rem' }),attrs:{"modal-class":"n-modal","centered":_vm.centered,"hide-header-close":"","no-fade":"","hide-header":_vm.isHeaderHidden,"content-class":_vm.contentClass,"visible":_vm.show},on:{"hide":_vm.close}},'b-modal',_vm.$attrs,false),_vm.$listeners),[(_vm.type !== 'confirm')?_c('div',{attrs:{"slot":"modal-header"},slot:"modal-header"},[_vm._v("\n    "+_vm._s(_vm.title)+"\n    "),_c('n-button',{staticClass:"modal-close",attrs:{"round":"","button-type":"icon","variant":"danger","title":"Close"},nativeOn:{"click":function($event){return _vm.close()}}},[_c('close-icon',{attrs:{"size":28}})],1)],1):_vm._e(),_vm._t("default"),_c('div',{staticClass:"w-100",attrs:{"slot":"modal-footer"},slot:"modal-footer"},[_vm._t("modal-footer")],2)],2)}
+var NModalvue_type_template_id_383f7362_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/NModal.vue?vue&type=template&id=6d700f1c&
+// CONCATENATED MODULE: ./src/components/NModal.vue?vue&type=template&id=383f7362&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.number.constructor.js
 var es6_number_constructor = __webpack_require__("c5f6");
@@ -48420,15 +53539,22 @@ var es6_number_constructor = __webpack_require__("c5f6");
 var modal = __webpack_require__("3a5b");
 var modal_default = /*#__PURE__*/__webpack_require__.n(modal);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/icons/Close.vue?vue&type=template&id=c64c4096&
-var Closevue_type_template_id_c64c4096_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{staticClass:"material-design-icon close-icon",attrs:{"aria-hidden":_vm.decorative,"aria-label":_vm.title,"role":"img"},on:{"click":function($event){return _vm.$emit('click', $event)}}},[_c('svg',{staticClass:"material-design-icon__svg",attrs:{"fill":_vm.fillColor,"width":_vm.size,"height":_vm.size,"viewBox":"0 0 24 24"}},[_c('title',[_vm._v(_vm._s(_vm.title))]),_c('g',{attrs:{"transform":"translate(-105.24 -61.446)"}},[_c('g',{attrs:{"transform":"matrix(.67321 0 0 .67321 -108.44 -113.77)"}},[_c('path',{attrs:{"d":"m326.29 261.4c6.5931 6.581 13.216 13.134 19.79 19.733 1.1898 1.2726 1.2693 3.6619-0.35503 4.6205-1.4856 0.90229-3.3959 0.15814-4.4251-1.0912-6.4716-6.46-12.972-12.892-19.426-19.37-1.1898-1.2726-1.2693-3.6619 0.35503-4.6205 1.3052-0.7982 3.045-0.31454 4.0606 0.72816z","fill-rule":"evenodd","stroke-width":".67116"}}),_c('path',{attrs:{"d":"m326.29 261.4c6.5931 6.581 13.216 13.134 19.79 19.733 1.1898 1.2726 1.2693 3.6619-0.35503 4.6205-1.4856 0.90229-3.3959 0.15814-4.4251-1.0912-6.4716-6.46-12.972-12.892-19.426-19.37-1.1898-1.2726-1.2693-3.6619 0.35503-4.6205 1.3052-0.7982 3.045-0.31454 4.0606 0.72816z","fill-rule":"evenodd","stroke-width":".67116"}}),_c('path',{attrs:{"d":"m341.74 261.38c-6.5931 6.581-13.216 13.134-19.79 19.733-1.1898 1.2726-1.2693 3.6619 0.35503 4.6205 1.4856 0.9023 3.3959 0.15813 4.4252-1.0912 6.4716-6.46 12.972-12.892 19.426-19.37 1.1898-1.2726 1.2693-3.6619-0.35504-4.6205-1.3052-0.79819-3.045-0.31454-4.0606 0.72816z","fill-rule":"evenodd","stroke-width":".67116"}})])])])])}
-var Closevue_type_template_id_c64c4096_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/icons/Close.vue?vue&type=template&id=777ad862&
+var Closevue_type_template_id_777ad862_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{staticClass:"material-design-icon close-icon",attrs:{"aria-hidden":_vm.decorative,"aria-label":_vm.title,"role":"img"},on:{"click":function($event){return _vm.$emit('click', $event)}}},[_c('svg',{staticClass:"material-design-icon__svg",attrs:{"fill":_vm.fillColor,"width":_vm.size,"height":_vm.size,"viewBox":"0 0 24 24"}},[_c('title',[_vm._v(_vm._s(_vm.title))]),_c('g',{attrs:{"id":"g12","transform":"matrix(1.2488021,0,0,1.2488021,-134.01129,-76.229999)"}},[_vm._v("\n      >\n      "),_c('g',{attrs:{"id":"g10","transform":"matrix(0.67321,0,0,0.67321,-108.44,-113.77)"}},[_c('path',{staticStyle:{"fill-rule":"evenodd","stroke-width":"0.67115998"},attrs:{"id":"path4","d":"m 326.29,261.4 c 6.5931,6.581 13.216,13.134 19.79,19.733 1.1898,1.2726 1.2693,3.6619 -0.35503,4.6205 -1.4856,0.90229 -3.3959,0.15814 -4.4251,-1.0912 -6.4716,-6.46 -12.972,-12.892 -19.426,-19.37 -1.1898,-1.2726 -1.2693,-3.6619 0.35503,-4.6205 1.3052,-0.7982 3.045,-0.31454 4.0606,0.72816 z","inkscape:connector-curvature":"0"}}),_c('path',{staticStyle:{"fill-rule":"evenodd","stroke-width":"0.67115998"},attrs:{"id":"path6","d":"m 326.29,261.4 c 6.5931,6.581 13.216,13.134 19.79,19.733 1.1898,1.2726 1.2693,3.6619 -0.35503,4.6205 -1.4856,0.90229 -3.3959,0.15814 -4.4251,-1.0912 -6.4716,-6.46 -12.972,-12.892 -19.426,-19.37 -1.1898,-1.2726 -1.2693,-3.6619 0.35503,-4.6205 1.3052,-0.7982 3.045,-0.31454 4.0606,0.72816 z","inkscape:connector-curvature":"0"}}),_c('path',{staticStyle:{"fill-rule":"evenodd","stroke-width":"0.67115998"},attrs:{"id":"path8","d":"m 341.74,261.38 c -6.5931,6.581 -13.216,13.134 -19.79,19.733 -1.1898,1.2726 -1.2693,3.6619 0.35503,4.6205 1.4856,0.9023 3.3959,0.15813 4.4252,-1.0912 6.4716,-6.46 12.972,-12.892 19.426,-19.37 1.1898,-1.2726 1.2693,-3.6619 -0.35504,-4.6205 -1.3052,-0.79819 -3.045,-0.31454 -4.0606,0.72816 z","inkscape:connector-curvature":"0"}})])])])])}
+var Closevue_type_template_id_777ad862_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/icons/Close.vue?vue&type=template&id=c64c4096&
+// CONCATENATED MODULE: ./src/icons/Close.vue?vue&type=template&id=777ad862&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/icons/Close.vue?vue&type=script&lang=js&
 
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -48501,8 +53627,8 @@ var Closevue_type_template_id_c64c4096_staticRenderFns = []
 
 var Close_component = normalizeComponent(
   icons_Closevue_type_script_lang_js_,
-  Closevue_type_template_id_c64c4096_render,
-  Closevue_type_template_id_c64c4096_staticRenderFns,
+  Closevue_type_template_id_777ad862_render,
+  Closevue_type_template_id_777ad862_staticRenderFns,
   false,
   null,
   null,
@@ -48613,7 +53739,6 @@ var Close_component = normalizeComponent(
   },
   methods: {
     close: function close() {
-      // this.$refs["modal"].hide();
       this.$emit("close");
     }
   }
@@ -48634,8 +53759,8 @@ var NModalvue_type_style_index_0_lang_scss_ = __webpack_require__("0c08");
 
 var NModal_component = normalizeComponent(
   components_NModalvue_type_script_lang_js_,
-  NModalvue_type_template_id_6d700f1c_render,
-  NModalvue_type_template_id_6d700f1c_staticRenderFns,
+  NModalvue_type_template_id_383f7362_render,
+  NModalvue_type_template_id_383f7362_staticRenderFns,
   false,
   null,
   null,
@@ -48644,12 +53769,12 @@ var NModal_component = normalizeComponent(
 )
 
 /* harmony default export */ var NModal = (NModal_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NNavbar.vue?vue&type=template&id=f7d768ec&
-var NNavbarvue_type_template_id_f7d768ec_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-navbar',{staticClass:"n-navbar",class:{ drawer: _vm.drawer, 'n-transparent': _vm.transparent },attrs:{"fixed":_vm.fixed,"sticky":_vm.sticky,"toggleable":_vm.toggleable}},[(_vm.drawer)?_c('n-button',{staticClass:"menu-toggle",attrs:{"round":"","button-type":"icon","variant":"transparent"},nativeOn:{"click":function($event){return _vm.toggleSidebar()}}},[_c('menu-icon')],1):_vm._e(),_c('b-navbar-brand',{staticClass:"navbar-brand",attrs:{"href":"#"}},[_vm._t("logo")],2),_c('b-navbar-nav',{staticClass:"ml-auto sidebar",class:{ open: _vm.show },attrs:{"id":"side-bar","right":""}},[_c('n-button',{staticClass:"menu-close",attrs:{"round":"","button-type":"icon","variant":"transparent"},nativeOn:{"click":function($event){return _vm.hide()}}},[_c('close-icon')],1),_vm._t("nav-items-drawer")],2),_c('b-navbar-nav',{attrs:{"right":""}},[_vm._t("nav-items")],2),(_vm.show)?_c('div',{staticClass:"backdrop",on:{"click":function($event){return _vm.hide()}}}):_vm._e()],1)}
-var NNavbarvue_type_template_id_f7d768ec_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NNavbar.vue?vue&type=template&id=3efc3251&
+var NNavbarvue_type_template_id_3efc3251_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('b-navbar',{staticClass:"n-navbar",class:{ drawer: _vm.drawer, 'n-transparent': _vm.transparent },attrs:{"fixed":_vm.fixed,"sticky":_vm.sticky,"toggleable":_vm.toggleable}},[_c('div',{staticClass:"container"},[(_vm.drawer)?_c('n-button',{staticClass:"menu-toggle",attrs:{"button-type":"icon","variant":"primary"},nativeOn:{"click":function($event){return _vm.toggleSidebar()}}},[_c('menu-icon')],1):_vm._e(),_c('b-navbar-brand',{staticClass:"navbar-brand",attrs:{"href":"#"}},[_vm._t("logo")],2),_c('b-navbar-nav',{staticClass:"ml-auto sidebar",class:{ open: _vm.show },attrs:{"id":"side-bar","right":""}},[_c('n-button',{staticClass:"menu-close",attrs:{"round":"","button-type":"icon","variant":"danger"},nativeOn:{"click":function($event){return _vm.hide()}}},[_c('close-icon')],1),_vm._t("nav-items-drawer")],2),_c('b-navbar-nav',{attrs:{"right":""}},[_vm._t("nav-items")],2),(_vm.show)?_c('div',{staticClass:"backdrop",on:{"click":function($event){return _vm.hide()}}}):_vm._e()],1)])}
+var NNavbarvue_type_template_id_3efc3251_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/NNavbar.vue?vue&type=template&id=f7d768ec&
+// CONCATENATED MODULE: ./src/components/NNavbar.vue?vue&type=template&id=3efc3251&
 
 // EXTERNAL MODULE: ./node_modules/bootstrap-vue/es/components/navbar/navbar.js
 var navbar = __webpack_require__("e1a8");
@@ -48667,15 +53792,18 @@ var navbar_nav_default = /*#__PURE__*/__webpack_require__.n(navbar_nav);
 var vue_click_outside = __webpack_require__("e67d");
 var vue_click_outside_default = /*#__PURE__*/__webpack_require__.n(vue_click_outside);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/assets/icons/Menu.vue?vue&type=template&id=73358bf0&
-var Menuvue_type_template_id_73358bf0_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{staticClass:"material-design-icon menu-icon",attrs:{"aria-hidden":_vm.decorative,"aria-label":_vm.title,"role":"img"},on:{"click":function($event){return _vm.$emit('click', $event)}}},[_c('svg',{staticClass:"material-design-icon__svg",attrs:{"fill":_vm.fillColor,"width":_vm.size,"height":_vm.size,"viewBox":"0 0 24 24"}},[_c('g',{attrs:{"transform":"translate(-105.24 -61.446)"}},[_c('g',{attrs:{"transform":"matrix(.64661 0 0 .64661 -74.249 -105.93)","fill-rule":"evenodd","stroke-width":".67193"}},[_c('rect',{attrs:{"transform":"matrix(-1 -.0019925 .0027971 1 0 0)","x":"-311.43","y":"258.29","width":"34.571","height":"5.8891","rx":"3.053"}}),_c('rect',{attrs:{"transform":"matrix(-1 -.0019925 .0027971 1 0 0)","x":"-311.4","y":"268.64","width":"34.571","height":"5.8891","rx":"3.053"}}),_c('rect',{attrs:{"transform":"matrix(-1 -.0019925 .0027971 1 0 0)","x":"-311.37","y":"279.29","width":"34.571","height":"5.8891","rx":"3.053"}})])]),_c('title',[_vm._v(_vm._s(_vm.title))])])])}
-var Menuvue_type_template_id_73358bf0_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/assets/icons/Menu.vue?vue&type=template&id=52379d5a&
+var Menuvue_type_template_id_52379d5a_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{staticClass:"material-design-icon menu-icon",attrs:{"aria-hidden":_vm.decorative,"aria-label":_vm.title,"role":"img"},on:{"click":function($event){return _vm.$emit('click', $event)}}},[_c('svg',{staticClass:"material-design-icon__svg",attrs:{"fill":_vm.fillColor,"width":_vm.size,"height":_vm.size,"viewBox":"0 0 24 24"}},[_c('title',[_vm._v(_vm._s(_vm.title))]),_c('g',{attrs:{"id":"g12","transform":"matrix(1,0,0,1.2546583,-105.04276,-76.643735)"}},[_c('g',{staticStyle:{"fill-rule":"evenodd","stroke-width":"0.67193002"},attrs:{"id":"g10","transform":"matrix(0.64661,0,0,0.64661,-74.249,-105.93)"}},[_c('rect',{attrs:{"id":"rect4","transform":"matrix(-1,-0.0019925,0.0027971,1,0,0)","x":"-311.42999","y":"258.29001","width":"34.570999","height":"5.8891001","rx":"3.053"}}),_c('rect',{attrs:{"id":"rect6","transform":"matrix(-1,-0.0019925,0.0027971,1,0,0)","x":"-311.39999","y":"268.64001","width":"34.570999","height":"5.8891001","rx":"3.053"}}),_c('rect',{attrs:{"id":"rect8","transform":"matrix(-1,-0.0019925,0.0027971,1,0,0)","x":"-311.37","y":"279.29001","width":"34.570999","height":"5.8891001","rx":"3.053"}})])])])])}
+var Menuvue_type_template_id_52379d5a_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/assets/icons/Menu.vue?vue&type=template&id=73358bf0&
+// CONCATENATED MODULE: ./src/assets/icons/Menu.vue?vue&type=template&id=52379d5a&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/assets/icons/Menu.vue?vue&type=script&lang=js&
 
+//
+//
+//
 //
 //
 //
@@ -48761,8 +53889,8 @@ var Menuvue_type_template_id_73358bf0_staticRenderFns = []
 
 var Menu_component = normalizeComponent(
   icons_Menuvue_type_script_lang_js_,
-  Menuvue_type_template_id_73358bf0_render,
-  Menuvue_type_template_id_73358bf0_staticRenderFns,
+  Menuvue_type_template_id_52379d5a_render,
+  Menuvue_type_template_id_52379d5a_staticRenderFns,
   false,
   null,
   null,
@@ -48771,15 +53899,22 @@ var Menu_component = normalizeComponent(
 )
 
 /* harmony default export */ var Menu = (Menu_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/assets/icons/Close.vue?vue&type=template&id=e6aaa9ea&
-var Closevue_type_template_id_e6aaa9ea_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{staticClass:"material-design-icon close-icon",attrs:{"aria-hidden":_vm.decorative,"aria-label":_vm.title,"role":"img"},on:{"click":function($event){return _vm.$emit('click', $event)}}},[_c('svg',{staticClass:"material-design-icon__svg",attrs:{"fill":_vm.fillColor,"width":_vm.size,"height":_vm.size,"viewBox":"0 0 24 24"}},[_c('title',[_vm._v(_vm._s(_vm.title))]),_c('g',{attrs:{"transform":"translate(-105.24 -61.446)"}},[_c('g',{attrs:{"transform":"matrix(.67321 0 0 .67321 -108.44 -113.77)"}},[_c('path',{attrs:{"d":"m326.29 261.4c6.5931 6.581 13.216 13.134 19.79 19.733 1.1898 1.2726 1.2693 3.6619-0.35503 4.6205-1.4856 0.90229-3.3959 0.15814-4.4251-1.0912-6.4716-6.46-12.972-12.892-19.426-19.37-1.1898-1.2726-1.2693-3.6619 0.35503-4.6205 1.3052-0.7982 3.045-0.31454 4.0606 0.72816z","fill-rule":"evenodd","stroke-width":".67116"}}),_c('path',{attrs:{"d":"m326.29 261.4c6.5931 6.581 13.216 13.134 19.79 19.733 1.1898 1.2726 1.2693 3.6619-0.35503 4.6205-1.4856 0.90229-3.3959 0.15814-4.4251-1.0912-6.4716-6.46-12.972-12.892-19.426-19.37-1.1898-1.2726-1.2693-3.6619 0.35503-4.6205 1.3052-0.7982 3.045-0.31454 4.0606 0.72816z","fill-rule":"evenodd","stroke-width":".67116"}}),_c('path',{attrs:{"d":"m341.74 261.38c-6.5931 6.581-13.216 13.134-19.79 19.733-1.1898 1.2726-1.2693 3.6619 0.35503 4.6205 1.4856 0.9023 3.3959 0.15813 4.4252-1.0912 6.4716-6.46 12.972-12.892 19.426-19.37 1.1898-1.2726 1.2693-3.6619-0.35504-4.6205-1.3052-0.79819-3.045-0.31454-4.0606 0.72816z","fill-rule":"evenodd","stroke-width":".67116"}})])])])])}
-var Closevue_type_template_id_e6aaa9ea_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/assets/icons/Close.vue?vue&type=template&id=4729d3cc&
+var Closevue_type_template_id_4729d3cc_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{staticClass:"material-design-icon close-icon",attrs:{"aria-hidden":_vm.decorative,"aria-label":_vm.title,"role":"img"},on:{"click":function($event){return _vm.$emit('click', $event)}}},[_c('svg',{staticClass:"material-design-icon__svg",attrs:{"fill":_vm.fillColor,"width":_vm.size,"height":_vm.size,"viewBox":"0 0 24 24"}},[_c('title',[_vm._v(_vm._s(_vm.title))]),_c('g',{attrs:{"id":"g12","transform":"matrix(1.2488021,0,0,1.2488021,-134.01129,-76.229999)"}},[_vm._v("\n      >\n      "),_c('g',{attrs:{"id":"g10","transform":"matrix(0.67321,0,0,0.67321,-108.44,-113.77)"}},[_c('path',{staticStyle:{"fill-rule":"evenodd","stroke-width":"0.67115998"},attrs:{"id":"path4","d":"m 326.29,261.4 c 6.5931,6.581 13.216,13.134 19.79,19.733 1.1898,1.2726 1.2693,3.6619 -0.35503,4.6205 -1.4856,0.90229 -3.3959,0.15814 -4.4251,-1.0912 -6.4716,-6.46 -12.972,-12.892 -19.426,-19.37 -1.1898,-1.2726 -1.2693,-3.6619 0.35503,-4.6205 1.3052,-0.7982 3.045,-0.31454 4.0606,0.72816 z","inkscape:connector-curvature":"0"}}),_c('path',{staticStyle:{"fill-rule":"evenodd","stroke-width":"0.67115998"},attrs:{"id":"path6","d":"m 326.29,261.4 c 6.5931,6.581 13.216,13.134 19.79,19.733 1.1898,1.2726 1.2693,3.6619 -0.35503,4.6205 -1.4856,0.90229 -3.3959,0.15814 -4.4251,-1.0912 -6.4716,-6.46 -12.972,-12.892 -19.426,-19.37 -1.1898,-1.2726 -1.2693,-3.6619 0.35503,-4.6205 1.3052,-0.7982 3.045,-0.31454 4.0606,0.72816 z","inkscape:connector-curvature":"0"}}),_c('path',{staticStyle:{"fill-rule":"evenodd","stroke-width":"0.67115998"},attrs:{"id":"path8","d":"m 341.74,261.38 c -6.5931,6.581 -13.216,13.134 -19.79,19.733 -1.1898,1.2726 -1.2693,3.6619 0.35503,4.6205 1.4856,0.9023 3.3959,0.15813 4.4252,-1.0912 6.4716,-6.46 12.972,-12.892 19.426,-19.37 1.1898,-1.2726 1.2693,-3.6619 -0.35504,-4.6205 -1.3052,-0.79819 -3.045,-0.31454 -4.0606,0.72816 z","inkscape:connector-curvature":"0"}})])])])])}
+var Closevue_type_template_id_4729d3cc_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/assets/icons/Close.vue?vue&type=template&id=e6aaa9ea&
+// CONCATENATED MODULE: ./src/assets/icons/Close.vue?vue&type=template&id=4729d3cc&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/assets/icons/Close.vue?vue&type=script&lang=js&
 
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -48852,8 +53987,8 @@ var Closevue_type_template_id_e6aaa9ea_staticRenderFns = []
 
 var icons_Close_component = normalizeComponent(
   src_assets_icons_Closevue_type_script_lang_js_,
-  Closevue_type_template_id_e6aaa9ea_render,
-  Closevue_type_template_id_e6aaa9ea_staticRenderFns,
+  Closevue_type_template_id_4729d3cc_render,
+  Closevue_type_template_id_4729d3cc_staticRenderFns,
   false,
   null,
   null,
@@ -48867,6 +54002,11 @@ var hammerjs_hammer = __webpack_require__("c8b5");
 var hammer_default = /*#__PURE__*/__webpack_require__.n(hammerjs_hammer);
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NNavbar.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
 //
 //
 //
@@ -49147,8 +54287,8 @@ var NNavbarvue_type_style_index_0_lang_scss_ = __webpack_require__("ac75");
 
 var NNavbar_component = normalizeComponent(
   components_NNavbarvue_type_script_lang_js_,
-  NNavbarvue_type_template_id_f7d768ec_render,
-  NNavbarvue_type_template_id_f7d768ec_staticRenderFns,
+  NNavbarvue_type_template_id_3efc3251_render,
+  NNavbarvue_type_template_id_3efc3251_staticRenderFns,
   false,
   null,
   null,
@@ -49377,18 +54517,19 @@ var NSelect_component = normalizeComponent(
 )
 
 /* harmony default export */ var NSelect = (NSelect_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NTextbox.vue?vue&type=template&id=4015bd2c&
-var NTextboxvue_type_template_id_4015bd2c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('ui-textbox',_vm._g(_vm._b({staticClass:"n-textbox",attrs:{"options":_vm.options,"disabled":_vm.disabled,"label":_vm.label,"placeholder":_vm.placeholder,"floating-label":_vm.floatingLabel,"help":_vm.help,"error":_vm.error,"invalid":_vm.invalid,"name":_vm.name}},'ui-textbox',_vm.$attrs,false),_vm.$listeners),[_vm._t("default")],2)}
-var NTextboxvue_type_template_id_4015bd2c_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NTextbox.vue?vue&type=template&id=50605dca&
+var NTextboxvue_type_template_id_50605dca_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('ui-textbox',_vm._g(_vm._b({staticClass:"n-textbox",class:_vm.classes,attrs:{"options":_vm.options,"disabled":_vm.disabled,"label":_vm.label,"placeholder":_vm.placeholder,"floating-label":_vm.floatingLabel,"help":_vm.help,"error":_vm.error,"invalid":_vm.invalid,"name":_vm.name}},'ui-textbox',_vm.$attrs,false),_vm.$listeners),[_vm._t("default")],2)}
+var NTextboxvue_type_template_id_50605dca_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/NTextbox.vue?vue&type=template&id=4015bd2c&
+// CONCATENATED MODULE: ./src/components/NTextbox.vue?vue&type=template&id=50605dca&
 
 // EXTERNAL MODULE: ./node_modules/keen-ui/lib/UiTextbox.js
 var UiTextbox = __webpack_require__("a99d");
 var UiTextbox_default = /*#__PURE__*/__webpack_require__.n(UiTextbox);
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NTextbox.vue?vue&type=script&lang=js&
+//
 //
 //
 //
@@ -49452,6 +54593,15 @@ var UiTextbox_default = /*#__PURE__*/__webpack_require__.n(UiTextbox);
       default: false,
       type: Boolean
     },
+
+    /**
+     * Make the textbox act as static text.
+     * Disabled prop must me set to true
+     */
+    text: {
+      default: false,
+      type: Boolean
+    },
     disabled: {
       default: false,
       type: Boolean
@@ -49459,6 +54609,17 @@ var UiTextbox_default = /*#__PURE__*/__webpack_require__.n(UiTextbox);
     invalid: {
       default: false,
       type: Boolean
+    }
+  },
+  computed: {
+    classes: function classes() {
+      var classes = [];
+
+      if (this.text) {
+        classes.push("n-text");
+      }
+
+      return classes;
     }
   }
 });
@@ -49478,8 +54639,8 @@ var NTextboxvue_type_style_index_0_lang_scss_ = __webpack_require__("f520");
 
 var NTextbox_component = normalizeComponent(
   components_NTextboxvue_type_script_lang_js_,
-  NTextboxvue_type_template_id_4015bd2c_render,
-  NTextboxvue_type_template_id_4015bd2c_staticRenderFns,
+  NTextboxvue_type_template_id_50605dca_render,
+  NTextboxvue_type_template_id_50605dca_staticRenderFns,
   false,
   null,
   null,
@@ -49896,20 +55057,24 @@ external_commonjs_vue_commonjs2_vue_root_Vue_default.a.use(components["Layout"])
 exports.__esModule = true;
 exports.default = defaultSortCompare;
 
-var _get = __webpack_require__("b0df");
+var _get = _interopRequireDefault(__webpack_require__("b0df"));
 
-var _stringifyObjectValues = __webpack_require__("2227");
+var _inspect = __webpack_require__("0d5a");
+
+var _stringifyObjectValues = _interopRequireDefault(__webpack_require__("2227"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Default sort compare routine
 //
 // TODO: add option to sort by multiple columns (tri-state per column, plus order of columns in sort)
-//  where sprtBy could be an array of objects [ {key: 'foo', sortDir: 'asc'}, {key:'bar', sortDir: 'desc'} ...]
+//  where sortBy could be an array of objects [ {key: 'foo', sortDir: 'asc'}, {key:'bar', sortDir: 'desc'} ...]
 //  or an array of arrays [ ['foo','asc'], ['bar','desc'] ]
 function defaultSortCompare(a, b, sortBy) {
   a = (0, _get.default)(a, sortBy, '');
   b = (0, _get.default)(b, sortBy, '');
 
-  if (a instanceof Date && b instanceof Date || typeof a === 'number' && typeof b === 'number') {
+  if ((0, _inspect.isDate)(a) && (0, _inspect.isDate)(b) || (0, _inspect.isNumber)(a) && (0, _inspect.isNumber)(b)) {
     // Special case for comparing Dates and Numbers
     // Internally dates are compared via their epoch number values
     if (a < b) {
@@ -49956,15 +55121,21 @@ exports.default = _default;
 exports.__esModule = true;
 exports.default = exports.props = void 0;
 
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
+
 var _vueFunctionalDataMerge = __webpack_require__("b42e");
 
-var _inputGroupPrepend = __webpack_require__("9e3e");
+var _inputGroupPrepend = _interopRequireDefault(__webpack_require__("9e3e"));
 
-var _inputGroupAppend = __webpack_require__("6780");
+var _inputGroupAppend = _interopRequireDefault(__webpack_require__("6780"));
 
-var _inputGroupText = __webpack_require__("df74");
+var _inputGroupText = _interopRequireDefault(__webpack_require__("df74"));
 
 var _html = __webpack_require__("be11");
+
+var _normalizeSlot = __webpack_require__("9de7");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -50002,15 +55173,18 @@ var props = {
 
 };
 exports.props = props;
-var _default = {
+
+var _default = _vue.default.extend({
   name: 'BInputGroup',
   functional: true,
   props: props,
   render: function render(h, _ref) {
     var props = _ref.props,
         data = _ref.data,
-        slots = _ref.slots;
+        slots = _ref.slots,
+        scopedSlots = _ref.scopedSlots;
     var $slots = slots();
+    var $scopedSlots = scopedSlots || {};
     var childNodes = []; // Prepend prop
 
     if (props.prepend) {
@@ -50022,15 +55196,15 @@ var _default = {
     } // Prepend slot
 
 
-    if ($slots.prepend) {
-      childNodes.push(h(_inputGroupPrepend.default, $slots.prepend));
+    if ((0, _normalizeSlot.hasNormalizedSlot)('prepend', $scopedSlots, $slots)) {
+      childNodes.push(h(_inputGroupPrepend.default, (0, _normalizeSlot.normalizeSlot)('prepend', {}, $scopedSlots, $slots)));
     } else {
       childNodes.push(h(false));
     } // Default slot
 
 
-    if ($slots.default) {
-      childNodes.push.apply(childNodes, _toConsumableArray($slots.default));
+    if ((0, _normalizeSlot.hasNormalizedSlot)('default', $scopedSlots, $slots)) {
+      childNodes.push.apply(childNodes, _toConsumableArray((0, _normalizeSlot.normalizeSlot)('default', {}, $scopedSlots, $slots)));
     } else {
       childNodes.push(h(false));
     } // Append prop
@@ -50045,8 +55219,8 @@ var _default = {
     } // Append slot
 
 
-    if ($slots.append) {
-      childNodes.push(h(_inputGroupAppend.default, $slots.append));
+    if ((0, _normalizeSlot.hasNormalizedSlot)('prepend', $scopedSlots, $slots)) {
+      childNodes.push(h(_inputGroupAppend.default, (0, _normalizeSlot.normalizeSlot)('append', {}, $scopedSlots, $slots)));
     } else {
       childNodes.push(h(false));
     }
@@ -50060,7 +55234,8 @@ var _default = {
       }
     }), childNodes);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),
@@ -50083,30 +55258,36 @@ module.exports = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u20
 exports.__esModule = true;
 exports.default = void 0;
 
-var _id = __webpack_require__("eae0");
+var _vue = _interopRequireDefault(__webpack_require__("2d14"));
 
-var _formOptions = __webpack_require__("461c");
+var _id = _interopRequireDefault(__webpack_require__("eae0"));
 
-var _form = __webpack_require__("5f07");
+var _formOptions = _interopRequireDefault(__webpack_require__("461c"));
 
-var _formSize = __webpack_require__("6e1b");
+var _form = _interopRequireDefault(__webpack_require__("5f07"));
 
-var _formState = __webpack_require__("41fb");
+var _formSize = _interopRequireDefault(__webpack_require__("6e1b"));
 
-var _formCustom = __webpack_require__("377c");
+var _formState = _interopRequireDefault(__webpack_require__("41fb"));
+
+var _formCustom = _interopRequireDefault(__webpack_require__("377c"));
+
+var _normalizeSlot = _interopRequireDefault(__webpack_require__("532a"));
 
 var _array = __webpack_require__("bb2f");
 
 var _html = __webpack_require__("be11");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 // @vue/component
-var _default = {
+var _default = _vue.default.extend({
   name: 'BFormSelect',
-  mixins: [_id.default, _form.default, _formSize.default, _formState.default, _formCustom.default, _formOptions.default],
+  mixins: [_id.default, _normalizeSlot.default, _form.default, _formSize.default, _formState.default, _formCustom.default, _formOptions.default],
   model: {
     prop: 'value',
     event: 'input'
@@ -50171,7 +55352,6 @@ var _default = {
   render: function render(h) {
     var _this = this;
 
-    var $slots = this.$slots;
     var options = this.formOptions.map(function (option, index) {
       return h('option', {
         key: "option_".concat(index, "_opt"),
@@ -50218,9 +55398,10 @@ var _default = {
           });
         }
       }
-    }, [$slots.first, options, $slots.default]);
+    }, [this.normalizeSlot('first'), options, this.normalizeSlot('default')]);
   }
-};
+});
+
 exports.default = _default;
 
 /***/ }),

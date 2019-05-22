@@ -1,8 +1,7 @@
 <template>
   <b-modal
-    ref="modal"
-    v-model="show"
     class="n-modal"
+    modal-class="n-modal"
     :centered="centered"
     v-bind="$attrs"
     hide-header-close
@@ -10,6 +9,7 @@
     :hide-header="isHeaderHidden"
     :style="{ 'max-width': size + 'rem' }"
     :content-class="contentClass"
+    :visible="show"
     @hide="close"
     v-on="$listeners"
   >
@@ -95,7 +95,6 @@ export default {
   },
   methods: {
     close() {
-      // this.$refs["modal"].hide();
       this.$emit("close");
     }
   }
@@ -104,45 +103,49 @@ export default {
 <style lang="scss">
 @import "@/assets/sass/colors.scss";
 @import "@/assets/sass/animations.scss";
-.modal-content {
+
+.modal-backdrop {
+  z-index: 2009;
+}
+.n-modal .modal-content {
   margin-top: 15vh;
   padding: 1rem 1rem;
   animation: fadeIn 300ms;
   box-shadow: 0 2.5px 4px rgba(25, 25, 26, 0.7);
 }
 
-.modal-footer {
+.n-modal .modal-footer {
   border-top: none;
   text-align: right;
   .btn {
     margin-left: 0.3rem;
   }
 }
-.modal-header {
+.n-modal .modal-header {
   border-bottom: none;
   padding-right: 3rem;
 }
 
-.modal-confirm {
-  max-width: 20rem;
+.n-modal .modal-confirm {
+  max-width: 30rem;
   margin-right: auto;
   margin-left: auto;
   margin: 0 auto;
 }
 
-.modal-close {
+.n-modal .modal-close {
   position: absolute;
   top: 1.6rem;
   right: 2rem;
 }
 
-.modal-title {
+.n-modal .modal-title {
   color: #303133;
   font-weight: 400;
   font-size: 1.1rem;
 }
 @media only screen and (max-width: 600px) {
-  .modal-dialog {
+  .n-modal .modal-dialog {
     width: 100%;
     height: 100%;
     margin: 0;
@@ -150,7 +153,7 @@ export default {
     transition: all 1s;
   }
 
-  .modal-content {
+  .n-modal .modal-content {
     transition: all 1s;
     margin: 0;
     height: auto;
