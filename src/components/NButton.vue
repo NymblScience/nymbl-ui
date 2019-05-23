@@ -236,24 +236,24 @@ export default {
   box-shadow: none;
   background: none;
   border: none;
-  -webkit-filter: drop-shadow(0.05rem 0.05rem 0.05rem rgba(0, 0, 0, 0.5));
-  filter: drop-shadow(0.05rem 0.05rem 0.05rem rgba(0, 0, 0, 0.5));
+  -webkit-filter: drop-shadow(0.05rem 0.05rem 0.05rem rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0.05rem 0.05rem 0.05rem rgba(0, 0, 0, 0.3));
 
   &:hover {
     background: none !important;
     box-shadow: none !important;
-    -webkit-filter: drop-shadow(0.053rem 0.053rem 0.053rem rgba(0, 0, 0, 0.8));
-    filter: drop-shadow(0.053rem 0.053rem 0.053rem rgba(0, 0, 0, 0.8));
+    -webkit-filter: drop-shadow(0.053rem 0.053rem 0.053rem rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0.053rem 0.053rem 0.053rem rgba(0, 0, 0, 0.5));
   }
   &:focus {
     background: none !important;
     box-shadow: none !important;
-    -webkit-filter: drop-shadow(0.053rem 0.053rem 0.053rem rgba(0, 0, 0, 0.8));
-    filter: drop-shadow(0.053rem 0.053rem 0.053rem rgba(0, 0, 0, 0.8));
+    -webkit-filter: drop-shadow(0.053rem 0.053rem 0.053rem rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0.053rem 0.053rem 0.053rem rgba(0, 0, 0, 0.5));
   }
   &:active {
-    -webkit-filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0.5));
-    filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0.7));
+    -webkit-filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0.3));
+    filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0.4));
 
     background: none !important;
     outline: none !important;

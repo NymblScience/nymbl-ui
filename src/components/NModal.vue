@@ -115,7 +115,7 @@ export default {
   z-index: 2009;
 }
 .n-modal .modal-content {
-  margin-top: 15vh;
+  // margin-top: 15vh;
   padding: 1rem;
   animation: fadeIn 300ms;
   box-shadow: 0 2.5px 4px rgba(25, 25, 26, 0.7);

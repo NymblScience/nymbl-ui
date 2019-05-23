@@ -24,6 +24,7 @@
 
 .n-navbar .n-nav-toggle {
   padding-left: 0;
+  padding-right: 0;
 }
 
 .n-navbar .router-link-active {
@@ -156,7 +157,7 @@
           button-type="icon"
           variant="danger"
           class="menu-close"
-          :size="22"
+          size="22"
           @click.native="hide()"
         >
           <close-icon />
