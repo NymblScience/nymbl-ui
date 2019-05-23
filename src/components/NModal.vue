@@ -23,7 +23,7 @@
         title="Close"
         @click.native="close()"
       >
-        <close-icon :size="28" />
+        <close-icon :size="24" />
       </n-button>
     </div>
 
@@ -134,7 +134,7 @@ export default {
 }
 
 .n-modal .modal-confirm {
-  max-width: 30rem;
+  max-width: 24rem;
   margin-right: auto;
   margin-left: auto;
   margin: 0 auto;
@@ -147,9 +147,9 @@ export default {
 }
 
 .n-modal .modal-title {
-  color: #303133;
+  color: #292f2f;
   font-weight: 400;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 // @media only screen and (max-width: 600px) {
 //   .n-modal .modal-dialog {

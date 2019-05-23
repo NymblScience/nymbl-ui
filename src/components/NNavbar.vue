@@ -156,6 +156,7 @@
           button-type="icon"
           variant="danger"
           class="menu-close"
+          :size="22"
           @click.native="hide()"
         >
           <close-icon />
