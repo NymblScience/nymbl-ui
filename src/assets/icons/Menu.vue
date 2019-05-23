@@ -14,7 +14,7 @@
       viewBox="0 0 24 24"
     >
       <title>{{ title }}</title>
-      <g id="g12" transform="matrix(1,0,0,1.2546583,-105.04276,-76.643735)">
+      <g id="g12" transform="translate(-105.04276,-58.778128)">
         <g
           id="g10"
           transform="matrix(0.64661,0,0,0.64661,-74.249,-105.93)"

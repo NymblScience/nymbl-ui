@@ -93,8 +93,15 @@ export default {
       return "";
     }
   },
+  created() {
+    document.addEventListener("backbutton", this.close, false);
+  },
+  beforeDestroy() {
+    document.removeEventListener("backbutton", this.close, false);
+  },
   methods: {
     close() {
+      window.history.forward(1);
       this.$emit("close");
     }
   }
@@ -144,21 +151,21 @@ export default {
   font-weight: 400;
   font-size: 1.1rem;
 }
-@media only screen and (max-width: 600px) {
-  .n-modal .modal-dialog {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    transition: all 1s;
-  }
+// @media only screen and (max-width: 600px) {
+//   .n-modal .modal-dialog {
+//     width: 100%;
+//     height: 100%;
+//     margin: 0;
+//     padding: 0;
+//     transition: all 1s;
+//   }
 
-  .n-modal .modal-content {
-    transition: all 1s;
-    margin: 0;
-    height: auto;
-    min-height: 100%;
-    border-radius: 0;
-  }
-}
+//   .n-modal .modal-content {
+//     transition: all 1s;
+//     margin: 0;
+//     height: auto;
+//     min-height: 100%;
+//     border-radius: 0;
+//   }
+// }
 </style>

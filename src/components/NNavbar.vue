@@ -17,9 +17,13 @@
   margin-top: 0;
 }
 
-.navbar .menu-toggle,
+.navbar .n-nav-toggle,
 .navbar .menu-close {
   display: none;
+}
+
+.n-navbar .n-nav-toggle {
+  padding-left: 0;
 }
 
 .n-navbar .router-link-active {
@@ -44,7 +48,7 @@
 }
 
 @media only screen and (max-width: 70rem) {
-  .navbar.drawer .menu-toggle,
+  .navbar.drawer .n-nav-toggle,
   .navbar.drawer .menu-close {
     display: block;
     animation: fadeIn 400ms;
@@ -130,7 +134,7 @@
         v-if="drawer"
         button-type="icon"
         variant="primary"
-        class="menu-toggle"
+        class="n-nav-toggle"
         @click.native="toggleSidebar()"
       >
         <menu-icon />

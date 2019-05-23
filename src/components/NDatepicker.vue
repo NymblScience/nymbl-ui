@@ -9,6 +9,7 @@
     :help="help"
     :error="error"
     :invalid="invalid"
+    :custom-format="customFormat"
     v-on="$listeners"
   >
     <slot />
@@ -33,6 +34,13 @@ export default {
     placeholder: {
       default: "",
       type: String
+    },
+    /**
+     * `Custom Format date
+     */
+    customFormat: {
+      default: () => {},
+      type: Function
     },
     label: {
       default: "",

@@ -15,7 +15,7 @@
     >
       <title>{{ title }}</title>
   <g
-     transform="matrix(1,0,0,1.2546583,-105.04276,-76.643735)"
+     transform="translate(-105.04276,-58.778128)"
      id="g12">
     <g
        transform="matrix(0.64661,0,0,0.64661,-74.249,-105.93)"
@@ -48,6 +48,8 @@
     </g>
   </g>
 </svg>
+
+
 
   </span>
 </template>
