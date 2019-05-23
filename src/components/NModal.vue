@@ -116,7 +116,7 @@ export default {
 }
 .n-modal .modal-content {
   margin-top: 15vh;
-  padding: 1rem 1rem;
+  padding: 1rem;
   animation: fadeIn 300ms;
   box-shadow: 0 2.5px 4px rgba(25, 25, 26, 0.7);
 }
@@ -124,13 +124,21 @@ export default {
 .n-modal .modal-footer {
   border-top: none;
   text-align: right;
+  padding: 0 1rem 1rem 1rem;
   .btn {
     margin-left: 0.3rem;
   }
 }
 .n-modal .modal-header {
   border-bottom: none;
+  padding: 1rem;
+  font-size: 1.1rem;
   padding-right: 3rem;
+  color: #292f2f;
+}
+
+.n-modal .modal-body {
+  padding: 1.5rem 1rem;
 }
 
 .n-modal .modal-confirm {
@@ -151,21 +159,22 @@ export default {
   font-weight: 400;
   font-size: 1.2rem;
 }
-// @media only screen and (max-width: 600px) {
-//   .n-modal .modal-dialog {
-//     width: 100%;
-//     height: 100%;
-//     margin: 0;
-//     padding: 0;
-//     transition: all 1s;
-//   }
+@media only screen and (max-width: 600px) {
+  .n-modal .modal-content {
+    margin-top: 0;
+    // width: 100%;
+    // height: 100%;
+    // margin: 0;
+    // padding: 0;
+    // transition: all 1s;
+  }
 
-//   .n-modal .modal-content {
-//     transition: all 1s;
-//     margin: 0;
-//     height: auto;
-//     min-height: 100%;
-//     border-radius: 0;
-//   }
-// }
+  // .n-modal .modal-content {
+  //   transition: all 1s;
+  //   margin: 0;
+  //   height: auto;
+  //   min-height: 100%;
+  //   border-radius: 0;
+  // }
+}
 </style>
