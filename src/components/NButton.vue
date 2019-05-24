@@ -232,7 +232,7 @@ export default {
 }
 
 .btn.btn-icon {
-  color: #333;
+  color: #595959;
   box-shadow: none;
   background: none;
   border: none;
