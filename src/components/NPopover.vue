@@ -81,7 +81,7 @@ export default {
 
   data() {
     return {
-      returnFocus: true
+      returnFocus: false
     };
   },
 
@@ -233,7 +233,7 @@ export default {
     },
 
     onShown() {
-      // this.lastFocusedElement = document.activeElement;
+      this.lastFocusedElement = document.activeElement;
       // this.$refs.focusContainer.focus();
       this.$emit("reveal");
     },

@@ -6,7 +6,7 @@
       @focus="redirectFocus($event, { isTabbingForward: false })"
     ></span>
 
-    <div ref="content" class="n-focus-container__content" tabindex="-1">
+    <div ref="content" class="n-focus-container__content">
       <slot></slot>
     </div>
 
@@ -14,7 +14,6 @@
       v-if="!disabled && containFocus"
       ref="lastFocusable"
       class="n-focus-container__last-focusable"
-      tabindex="-1"
     ></span>
 
     <span
