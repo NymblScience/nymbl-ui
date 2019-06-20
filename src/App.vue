@@ -1,16 +1,12 @@
 <template>
   <div id="app">
-    <img
-      alt="Vue logo"
-      src="./assets/logo.png"
-    >
+    <img alt="Vue logo" src="./assets/logo.png" />
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'App',
+  name: "App"
 };
 </script>
 
@@ -25,6 +21,6 @@ export default {
 }
 
 .rsg--para-42 {
-  display: none
+  display: none;
 }
 </style>

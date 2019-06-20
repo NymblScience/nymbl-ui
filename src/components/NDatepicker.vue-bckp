@@ -1,38 +1,127 @@
 <template>
-  <div tabindex="-1" class="ui-datepicker n-datepicker" :class="classes">
-    <!-- <div v-if="icon || $slots.icon" class="ui-datepicker__icon-wrapper">
+  <ui-datepicker
+    class="n-datepicker"
+    :disabled="disabled"
+    :label="label"
+    :placeholder="placeholder"
+    v-bind="$attrs"
+    :floating-label="floatingLabel"
+    :help="help"
+    :error="error"
+    :invalid="invalid"
+    :custom-format="customFormat"
+    v-on="$listeners"
+  >
+    <slot />
+  </ui-datepicker>
+</template>
+<script>
+import "keen-ui/src/bootstrap"; // Required when using standalone components, should be imported only once in your project
+import UiDatepicker from "keen-ui/lib/UiDatepicker";
+export default {
+  name: "NDatepicker",
+  components: {
+    UiDatepicker
+  },
+  props: {
+    /**
+     * Select Options
+     */
+    /**
+     * The size of the button
+     * `small, normal, large`
+     */
+    placeholder: {
+      default: "",
+      type: String
+    },
+    /**
+     * `Custom Format date
+     */
+    customFormat: {
+      default: () => {},
+      type: Function
+    },
+    label: {
+      default: "",
+      type: String
+    },
+    help: {
+      default: "",
+      type: String
+    },
+    error: {
+      default: "",
+      type: String
+    },
+    floatingLabel: {
+      default: false,
+      type: Boolean
+    },
+    disabled: {
+      default: false,
+      type: Boolean
+    },
+    invalid: {
+      default: false,
+      type: Boolean
+    }
+  }
+};
+</script>
+<style lang="scss"></style>
+
+<template>
+  <div class="ui-datepicker" :class="classes">
+    <input
+      class="ui-datepicker__hidden-input"
+      type="hidden"
+      :name="name"
+      :value="submittedValue"
+    />
+
+    <div class="ui-datepicker__icon-wrapper" v-if="icon || $slots.icon">
       <slot name="icon">
         <ui-icon :icon="icon"></ui-icon>
       </slot>
-    </div> -->
+    </div>
 
     <div class="ui-datepicker__content">
       <div
-        class="ui-datepicker__display-value"
-        :class="{ 'is-placeholder': !hasDisplayText }"
+        class="ui-datepicker__label"
+        ref="label"
+        :tabindex="disabled ? null : tabindex || '0'"
+        @click="onClick"
+        @focus="onFocus"
+        @keydown.enter.prevent="openPicker"
+        @keydown.space.prevent="openPicker"
+        @keydown.tab="onBlur"
       >
-        <n-textbox
-          ref="textbox"
-          v-model="inputDate"
-          :label="label"
-          :error="error"
-          :help="help"
-          :name="name"
-          :placeholder="placeholder"
-          @focus="onFocus"
-          @click.native="onClick"
-          @keydown.tab="onBlur"
-          @keydown.enter.prevent="openPicker"
-          @keydown.space.prevent="openPicker"
-          @input="onUpdateInput"
+        <div
+          class="ui-datepicker__label-text"
+          :class="labelClasses"
+          v-if="label || $slots.default"
         >
-        </n-textbox>
-      </div>
+          <slot>{{ label }}</slot>
+        </div>
 
-      <div class="">
-        <!-- <ui-icon
-            v-if="usesPopover && !disabled"
+        <div class="ui-datepicker__display">
+          <div
+            class="ui-datepicker__display-value"
+            :class="{ 'is-placeholder': !hasDisplayText }"
+          >
+            {{
+              hasDisplayText
+                ? displayText
+                : hasFloatingLabel && isLabelInline
+                ? null
+                : placeholder
+            }}
+          </div>
+
+          <ui-icon
             class="ui-datepicker__dropdown-button"
+            v-if="usesPopover && !disabled"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -42,19 +131,18 @@
             >
               <path d="M6.984 9.984h10.03L12 15z" />
             </svg>
-          </ui-icon> -->
-        <!-- </div> -->
+          </ui-icon>
+        </div>
 
-        <n-popover
-          v-if="usesPopover"
-          v-show="!disabled"
+        <ui-popover
+          contain-focus
           ref="popover"
-          tabindex="-1"
-          :ignore-on-click="'red'"
           @close="onPickerClose"
           @open="onPickerOpen"
+          v-if="usesPopover"
+          v-show="!disabled"
         >
-          <n-calendar
+          <ui-calendar
             :color="color"
             :date-filter="dateFilter"
             :lang="lang"
@@ -64,27 +152,27 @@
             :value="date"
             :start-of-week="startOfWeek"
             @date-select="onDateSelect"
-          ></n-calendar>
-        </n-popover>
+          ></ui-calendar>
+        </ui-popover>
       </div>
-      <!-- 
-      <div v-if="hasFeedback" class="ui-datepicker__feedback">
-        <div v-if="showError" class="ui-datepicker__feedback-text">
+
+      <div class="ui-datepicker__feedback" v-if="hasFeedback">
+        <div class="ui-datepicker__feedback-text" v-if="showError">
           <slot name="error">{{ error }}</slot>
         </div>
 
-        <div v-else-if="showHelp" class="ui-datepicker__feedback-text">
+        <div class="ui-datepicker__feedback-text" v-else-if="showHelp">
           <slot name="help">{{ help }}</slot>
         </div>
-      </div> -->
+      </div>
     </div>
 
-    <!-- <ui-modal
-      v-if="usesModal && !disabled"
+    <ui-modal
       ref="modal"
       remove-header
       @close="onPickerClose"
       @open="onPickerOpen"
+      v-if="usesModal && !disabled"
     >
       <ui-calendar
         :color="color"
@@ -97,7 +185,7 @@
         :start-of-week="startOfWeek"
         @date-select="onDateSelect"
       >
-        <div slot="footer" class="ui-datepicker__modal-buttons">
+        <div class="ui-datepicker__modal-buttons" slot="footer">
           <ui-button
             type="secondary"
             :color="color"
@@ -110,30 +198,21 @@
           }}</ui-button>
         </div>
       </ui-calendar>
-    </ui-modal> -->
+    </ui-modal>
   </div>
 </template>
 
 <script>
-// import UiButton from "./UiButton.vue";
-import NCalendar from "./NCalendar.vue";
-// import UiIcon from "./UiIcon.vue";
-// import UiModal from "./UiModal.vue";
-import NPopover from "./NPopover.vue";
-import NTextbox from "./NTextbox.vue";
+import UiButton from "./UiButton.vue";
+import UiCalendar from "./UiCalendar.vue";
+import UiIcon from "./UiIcon.vue";
+import UiModal from "./UiModal.vue";
+import UiPopover from "./UiPopover.vue";
+
 import dateUtils from "../helpers/date";
 
 export default {
-  name: "NDatepicker",
-
-  components: {
-    // UiButton,
-    NCalendar,
-    // UiIcon,
-    // UiModal,
-    NTextbox,
-    NPopover
-  },
+  name: "ui-datepicker",
 
   props: {
     name: String,
@@ -175,7 +254,6 @@ export default {
       default: "Cancel"
     },
     placeholder: String,
-    defaultDate: String,
     icon: String,
     iconPosition: {
       type: String,
@@ -202,10 +280,8 @@ export default {
     return {
       isActive: false,
       isTouched: false,
-      isTextBox: false,
       valueAtModalOpen: null,
-      initialValue: JSON.stringify(this.value),
-      inputDate: dateUtils.humanize(this.value)
+      initialValue: JSON.stringify(this.value)
     };
   },
 
@@ -299,24 +375,16 @@ export default {
   },
 
   methods: {
-    focusTextBox() {
-      return;
-    },
     onDateSelect(date) {
       this.$emit("input", date);
-      this.inputDate = dateUtils.humanize(date);
       this.closePicker();
     },
-    onUpdateInput() {
-      let date = new Date(this.inputDate);
-      if (!isNaN(date.getTime())) {
-        this.$emit("input", date);
-      }
-    },
+
     openPicker() {
       if (this.disabled) {
         return;
       }
+
       this.$refs[this.usesModal ? "modal" : "popover"].open();
     },
 
@@ -328,37 +396,25 @@ export default {
       if (options.autoBlur) {
         this.isActive = false;
       } else {
-        // this.$refs.textbox.$refs.textbox.focus();
+        this.$refs.label.focus();
       }
     },
 
     onClick() {
-      // this.$refs.textbox.$refs.textbox.focus();
-      // console.log());
-
-      // if (!this.$refs.popover.isOpen()) {
-      //   this.isActive = true;
-      //   this.openPicker();
-      // }
-
       if (this.usesModal && !this.disabled) {
         this.$refs.modal.open();
       }
     },
 
-    onFocus() {
-      if (this.usesPopover && !this.$refs.popover.isOpen()) {
-        this.isActive = true;
-        this.openPicker();
-      }
-
-      // this.$emit("focus", e);
+    onFocus(e) {
+      this.isActive = true;
+      this.$emit("focus", e);
     },
 
     onBlur(e) {
       this.isActive = false;
       this.$emit("blur", e);
-      e.preventDefault();
+
       if (this.usesPopover && this.$refs.popover.isOpen()) {
         this.closePicker({ autoBlur: true });
       }
@@ -367,10 +423,6 @@ export default {
     onPickerOpen() {
       if (this.usesModal) {
         this.valueAtModalOpen = this.date ? dateUtils.clone(this.date) : null;
-      }
-
-      if (!this.value && this.defaultDate) {
-        this.$emit("input", this.defaultDate);
       }
 
       this.isActive = true;
@@ -426,12 +478,20 @@ export default {
     resetTouched(options = { touched: false }) {
       this.isTouched = options.touched;
     }
+  },
+
+  components: {
+    UiButton,
+    UiCalendar,
+    UiIcon,
+    UiModal,
+    UiPopover
   }
 };
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/imports.scss";
+@import "./styles/imports";
 
 @import "@/assets/sass/config.scss";
 

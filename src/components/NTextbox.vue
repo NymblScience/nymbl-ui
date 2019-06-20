@@ -1,5 +1,6 @@
 <template>
   <ui-textbox
+    ref="textbox"
     class="n-textbox"
     :class="classes"
     :options="options"
