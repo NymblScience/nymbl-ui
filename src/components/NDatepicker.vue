@@ -335,23 +335,21 @@ export default {
     onClick() {
       // this.$refs.textbox.$refs.textbox.focus();
       // console.log());
-
       // if (!this.$refs.popover.isOpen()) {
       //   this.isActive = true;
       //   this.openPicker();
       // }
-
-      if (this.usesModal && !this.disabled) {
-        this.$refs.modal.open();
-      }
+      // if (this.usesModal && !this.disabled) {
+      //   this.$refs.modal.open();
+      // }
     },
 
     onFocus() {
-      if (this.usesPopover && !this.$refs.popover.isOpen()) {
-        this.isActive = true;
-        this.openPicker();
-      }
+      // if (this.usesPopover && !this.$refs.popover.isOpen()) {
 
+      // }
+      this.isActive = true;
+      this.openPicker();
       // this.$emit("focus", e);
     },
 
@@ -409,10 +407,6 @@ export default {
       if (this.isActive) {
         this.isActive = false;
       }
-    },
-
-    focus() {
-      this.$refs.label.focus();
     },
 
     clear() {

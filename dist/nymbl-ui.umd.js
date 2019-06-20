@@ -49437,12 +49437,12 @@ var NTextbox_component = normalizeComponent(
 )
 
 /* harmony default export */ var NTextbox = (NTextbox_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NDatepicker.vue?vue&type=template&id=bfca5378&
-var NDatepickervue_type_template_id_bfca5378_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"ui-datepicker n-datepicker",class:_vm.classes,attrs:{"tabindex":"-1"}},[_c('div',{staticClass:"ui-datepicker__content"},[_c('div',{staticClass:"ui-datepicker__display-value",class:{ 'is-placeholder': !_vm.hasDisplayText }},[_c('n-textbox',{ref:"textbox",attrs:{"label":_vm.label,"error":_vm.error,"help":_vm.help,"name":_vm.name,"placeholder":_vm.placeholder},on:{"focus":_vm.onFocus,"keydown":[function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"tab",9,$event.key,"Tab")){ return null; }return _vm.onBlur($event)},function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }$event.preventDefault();return _vm.openPicker($event)},function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"space",32,$event.key,[" ","Spacebar"])){ return null; }$event.preventDefault();return _vm.openPicker($event)}],"input":_vm.onUpdateInput},nativeOn:{"click":function($event){return _vm.onClick($event)}},model:{value:(_vm.inputDate),callback:function ($$v) {_vm.inputDate=$$v},expression:"inputDate"}})],1),_c('div',{},[(_vm.usesPopover)?_c('n-popover',{directives:[{name:"show",rawName:"v-show",value:(!_vm.disabled),expression:"!disabled"}],ref:"popover",attrs:{"tabindex":"-1","ignore-on-click":'red'},on:{"close":_vm.onPickerClose,"open":_vm.onPickerOpen}},[_c('n-calendar',{attrs:{"color":_vm.color,"date-filter":_vm.dateFilter,"lang":_vm.lang,"max-date":_vm.maxDate,"min-date":_vm.minDate,"orientation":_vm.orientation,"value":_vm.date,"start-of-week":_vm.startOfWeek},on:{"date-select":_vm.onDateSelect}})],1):_vm._e()],1)])])}
-var NDatepickervue_type_template_id_bfca5378_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NDatepicker.vue?vue&type=template&id=dfa86cea&
+var NDatepickervue_type_template_id_dfa86cea_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"ui-datepicker n-datepicker",class:_vm.classes,attrs:{"tabindex":"-1"}},[_c('div',{staticClass:"ui-datepicker__content"},[_c('div',{staticClass:"ui-datepicker__display-value",class:{ 'is-placeholder': !_vm.hasDisplayText }},[_c('n-textbox',{ref:"textbox",attrs:{"label":_vm.label,"error":_vm.error,"help":_vm.help,"name":_vm.name,"placeholder":_vm.placeholder},on:{"focus":_vm.onFocus,"keydown":[function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"tab",9,$event.key,"Tab")){ return null; }return _vm.onBlur($event)},function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }$event.preventDefault();return _vm.openPicker($event)},function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"space",32,$event.key,[" ","Spacebar"])){ return null; }$event.preventDefault();return _vm.openPicker($event)}],"input":_vm.onUpdateInput},nativeOn:{"click":function($event){return _vm.onClick($event)}},model:{value:(_vm.inputDate),callback:function ($$v) {_vm.inputDate=$$v},expression:"inputDate"}})],1),_c('div',{},[(_vm.usesPopover)?_c('n-popover',{directives:[{name:"show",rawName:"v-show",value:(!_vm.disabled),expression:"!disabled"}],ref:"popover",attrs:{"tabindex":"-1","ignore-on-click":'red'},on:{"close":_vm.onPickerClose,"open":_vm.onPickerOpen}},[_c('n-calendar',{attrs:{"color":_vm.color,"date-filter":_vm.dateFilter,"lang":_vm.lang,"max-date":_vm.maxDate,"min-date":_vm.minDate,"orientation":_vm.orientation,"value":_vm.date,"start-of-week":_vm.startOfWeek},on:{"date-select":_vm.onDateSelect}})],1):_vm._e()],1)])])}
+var NDatepickervue_type_template_id_dfa86cea_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/NDatepicker.vue?vue&type=template&id=bfca5378&
+// CONCATENATED MODULE: ./src/components/NDatepicker.vue?vue&type=template&id=dfa86cea&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs2/core-js/json/stringify.js
 var stringify = __webpack_require__("f499");
@@ -50243,12 +50243,12 @@ var NCalendar_component = normalizeComponent(
 )
 
 /* harmony default export */ var NCalendar = (NCalendar_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NPopover.vue?vue&type=template&id=ceeb6c9e&
-var NPopovervue_type_template_id_ceeb6c9e_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('n-focus-container',{ref:"focusContainer",staticClass:"ui-popover",class:{ 'is-raised': _vm.raised },attrs:{"role":"dialog","contain-focus":_vm.containFocus,"focus-redirector":_vm.focusRedirector},on:{"focus-overflow":function($event){return _vm.close()}}},[_vm._t("default")],2)}
-var NPopovervue_type_template_id_ceeb6c9e_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NPopover.vue?vue&type=template&id=5fade286&
+var NPopovervue_type_template_id_5fade286_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('n-focus-container',{ref:"focusContainer",staticClass:"ui-popover",class:{ 'is-raised': _vm.raised },attrs:{"role":"dialog","contain-focus":_vm.containFocus,"focus-redirector":_vm.focusRedirector},on:{"focus-overflow":function($event){return _vm.close()}}},[_vm._t("default")],2)}
+var NPopovervue_type_template_id_5fade286_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/NPopover.vue?vue&type=template&id=ceeb6c9e&
+// CONCATENATED MODULE: ./src/components/NPopover.vue?vue&type=template&id=5fade286&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.regexp.replace.js
 var es6_regexp_replace = __webpack_require__("a481");
@@ -52598,7 +52598,7 @@ var NFocusContainer_component = normalizeComponent(
       this.triggerEl = element_ref.resolve(this.trigger, this.$el.parentElement);
 
       if (!this.triggerEl) {
-        console.error("[UiPopover]: Trigger element not found.");
+        // console.error("[UiPopover]: Trigger element not found.");
         return;
       }
 
@@ -52702,7 +52702,6 @@ var NFocusContainer_component = normalizeComponent(
       this.addCloseEventListeners();
       classlist.add(this.triggerEl, "has-dropdown-open");
       this.$emit("open");
-      this.lastFocusedElement.focus();
     },
     onClose: function onClose() {
       if (this.returnFocus && this.lastFocusedElement) {
@@ -52716,8 +52715,8 @@ var NFocusContainer_component = normalizeComponent(
       this.returnFocus = true;
     },
     onShown: function onShown() {
-      this.lastFocusedElement = document.activeElement;
-      this.$refs.focusContainer.focus();
+      // this.lastFocusedElement = document.activeElement;
+      // this.$refs.focusContainer.focus();
       this.$emit("reveal");
     },
     onHidden: function onHidden() {
@@ -52792,8 +52791,8 @@ var NPopovervue_type_style_index_0_lang_scss_ = __webpack_require__("7ace");
 
 var NPopover_component = normalizeComponent(
   components_NPopovervue_type_script_lang_js_,
-  NPopovervue_type_template_id_ceeb6c9e_render,
-  NPopovervue_type_template_id_ceeb6c9e_staticRenderFns,
+  NPopovervue_type_template_id_5fade286_render,
+  NPopovervue_type_template_id_5fade286_staticRenderFns,
   false,
   null,
   null,
@@ -53120,23 +53119,21 @@ var NPopover_component = normalizeComponent(
       } else {// this.$refs.textbox.$refs.textbox.focus();
       }
     },
-    onClick: function onClick() {
-      // this.$refs.textbox.$refs.textbox.focus();
+    onClick: function onClick() {// this.$refs.textbox.$refs.textbox.focus();
       // console.log());
       // if (!this.$refs.popover.isOpen()) {
       //   this.isActive = true;
       //   this.openPicker();
       // }
-      if (this.usesModal && !this.disabled) {
-        this.$refs.modal.open();
-      }
+      // if (this.usesModal && !this.disabled) {
+      //   this.$refs.modal.open();
+      // }
     },
     onFocus: function onFocus() {
-      if (this.usesPopover && !this.$refs.popover.isOpen()) {
-        this.isActive = true;
-        this.openPicker();
-      } // this.$emit("focus", e);
-
+      // if (this.usesPopover && !this.$refs.popover.isOpen()) {
+      // }
+      this.isActive = true;
+      this.openPicker(); // this.$emit("focus", e);
     },
     onBlur: function onBlur(e) {
       this.isActive = false;
@@ -53188,9 +53185,6 @@ var NPopover_component = normalizeComponent(
         this.isActive = false;
       }
     },
-    focus: function focus() {
-      this.$refs.label.focus();
-    },
     clear: function clear() {
       this.$emit("input", null);
     },
@@ -53221,8 +53215,8 @@ var NDatepickervue_type_style_index_0_lang_scss_ = __webpack_require__("0f94");
 
 var NDatepicker_component = normalizeComponent(
   components_NDatepickervue_type_script_lang_js_,
-  NDatepickervue_type_template_id_bfca5378_render,
-  NDatepickervue_type_template_id_bfca5378_staticRenderFns,
+  NDatepickervue_type_template_id_dfa86cea_render,
+  NDatepickervue_type_template_id_dfa86cea_staticRenderFns,
   false,
   null,
   null,

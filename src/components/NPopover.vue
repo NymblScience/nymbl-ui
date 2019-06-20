@@ -114,7 +114,7 @@ export default {
       this.triggerEl = elementRef.resolve(this.trigger, this.$el.parentElement);
 
       if (!this.triggerEl) {
-        console.error("[UiPopover]: Trigger element not found.");
+        // console.error("[UiPopover]: Trigger element not found.");
         return;
       }
 
@@ -215,7 +215,6 @@ export default {
       classlist.add(this.triggerEl, "has-dropdown-open");
 
       this.$emit("open");
-      this.lastFocusedElement.focus();
     },
 
     onClose() {
@@ -234,8 +233,8 @@ export default {
     },
 
     onShown() {
-      this.lastFocusedElement = document.activeElement;
-      this.$refs.focusContainer.focus();
+      // this.lastFocusedElement = document.activeElement;
+      // this.$refs.focusContainer.focus();
       this.$emit("reveal");
     },
 
