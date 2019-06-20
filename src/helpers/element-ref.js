@@ -3,7 +3,7 @@ export function validate(ref, warning) {
     ref instanceof Element || (ref && ref._isVue) || typeof ref === "string";
 
   if (!isValid && warning) {
-    console.warn(warning);
+    // console.warn(warning);
   }
 
   return isValid;
