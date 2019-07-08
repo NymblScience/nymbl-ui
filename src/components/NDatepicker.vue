@@ -30,21 +30,6 @@
       </div>
 
       <div class="">
-        <!-- <ui-icon
-            v-if="usesPopover && !disabled"
-            class="ui-datepicker__dropdown-button"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-            >
-              <path d="M6.984 9.984h10.03L12 15z" />
-            </svg>
-          </ui-icon> -->
-        <!-- </div> -->
-
         <n-popover
           v-if="usesPopover"
           v-show="!disabled"
@@ -475,7 +460,7 @@ export default {
 
 .ui-calendar__body {
   padding: 0 !important;
-  height: 20rem !important;
+  // height: 16rem !important;
   background: #fff;
 }
 
@@ -491,7 +476,6 @@ export default {
   width: 17rem !important;
 }
 .ui-calendar-month {
-  height: 18rem !important;
   .ui-calendar-month__week.is-other {
     left: 17rem;
   }
@@ -537,6 +521,7 @@ body[modality="keyboard"]
   .ui-calendar--color-primary
   .ui-calendar-week__date.is-selected {
   background-color: $form-color-active !important;
+  color: #fff;
 }
 
 .ui-datepicker {
