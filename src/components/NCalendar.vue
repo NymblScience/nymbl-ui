@@ -1,6 +1,6 @@
 <template>
   <div class="ui-calendar" :class="classes">
-    <div class="ui-calendar__header">
+    <div v-if="!isStatic" class="ui-calendar__header">
       <div
         class="ui-calendar__header-year"
         tabindex="0"
@@ -32,6 +32,7 @@
       <div v-show="!showYearPicker">
         <n-calendar-controls
           ref="controls"
+          :is-static="isStatic"
           :date-in-view="dateInView"
           :lang="lang"
           :max-date="maxDate"
@@ -79,6 +80,14 @@ export default {
     value: Date,
     minDate: Date,
     maxDate: Date,
+    isStatic: {
+      type: Boolean,
+      default: false
+    },
+    controls: {
+      type: Boolean,
+      default: true
+    },
     startOfWeek: {
       type: Number,
       default: 0

@@ -1,6 +1,7 @@
 <template>
   <div class="ui-calendar-controls" :class="classes">
     <ui-icon-button
+      v-if="!isStatic"
       class="ui-calendar-controls__nav-button"
       icon="keyboard_arrow_left"
       type="secondary"
@@ -25,6 +26,7 @@
     <div class="ui-calendar-controls__month-and-year">{{ monthAndYear }}</div>
 
     <ui-icon-button
+      v-if="!isStatic"
       class="ui-calendar-controls__nav-button"
       icon="keyboard_arrow_right"
       type="secondary"
@@ -61,6 +63,10 @@ export default {
   // },
 
   props: {
+    isStatic: {
+      type: Boolean,
+      default: false
+    },
     color: {
       type: String,
       default: "default" // 'default', 'primary' or 'accent'
@@ -73,7 +79,13 @@ export default {
 
   computed: {
     classes() {
-      return [`ui-calendar-controls--color-${this.color}`];
+      let classes = [];
+      classes.push(`ui-calendar-controls--color-${this.color}`);
+
+      if (this.isStatic) {
+        classes.push("n-calendar-static");
+      }
+      return classes;
     },
 
     monthAndYear() {
@@ -146,7 +158,8 @@ export default {
 .ui-calendar-controls {
   align-items: center;
   display: flex;
-  height: $ui-calendar-controls-height;
+  height: 1.8rem;
+  letter-spacing: 0.08rem;
   justify-content: space-between;
 }
 
@@ -171,5 +184,9 @@ export default {
 .ui-calendar-controls--color-accent {
   background-color: $brand-accent-color;
   color: white;
+}
+
+.n-calendar-static {
+  justify-content: center;
 }
 </style>

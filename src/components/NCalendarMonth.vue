@@ -2,7 +2,7 @@
   <table class="ui-calendar-month">
     <thead class="ui-calendar-month__header">
       <tr>
-        <th v-for="day in daysOfWeek">{{ day }}</th>
+        <th v-for="(day, index) in daysOfWeek" :key="day + index">{{ day }}</th>
       </tr>
     </thead>
 
@@ -122,11 +122,11 @@ export default {
 
 .ui-calendar-month__header {
   width: 100%;
-
   th {
     color: $secondary-text-color;
     font-size: rem(14px);
     font-weight: 600;
+    color: #fff;
     height: $ui-calendar-month-header-height;
     text-align: center;
     text-transform: uppercase;
