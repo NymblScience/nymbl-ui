@@ -12,6 +12,10 @@ import NTextbox from "./NTextbox.vue";
 import NDatepicker from "./NDatepicker.vue";
 import NRadio from "./NRadio.vue";
 import NRadioGroup from "./NRadioGroup.vue";
+import NCard from "./NCard.vue";
+import NTable from "./NTable.vue";
+import NCalendar from "./NCalendar.vue";
+import NTableColumn from "./NTableColumn.vue";
 import { Layout } from "bootstrap-vue/es/components";
 import bCollapse from "bootstrap-vue/es/components/collapse/collapse";
 import vBToggle from "bootstrap-vue/es/directives/toggle/toggle";
@@ -33,7 +37,11 @@ const Components = {
   NSelect,
   NRadio,
   NRadioGroup,
-  NDatepicker
+  NDatepicker,
+  NTable,
+  NTableColumn,
+  NCard,
+  NCalendar
 };
 
 const Directives = {

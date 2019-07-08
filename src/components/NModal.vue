@@ -93,15 +93,15 @@ export default {
       return "";
     }
   },
-  created() {
-    document.addEventListener("backbutton", this.close, false);
-  },
-  beforeDestroy() {
-    document.removeEventListener("backbutton", this.close, false);
-  },
+  // created() {
+  //   document.addEventListener("backbutton", this.close, false);
+  // },
+  // beforeDestroy() {
+  //   document.removeEventListener("backbutton", this.close, false);
+  // },
   methods: {
     close() {
-      window.history.forward(1);
+      // window.history.forward(1);
       this.$emit("close");
     }
   }
