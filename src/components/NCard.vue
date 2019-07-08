@@ -1,177 +1,117 @@
 <template>
-  <div
-    class="n-class"
-    modal-class="n-modal"
-    v-bind="$attrs"
-    hide-header-close
-    no-fade
-    :hide-header="isHeaderHidden"
-    :style="{ 'max-width': size + 'rem' }"
-    :content-class="contentClass"
-    :visible="show"
-    @hide="close"
-    v-on="$listeners"
-  >
-    <div v-if="type !== 'confirm'" slot="modal-header">
-      {{ title }}
-      <n-button
-        round
-        button-type="icon"
-        variant="danger"
-        class="modal-close"
-        title="Close"
-        @click.native="close()"
-      >
-        <close-icon :size="24" />
-      </n-button>
+  <div class="n-card">
+    <div v-if="title.length > 0" class="n-card-header">
+      <div class="n-card-title">
+        {{ title }}
+      </div>
+      <div class="n-card-header-buttons">
+        <slot name="header-buttons" />
+        <ChevronRight v-if="isCollapsible" @click.native="collapse()" />
+      </div>
     </div>
 
-    <slot />
-    <div slot="modal-footer" class="w-100">
-      <slot name="modal-footer" />
+    <div :class="{ 'title-hidden': isTitle }" class="n-card-body">
+      <transition-expand>
+        <div v-if="!isCollapsedLocal">
+          <slot name="body" />
+        </div>
+      </transition-expand>
     </div>
   </div>
 </template>
+
 <script>
-import CloseIcon from "../icons/Close.vue";
-// const CloseIcon = require("./icons/Close.vue").default;
+import { TransitionExpand } from "vue-transition-expand";
+import "vue-transition-expand/dist/vue-transition-expand.css";
+import ChevronRight from "vue-material-design-icons/ChevronRight.vue";
 export default {
   name: "NCard",
   components: {
-    CloseIcon
+    TransitionExpand,
+    ChevronRight
   },
   props: {
-    show: {
-      default: false,
-      type: Boolean
-    },
-    /**
-     * Vertically center your modal in the viewport.
-     */
-    centered: {
-      default: false,
-      type: Boolean
-    },
     title: {
-      default: "null",
-      type: String
-    },
-
-    size: {
-      default: 40,
-      type: Number
-    },
-    /**
-     * Make dialog fullscreen in responsive breakpoints.
-     */
-    type: {
-      default: "default",
+      default: "",
       type: String
     },
     /**
-     * Make dialog fullscreen in responsive breakpoints.
+     * Whether card is collapsible
      */
-    fullscreen: {
-      default: "no",
-      type: String
+    isCollapsible: {
+      default: false,
+      type: Boolean
+    },
+    /**
+     * Whether card is collapsed by default
+     */
+    isCollapsed: {
+      default: false,
+      type: Boolean
     }
   },
+  data() {
+    return {
+      isCollapsedLocal: false
+    };
+  },
   computed: {
-    isHeaderHidden() {
-      if (this.type === "confirm") {
-        return true;
+    isTitle() {
+      if (this.title.length > 0) {
+        return false;
       }
-      return false;
-    },
-    contentClass() {
-      if (this.type === "confirm") {
-        return "modal-confirm";
-      }
-      return "";
+      return true;
     }
   },
   created() {
-    document.addEventListener("backbutton", this.close, false);
-  },
-  beforeDestroy() {
-    document.removeEventListener("backbutton", this.close, false);
+    this.isCollapsedLocal = this.isCollapsed;
+    if (this.isCollapsible) {
+      console.log(this.$children);
+    }
   },
   methods: {
-    close() {
-      window.history.forward(1);
-      this.$emit("close");
+    collapse() {
+      this.isCollapsedLocal = !this.isCollapsedLocal;
     }
   }
 };
 </script>
 <style lang="scss">
-@import "@/assets/sass/colors.scss";
+@import "@/assets/sass/config.scss";
 @import "@/assets/sass/animations.scss";
 
-.modal-backdrop {
-  z-index: 2009;
-}
-.n-modal .modal-content {
-  // margin-top: 15vh;
-  padding: 1rem;
-  animation: fadeIn 300ms;
-  box-shadow: 0 2.5px 4px rgba(25, 25, 26, 0.7);
+.n-card {
+  background: #fff;
+  height: 100%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 0.35rem;
 }
 
-.n-modal .modal-footer {
-  border-top: none;
-  text-align: right;
-  padding: 0 1rem 1rem 1rem;
-  .btn {
-    margin-left: 0.3rem;
-  }
-}
-.n-modal .modal-header {
-  border-bottom: none;
-  padding: 1rem;
-  font-size: 1.1rem;
-  padding-right: 3rem;
-  color: #292f2f;
-}
-
-.n-modal .modal-body {
-  padding: 1.5rem 1rem;
-}
-
-.n-modal .modal-confirm {
-  max-width: 24rem;
-  margin-right: auto;
-  margin-left: auto;
-  margin: 0 auto;
-}
-
-.n-modal .modal-close {
-  position: absolute;
-  top: 1.6rem;
-  right: 2rem;
-}
-
-.n-modal .modal-title {
+.n-card-header {
+  padding: 1.5rem 2rem;
+  width: 100%;
+  font-size: 1.35rem;
   color: #292f2f;
   font-weight: 400;
-  font-size: 1.2rem;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  flex: 1 0 auto;
+  justify-content: space-between;
 }
-@media only screen and (max-width: 600px) {
-  .n-modal .modal-content {
-    margin-top: 0;
-    // width: 100%;
-    // height: 100%;
-    // margin: 0;
-    // padding: 0;
-    // transition: all 1s;
-  }
 
-  // .n-modal .modal-content {
-  //   transition: all 1s;
-  //   margin: 0;
-  //   height: auto;
-  //   min-height: 100%;
-  //   border-radius: 0;
-  // }
+.n-card-body {
+  padding: 0 2rem 1rem;
+}
+
+.title-hidden {
+  padding-top: 1rem;
+}
+
+.n-card-header-buttons {
+  .n-button {
+    display: inline-block;
+    margin-left: 0.35rem;
+  }
 }
 </style>

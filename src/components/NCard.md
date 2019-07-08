@@ -1,25 +1,24 @@
 ```vue
 <template>
-    <n-card
-      :size="10"
-      type="confirm"
-      centered
-      :show="confirm"
-      @close="confirm = false"
-    >
+  <n-card isCollapsible="true" title="The title of the card">
+    <template #header-buttons>
+      <n-button size="sm">Action 1</n-button>
+      <n-button size="sm">Action 2</n-button>
+    </template>
 
-    </n-card>
-
+    <template #body>
+      This is Card body
+      These are lines of card
+      Card Card Card.
+    </template>
+  </n-card>
 </template>
 
 <script>
-const img = require("../assets/img/nymbl-pain-front.png");
 export default {
   data() {
     return {
       enabled: false,
-      confirm: false,
-      exampleImg: img
     };
   }
 };
