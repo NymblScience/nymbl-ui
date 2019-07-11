@@ -114,15 +114,8 @@ export default {
   data() {
     return {
       loaded: false,
-      show: true,
       sortedBy: "",
       sortOrder: "ascending",
-      orderedRows: {
-        default: function() {
-          return [];
-        },
-        type: Array
-      },
       expandedRows: []
     };
   },
@@ -162,6 +155,21 @@ export default {
 
       return labels;
     },
+    orderedRows() {
+      let data = this.data;
+
+      let orderedData = data;
+
+      if (this.sortedBy) {
+        orderedData = orderBy(this.sortedBy, data);
+      }
+
+      if (this.sortOrder === "descending") {
+        return orderedData.reverse();
+      }
+
+      return orderedData;
+    },
     isEmpty() {
       if (this.data.length < 1) {
         return true;
@@ -169,18 +177,23 @@ export default {
       return false;
     }
   },
-  mounted() {
-    this.loaded = true;
-
-    this.orderedRows = this.data;
-
+  created() {
     if (this.sortBy.order) {
       this.sortOrder = this.sortBy.order;
     }
 
     if (this.sortBy.prop) {
-      this.changeSort(this.sortBy.prop, this.sortOrder);
+      this.sortedBy = this.sortBy.prop;
     }
+  },
+  mounted() {
+    this.loaded = true;
+
+    // this.orderedRows = this.data;
+
+    // if (this.sortBy.prop) {
+    //   this.changeSort(this.sortBy.prop, this.sortOrder);
+    // }
   },
   methods: {
     toggleExpand(row) {
@@ -203,21 +216,9 @@ export default {
         }
       }
 
-      // Check if title clicked first time, order ascending by default
-      // if (property === this.sortedBy) {
-      //   sortOrder = "ascending";
-      // }
-
       this.sortedBy = property;
 
       this.sortOrder = sortOrder;
-
-      if (sortOrder === "descending") {
-        this.orderedRows = orderBy(property, this.data).reverse();
-        return;
-      }
-
-      this.orderedRows = orderBy(property, this.data);
     }
   }
 };
@@ -263,6 +264,8 @@ export default {
   .n-table-row-expanded {
     flex-basis: 100%;
     // display: none;
+    margin-left: 2rem;
+    padding-top: 1rem;
     &:hover {
       background: #fff;
     }

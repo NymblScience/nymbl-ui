@@ -2,6 +2,7 @@
   <div class="n-table-arrows">
     <menu-up
       :class="{ 'n-active': activeArrow === 'ascending' && isActive }"
+      style="margin-top: -0.18rem"
       @click="$emit('sortAscending')"
     />
     <menu-down
@@ -45,6 +46,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   transition: color 0.1s ease;
+  color: #595959;
 }
 
 .n-table-arrows .n-active {

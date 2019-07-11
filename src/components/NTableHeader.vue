@@ -78,6 +78,7 @@ export default {
   .n-table-label {
     flex-grow: 1;
     flex-basis: 0;
+    font-size: 0.9rem;
     text-transform: uppercase;
     font-weight: 500;
     color: #292f2f;

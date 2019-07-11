@@ -1,17 +1,22 @@
 
 ```vue
 <template>
-  <n-table @row-click="handleRowClick" :isExpandable="true"  :sortBy="{prop: 'name', order: 'ascending'}" :data="data">
-    <template v-slot:default="table">
-      <n-table-column align="center" sortable prop="name" label="Name">{{ table.row.name }}</n-table-column>
-      <n-table-column align="left" sortable prop="id" label="Id">{{ table.row.id }}</n-table-column>
-      <n-table-column sortable prop="date" label="Date">{{ table.row.date }}</n-table-column>
-      <n-table-column align="left" sortable label="Phone" prop="phone">{{ table.row.phone }}</n-table-column>
-    </template>
-     <template v-slot:expanded="row">
-        {{ row.row }}
-    </template> 
-  </n-table>
+  <div>
+    <n-table
+      :isExpandable="true"
+       :sortBy="{order: 'ascending', prop: 'name'}" 
+      :data="data"
+    >
+      <template v-slot:default="table">
+        <n-table-column align="center" sortable prop="name" label="Name">{{ table.row.name }}</n-table-column>
+        <n-table-column align="left" sortable prop="id" label="Id">{{ table.row.id }}</n-table-column>
+        <n-table-column sortable prop="date" label="Date">{{ table.row.date }}</n-table-column>
+        <n-table-column align="left" sortable label="Phone" prop="phone">{{ table.row.phone }}</n-table-column>
+      </template>
+      <template v-slot:expanded="row">{{ row.row }}</template>
+    </n-table>
+    <div @click="addData" >Add Data</div>
+  </div>
 </template>
 
 <script>
@@ -24,7 +29,7 @@ export default {
   },
   methods: {
     handleRowClick() {
-      console.log("row clicked")
+      console.log("row clicked");
     }
   },
   data() {
@@ -36,6 +41,12 @@ export default {
           name: "The Shadow",
           phone: "11"
         },
+                            {
+                      id: "1",
+                      date: "10/18/2018 13:21:11",
+                      name: "Arthur",
+                      phone: "11"
+                    },
         {
           id: "2",
           date: "10/18/2018 13:11:11",
@@ -44,13 +55,36 @@ export default {
         },
         {
           id: "3",
-          date:"12/18/2018 13:20:11",
+          date: "12/18/2018 13:20:11",
           name: "Supergirl",
           phone: "22"
         }
-
       ]
     };
+  },
+  methods: {
+    addData() {
+      this.data = [
+        {
+          id: "3",
+          date: "10/18/2018 13:21:11",
+          name: "The Shadow",
+          phone: "11"
+        },
+        {
+          id: "4",
+          date: "10/18/2018 13:11:11",
+          name: "Lily",
+          phone: "00"
+        },
+        {
+          id: "5",
+          date: "12/18/2018 13:20:11",
+          name: "Supergirl",
+          phone: "22"
+        }
+      ];
+    }
   }
 };
 </script>
