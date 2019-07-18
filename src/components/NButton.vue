@@ -6,6 +6,7 @@
     :block="block"
     :disabled="disabled"
     :class="classes"
+    class="n-button"
     v-on="$listeners"
   >
     <slot />

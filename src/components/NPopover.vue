@@ -163,7 +163,6 @@ export default {
         options.popperOptions.modifiers.preventOverflow = { enabled: false };
         options.popperOptions.modifiers.hide = { enabled: false };
       }
-      console.log(this.triggerEl);
       this.tip = tippy(this.triggerEl, options);
 
       if (this.disabled) {

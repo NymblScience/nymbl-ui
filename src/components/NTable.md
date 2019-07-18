@@ -2,11 +2,7 @@
 ```vue
 <template>
   <div>
-    <n-table
-      :isExpandable="true"
-       :sortBy="{order: 'ascending', prop: 'name'}" 
-      :data="data"
-    >
+    <n-table :sortBy="{order: 'ascending', prop: 'name'}" :data="data">
       <template v-slot:default="table">
         <n-table-column align="center" sortable prop="name" label="Name">{{ table.row.name }}</n-table-column>
         <n-table-column align="left" sortable prop="id" label="Id">{{ table.row.id }}</n-table-column>
@@ -15,7 +11,6 @@
       </template>
       <template v-slot:expanded="row">{{ row.row }}</template>
     </n-table>
-    <div @click="addData" >Add Data</div>
   </div>
 </template>
 
@@ -27,11 +22,6 @@ export default {
   components: {
     NTableColumn
   },
-  methods: {
-    handleRowClick() {
-      console.log("row clicked");
-    }
-  },
   data() {
     return {
       data: [
@@ -41,12 +31,12 @@ export default {
           name: "The Shadow",
           phone: "11"
         },
-                            {
-                      id: "1",
-                      date: "10/18/2018 13:21:11",
-                      name: "Arthur",
-                      phone: "11"
-                    },
+        {
+          id: "1",
+          date: "10/18/2018 13:21:11",
+          name: "Arthur",
+          phone: "11"
+        },
         {
           id: "2",
           date: "10/18/2018 13:11:11",
@@ -61,30 +51,6 @@ export default {
         }
       ]
     };
-  },
-  methods: {
-    addData() {
-      this.data = [
-        {
-          id: "3",
-          date: "10/18/2018 13:21:11",
-          name: "The Shadow",
-          phone: "11"
-        },
-        {
-          id: "4",
-          date: "10/18/2018 13:11:11",
-          name: "Lily",
-          phone: "00"
-        },
-        {
-          id: "5",
-          date: "12/18/2018 13:20:11",
-          name: "Supergirl",
-          phone: "22"
-        }
-      ];
-    }
   }
 };
 </script>

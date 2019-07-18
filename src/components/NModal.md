@@ -2,26 +2,28 @@
 <template>
   <div>
     <div class="styleguide-section">
-      <n-button style="margin-right: 20px" @click.native="enabled = true">Show Modal</n-button>
-      <n-button @click.native="confirm = true">Confirm</n-button>
+      <n-button style="margin-right: 20px" @click.native="openModal('example-modal')">Show Modal</n-button>
+      <n-button @click.native="openModal('confirm-modal')">Confirm</n-button>
     </div>
-    <n-modal style="text-align:center" @close="enabled = false"  title="An example title of the dialog." :show="enabled">
 
+    <n-modal   ref="example-modal" style="text-align:center" title="An example title of the dialog..">
       <img style="max-width: 200px;" :src="exampleImg" />
       <img style="max-width: 200px;" :src="exampleImg" />
 
-      <div slot="modal-footer" class="w-100">
-        <n-button buttonType="text" size="sm" variant="danger" @click.native="enabled = false">Close</n-button>
-        <n-button buttonType="text" size="sm" variant="primary" @click.native="enabled = false">Save</n-button>
-      </div>
+      <template #footer>
+        <n-button buttonType="text" size="sm" variant="danger" @click.native="closeModal('example-modal')">Close</n-button>
+        <n-button buttonType="text" size="sm" variant="primary" @click.native="closeModal('example-modal')">Save</n-button>
+        <n-button buttonType="text" size="sm" variant="primary" @click.native="closeModal('example-modal')">Save</n-button>
+
+      </template>
     </n-modal>
 
-    <n-modal :size="10" type="confirm" centered @close="confirm = false" :show="confirm">
+    <n-modal ref="confirm-modal" type="confirm" centered @close="confirm = false" :show="confirm">
       Are you sure?
-      <div slot="modal-footer" class="w-100">
-        <n-button buttonType="text" size="sm" variant="danger" @click.native="confirm = false">No</n-button>
-        <n-button buttonType="text" size="sm" variant="primary" @click.native="confirm = false">Yes</n-button>
-      </div>
+        <template #footer>
+        <n-button buttonType="text" size="sm" variant="danger" @click.native="closeModal('confirm-modal')">No</n-button>
+        <n-button buttonType="text" size="sm" variant="primary" @click.native="closeModal('confirm-modal')">Yes</n-button>
+      </template>
     </n-modal>
   </div>
 </template>
@@ -29,6 +31,7 @@
 <script>
 const img = require("../assets/img/nymbl-pain-front.png");
 export default {
+  name: "NModalExample",
   data() {
     return {
       enabled: false,
@@ -36,6 +39,14 @@ export default {
       exampleImg: img
     };
   },
+  methods: {
+    openModal(ref) {
+      this.$refs[ref].open();
+    },
+    closeModal(ref) {
+      this.$refs[ref].close();
+    }
+  }
 };
 </script>
 <style lang="scss">

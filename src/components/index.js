@@ -19,6 +19,8 @@ import NTableColumn from "./NTableColumn.vue";
 import { Layout } from "bootstrap-vue/es/components";
 import bCollapse from "bootstrap-vue/es/components/collapse/collapse";
 import vBToggle from "bootstrap-vue/es/directives/toggle/toggle";
+import NMenu from "./NMenu.vue";
+import NIconButton from "./NIconButton.vue";
 
 import "../assets/sass/main.scss";
 
@@ -41,7 +43,9 @@ const Components = {
   NTable,
   NTableColumn,
   NCard,
-  NCalendar
+  NCalendar,
+  NMenu,
+  NIconButton
 };
 
 const Directives = {

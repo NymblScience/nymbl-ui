@@ -1,68 +1,93 @@
 <template>
-  <b-modal
-    class="n-modal"
-    modal-class="n-modal"
-    :centered="centered"
-    v-bind="$attrs"
-    hide-header-close
-    no-fade
-    :hide-header="isHeaderHidden"
-    :style="{ 'max-width': size + 'rem' }"
-    :content-class="contentClass"
-    :visible="show"
-    @hide="close"
-    v-on="$listeners"
+  <transition
+    name="n-modal-transition-fade"
+    @after-enter="onEnter"
+    @after-leave="onLeave"
   >
-    <div v-if="type !== 'confirm'" slot="modal-header">
-      {{ title }}
-      <n-button
-        round
-        button-type="icon"
-        variant="danger"
-        class="modal-close"
-        title="Close"
-        @click.native="close()"
+    <div
+      v-if="isOpen"
+      class="n-modal n-modal-mask"
+      :class="classes"
+      :role="role"
+      @click.self="onBackdropClick"
+    >
+      <div
+        class="n-modal-wrapper"
+        :class="{ 'has-dummy-scrollbar': preventShift }"
+        :style="alignTopStyle"
+        @click.self="onBackdropClick"
       >
-        <close-icon :size="24" />
-      </n-button>
-    </div>
+        <n-focus-container
+          ref="focusContainer"
+          class="n-modal-container"
+          :class="{ 'n-modal-confirm': type === 'confirm' }"
+          tabindex="-1"
+          @keydown.native.stop.esc="close"
+        >
+          <div v-if="type !== 'confirm'" class="n-modal-header">
+            <slot name="header">
+              <h1 class="n-modal-header-text">{{ title }}</h1>
+            </slot>
 
-    <slot />
-    <div slot="modal-footer" class="w-100">
-      <slot name="modal-footer" />
+            <div class="n-modal-close-button">
+              <n-button
+                v-if="!removeCloseButton"
+                round
+                button-type="icon"
+                variant="danger"
+                class="n-modal-close"
+                title="Close"
+                @click.native="close"
+              >
+                <close-icon :size="20" />
+              </n-button>
+            </div>
+          </div>
+
+          <div class="n-modal-body">
+            <slot></slot>
+          </div>
+
+          <div v-if="hasFooter" class="n-modal-footer">
+            <slot name="footer"></slot>
+          </div>
+        </n-focus-container>
+      </div>
     </div>
-  </b-modal>
+  </transition>
 </template>
+
 <script>
-import BModal from "bootstrap-vue/es/components/modal/modal";
 import CloseIcon from "../icons/Close.vue";
-// const CloseIcon = require("./icons/Close.vue").default;
+import NFocusContainer from "./NFocusContainer.vue";
+
+import classlist from "../helpers/classlist";
+
 export default {
   name: "NModal",
-  components: {
-    BModal,
-    CloseIcon
-  },
-  props: {
-    show: {
-      default: false,
-      type: Boolean
-    },
-    /**
-     * Vertically center your modal in the viewport.
-     */
-    centered: {
-      default: false,
-      type: Boolean
-    },
-    title: {
-      default: "null",
-      type: String
-    },
 
+  components: {
+    CloseIcon,
+    NFocusContainer
+  },
+
+  props: {
+    title: {
+      type: String,
+      default: "A title"
+    },
+    alignTop: {
+      type: Boolean,
+      default: false
+    },
+    alignTopMargin: {
+      type: Number,
+      default: 60
+    },
     size: {
-      default: 40,
-      type: Number
+      /* Size of the modal - 'small', 'normal', 'large', 'fullscreen', or 'auto' */
+      type: String,
+      default: "normal"
     },
     /**
      * Make dialog fullscreen in responsive breakpoints.
@@ -71,110 +96,355 @@ export default {
       default: "default",
       type: String
     },
-    /**
-     * Make dialog fullscreen in responsive breakpoints.
-     */
-    fullscreen: {
-      default: "no",
-      type: String
-    }
-  },
-  computed: {
-    isHeaderHidden() {
-      if (this.type === "confirm") {
-        return true;
-      }
-      return false;
+    role: {
+      type: String,
+      default: "dialog" // 'dialog' or 'alertdialog'
     },
-    contentClass() {
-      if (this.type === "confirm") {
-        return "modal-confirm";
-      }
-      return "";
+    /**
+     * Stack action buttons in the footer.
+     */
+    stackedButtons: {
+      type: Boolean,
+      default: false
+    },
+    removeCloseButton: {
+      type: Boolean,
+      default: false
+    },
+    preventShift: {
+      type: Boolean,
+      default: true
+    },
+    customClass: {
+      type: String,
+      default: ""
     }
   },
-  // created() {
-  //   document.addEventListener("backbutton", this.close, false);
-  // },
-  // beforeDestroy() {
-  //   document.removeEventListener("backbutton", this.close, false);
-  // },
+
+  data() {
+    return {
+      isOpen: false,
+      lastFocusedElement: null
+    };
+  },
+
+  computed: {
+    classes() {
+      return [
+        this.customClass,
+        `n-modal-size-${this.size}`,
+        { "has-footer": this.hasFooter },
+        { "is-stacked": this.stackedButtons },
+        { "is-open": this.isOpen },
+        { "is-aligned-top": this.alignTop }
+      ];
+    },
+
+    alignTopStyle() {
+      if (this.alignTop) {
+        return { "padding-top": this.alignTopMargin + "px" };
+      }
+
+      return null;
+    },
+
+    toggleTransition() {
+      return `n-modal-transition-fade`;
+      // return `n-modal-transition-${this.transition}`;
+    },
+
+    hasFooter() {
+      return Boolean(this.$slots.footer);
+    }
+  },
+
+  watch: {
+    isOpen() {
+      this.$nextTick(() => {
+        this[this.isOpen ? "onOpen" : "onClose"]();
+      });
+    }
+  },
+
+  beforeDestroy() {
+    if (this.isOpen) {
+      this.returnFocus();
+    }
+  },
+
   methods: {
+    open() {
+      this.isOpen = true;
+    },
+
     close() {
-      // window.history.forward(1);
+      this.isOpen = false;
+    },
+
+    redirectFocus() {
+      this.$refs.focusContainer.focus();
+    },
+
+    returnFocus() {
+      if (this.lastFocusedElement) {
+        this.lastFocusedElement.focus();
+      }
+    },
+
+    onBackdropClick() {
+      this.close();
+    },
+
+    onOpen() {
+      this.lastFocusedElement = document.activeElement;
+      this.$refs.focusContainer.focus();
+
+      classlist.add(document.body, "n-modal-is-open");
+      this.incrementOpenModalCount();
+      document.body.appendChild(this.$el);
+      this.$emit("open");
+    },
+
+    onClose() {
+      this.returnFocus();
       this.$emit("close");
+    },
+
+    onEnter() {
+      this.$emit("reveal");
+    },
+
+    onLeave() {
+      this.$emit("hide");
+      const newCount = this.decrementOpenModalCount();
+
+      if (newCount === 0) {
+        classlist.remove(document.body, "n-modal-is-open");
+      }
+    },
+
+    getOpenModalCount() {
+      const count = document.body.getAttribute("data-ui-open-modals");
+      return count === undefined ? 0 : Number(count);
+    },
+
+    setOpenModalCount(count) {
+      const normalizedCount = Math.max(0, count);
+
+      if (normalizedCount === 0) {
+        document.body.removeAttribute("data-ui-open-modals");
+      } else {
+        document.body.setAttribute("data-ui-open-modals", normalizedCount);
+      }
+
+      return normalizedCount;
+    },
+
+    incrementOpenModalCount() {
+      return this.setOpenModalCount(this.getOpenModalCount() + 1);
+    },
+
+    decrementOpenModalCount() {
+      return this.setOpenModalCount(this.getOpenModalCount() - 1);
     }
   }
 };
 </script>
+
 <style lang="scss">
-@import "@/assets/sass/colors.scss";
-@import "@/assets/sass/animations.scss";
+@import "@/assets/sass/imports.scss";
 
-.modal-backdrop {
-  z-index: 2009;
-}
-.n-modal .modal-content {
-  // margin-top: 15vh;
-  padding: 1rem;
-  animation: fadeIn 300ms;
-  box-shadow: 0 2.5px 4px rgba(25, 25, 26, 0.7);
-}
+$n-modal-transition-duration: 0.3s !default;
+$n-modal-mask-background: rgba(black, 0.5) !default;
+$n-modal-header-height: rem(56px);
+$n-modal-footer-height: rem(70px);
 
-.n-modal .modal-footer {
-  border-top: none;
-  text-align: right;
-  padding: 0 1rem 1rem 1rem;
-  .btn {
-    margin-left: 0.3rem;
+$n-modal-font-size: rem(14px);
+$n-modal-header-font-size: rem(18px);
+
+.n-modal {
+  font-family: $font-stack;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  &.is-aligned-top {
+    .n-modal-wrapper {
+      vertical-align: initial;
+    }
+
+    // &.has-footer .n-modal-body {
+    //   max-height: calc(
+    //     100vh - #{$n-modal-header-height + $n-modal-footer-height}
+    //   );
+    // }
+  }
+
+  &.has-footer {
+    .n-modal-body {
+      max-height: calc(
+        100vh - #{$n-modal-header-height + $n-modal-footer-height}
+      );
+    }
+  }
+
+  &:not(.has-footer) {
+    .n-modal-body {
+      padding: rem(16px 24px 24px);
+    }
   }
 }
-.n-modal .modal-header {
-  border-bottom: none;
-  padding: 1rem;
-  font-size: 1.1rem;
-  padding-right: 3rem;
-  color: #292f2f;
+
+.n-modal-is-open {
+  overflow: hidden;
 }
 
-.n-modal .modal-body {
-  padding: 1.5rem 1rem;
+.n-modal-mask {
+  background-color: $n-modal-mask-background;
+  transition: opacity $n-modal-transition-duration ease;
+  width: 100%;
+  z-index: 2009;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
-.n-modal .modal-confirm {
-  max-width: 24rem;
-  margin-right: auto;
-  margin-left: auto;
+.n-modal-wrapper {
+  overflow: hidden;
+  text-align: center;
   margin: 0 auto;
+  // &.has-dummy-scrollbar {
+  //   overflow-y: scroll;
+  // }
 }
 
-.n-modal .modal-close {
-  position: absolute;
-  top: 1.6rem;
-  right: 2rem;
+.n-modal-container {
+  border-radius: 0.3rem;
+  background-color: white;
+  box-shadow: 0 2.5px 4px rgba(25, 25, 26, 0.7);
+  display: inline-block;
+  margin: 0 auto;
+  padding: 0.5rem;
+  max-height: 100vh;
+  max-width: 90vw;
+  outline: none;
+  overflow: hidden;
+  // padding: 0;
+  text-align: initial;
+  transition: all $n-modal-transition-duration ease;
+  width: rem(528px);
 }
 
-.n-modal .modal-title {
-  color: #292f2f;
+// SM
+@media (max-width: 700px) {
+  .n-modal-confirm {
+    max-width: 80vh;
+  }
+}
+
+.n-modal-confirm {
+  max-width: 20rem;
+}
+
+.n-modal-header {
+  align-items: center;
+  display: flex;
+  height: $n-modal-header-height;
+  padding: rem(0 24px);
+  position: relative;
+  padding-top: 0.5rem;
+  z-index: 1;
+  flex-flow: row nowrap;
+  // align-items: center;
+  flex: 1 0 auto;
+  justify-content: space-between;
+}
+
+.n-modal-header-text {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
   font-weight: 400;
   font-size: 1.2rem;
+  color: #292f2f;
+  margin: 0;
+  align-self: flex-start;
 }
-@media only screen and (max-width: 600px) {
-  .n-modal .modal-content {
-    margin-top: 0;
-    // width: 100%;
-    // height: 100%;
-    // margin: 0;
-    // padding: 0;
-    // transition: all 1s;
-  }
 
-  // .n-modal .modal-content {
-  //   transition: all 1s;
-  //   margin: 0;
-  //   height: auto;
-  //   min-height: 100%;
-  //   border-radius: 0;
-  // }
+.n-modal-close-button {
+  margin-top: -0.25rem;
+  margin-left: auto;
+  margin-right: rem(-8px);
+  align-self: flex-start;
+}
+
+.n-modal-body {
+  max-height: calc(100vh - #{$n-modal-header-height});
+  overflow-y: auto;
+  padding: rem(16px 24px);
+}
+
+.n-modal-footer {
+  align-items: center;
+  display: flex;
+  height: $n-modal-footer-height;
+  justify-content: flex-end;
+  padding: 0 1rem;
+
+  .n-button {
+    margin-left: rem(8px);
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
+.is-stacked {
+  .n-modal-footer {
+    flex-direction: column;
+    .n-button {
+      align-self: flex-end;
+      margin-bottom: 0.3rem;
+    }
+  }
+}
+
+.n-modal-size-small {
+  & > .n-modal-wrapper > .n-modal-container {
+    width: rem-calc(320px);
+  }
+}
+//
+.n-modal-size-large {
+  & > .n-modal-wrapper > .n-modal-container {
+    width: rem-calc(848px);
+  }
+}
+
+.n-modal-size-fullscreen {
+  & > .n-modal-wrapper > .n-modal-container {
+    border-radius: 0;
+    width: 100vw;
+    max-width: 100vw;
+
+    height: 100vh;
+    .n-modal-body {
+      padding-top: 1.5rem;
+      height: calc(100vh - #{$n-modal-header-height});
+    }
+  }
+}
+
+.n-modal-size-auto {
+  & > .n-modal-wrapper > .n-modal-container {
+    width: initial;
+  }
+}
+
+// Transition
+.n-modal-transition-fade-enter,
+.n-modal-transition-fade-leave-active {
+  opacity: 0;
 }
 </style>

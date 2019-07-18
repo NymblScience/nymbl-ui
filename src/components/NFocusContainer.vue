@@ -3,10 +3,11 @@
     <span
       v-if="renderRedirector"
       class="n-focus-container__focus-redirector"
+      tabindex="0"
       @focus="redirectFocus($event, { isTabbingForward: false })"
     ></span>
 
-    <div ref="content" class="n-focus-container__content">
+    <div ref="content" class="n-focus-container__content" tabindex="-1">
       <slot></slot>
     </div>
 
@@ -14,6 +15,7 @@
       v-if="!disabled && containFocus"
       ref="lastFocusable"
       class="n-focus-container__last-focusable"
+      tabindex="-1"
     ></span>
 
     <span
@@ -45,7 +47,7 @@ export default {
     },
     lazy: {
       type: Boolean,
-      defualt: true // When true, the focus redirectors are not rendered until containFocus is true
+      defualt: false // When true, the focus redirectors are not rendered until containFocus is true
     }
   },
 
