@@ -53878,12 +53878,12 @@ var NRadioGroup_component = normalizeComponent(
 )
 
 /* harmony default export */ var NRadioGroup = (NRadioGroup_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NCard.vue?vue&type=template&id=e7067912&
-var NCardvue_type_template_id_e7067912_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"n-card",class:_vm.classes},[(_vm.title.length > 0)?_c('div',{staticClass:"n-card-header"},[_c('div',{staticClass:"n-card-title"},[_vm._v("\n      "+_vm._s(_vm.title)+"\n    ")]),_c('div',{staticClass:"n-card-header-buttons"},[_vm._t("header-buttons"),(_vm.isCollapsible)?_c('ChevronRight',{nativeOn:{"click":function($event){return _vm.collapse()}}}):_vm._e()],2)]):_vm._e(),_c('div',{staticClass:"n-card-body",class:{ 'title-hidden': _vm.isTitle }},[_c('transition-expand',[(!_vm.isCollapsedLocal)?_c('div',[_vm._t("default")],2):_vm._e()])],1)])}
-var NCardvue_type_template_id_e7067912_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NCard.vue?vue&type=template&id=e86e819e&
+var NCardvue_type_template_id_e86e819e_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"n-card",class:_vm.classes},[(_vm.title.length > 0)?_c('div',{staticClass:"n-card-header"},[_c('div',{staticClass:"n-card-title"},[_vm._v("\n      "+_vm._s(_vm.title)+"\n    ")]),_c('div',{staticClass:"n-card-header-buttons"},[_vm._t("header-buttons"),(_vm.isCollapsible)?_c('ChevronRight',{nativeOn:{"click":function($event){return _vm.collapse()}}}):_vm._e()],2)]):_vm._e(),_c('div',{staticClass:"n-card-body",class:{ 'title-hidden': _vm.isTitle }},[_c('transition-expand',[(!_vm.isCollapsedLocal)?_c('div',[_vm._t("default")],2):_vm._e()])],1)])}
+var NCardvue_type_template_id_e86e819e_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/NCard.vue?vue&type=template&id=e7067912&
+// CONCATENATED MODULE: ./src/components/NCard.vue?vue&type=template&id=e86e819e&
 
 // EXTERNAL MODULE: ./node_modules/vue-transition-expand/dist/vue-transition-expand.umd.min.js
 var vue_transition_expand_umd_min = __webpack_require__("1d7e");
@@ -54071,8 +54071,8 @@ var NCardvue_type_style_index_0_lang_scss_ = __webpack_require__("e5c2");
 
 var NCard_component = normalizeComponent(
   components_NCardvue_type_script_lang_js_,
-  NCardvue_type_template_id_e7067912_render,
-  NCardvue_type_template_id_e7067912_staticRenderFns,
+  NCardvue_type_template_id_e86e819e_render,
+  NCardvue_type_template_id_e86e819e_staticRenderFns,
   false,
   null,
   null,
