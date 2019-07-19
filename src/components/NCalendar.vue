@@ -69,7 +69,7 @@ import dateUtils from "../helpers/date";
 import { scrollIntoView } from "../helpers/element-scroll";
 
 export default {
-  name: "UiCalendar",
+  name: "NCalendar",
 
   components: {
     NCalendarControls,

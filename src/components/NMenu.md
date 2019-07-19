@@ -8,7 +8,7 @@
     <br />
     <br />
 
-    <n-icon-button has-dropdown icon="add" ref="dropdownButton" :size="size">
+    <n-icon-button has-dropdown icon="add" ref="dropdownButton" size="24">
       <Close />
       <n-menu
         contain-focus

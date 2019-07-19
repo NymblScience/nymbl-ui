@@ -110,7 +110,6 @@ import dateUtils from "../helpers/date";
 
 export default {
   name: "NDatepicker",
-
   components: {
     // UiButton,
     NCalendar,
@@ -257,13 +256,6 @@ export default {
 
     hasDisplayText() {
       return Boolean(this.displayText.length);
-    },
-
-    submittedValue() {
-      return this.date
-        ? `${this.date.getFullYear()}-${1 +
-            this.date.getMonth()}-${this.date.getDate()}`
-        : "";
     },
 
     usesPopover() {

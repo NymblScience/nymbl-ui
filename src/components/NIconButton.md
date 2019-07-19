@@ -1,12 +1,13 @@
 ```vue
 <template>
-<n-icon-button ><Close></n-icon-button>
+<n-icon-button ><Close/></n-icon-button>
 </template>
 
 <script>
 const Close = require("../../node_modules/vue-material-design-icons/Close.vue").default;
 
 export default {
+  name: "NIconButtonExample",
   components: {
     Close,
   },

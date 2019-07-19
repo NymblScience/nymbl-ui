@@ -1,7 +1,6 @@
 <template>
   <ui-radio
     class="n-radio"
-    :options="options"
     :disabled="disabled"
     :label="label"
     :placeholder="placeholder"
@@ -10,6 +9,7 @@
     :help="help"
     :error="error"
     :invalid="invalid"
+    :true-value="'Example Value'"
     v-on="$listeners"
   >
     <slot />

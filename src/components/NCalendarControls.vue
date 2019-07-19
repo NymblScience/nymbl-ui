@@ -1,6 +1,6 @@
 <template>
   <div class="ui-calendar-controls" :class="classes">
-    <ui-icon-button
+    <n-icon-button
       v-if="!isStatic"
       class="ui-calendar-controls__nav-button"
       icon="keyboard_arrow_left"
@@ -9,23 +9,21 @@
       :disabled="previousMonthDisabled"
       @click="goToPreviousMonth"
     >
-      <ui-icon>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        >
-          <path
-            d="M15.422 16.078l-1.406 1.406-6-6 6-6 1.406 1.406-4.594 4.594z"
-          />
-        </svg>
-      </ui-icon>
-    </ui-icon-button>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M15.422 16.078l-1.406 1.406-6-6 6-6 1.406 1.406-4.594 4.594z"
+        />
+      </svg>
+    </n-icon-button>
 
     <div class="ui-calendar-controls__month-and-year">{{ monthAndYear }}</div>
 
-    <ui-icon-button
+    <n-icon-button
       v-if="!isStatic"
       class="ui-calendar-controls__nav-button"
       icon="keyboard_arrow_right"
@@ -34,17 +32,15 @@
       :disabled="nextMonthDisabled"
       @click="goToNextMonth"
     >
-      <ui-icon>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        >
-          <path d="M8.578 16.36l4.594-4.595L8.578 7.17l1.406-1.405 6 6-6 6z" />
-        </svg>
-      </ui-icon>
-    </ui-icon-button>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path d="M8.578 16.36l4.594-4.595L8.578 7.17l1.406-1.405 6 6-6 6z" />
+      </svg>
+    </n-icon-button>
   </div>
 </template>
 
