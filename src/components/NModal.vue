@@ -21,8 +21,7 @@
           ref="focusContainer"
           class="n-modal-container"
           :class="{ 'n-modal-confirm': type === 'confirm' }"
-          tabindex="-1"
-          @keydown.native.stop.esc="close"
+          @keydown.native.stop.esc="onEsc"
         >
           <div v-if="type !== 'confirm'" class="n-modal-header">
             <slot name="header">
@@ -194,14 +193,19 @@ export default {
     onBackdropClick() {
       this.close();
     },
-
+    onEsc() {
+      this.close();
+    },
     onOpen() {
+      document.body.appendChild(this.$el);
       this.lastFocusedElement = document.activeElement;
+
       this.$refs.focusContainer.focus();
 
       classlist.add(document.body, "n-modal-is-open");
+      classlist.add(document.body, "n-no-scrolling");
       this.incrementOpenModalCount();
-      document.body.appendChild(this.$el);
+
       this.$emit("open");
     },
 
@@ -220,6 +224,7 @@ export default {
 
       if (newCount === 0) {
         classlist.remove(document.body, "n-modal-is-open");
+        classlist.remove(document.body, "n-no-scrolling");
       }
     },
 
@@ -257,7 +262,7 @@ export default {
 $n-modal-transition-duration: 0.3s !default;
 $n-modal-mask-background: rgba(black, 0.5) !default;
 $n-modal-header-height: rem(56px);
-$n-modal-footer-height: rem(70px);
+$n-modal-footer-height: rem(90px);
 
 $n-modal-font-size: rem(14px);
 $n-modal-header-font-size: rem(18px);
@@ -295,9 +300,20 @@ $n-modal-header-font-size: rem(18px);
   }
 }
 
-.n-modal-is-open {
-  overflow: hidden;
-}
+// Disable scrolling & add placeholder for scrollbar. Removes shifting.
+// .n-modal-is-open {
+//   overflow: hidden;
+//   padding-right: 17.5px;
+//   .n-navbar {
+//     padding-right: 17.5px;
+//   }
+//   &.is-mobile {
+//     padding-right: 0;
+//     .n-navbar {
+//       padding-right: 0px;
+//     }
+//   }
+// }
 
 .n-modal-mask {
   background-color: $n-modal-mask-background;
@@ -326,7 +342,7 @@ $n-modal-header-font-size: rem(18px);
   box-shadow: 0 2.5px 4px rgba(25, 25, 26, 0.7);
   display: inline-block;
   margin: 0 auto;
-  padding: 0.5rem;
+  padding: 0.75rem;
   max-height: 100vh;
   max-width: 90vw;
   outline: none;
@@ -391,7 +407,7 @@ $n-modal-header-font-size: rem(18px);
   display: flex;
   height: $n-modal-footer-height;
   justify-content: flex-end;
-  padding: 0 1rem;
+  padding: 0.5rem 1rem;
 
   .n-button {
     margin-left: rem(8px);
@@ -427,7 +443,6 @@ $n-modal-header-font-size: rem(18px);
     border-radius: 0;
     width: 100vw;
     max-width: 100vw;
-
     height: 100vh;
     .n-modal-body {
       padding-top: 1.5rem;

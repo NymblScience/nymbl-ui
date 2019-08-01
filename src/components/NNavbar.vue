@@ -43,11 +43,6 @@
   top: 0.8rem;
 }
 
-.no-scrolling {
-  overflow: hidden;
-  padding-right: 17px;
-}
-
 @media only screen and (max-width: 70rem) {
   .navbar.drawer .n-nav-toggle,
   .navbar.drawer .menu-close {
@@ -105,11 +100,20 @@
     z-index: 2060;
     animation: fadeIn 400ms;
   }
-
-  // Add padding when no scrolling enabled.
-  .no-scrolling .navbar.drawer {
-    padding-right: 35px;
-  }
+  // Disable scrolling & add placeholder for scrollbar. Removes shifting.
+  // .n-navbar__open {
+  //   overflow: hidden;
+  //   padding-right: 17.5px;
+  //   .n-navbar {
+  //     padding-right: 17.5px;
+  //   }
+  //   &.is-mobile {
+  //     padding-right: 0;
+  //     .n-navbar {
+  //       padding-right: 1rem !important;
+  //     }
+  //   }
+  // }
 
   .n-navbar .n-transparent {
     .navbar-brand {
@@ -145,6 +149,9 @@
         <slot name="logo" />
       </b-navbar-brand>
 
+      <div>
+        <h1><slot name="title"></slot></h1>
+      </div>
       <!-- Hidden in drawer  -->
       <b-navbar-nav
         id="side-bar"
@@ -181,6 +188,7 @@ import ClickOutside from "vue-click-outside";
 import MenuIcon from "../assets/icons/Menu.vue";
 import CloseIcon from "../assets/icons/Close.vue";
 import Hammer from "hammerjs";
+import classlist from "../helpers/classlist";
 
 export default {
   name: "NNavbar",
@@ -267,11 +275,13 @@ export default {
   methods: {
     hide() {
       this.show = false;
-      document.documentElement.classList.remove("no-scrolling");
+      classlist.remove(document.body, "n-navbar__open");
+      classlist.remove(document.body, "n-no-scrolling");
     },
     toggleSidebar() {
       this.show = true;
-      document.documentElement.classList.add("no-scrolling");
+      classlist.add(document.body, "n-no-scrolling");
+      classlist.add(document.body, "n-navbar__open");
     }
   }
 };

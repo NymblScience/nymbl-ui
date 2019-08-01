@@ -101,11 +101,6 @@ $zindex-modal:                      2050 !default;
 
 @import "node_modules/bootstrap-vue/src/index.scss";
 
-// Stop scrolling.
-.no-scrolling {
-  overflow: hidden;
-  padding-right: 17px;
-}
 
 html {
   font-size: 100%;

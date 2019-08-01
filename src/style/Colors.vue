@@ -1,7 +1,7 @@
 <template>
   <div class="color-container">
     <div v-for="color in colors" :key="color" class="color">
-      <div :style="{ 'background-color': color }" class="color-block"></div>
+      <div :style="{ background: color }" class="color-block"></div>
       <div class="color-code" title="Copy to clipboard">{{ color }}</div>
     </div>
   </div>

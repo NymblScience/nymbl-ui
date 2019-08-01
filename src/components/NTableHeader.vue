@@ -78,10 +78,10 @@ export default {
   .n-table-label {
     flex-grow: 1;
     flex-basis: 0;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
     font-weight: 500;
-    color: #292f2f;
+    color: #595959;
     user-select: none;
     text-align: center;
     .n-table-label-sortable {
