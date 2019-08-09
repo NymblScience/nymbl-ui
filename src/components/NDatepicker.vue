@@ -159,7 +159,7 @@ export default {
       default: "Cancel"
     },
     placeholder: String,
-    defaultDate: String,
+    defaultDate: Date,
     icon: String,
     iconPosition: {
       type: String,
