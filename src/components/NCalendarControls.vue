@@ -157,12 +157,12 @@ export default {
   height: 1.8rem;
   letter-spacing: 0.08rem;
   justify-content: space-between;
-  padding: 0.1rem;
+  padding: 1.2rem 0;
 }
 
 .n-calendar-controls__month-and-year {
   font-size: rem(15px);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 // ================================================

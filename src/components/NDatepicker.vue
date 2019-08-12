@@ -448,7 +448,7 @@ export default {
   background: #0ab4b1;
   span {
     color: #fff !important;
-    font-weight: 600;
+    font-weight: 500;
   }
 }
 
@@ -508,7 +508,7 @@ body[modality="keyboard"] .n-calendar--color-primary .n-calendar__year:focus {
   color: $form-color-active !important;
 }
 .n-calendar--color-primary .n-calendar-week__date.is-today {
-  font-weight: 600 !important;
+  font-weight: 500 !important;
 }
 .n-calendar--color-primary .n-calendar-week__date.is-selected,
 body[modality="keyboard"]
