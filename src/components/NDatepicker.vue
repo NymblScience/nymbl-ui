@@ -71,7 +71,7 @@
       @close="onPickerClose"
       @open="onPickerOpen"
     >
-      <ui-calendar
+      <n-calendar
         :color="color"
         :date-filter="dateFilter"
         :lang="lang"
@@ -94,7 +94,7 @@
             cancelButtonText
           }}</ui-button>
         </div>
-      </ui-calendar>
+      </n-calendar>
     </ui-modal> -->
   </div>
 </template>
@@ -310,6 +310,8 @@ export default {
     },
 
     onClick() {
+      this.isActive = true;
+      this.openPicker();
       // this.$refs.textbox.$refs.textbox.focus();
       // console.log());
       // if (!this.$refs.popover.isOpen()) {
@@ -442,7 +444,7 @@ export default {
   color: $form-color-invalid;
 }
 
-.ui-calendar-month__header {
+.n-calendar-month__header {
   background: #0ab4b1;
   span {
     color: #fff !important;
@@ -450,68 +452,68 @@ export default {
   }
 }
 
-.ui-calendar__body {
+.n-calendar__body {
   padding: 0 !important;
   // height: 16rem !important;
   background: #fff;
 }
 
-.ui-calendar-controls {
+.n-calendar-controls {
   background: #5b5b5b;
   color: #fff;
   text-transform: uppercase;
 }
-.ui-calendar-week {
+.n-calendar-week {
   border-bottom: 1px solid #0ab4b1;
 }
-.ui-calendar-month__week {
+.n-calendar-month__week {
   width: 17rem !important;
 }
-.ui-calendar-month {
-  .ui-calendar-month__week.is-other {
+.n-calendar-month {
+  .n-calendar-month__week.is-other {
     left: 17rem;
   }
 }
-.ui-calendar-week__date {
+.n-calendar-week__date {
   border-radius: 0 !important;
   border-right: 1px solid #0ab4b1;
   height: 2.4rem !important;
   width: 2.4rem !important;
 }
-.ui-calendar-week__date.is-in-other-month {
+.n-calendar-week__date.is-in-other-month {
   visibility: visible !important;
   background: #f9f9f9;
 }
 
-.ui-calendar__header-details {
+.n-calendar__header-details {
   display: none !important;
 }
 
-.ui-calendar__header-year {
+.n-calendar__header-year {
   margin-bottom: 0 !important;
   text-align: center;
   font-size: 1rem;
 }
 
-.ui-calendar__header {
+.n-calendar__header {
   padding: 0.6rem 0 !important;
   background-color: #292f2f !important;
 }
 
-.ui-calendar--color-primary .ui-calendar__year:hover,
-body[modality="keyboard"] .ui-calendar--color-primary .ui-calendar__year:focus {
+.n-calendar--color-primary .n-calendar__year:hover,
+body[modality="keyboard"] .n-calendar--color-primary .n-calendar__year:focus {
   color: $form-color-active !important;
 }
-.ui-calendar--color-primary .ui-calendar__year.is-selected {
+.n-calendar--color-primary .n-calendar__year.is-selected {
   color: $form-color-active !important;
 }
-.ui-calendar--color-primary .ui-calendar-week__date.is-today {
-  color: $form-color-active !important;
+.n-calendar--color-primary .n-calendar-week__date.is-today {
+  font-weight: 600 !important;
 }
-.ui-calendar--color-primary .ui-calendar-week__date.is-selected,
+.n-calendar--color-primary .n-calendar-week__date.is-selected,
 body[modality="keyboard"]
-  .ui-calendar--color-primary
-  .ui-calendar-week__date.is-selected {
+  .n-calendar--color-primary
+  .n-calendar-week__date.is-selected {
   background-color: $form-color-active !important;
   color: #fff;
 }
@@ -619,7 +621,7 @@ body[modality="keyboard"]
   .ui-modal:not(.has-footer) .ui-modal__body {
     padding: 0;
 
-    .ui-calendar__body {
+    .n-calendar__body {
       height: rem(348px);
     }
   }

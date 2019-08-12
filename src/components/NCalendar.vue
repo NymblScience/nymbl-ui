@@ -1,8 +1,8 @@
 <template>
-  <div class="ui-calendar" :class="classes">
-    <div v-if="!isStatic" class="ui-calendar__header">
+  <div class="n-calendar" :class="classes">
+    <div v-if="!isStatic" class="n-calendar__header">
       <div
-        class="ui-calendar__header-year"
+        class="n-calendar__header-year"
         tabindex="0"
         :class="{ 'is-active': showYearPicker }"
         @click="showYearPicker = true"
@@ -12,13 +12,13 @@
       </div>
     </div>
 
-    <div class="ui-calendar__body">
-      <ul v-show="showYearPicker" ref="years" class="ui-calendar__years">
+    <div class="n-calendar__body">
+      <ul v-show="showYearPicker" ref="years" class="n-calendar__years">
         <!-- eslint-disable -->
         <li
           v-for="year in yearRange"
           v-if="!isYearOutOfRange(year)"
-          class="ui-calendar__year"
+          class="n-calendar__year"
           tabindex="0"
           :class="getYearClasses(year)"
           @click="selectYear(year)"
@@ -54,7 +54,7 @@
         ></n-calendar-month>
       </div>
 
-      <div v-if="$slots.footer" class="ui-calendar__footer">
+      <div v-if="$slots.footer" class="n-calendar__footer">
         <slot name="footer"></slot>
       </div>
     </div>
@@ -132,8 +132,8 @@ export default {
   computed: {
     classes() {
       return [
-        `ui-calendar--color-${this.color}`,
-        `ui-calendar--orientation-${this.orientation}`
+        `n-calendar--color-${this.color}`,
+        `n-calendar--orientation-${this.orientation}`
       ];
     },
 
@@ -250,21 +250,21 @@ export default {
 <style lang="scss">
 @import "@/assets/sass/imports.scss";
 
-$ui-calendar-padding: rem(8px) !default;
+$n-calendar-padding: rem(8px) !default;
 
-.ui-calendar {
+.n-calendar {
   color: $primary-text-color;
   font-family: $font-stack;
 }
 
-.ui-calendar__header {
+.n-calendar__header {
   color: white;
   line-height: 1;
   padding: rem(16px);
 }
 
-.ui-calendar__header-year,
-.ui-calendar__header-details {
+.n-calendar__header-year,
+.n-calendar__header-details {
   cursor: pointer;
   opacity: 0.75;
   transition: opacity 0.2s ease;
@@ -281,34 +281,34 @@ $ui-calendar-padding: rem(8px) !default;
   }
 }
 
-.ui-calendar__header-year {
+.n-calendar__header-year {
   font-size: rem(15px);
   font-weight: 600;
   margin-bottom: rem(8px);
 }
 
-.ui-calendar__header-details {
+.n-calendar__header-details {
   font-size: rem(22px);
 }
 
-.ui-calendar__body {
-  height: ($ui-calendar-cell-size * 6) + $ui-calendar-controls-height +
-    $ui-calendar-month-header-height + ($ui-calendar-padding * 2);
+.n-calendar__body {
+  height: ($n-calendar-cell-size * 6) + $n-calendar-controls-height +
+    $n-calendar-month-header-height + ($n-calendar-padding * 2);
   overflow: hidden;
-  padding: $ui-calendar-padding;
+  padding: $n-calendar-padding;
   position: relative;
-  width: ($ui-calendar-cell-size * 7) + ($ui-calendar-padding * 2);
+  width: ($n-calendar-cell-size * 7) + ($n-calendar-padding * 2);
 }
 
-.ui-calendar__years {
+.n-calendar__years {
   height: rem(312px);
   list-style: none;
-  margin: -$ui-calendar-padding;
+  margin: -$n-calendar-padding;
   overflow-y: auto;
   padding: rem(8px 0);
 }
 
-.ui-calendar__year {
+.n-calendar__year {
   align-items: center;
   cursor: pointer;
   display: flex;
@@ -328,18 +328,18 @@ $ui-calendar-padding: rem(8px) !default;
 // Orientations
 // ================================================
 
-.ui-calendar--orientation-landscape {
+.n-calendar--orientation-landscape {
   display: flex;
 
-  .ui-calendar__header {
+  .n-calendar__header {
     min-width: rem(128px);
   }
 
-  .ui-calendar__header-date {
+  .n-calendar__header-date {
     margin-bottom: rem(12px);
   }
 
-  .ui-calendar__header-date {
+  .n-calendar__header-date {
     display: block;
     padding-top: rem(4px);
   }
@@ -349,12 +349,12 @@ $ui-calendar-padding: rem(8px) !default;
 // Colors
 // ================================================
 
-.ui-calendar--color-primary {
-  .ui-calendar__header {
+.n-calendar--color-primary {
+  .n-calendar__header {
     background-color: $brand-primary-color;
   }
 
-  .ui-calendar__year {
+  .n-calendar__year {
     &:hover,
     body[modality="keyboard"] &:focus {
       color: $brand-primary-color;
@@ -365,7 +365,7 @@ $ui-calendar-padding: rem(8px) !default;
     }
   }
 
-  .ui-calendar-week__date {
+  .n-calendar-week__date {
     &.is-today {
       color: $brand-primary-color;
     }
@@ -377,12 +377,12 @@ $ui-calendar-padding: rem(8px) !default;
   }
 }
 
-.ui-calendar--color-accent {
-  .ui-calendar__header {
+.n-calendar--color-accent {
+  .n-calendar__header {
     background-color: $brand-accent-color;
   }
 
-  .ui-calendar__year {
+  .n-calendar__year {
     &:hover,
     body[modality="keyboard"] &:focus {
       color: $brand-accent-color;
@@ -393,7 +393,7 @@ $ui-calendar-padding: rem(8px) !default;
     }
   }
 
-  .ui-calendar-week__date {
+  .n-calendar-week__date {
     &.is-today {
       color: $brand-accent-color;
     }

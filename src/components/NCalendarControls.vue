@@ -1,8 +1,8 @@
 <template>
-  <div class="ui-calendar-controls" :class="classes">
+  <div class="n-calendar-controls" :class="classes">
     <n-icon-button
       v-if="!isStatic"
-      class="ui-calendar-controls__nav-button"
+      class="n-calendar-controls__nav-button"
       icon="keyboard_arrow_left"
       type="secondary"
       :color="color === 'default' ? 'default' : 'white'"
@@ -21,11 +21,11 @@
       </svg>
     </n-icon-button>
 
-    <div class="ui-calendar-controls__month-and-year">{{ monthAndYear }}</div>
+    <div class="n-calendar-controls__month-and-year">{{ monthAndYear }}</div>
 
     <n-icon-button
       v-if="!isStatic"
-      class="ui-calendar-controls__nav-button"
+      class="n-calendar-controls__nav-button"
       icon="keyboard_arrow_right"
       type="secondary"
       :color="color === 'default' ? 'default' : 'white'"
@@ -76,7 +76,7 @@ export default {
   computed: {
     classes() {
       let classes = [];
-      classes.push(`ui-calendar-controls--color-${this.color}`);
+      classes.push(`n-calendar-controls--color-${this.color}`);
 
       if (this.isStatic) {
         classes.push("n-calendar-static");
@@ -151,15 +151,16 @@ export default {
 <style lang="scss">
 @import "@/assets/sass/imports.scss";
 
-.ui-calendar-controls {
+.n-calendar-controls {
   align-items: center;
   display: flex;
   height: 1.8rem;
   letter-spacing: 0.08rem;
   justify-content: space-between;
+  padding: 0.1rem;
 }
 
-.ui-calendar-controls__month-and-year {
+.n-calendar-controls__month-and-year {
   font-size: rem(15px);
   font-weight: 600;
 }
@@ -168,16 +169,16 @@ export default {
 // Colors
 // ================================================
 
-.ui-calendar-controls--color-default {
+.n-calendar-controls--color-default {
   background-color: #eee;
 }
 
-.ui-calendar-controls--color-primary {
+.n-calendar-controls--color-primary {
   background-color: $brand-primary-color;
   color: white;
 }
 
-.ui-calendar-controls--color-accent {
+.n-calendar-controls--color-accent {
   background-color: $brand-accent-color;
   color: white;
 }

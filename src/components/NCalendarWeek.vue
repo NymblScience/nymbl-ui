@@ -1,8 +1,8 @@
 <template>
-  <tr class="ui-calendar-week" :class="classes">
+  <tr class="n-calendar-week" :class="classes">
     <td v-for="date in dates" :key="date.toString()">
       <button
-        class="ui-calendar-week__date"
+        class="n-calendar-week__date"
         :class="getDateClasses(date)"
         :disabled="isDateDisabled(date)"
         @click="selectDate(date)"
@@ -17,7 +17,7 @@
 import dateUtils from "../helpers/date";
 
 export default {
-  name: "UiCalendarWeek",
+  name: "NCalendarWeek",
 
   props: {
     month: Number,
@@ -49,8 +49,8 @@ export default {
 
     classes() {
       return [
-        `ui-calendar-week--color-${this.color}`,
-        { "ui-calendar-week--has-square-cells": this.squareCells }
+        `n-calendar-week--color-${this.color}`,
+        { "n-calendar-week--has-square-cells": this.squareCells }
       ];
     }
   },
@@ -112,18 +112,18 @@ export default {
 <style lang="scss">
 @import "@/assets/sass/imports.scss";
 
-.ui-calendar-week {
+.n-calendar-week {
   font-size: rem(14px);
   width: 100%;
 
   td {
     width: (100% / 7);
-    min-width: $ui-calendar-cell-size;
+    min-width: $n-calendar-cell-size;
     position: relative;
   }
 }
 
-.ui-calendar-week--has-square-cells {
+.n-calendar-week--has-square-cells {
   td {
     // This makes the <td> square, while keeping it responsive
     &::before {
@@ -131,11 +131,11 @@ export default {
       content: "";
       display: block;
       padding-top: 100%;
-      min-height: $ui-calendar-cell-size;
+      min-height: $n-calendar-cell-size;
     }
   }
 
-  .ui-calendar-week__date {
+  .n-calendar-week__date {
     position: absolute;
     left: 0;
     top: 0;
@@ -144,7 +144,7 @@ export default {
   }
 }
 
-.ui-calendar-week__date {
+.n-calendar-week__date {
   align-items: center;
   border-radius: 2px;
   cursor: pointer;
@@ -160,7 +160,7 @@ export default {
   font-size: inherit;
   line-height: 1;
   margin: 0;
-  min-height: $ui-calendar-cell-size;
+  min-height: $n-calendar-cell-size;
   padding: 0;
 
   &:hover,
@@ -187,8 +187,8 @@ export default {
 // Colors
 // ================================================
 
-.ui-calendar-week--color-primary {
-  .ui-calendar-week__date {
+.n-calendar-week--color-primary {
+  .n-calendar-week__date {
     &.is-today {
       color: $brand-primary-color;
 
@@ -205,8 +205,8 @@ export default {
   }
 }
 
-.ui-calendar-week--color-accent {
-  .ui-calendar-week__date {
+.n-calendar-week--color-accent {
+  .n-calendar-week__date {
     &.is-today {
       color: $brand-accent-color;
 

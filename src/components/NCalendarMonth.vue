@@ -1,12 +1,12 @@
 <template>
-  <table class="ui-calendar-month">
-    <thead class="ui-calendar-month__header">
+  <table class="n-calendar-month">
+    <thead class="n-calendar-month__header">
       <tr>
         <th v-for="(day, index) in daysOfWeek" :key="day + index">{{ day }}</th>
       </tr>
     </thead>
 
-    <tbody class="ui-calendar-month__body">
+    <tbody class="n-calendar-month__body">
       <tr
         is="n-calendar-week"
         v-for="date in currentWeekStartDates"
@@ -35,7 +35,7 @@ import NCalendarWeek from "./NCalendarWeek.vue";
 import dateUtils from "../helpers/date";
 
 export default {
-  name: "UiCalendarMonth",
+  name: "NCalendarMonth",
 
   components: {
     NCalendarWeek
@@ -115,19 +115,19 @@ export default {
 <style lang="scss">
 @import "@/assets/sass/imports.scss";
 
-.ui-calendar-month {
+.n-calendar-month {
   table-layout: fixed;
   width: 100%;
 }
 
-.ui-calendar-month__header {
+.n-calendar-month__header {
   width: 100%;
   th {
     color: $secondary-text-color;
     font-size: rem(14px);
     font-weight: 600;
     color: #fff;
-    height: $ui-calendar-month-header-height;
+    height: $n-calendar-month-header-height;
     text-align: center;
     text-transform: uppercase;
     vertical-align: middle;
@@ -135,7 +135,7 @@ export default {
   }
 }
 
-.ui-calendar-month__body {
+.n-calendar-month__body {
   width: 100%;
 }
 </style>
