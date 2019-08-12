@@ -292,8 +292,7 @@ $n-calendar-padding: rem(8px) !default;
 }
 
 .n-calendar__body {
-  height: ($n-calendar-cell-size * 6) + $n-calendar-controls-height +
-    $n-calendar-month-header-height + ($n-calendar-padding * 2);
+  height: 19.4rem;
   overflow: hidden;
   padding: $n-calendar-padding;
   position: relative;
