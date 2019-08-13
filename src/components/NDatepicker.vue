@@ -1,19 +1,19 @@
 <template>
-  <div tabindex="-1" class="ui-datepicker n-datepicker" :class="classes">
-    <!-- <div v-if="icon || $slots.icon" class="ui-datepicker__icon-wrapper">
+  <div tabindex="-1" class="n-datepicker" :class="classes">
+    <!-- <div v-if="icon || $slots.icon" class="n-datepicker__icon-wrapper">
       <slot name="icon">
         <ui-icon :icon="icon"></ui-icon>
       </slot>
     </div> -->
 
-    <div class="ui-datepicker__content">
+    <div class="n-datepicker__content">
       <div
-        class="ui-datepicker__display-value"
+        class="n-datepicker__display-value"
         :class="{ 'is-placeholder': !hasDisplayText }"
       >
         <n-textbox
           ref="textbox"
-          v-model="inputDate"
+          v-model="displayText"
           :label="label"
           :error="error"
           :help="help"
@@ -53,12 +53,12 @@
         </n-popover>
       </div>
       <!-- 
-      <div v-if="hasFeedback" class="ui-datepicker__feedback">
-        <div v-if="showError" class="ui-datepicker__feedback-text">
+      <div v-if="hasFeedback" class="n-datepicker__feedback">
+        <div v-if="showError" class="n-datepicker__feedback-text">
           <slot name="error">{{ error }}</slot>
         </div>
 
-        <div v-else-if="showHelp" class="ui-datepicker__feedback-text">
+        <div v-else-if="showHelp" class="n-datepicker__feedback-text">
           <slot name="help">{{ help }}</slot>
         </div>
       </div> -->
@@ -82,7 +82,7 @@
         :start-of-week="startOfWeek"
         @date-select="onDateSelect"
       >
-        <div slot="footer" class="ui-datepicker__modal-buttons">
+        <div slot="footer" class="n-datepicker__modal-buttons">
           <ui-button
             type="secondary"
             :color="color"
@@ -200,8 +200,8 @@ export default {
 
     classes() {
       return [
-        `ui-datepicker--icon-position-${this.iconPosition}`,
-        `ui-datepicker--orientation-${this.orientation}`,
+        `n-datepicker--icon-position-${this.iconPosition}`,
+        `n-datepicker--orientation-${this.orientation}`,
         { "is-active": this.isActive },
         { "is-invalid": this.invalid },
         { "is-touched": this.isTouched },
@@ -407,40 +407,33 @@ export default {
 
 @import "@/assets/sass/config.scss";
 
-.n-datepicker .ui-datepicker__label-text {
+.n-datepicker .n-datepicker__label-text {
   @extend .form-label-style;
 }
 
-.n-datepicker .ui-datepicker__display {
+.n-datepicker .n-datepicker__display {
   color: $form-color;
 }
 
-.n-datepicker.ui-datepicker.is-active:not(.is-disabled)
-  .ui-datepicker__label-text,
-.ui-datepicker.is-active:not(.is-disabled)
-  .ui-datepicker__icon-wrapper
-  .ui-icon {
+.n-datepicker.is-active:not(.is-disabled) .n-datepicker__label-text,
+.n-datepicker.is-active:not(.is-disabled) .n-datepicker__icon-wrapper .ui-icon {
   color: $form-color-active;
 }
 
-.n-datepicker.ui-datepicker.is-active:not(.is-disabled)
-  .ui-datepicker__display {
+.n-datepicker.is-active:not(.is-disabled) .n-datepicker__display {
   border-bottom-color: $form-color-active;
 }
 
-.n-datepicker.ui-datepicker.is-invalid:not(.is-disabled)
-  .ui-datepicker__label-text,
-.n-datepicker.ui-datepicker.is-invalid:not(.is-disabled)
-  .ui-datepicker__icon-wrapper
+.n-datepicker.is-invalid:not(.is-disabled) .n-datepicker__label-text,
+.n-datepicker.is-invalid:not(.is-disabled)
+  .n-datepicker__icon-wrapper
   .ui-icon {
   color: $form-color-invalid;
 }
-.n-datepicker.ui-datepicker.is-invalid:not(.is-disabled)
-  .ui-datepicker__display {
+.n-datepicker.is-invalid:not(.is-disabled) .n-datepicker__display {
   border-bottom-color: $form-color-invalid;
 }
-.n-datepicker.ui-datepicker.is-invalid:not(.is-disabled)
-  .ui-datepicker__feedback {
+.n-datepicker.is-invalid:not(.is-disabled) .n-datepicker__feedback {
   color: $form-color-invalid;
 }
 
@@ -518,7 +511,7 @@ body[modality="keyboard"]
   color: #fff;
 }
 
-.ui-datepicker {
+.n-datepicker {
   align-items: flex-start;
   display: flex;
   font-family: $font-stack;
@@ -527,33 +520,33 @@ body[modality="keyboard"]
   position: relative;
 
   &:hover:not(.is-disabled) {
-    .ui-datepicker__label-text {
+    .n-datepicker__label-text {
       color: $ui-input-label-color--hover;
     }
 
-    .ui-datepicker__display {
+    .n-datepicker__display {
       border-bottom-color: $ui-input-border-color--hover;
     }
 
-    .ui-datepicker__dropdown-button {
+    .n-datepicker__dropdown-button {
       color: $ui-input-button-color--hover;
     }
   }
 
   &.is-active:not(.is-disabled) {
-    .ui-datepicker__label-text,
-    .ui-datepicker__icon-wrapper .ui-icon {
+    .n-datepicker__label-text,
+    .n-datepicker__icon-wrapper .ui-icon {
       color: $ui-input-label-color--active;
     }
 
-    .ui-datepicker__display {
+    .n-datepicker__display {
       border-bottom-color: $ui-input-border-color--active;
       border-bottom-width: $ui-input-border-width--active;
     }
   }
 
   &.has-floating-label {
-    .ui-datepicker__label-text {
+    .n-datepicker__label-text {
       // Behaves like a block, but width is the width of its content.
       // Needed here so label doesn't overflow parent when scaled.
       display: table;
@@ -571,49 +564,49 @@ body[modality="keyboard"]
   }
 
   &.has-label {
-    .ui-datepicker__icon-wrapper {
+    .n-datepicker__icon-wrapper {
       padding-top: $ui-input-icon-margin-top--with-label;
     }
 
-    .ui-datepicker__dropdown-button {
+    .n-datepicker__dropdown-button {
       top: $ui-input-button-margin-top--with-label;
     }
   }
 
   &.is-invalid:not(.is-disabled) {
-    .ui-datepicker__label-text,
-    .ui-datepicker__icon-wrapper .ui-icon {
+    .n-datepicker__label-text,
+    .n-datepicker__icon-wrapper .ui-icon {
       color: $ui-input-label-color--invalid;
     }
 
-    .ui-datepicker__display {
+    .n-datepicker__display {
       border-bottom-color: $ui-input-border-color--invalid;
     }
 
-    .ui-datepicker__feedback {
+    .n-datepicker__feedback {
       color: $ui-input-feedback-color--invalid;
     }
   }
 
   &.is-disabled {
-    .ui-datepicker__display {
+    .n-datepicker__display {
       border-bottom-style: $ui-input-border-style--disabled;
       border-bottom-width: $ui-input-border-width--active;
       color: $ui-input-text-color--disabled;
       cursor: default;
     }
 
-    .ui-datepicker__dropdown-button,
-    .ui-datepicker__display-value.is-placeholder {
+    .n-datepicker__dropdown-button,
+    .n-datepicker__display-value.is-placeholder {
       color: $ui-input-text-color--disabled;
       opacity: $ui-input-button-opacity--disabled;
     }
 
-    .ui-datepicker__icon-wrapper .ui-icon {
+    .n-datepicker__icon-wrapper .ui-icon {
       opacity: $ui-input-icon-opacity--disabled;
     }
 
-    .ui-datepicker__feedback {
+    .n-datepicker__feedback {
       opacity: $ui-input-feedback-opacity--disabled;
     }
   }
@@ -631,7 +624,7 @@ body[modality="keyboard"]
   }
 }
 
-.ui-datepicker__label {
+.n-datepicker__label {
   display: block;
   margin: 0;
   outline: none;
@@ -640,7 +633,7 @@ body[modality="keyboard"]
   width: 100%;
 }
 
-.ui-datepicker__icon-wrapper {
+.n-datepicker__icon-wrapper {
   flex-shrink: 0;
   margin-right: $ui-input-icon-margin-right;
   padding-top: $ui-input-icon-margin-top;
@@ -650,11 +643,11 @@ body[modality="keyboard"]
   }
 }
 
-.ui-datepicker__content {
+.n-datepicker__content {
   flex-grow: 1;
 }
 
-.ui-datepicker__label-text {
+.n-datepicker__label-text {
   color: $ui-input-label-color;
   cursor: default;
   font-size: $ui-input-label-font-size;
@@ -664,7 +657,7 @@ body[modality="keyboard"]
   transition: color 0.1s ease, transform 0.2s ease;
 }
 
-.ui-datepicker__display {
+.n-datepicker__display {
   align-items: center;
   border: none;
   border-bottom-color: $ui-input-border-color;
@@ -684,7 +677,7 @@ body[modality="keyboard"]
   width: 100%;
 }
 
-.ui-datepicker__display-value {
+.n-datepicker__display-value {
   flex-grow: 1;
 
   &.is-placeholder {
@@ -692,14 +685,14 @@ body[modality="keyboard"]
   }
 }
 
-.ui-datepicker__dropdown-button {
+.n-datepicker__dropdown-button {
   color: $ui-input-button-color;
   font-size: $ui-input-button-size;
   margin-left: auto;
   margin-right: rem(-4px);
 }
 
-.ui-datepicker__feedback {
+.n-datepicker__feedback {
   color: $ui-input-feedback-color;
   font-size: $ui-input-feedback-font-size;
   line-height: $ui-input-feedback-line-height;
@@ -708,7 +701,7 @@ body[modality="keyboard"]
   position: relative;
 }
 
-.ui-datepicker__modal-buttons {
+.n-datepicker__modal-buttons {
   display: flex;
   justify-content: flex-end;
 
@@ -721,8 +714,8 @@ body[modality="keyboard"]
 // Icon Positions
 // ================================================
 
-.ui-datepicker--icon-position-right {
-  .ui-datepicker__icon-wrapper {
+.n-datepicker--icon-position-right {
+  .n-datepicker__icon-wrapper {
     margin-left: rem(8px);
     margin-right: 0;
     order: 1;
@@ -733,7 +726,7 @@ body[modality="keyboard"]
 // Orientations
 // ================================================
 
-.ui-datepicker--orientation-landscape {
+.n-datepicker--orientation-landscape {
   .ui-modal__container {
     width: rem(396px);
   }
