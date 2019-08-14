@@ -130,7 +130,7 @@ export default {
     },
     textInput: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
 
@@ -233,14 +233,14 @@ export default {
     },
     onDateSelect(date) {
       console.log(date);
-      // this.$emit("input", date);
+      this.$emit("input", date);
       this.inputDate = dateUtils.humanize(date);
       this.closePicker();
     },
     onUpdateInput() {
       let date = new Date(this.inputDate);
       if (!isNaN(date.getTime())) {
-        this.inputDate = dateUtils.humanize(date);
+        this.$emit("input", date);
       }
     },
     openPicker() {
@@ -267,13 +267,13 @@ export default {
       this.openPicker();
     },
 
-    onFocus() {
-      // if (this.usesPopover && !this.$refs.popover.isOpen()) {
-
-      // }
+    onFocus(e) {
+      if (this.usesPopover && !this.$refs.popover.isOpen()) {
+        return;
+      }
       this.isActive = true;
       this.openPicker();
-      // this.$emit("focus", e);
+      this.$emit("focus", e);
     },
 
     onBlur(e) {
@@ -290,7 +290,7 @@ export default {
       }
 
       if (!this.value && this.defaultDate) {
-        this.inputDate = this.defaultDate;
+        this.inputDate = dateUtils.humanize(this.defaultDate);
       }
 
       this.isActive = true;

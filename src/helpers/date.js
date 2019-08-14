@@ -86,7 +86,7 @@ export function humanize(date) {
     return "";
   }
 
-  return date.toLocaleDateString();
+  return date.toLocaleDateString().toString();
 }
 
 export function clone(date) {
