@@ -232,7 +232,6 @@ export default {
       return;
     },
     onDateSelect(date) {
-      console.log(date);
       this.$emit("input", date);
       this.inputDate = dateUtils.humanize(date);
       this.closePicker();
@@ -290,7 +289,7 @@ export default {
       }
 
       if (!this.value && this.defaultDate) {
-        this.inputDate = dateUtils.humanize(this.defaultDate);
+        this.$emit("input", this.defaultDate);
       }
 
       this.isActive = true;
