@@ -15,10 +15,8 @@ import NCard from "./NCard.vue";
 import NTable from "./NTable.vue";
 import NCalendar from "./NCalendar.vue";
 import NTableColumn from "./NTableColumn.vue";
-import { Layout } from "bootstrap-vue/es/components";
-import bCollapse from "bootstrap-vue/es/components/collapse/collapse";
-import vBToggle from "bootstrap-vue/es/directives/toggle/toggle";
 import NMenu from "./NMenu.vue";
+import { Layout } from "bootstrap-vue/es/components";
 
 import "../assets/sass/main.scss";
 
@@ -31,7 +29,6 @@ const Components = {
   NNavbar,
   NNavDropdown,
   NNavItem,
-  bCollapse,
   NTextbox,
   NSelect,
   NRadio,
@@ -44,18 +41,10 @@ const Components = {
   NMenu
 };
 
-const Directives = {
-  vBToggle
-};
-
-const NymblUI = { Components, Directives, Layout };
+const NymblUI = { Components, Layout };
 
 Object.keys(Components).forEach(name => {
   Vue.component(name, Components[name]);
-});
-
-Object.keys(Directives).forEach(name => {
-  Vue.directive(name, Directives[name]);
 });
 
 Vue.use(Layout);
