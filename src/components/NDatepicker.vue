@@ -16,6 +16,7 @@
           :name="name"
           autocomplete="off"
           :placeholder="placeholder"
+          :readonly="!textInput"
           @focus="onFocus"
           @keydown.tab="onBlur"
           @keydown.enter.prevent="openPicker"
@@ -126,6 +127,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    textInput: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -227,14 +232,15 @@ export default {
       return;
     },
     onDateSelect(date) {
-      this.$emit("input", dateUtils.humanize(date));
+      console.log(date);
+      // this.$emit("input", date);
       this.inputDate = dateUtils.humanize(date);
       this.closePicker();
     },
     onUpdateInput() {
       let date = new Date(this.inputDate);
       if (!isNaN(date.getTime())) {
-        this.$emit("input", date);
+        this.inputDate = dateUtils.humanize(date);
       }
     },
     openPicker() {
@@ -284,7 +290,7 @@ export default {
       }
 
       if (!this.value && this.defaultDate) {
-        this.$emit("input", this.defaultDate);
+        this.inputDate = this.defaultDate;
       }
 
       this.isActive = true;
@@ -667,6 +673,15 @@ body[modality="keyboard"]
 .n-datepicker--orientation-landscape {
   .ui-modal__container {
     width: rem(396px);
+  }
+}
+
+.n-datepicker .n-textbox.is-disabled .n-textbox__input,
+.n-datepicker .n-textbox.is-disabled .n-textbox__textarea {
+  border-bottom-style: solid;
+  color: #231f20;
+  &:focus {
+    border-color: red;
   }
 }
 </style>
