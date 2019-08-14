@@ -242,10 +242,6 @@ export default {
     },
 
     closeOnExternal(event, closeOptions) {
-      if (event.target.classList.contains("n-textbox__input")) {
-        return;
-      }
-
       if (!this.$el.contains(event.target)) {
         this.close(closeOptions);
       }
