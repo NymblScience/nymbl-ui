@@ -75,9 +75,9 @@ export default {
   },
   created() {
     this.isCollapsedLocal = this.isCollapsed;
-    if (this.isCollapsible) {
-      console.log(this.$children);
-    }
+    // if (this.isCollapsible) {
+    //   console.log(this.$children);
+    // }
   },
   methods: {
     collapse() {

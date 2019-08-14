@@ -1,8 +1,7 @@
 import Vue from "vue";
 
 import NButton from "./NButton.vue";
-import NDropdownItem from "./NDropdownItem.vue";
-import NDropdown from "./NDropdown.vue";
+import NButtonIcon from "./NButtonIcon.vue";
 import NModal from "./NModal.vue";
 import NNavbar from "./NNavbar.vue";
 import NNavDropdown from "./NNavDropdown.vue";
@@ -20,7 +19,6 @@ import { Layout } from "bootstrap-vue/es/components";
 import bCollapse from "bootstrap-vue/es/components/collapse/collapse";
 import vBToggle from "bootstrap-vue/es/directives/toggle/toggle";
 import NMenu from "./NMenu.vue";
-import NIconButton from "./NIconButton.vue";
 
 import "../assets/sass/main.scss";
 
@@ -28,8 +26,7 @@ Vue.config.productionTip = false;
 
 const Components = {
   NButton,
-  NDropdownItem,
-  NDropdown,
+  NButtonIcon,
   NModal,
   NNavbar,
   NNavDropdown,
@@ -44,8 +41,7 @@ const Components = {
   NTableColumn,
   NCard,
   NCalendar,
-  NMenu,
-  NIconButton
+  NMenu
 };
 
 const Directives = {

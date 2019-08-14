@@ -242,7 +242,7 @@ export default {
     },
 
     closeOnExternal(event, closeOptions) {
-      if (event.target.classList.contains("ui-textbox__input")) {
+      if (event.target.classList.contains("n-textbox__input")) {
         return;
       }
 

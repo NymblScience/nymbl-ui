@@ -29,17 +29,16 @@
             </slot>
 
             <div class="n-modal-close-button">
-              <n-button
+              <n-button-icon
                 v-if="!removeCloseButton"
-                round
-                button-type="icon"
+                is-raised
                 variant="danger"
                 class="n-modal-close"
                 title="Close"
-                @click.native="close"
+                @click="close"
               >
                 <close-icon :size="20" />
-              </n-button>
+              </n-button-icon>
             </div>
           </div>
 
@@ -59,15 +58,16 @@
 <script>
 import CloseIcon from "../icons/Close.vue";
 import NFocusContainer from "./NFocusContainer.vue";
+import NButtonIcon from "./NButtonIcon.vue";
 
 import classlist from "../helpers/classlist";
 
 export default {
   name: "NModal",
-
   components: {
     CloseIcon,
-    NFocusContainer
+    NFocusContainer,
+    NButtonIcon
   },
 
   props: {
@@ -457,7 +457,7 @@ $n-modal-header-font-size: rem(18px);
   }
 }
 
-// Transition
+// Transitionz
 .n-modal-transition-fade-enter,
 .n-modal-transition-fade-leave-active {
   opacity: 0;

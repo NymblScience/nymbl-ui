@@ -8,7 +8,7 @@
     <br />
     <br />
 
-    <n-icon-button has-dropdown icon="add" ref="dropdownButton" size="24">
+    <n-button-icon has-dropdown icon="add" ref="dropdownButton" size="24">
       <Close />
       <n-menu
         contain-focus
@@ -17,7 +17,7 @@
         :options="menuOptions"
         @close="$refs.dropdownButton.closeDropdown()"
       ></n-menu>
-    </n-icon-button>
+    </n-button-icon>
   </div>
 </template>
 

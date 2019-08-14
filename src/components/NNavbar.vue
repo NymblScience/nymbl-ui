@@ -135,15 +135,14 @@
     :class="{ drawer: drawer, 'n-transparent': transparent }"
   >
     <div class="container">
-      <n-button
+      <n-button-icon
         v-if="drawer"
-        button-type="icon"
-        variant="primary"
+        is-raised
         class="n-nav-toggle"
         @click.native="toggleSidebar()"
       >
         <menu-icon />
-      </n-button>
+      </n-button-icon>
 
       <b-navbar-brand class="navbar-brand" href="#">
         <slot name="logo" />
@@ -159,15 +158,14 @@
         :class="{ open: show }"
         class="ml-auto sidebar"
       >
-        <n-button
-          round
-          button-type="icon"
+        <n-button-icon
+          is-raised
           variant="danger"
           class="menu-close"
           @click.native="hide()"
         >
           <close-icon />
-        </n-button>
+        </n-button-icon>
         <slot name="nav-items-drawer" />
       </b-navbar-nav>
 

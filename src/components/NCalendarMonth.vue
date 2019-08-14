@@ -125,7 +125,7 @@ export default {
   th {
     color: $secondary-text-color;
     font-size: rem(14px);
-    font-weight: 600;
+    font-weight: 500;
     color: #fff;
     height: $n-calendar-month-header-height;
     text-align: center;

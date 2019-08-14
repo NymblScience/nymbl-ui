@@ -10,7 +10,7 @@ export default {
   name: "NDatepickerExample",
   data() {
     return {
-      value: new Date()
+      value: null
     };
   }
 };

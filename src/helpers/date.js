@@ -82,9 +82,10 @@ export function getDayOfMonth(date, options = { pad: true }) {
 }
 
 export function humanize(date) {
-  // const days = lang.days.abbreviated;
+  if (date == null) {
+    return "";
+  }
 
-  // return date.getMonth() + "/" + date.getDate() + "/" + date.getFullYear();
   return date.toLocaleDateString();
 }
 

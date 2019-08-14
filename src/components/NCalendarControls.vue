@@ -1,6 +1,6 @@
 <template>
   <div class="n-calendar-controls" :class="classes">
-    <n-icon-button
+    <n-button-icon
       v-if="!isStatic"
       class="n-calendar-controls__nav-button"
       icon="keyboard_arrow_left"
@@ -19,11 +19,11 @@
           d="M15.422 16.078l-1.406 1.406-6-6 6-6 1.406 1.406-4.594 4.594z"
         />
       </svg>
-    </n-icon-button>
+    </n-button-icon>
 
     <div class="n-calendar-controls__month-and-year">{{ monthAndYear }}</div>
 
-    <n-icon-button
+    <n-button-icon
       v-if="!isStatic"
       class="n-calendar-controls__nav-button"
       icon="keyboard_arrow_right"
@@ -40,23 +40,20 @@
       >
         <path d="M8.578 16.36l4.594-4.595L8.578 7.17l1.406-1.405 6 6-6 6z" />
       </svg>
-    </n-icon-button>
+    </n-button-icon>
   </div>
 </template>
 
 <script>
-// import NIcon from "./NIcon.vue";
-// import NIconButton from "./UiIconButton.vue";
-
+import NButtonIcon from "./NButtonIcon.vue";
 import dateUtils from "../helpers/date";
 
 export default {
   name: "NCalendarControls",
 
-  // components: {
-  //   NIcon,
-  //   NIconButton
-  // },
+  components: {
+    NButtonIcon
+  },
 
   props: {
     isStatic: {

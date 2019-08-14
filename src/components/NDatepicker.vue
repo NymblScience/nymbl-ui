@@ -1,26 +1,22 @@
 <template>
   <div tabindex="-1" class="n-datepicker" :class="classes">
-    <!-- <div v-if="icon || $slots.icon" class="n-datepicker__icon-wrapper">
-      <slot name="icon">
-        <ui-icon :icon="icon"></ui-icon>
-      </slot>
-    </div> -->
-
     <div class="n-datepicker__content">
       <div
         class="n-datepicker__display-value"
         :class="{ 'is-placeholder': !hasDisplayText }"
+        @click="onClick"
       >
         <n-textbox
           ref="textbox"
-          v-model="displayText"
+          v-model="inputDate"
           :label="label"
-          :error="error"
           :help="help"
+          :invalid="invalid"
+          :error="error"
           :name="name"
+          autocomplete="off"
           :placeholder="placeholder"
           @focus="onFocus"
-          @click.native="onClick"
           @keydown.tab="onBlur"
           @keydown.enter.prevent="openPicker"
           @keydown.space.prevent="openPicker"
@@ -52,58 +48,12 @@
           ></n-calendar>
         </n-popover>
       </div>
-      <!-- 
-      <div v-if="hasFeedback" class="n-datepicker__feedback">
-        <div v-if="showError" class="n-datepicker__feedback-text">
-          <slot name="error">{{ error }}</slot>
-        </div>
-
-        <div v-else-if="showHelp" class="n-datepicker__feedback-text">
-          <slot name="help">{{ help }}</slot>
-        </div>
-      </div> -->
     </div>
-
-    <!-- <ui-modal
-      v-if="usesModal && !disabled"
-      ref="modal"
-      remove-header
-      @close="onPickerClose"
-      @open="onPickerOpen"
-    >
-      <n-calendar
-        :color="color"
-        :date-filter="dateFilter"
-        :lang="lang"
-        :max-date="maxDate"
-        :min-date="minDate"
-        :orientation="orientation"
-        :value="date"
-        :start-of-week="startOfWeek"
-        @date-select="onDateSelect"
-      >
-        <div slot="footer" class="n-datepicker__modal-buttons">
-          <ui-button
-            type="secondary"
-            :color="color"
-            @click="$refs.modal.close()"
-            >{{ okButtonText }}</ui-button
-          >
-
-          <ui-button type="secondary" :color="color" @click="onPickerCancel">{{
-            cancelButtonText
-          }}</ui-button>
-        </div>
-      </n-calendar>
-    </ui-modal> -->
   </div>
 </template>
 
 <script>
-// import UiButton from "./UiButton.vue";
 import NCalendar from "./NCalendar.vue";
-// import UiIcon from "./UiIcon.vue";
-// import UiModal from "./UiModal.vue";
 import NPopover from "./NPopover.vue";
 import NTextbox from "./NTextbox.vue";
 import dateUtils from "../helpers/date";
@@ -111,10 +61,7 @@ import dateUtils from "../helpers/date";
 export default {
   name: "NDatepicker",
   components: {
-    // UiButton,
     NCalendar,
-    // UiIcon,
-    // UiModal,
     NTextbox,
     NPopover
   },
@@ -280,7 +227,7 @@ export default {
       return;
     },
     onDateSelect(date) {
-      this.$emit("input", date);
+      this.$emit("input", dateUtils.humanize(date));
       this.inputDate = dateUtils.humanize(date);
       this.closePicker();
     },
@@ -312,15 +259,6 @@ export default {
     onClick() {
       this.isActive = true;
       this.openPicker();
-      // this.$refs.textbox.$refs.textbox.focus();
-      // console.log());
-      // if (!this.$refs.popover.isOpen()) {
-      //   this.isActive = true;
-      //   this.openPicker();
-      // }
-      // if (this.usesModal && !this.disabled) {
-      //   this.$refs.modal.open();
-      // }
     },
 
     onFocus() {

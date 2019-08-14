@@ -15,12 +15,17 @@
       <n-button size="sm">Small</n-button>
     </div>
     <div class="styleguide-section">
-      <h3>Text</h3> 
+      <h3>Loading</h3>
+      <n-button @click="toggleLoading" :loading="loading">Loading</n-button>
+      <n-button @click="toggleLoading" :loading="!loading">Loading</n-button>
+    </div>
+    <div class="styleguide-section">
+      <h3>Text</h3>
       <n-button buttonType="text" variant="primary">Accept</n-button>
       <n-button buttonType="text" variant="secondary">Cancel</n-button>
       <n-button buttonType="text" variant="danger">Delete</n-button>
     </div>
-    <div class="styleguide-section">
+    <!-- <div class="styleguide-section">
       <h3>Icon</h3>
       <n-button round buttonType="icon" variant="primary">
         <menu-icon :size="42"></menu-icon>
@@ -28,11 +33,10 @@
       <n-button round buttonType="icon" variant="danger">
         <close-icon :size="42"></close-icon>
       </n-button>
-
-            <n-button round buttonType="icon-flat" variant="danger">
+      <n-button round buttonType="icon-flat" variant="danger">
         <close-icon :size="42"></close-icon>
       </n-button>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -47,16 +51,20 @@ export default {
   },
   data() {
     return {
-      logo: "test"
+      logo: "test",
+      loading: false
     };
+  },
+  methods: {
+    toggleLoading() {
+      this.loading = !this.loading;
+    }
   }
 };
 </script>
 <style lang="scss">
-
-.btn {
-  margin-right: 10px;
+.n-button {
+  margin-right: 1rem;
 }
-
 </style>
 ```
