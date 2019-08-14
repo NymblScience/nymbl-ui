@@ -45948,12 +45948,12 @@ var NButtonIconvue_type_template_id_43f8a197_staticRenderFns = []
 
 // CONCATENATED MODULE: ./src/components/NButtonIcon.vue?vue&type=template&id=43f8a197&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NPopover.vue?vue&type=template&id=4251e7a1&
-var NPopovervue_type_template_id_4251e7a1_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('n-focus-container',{ref:"focusContainer",staticClass:"ui-popover",class:{ 'is-raised': _vm.raised },attrs:{"role":"dialog","contain-focus":_vm.containFocus,"focus-redirector":_vm.focusRedirector},on:{"focus-overflow":function($event){return _vm.close()}}},[_vm._t("default")],2)}
-var NPopovervue_type_template_id_4251e7a1_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NPopover.vue?vue&type=template&id=19f32272&
+var NPopovervue_type_template_id_19f32272_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('n-focus-container',{ref:"focusContainer",staticClass:"ui-popover",class:{ 'is-raised': _vm.raised },attrs:{"role":"dialog","contain-focus":_vm.containFocus,"focus-redirector":_vm.focusRedirector},on:{"focus-overflow":function($event){return _vm.close()}}},[_vm._t("default")],2)}
+var NPopovervue_type_template_id_19f32272_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/NPopover.vue?vue&type=template&id=4251e7a1&
+// CONCATENATED MODULE: ./src/components/NPopover.vue?vue&type=template&id=19f32272&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.regexp.replace.js
 var es6_regexp_replace = __webpack_require__("a481");
@@ -48428,10 +48428,6 @@ var NFocusContainer_component = normalizeComponent(
       this.$emit("hide");
     },
     closeOnExternal: function closeOnExternal(event, closeOptions) {
-      if (event.target.classList.contains("n-textbox__input")) {
-        return;
-      }
-
       if (!this.$el.contains(event.target)) {
         this.close(closeOptions);
       }
@@ -48496,8 +48492,8 @@ var NPopovervue_type_style_index_0_lang_scss_ = __webpack_require__("7ace");
 
 var NPopover_component = normalizeComponent(
   components_NPopovervue_type_script_lang_js_,
-  NPopovervue_type_template_id_4251e7a1_render,
-  NPopovervue_type_template_id_4251e7a1_staticRenderFns,
+  NPopovervue_type_template_id_19f32272_render,
+  NPopovervue_type_template_id_19f32272_staticRenderFns,
   false,
   null,
   null,
