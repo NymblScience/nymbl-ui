@@ -27,6 +27,7 @@
           :tabindex="tabindex"
           :type="type"
           :value="value"
+          :pattern="pattern"
           @blur="onBlur"
           @change="onChange"
           @focus="onFocus"
@@ -76,9 +77,9 @@
           <slot name="help">{{ help }}</slot>
         </div>
 
-        <div v-if="maxlength" class="n-textbox__counter">
+        <!-- <div v-if="maxlength" class="n-textbox__counter">
           {{ valueLength + "/" + maxlength }}
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -144,7 +145,7 @@ export default {
     maxlength: Number,
     enforceMaxlength: {
       type: Boolean,
-      default: false
+      default: true
     },
     required: {
       type: Boolean,
@@ -155,6 +156,7 @@ export default {
       default: false
     },
     help: String,
+    pattern: String,
     error: String,
     invalid: {
       type: Boolean,
@@ -579,5 +581,12 @@ export default {
   border-bottom-width: 0;
   cursor: default;
   color: $form-color;
+}
+
+// Disable spinners for number input.
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>

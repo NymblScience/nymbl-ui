@@ -28,12 +28,10 @@ $btn-font-size: 0.96rem;
 $btn-padding-y-sm: 0.7rem !default;
 $btn-padding-x-sm: 0.8rem !default;
 $btn-font-size-sm: 0.8rem !default;
-// $btn-line-height-sm:          2rem !default;
 
 $btn-padding-y-lg: 1.1rem !default;
 $btn-padding-x-lg: 1.3rem !default;
 $btn-font-size-lg: 1.4rem !default;
-// $btn-line-height-lg:          $input-btn-line-height-lg !default;
 
 $btn-disabled-opacity: 0.5 !default;
 
@@ -45,60 +43,20 @@ $body-color: #231f20 !default;
 
 $text-color: #231f20;
 
-
-
 $zindex-modal-backdrop:             2040 !default;
 $zindex-modal:                      2050 !default;
-// Links
-//
-// Style anchor elements.
-
-// $link-color:                              theme-color("primary") !default;
-// $link-decoration:                         none !default;
-// $link-hover-color:                        darken($link-color, 15%) !default;
-// $link-hover-decoration:                   underline !default;
-// // Darken percentage for links with `.text-*` class (e.g. `.text-success`)
-// $emphasized-link-hover-darken-percentage: 15% !default;
 
 @import "node_modules/bootstrap/scss/_functions.scss";
 @import "node_modules/bootstrap/scss/_variables.scss";
 @import "node_modules/bootstrap/scss/_mixins.scss";
-
 @import "node_modules/bootstrap/scss/_root.scss";
 @import "node_modules/bootstrap/scss/_reboot.scss";
-
-// @import "node_modules/bootstrap/scss/_type.scss";
-// @import "node_modules/bootstrap/scss/bootstrap/images.scss";
-// @import "node_modules/bootstrap/scss/bootstrap/tables.scss";
-// @import "node_modules/bootstrap/scss/_forms.scss";
 @import "node_modules/bootstrap/scss/_grid.scss";
-// @import "node_modules/bootstrap/scss/_buttons.scss";
 @import "node_modules/bootstrap/scss/_transitions.scss";
-// @import "node_modules/bootstrap/scss/_dropdown.scss";
-// @import "node_modules/bootstrap/scss/_button-group.scss";
-// @import "node_modules/bootstrap/scss/_input-group.scss";
-// @import "node_modules/bootstrap/scss/_custom-forms.scss";
 @import "node_modules/bootstrap/scss/_nav.scss";
-@import "node_modules/bootstrap/scss/_navbar.scss";
-// @import "node_modules/bootstrap/scss/card.scss";
-// @import "node_modules/bootstrap/scss/breadcrumb.scss";
-// @import "node_modules/bootstrap/scss/pagination.scss";
-// @import "node_modules/bootstrap/scss/badge.scss";
-// @import "node_modules/bootstrap/scss/jumbotron.scss";
-// @import "node_modules/bootstrap/scss/alert.scss";
-// @import "node_modules/bootstrap/scss/progress.scss";
-// @import "node_modules/bootstrap/scss/media.scss";
-// @import "node_modules/bootstrap/scss/list-group.scss";
-// @import "node_modules/bootstrap/scss/close.scss";
-// @import "node_modules/bootstrap/scss/toasts.scss";
-// @import "node_modules/bootstrap/scss/_modal.scss";
-// @import "node_modules/bootstrap/scss/tooltip.scss";
-// @import "node_modules/bootstrap/scss/popover.scss";
-// @import "node_modules/bootstrap/scss/carousel.scss";
-// @import "node_modules/bootstrap/scss/spinners.scss";
+@import "node_modules/bootstrap/scss/_navbar.scss";;
 @import "node_modules/bootstrap/scss/_utilities.scss";
 @import "node_modules/bootstrap/scss/_print.scss";
-
 @import "node_modules/bootstrap-vue/src/index.scss";
 
 

@@ -16,8 +16,7 @@ import NTable from "./NTable.vue";
 import NCalendar from "./NCalendar.vue";
 import NTableColumn from "./NTableColumn.vue";
 import NMenu from "./NMenu.vue";
-import { Layout } from "bootstrap-vue/es/components";
-
+import { BContainer, BRow, BColumn } from "bootstrap-vue/es/components";
 import "../assets/sass/main.scss";
 
 Vue.config.productionTip = false;
@@ -38,15 +37,16 @@ const Components = {
   NTableColumn,
   NCard,
   NCalendar,
-  NMenu
+  NMenu,
+  BContainer,
+  BRow,
+  BColumn
 };
 
-const NymblUI = { Components, Layout };
+const NymblUI = { Components };
 
 Object.keys(Components).forEach(name => {
   Vue.component(name, Components[name]);
 });
-
-Vue.use(Layout);
 
 export default NymblUI;
