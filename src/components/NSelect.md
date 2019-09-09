@@ -7,10 +7,10 @@
 <script>
 
 export default {
-
+name: "NSelectExample",
   data() {
     return {
-        value: "",
+        value: "Red",
       options: ['Red', 'Blue', 'Green']
     };
   }

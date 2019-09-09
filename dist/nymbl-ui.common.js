@@ -696,6 +696,17 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "05d4":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_index_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NCheckbox_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("9fd9");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_index_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NCheckbox_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_index_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NCheckbox_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+ /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_index_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NCheckbox_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
 /***/ "060b":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8418,22 +8429,6 @@ var _default = {
   install: install
 };
 exports.default = _default;
-
-/***/ }),
-
-/***/ "32a6":
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.14 Object.keys(O)
-var toObject = __webpack_require__("241e");
-var $keys = __webpack_require__("c3a1");
-
-__webpack_require__("ce7e")('keys', function () {
-  return function keys(it) {
-    return $keys(toObject(it));
-  };
-});
-
 
 /***/ }),
 
@@ -21579,15 +21574,6 @@ $export($export.S, 'Object', { is: __webpack_require__("6bc1") });
 
 /***/ }),
 
-/***/ "8aae":
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__("32a6");
-module.exports = __webpack_require__("584a").Object.keys;
-
-
-/***/ }),
-
 /***/ "8b08":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23410,6 +23396,13 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "9fd9":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "a05c":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24195,13 +24188,6 @@ __webpack_require__("214f")('replace', 2, function (defined, REPLACE, $replace, 
   }
 });
 
-
-/***/ }),
-
-/***/ "a4bb":
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__("8aae");
 
 /***/ }),
 
@@ -31609,23 +31595,6 @@ module.exports = function (object, names) {
 
 /***/ }),
 
-/***/ "ce7e":
-/***/ (function(module, exports, __webpack_require__) {
-
-// most Object methods by ES6 should accept primitives
-var $export = __webpack_require__("63b6");
-var core = __webpack_require__("584a");
-var fails = __webpack_require__("294c");
-module.exports = function (KEY, exec) {
-  var fn = (core.Object || {})[KEY] || Object[KEY];
-  var exp = {};
-  exp[KEY] = exec(fn);
-  $export($export.S + $export.F * fails(function () { fn(1); }), 'Object', exp);
-};
-
-
-/***/ }),
-
 /***/ "cf15":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38456,16 +38425,6 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.function.name.js
-var es6_function_name = __webpack_require__("7f7f");
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs2/core-js/object/keys.js
-var keys = __webpack_require__("a4bb");
-var keys_default = /*#__PURE__*/__webpack_require__.n(keys);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom.iterable.js
-var web_dom_iterable = __webpack_require__("ac6a");
-
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 var external_commonjs_vue_commonjs2_vue_root_Vue_default = /*#__PURE__*/__webpack_require__.n(external_commonjs_vue_commonjs2_vue_root_Vue_);
@@ -39641,7 +39600,7 @@ function getModifier(obj, key) {
   return obj && obj.modifiers && obj.modifiers[key];
 }
 
-var tippy_standalone_keys = Object.keys(Defaults);
+var keys = Object.keys(Defaults);
 
 /**
  * Determines if an element can receive focus
@@ -39658,7 +39617,7 @@ function canReceiveFocus(el) {
  * @return {Object}
  */
 function getDataAttributeOptions(reference) {
-  return tippy_standalone_keys.reduce(function (acc, key) {
+  return keys.reduce(function (acc, key) {
     var valueAsString = (reference.getAttribute('data-tippy-' + key) || '').trim();
 
     if (!valueAsString) {
@@ -40904,6 +40863,9 @@ function typeof_typeof(obj) {
 
   return typeof_typeof(obj);
 }
+// EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom.iterable.js
+var web_dom_iterable = __webpack_require__("ac6a");
+
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.regexp.split.js
 var es6_regexp_split = __webpack_require__("28a5");
 
@@ -42722,6 +42684,9 @@ var NSelectvue_type_template_id_2decca2b_staticRenderFns = []
 var is_array = __webpack_require__("a745");
 var is_array_default = /*#__PURE__*/__webpack_require__.n(is_array);
 
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.function.name.js
+var es6_function_name = __webpack_require__("7f7f");
+
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.array.iterator.js
 var es6_array_iterator = __webpack_require__("cadf");
 
@@ -43958,6 +43923,155 @@ var NTextbox_component = normalizeComponent(
 )
 
 /* harmony default export */ var NTextbox = (NTextbox_component.exports);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NCheckbox.vue?vue&type=template&id=5d9817e0&
+var NCheckboxvue_type_template_id_5d9817e0_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('label',{staticClass:"n-checkbox",class:_vm.classes},[_c('input',{ref:"input",staticClass:"n-checkbox__input",attrs:{"type":"checkbox","disabled":_vm.disabled,"name":_vm.name,"tabindex":_vm.tabindex},domProps:{"checked":_vm.isChecked,"value":_vm.submittedValue},on:{"blur":_vm.onBlur,"click":_vm.onClick,"focus":_vm.onFocus}}),_vm._m(0),(_vm.label || _vm.$slots.default)?_c('div',{staticClass:"n-checkbox__label-text"},[_vm._t("default",[_vm._v(_vm._s(_vm.label))])],2):_vm._e()])}
+var NCheckboxvue_type_template_id_5d9817e0_staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"n-checkbox__checkmark"},[_c('div',{staticClass:"n-checkbox__focus-ring"})])}]
+
+
+// CONCATENATED MODULE: ./src/components/NCheckbox.vue?vue&type=template&id=5d9817e0&
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NCheckbox.vue?vue&type=script&lang=js&
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ var NCheckboxvue_type_script_lang_js_ = ({
+  name: "NCheckbox",
+  props: {
+    name: String,
+    label: String,
+    tabindex: [String, Number],
+    value: {
+      required: true
+    },
+    trueValue: {
+      default: true
+    },
+    falseValue: {
+      default: false
+    },
+    submittedValue: {
+      type: String,
+      default: "on" // HTML default
+
+    },
+    checked: {
+      type: Boolean,
+      default: false
+    },
+    boxPosition: {
+      type: String,
+      default: "left" // 'left' or 'right'
+
+    },
+    color: {
+      type: String,
+      default: "primary" // 'primary' or 'accent'
+
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data: function data() {
+    return {
+      isActive: false,
+      isChecked: looseEqual(this.value, this.trueValue) || this.checked
+    };
+  },
+  computed: {
+    classes: function classes() {
+      return ["n-checkbox--color-".concat(this.color), "n-checkbox--box-position-".concat(this.boxPosition), {
+        "is-checked": this.isChecked
+      }, {
+        "is-active": this.isActive
+      }, {
+        "is-disabled": this.disabled
+      }];
+    }
+  },
+  watch: {
+    value: function value() {
+      this.isChecked = looseEqual(this.value, this.trueValue);
+    }
+  },
+  created: function created() {
+    this.$emit("input", this.isChecked ? this.trueValue : this.falseValue);
+  },
+  methods: {
+    focus: function focus() {
+      this.$refs.input.focus();
+    },
+    onClick: function onClick(e) {
+      var isCheckedPrevious = this.isChecked;
+      var isChecked = e.target.checked;
+      this.$emit("input", isChecked ? this.trueValue : this.falseValue, e);
+
+      if (isCheckedPrevious !== isChecked) {
+        this.$emit("change", isChecked ? this.trueValue : this.falseValue, e);
+      }
+    },
+    onFocus: function onFocus(e) {
+      this.isActive = true;
+      this.$emit("focus", e);
+    },
+    onBlur: function onBlur(e) {
+      this.isActive = false;
+      this.$emit("blur", e);
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/components/NCheckbox.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_NCheckboxvue_type_script_lang_js_ = (NCheckboxvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./src/components/NCheckbox.vue?vue&type=style&index=0&lang=scss&
+var NCheckboxvue_type_style_index_0_lang_scss_ = __webpack_require__("05d4");
+
+// CONCATENATED MODULE: ./src/components/NCheckbox.vue
+
+
+
+
+
+
+/* normalize component */
+
+var NCheckbox_component = normalizeComponent(
+  components_NCheckboxvue_type_script_lang_js_,
+  NCheckboxvue_type_template_id_5d9817e0_render,
+  NCheckboxvue_type_template_id_5d9817e0_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ var NCheckbox = (NCheckbox_component.exports);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NDatepicker.vue?vue&type=template&id=08009465&
 var NDatepickervue_type_template_id_08009465_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"n-datepicker",class:_vm.classes,attrs:{"tabindex":"-1"}},[_c('div',{staticClass:"n-datepicker__content"},[_c('div',{staticClass:"n-datepicker__display-value",class:{ 'is-placeholder': !_vm.hasDisplayText },on:{"click":_vm.onClick}},[_c('n-textbox',{ref:"textbox",attrs:{"label":_vm.label,"help":_vm.help,"invalid":_vm.invalid,"error":_vm.error,"name":_vm.name,"autocomplete":"off","placeholder":_vm.placeholder,"readonly":!_vm.textInput},on:{"focus":_vm.onFocus,"keydown":[function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"tab",9,$event.key,"Tab")){ return null; }return _vm.onBlur($event)},function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }$event.preventDefault();return _vm.openPicker($event)},function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"space",32,$event.key,[" ","Spacebar"])){ return null; }$event.preventDefault();return _vm.openPicker($event)}],"input":_vm.onUpdateInput},model:{value:(_vm.inputDate),callback:function ($$v) {_vm.inputDate=$$v},expression:"inputDate"}})],1),_c('div',{},[(_vm.usesPopover)?_c('n-popover',{directives:[{name:"show",rawName:"v-show",value:(!_vm.disabled),expression:"!disabled"}],ref:"popover",attrs:{"tabindex":"-1","ignore-on-click":'red'},on:{"close":_vm.onPickerClose,"open":_vm.onPickerOpen}},[_c('n-calendar',{attrs:{"color":_vm.color,"date-filter":_vm.dateFilter,"lang":_vm.lang,"max-date":_vm.maxDate,"min-date":_vm.minDate,"orientation":_vm.orientation,"value":_vm.date,"start-of-week":_vm.startOfWeek},on:{"date-select":_vm.onDateSelect}})],1):_vm._e()],1)])])}
 var NDatepickervue_type_template_id_08009465_staticRenderFns = []
@@ -46707,8 +46821,6 @@ var main = __webpack_require__("9299");
 
 
 
-
-
 external_commonjs_vue_commonjs2_vue_root_Vue_default.a.config.productionTip = false;
 var Components = {
   NButton: NButton,
@@ -46717,6 +46829,7 @@ var Components = {
   NNavbar: NNavbar,
   NNavDropdown: NNavDropdown,
   NNavItem: NNavItem,
+  NCheckbox: NCheckbox,
   NTextbox: NTextbox,
   NSelect: NSelect,
   NRadio: NRadio,
@@ -46733,11 +46846,9 @@ var Components = {
 };
 var NymblUI = {
   Components: Components
-};
-
-keys_default()(Components).forEach(function (name) {
-  external_commonjs_vue_commonjs2_vue_root_Vue_default.a.component(name, Components[name]);
-});
+}; // Object.keys(Components).forEach(name => {
+//   Vue.component(name, Components[name]);
+// });
 
 /* harmony default export */ var src_components = (NymblUI);
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js

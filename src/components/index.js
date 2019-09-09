@@ -8,6 +8,7 @@ import NNavDropdown from "./NNavDropdown.vue";
 import NNavItem from "./NNavItem.vue";
 import NSelect from "./NSelect.vue";
 import NTextbox from "./NTextbox.vue";
+import NCheckbox from "./NCheckbox.vue";
 import NDatepicker from "./NDatepicker.vue";
 import NRadio from "./NRadio.vue";
 import NRadioGroup from "./NRadioGroup.vue";
@@ -28,6 +29,7 @@ const Components = {
   NNavbar,
   NNavDropdown,
   NNavItem,
+  NCheckbox,
   NTextbox,
   NSelect,
   NRadio,
@@ -45,8 +47,8 @@ const Components = {
 
 const NymblUI = { Components };
 
-Object.keys(Components).forEach(name => {
-  Vue.component(name, Components[name]);
-});
+// Object.keys(Components).forEach(name => {
+//   Vue.component(name, Components[name]);
+// });
 
 export default NymblUI;
