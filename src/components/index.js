@@ -7,6 +7,7 @@ import NNavbar from "./NNavbar.vue";
 import NNavDropdown from "./NNavDropdown.vue";
 import NNavItem from "./NNavItem.vue";
 import NSelect from "./NSelect.vue";
+import NSelectOption from "./NSelectOption.vue";
 import NTextbox from "./NTextbox.vue";
 import NCheckbox from "./NCheckbox.vue";
 import NDatepicker from "./NDatepicker.vue";
@@ -17,7 +18,7 @@ import NTable from "./NTable.vue";
 import NCalendar from "./NCalendar.vue";
 import NTableColumn from "./NTableColumn.vue";
 import NMenu from "./NMenu.vue";
-import { BContainer, BRow, BColumn } from "bootstrap-vue/es/components";
+import { BContainer, BRow, BCol } from "bootstrap-vue/es/components";
 import "../assets/sass/main.scss";
 
 Vue.config.productionTip = false;
@@ -32,6 +33,7 @@ const Components = {
   NCheckbox,
   NTextbox,
   NSelect,
+  NSelectOption,
   NRadio,
   NRadioGroup,
   NDatepicker,
@@ -42,7 +44,7 @@ const Components = {
   NMenu,
   BContainer,
   BRow,
-  BColumn
+  BCol
 };
 
 const NymblUI = { Components };
