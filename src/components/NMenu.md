@@ -9,7 +9,7 @@
     <br />
 
     <n-button-icon has-dropdown icon="add" ref="dropdownButton" size="24">
-      <Close />
+      <close> </close>
       <n-menu
         contain-focus
         has-icons
@@ -64,5 +64,4 @@ export default {
   }
 };
 </script>
-<style lang="scss"></style>
 ```

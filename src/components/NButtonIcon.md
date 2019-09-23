@@ -2,11 +2,11 @@
 <template>
   <div>
     <n-button-icon>
-      <Close />
+          <close> </close>
     </n-button-icon>
     <br />
     <n-button-icon variant="danger" is-raised>
-      <Close />
+          <close> </close>
     </n-button-icon>
   </div>
 </template>
@@ -26,5 +26,5 @@ export default {
   }
 };
 </script>
-<style lang="scss"></style>
+
 ```
