@@ -12,7 +12,7 @@
     background: #fafafa!important;
 }
 
-[id$="-container"] {
+[data-testid$="-container"] {
     /* border: 3px solid red!important; */
     padding: 20px 30px 20px 30px!important;
     background: #fff!important;
@@ -38,3 +38,4 @@
     margin-top: 40px;
   }
   
+
