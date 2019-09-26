@@ -43575,12 +43575,12 @@ var NSelect_component = normalizeComponent(
 )
 
 /* harmony default export */ var NSelect = (NSelect_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NTextbox.vue?vue&type=template&id=e7d90282&
-var NTextboxvue_type_template_id_e7d90282_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"n-textbox",class:_vm.classes},[_c('div',{staticClass:"n-textbox__content"},[_c('label',{staticClass:"n-textbox__label"},[(!_vm.multiLine)?_c('input',{directives:[{name:"autofocus",rawName:"v-autofocus",value:(_vm.autofocus),expression:"autofocus"}],ref:"input",staticClass:"n-textbox__input",attrs:{"autocomplete":_vm.autocomplete ? _vm.autocomplete : null,"disabled":_vm.disabled,"max":_vm.maxValue,"maxlength":_vm.enforceMaxlength ? _vm.maxlength : null,"min":_vm.minValue,"name":_vm.name,"number":_vm.type === 'number' ? true : null,"placeholder":_vm.hasFloatingLabel ? null : _vm.placeholder,"readonly":_vm.readonly,"required":_vm.required,"step":_vm.stepValue,"tabindex":_vm.tabindex,"type":_vm.type,"pattern":_vm.pattern},domProps:{"value":_vm.value},on:{"blur":_vm.onBlur,"change":_vm.onChange,"focus":_vm.onFocus,"input":function($event){return _vm.updateValue($event.target.value)},"keydown":[function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.onKeydownEnter($event)},_vm.onKeydown]}}):_c('textarea',{directives:[{name:"autofocus",rawName:"v-autofocus",value:(_vm.autofocus),expression:"autofocus"}],ref:"textarea",staticClass:"n-textbox__textarea",attrs:{"autocomplete":_vm.autocomplete ? _vm.autocomplete : null,"disabled":_vm.disabled,"maxlength":_vm.enforceMaxlength ? _vm.maxlength : null,"name":_vm.name,"placeholder":_vm.hasFloatingLabel ? null : _vm.placeholder,"readonly":_vm.readonly,"required":_vm.required,"rows":_vm.rows,"tabindex":_vm.tabindex},domProps:{"value":_vm.value},on:{"blur":_vm.onBlur,"change":_vm.onChange,"focus":_vm.onFocus,"input":function($event){return _vm.updateValue($event.target.value)},"keydown":[function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.onKeydownEnter($event)},_vm.onKeydown]}}),(_vm.label || _vm.$slots.default)?_c('div',{staticClass:"n-textbox__label-text",class:_vm.labelClasses},[_vm._t("default",[_vm._v(_vm._s(_vm.label))])],2):_vm._e()]),(_vm.hasFeedback || _vm.maxlength)?_c('div',{staticClass:"n-textbox__feedback"},[(_vm.showError)?_c('div',{staticClass:"n-textbox__feedback-text"},[_vm._t("error",[_vm._v(_vm._s(_vm.error))])],2):(_vm.showHelp)?_c('div',{staticClass:"n-textbox__feedback-text"},[_vm._t("help",[_vm._v(_vm._s(_vm.help))])],2):_vm._e()]):_vm._e()])])}
-var NTextboxvue_type_template_id_e7d90282_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"67932de6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NTextbox.vue?vue&type=template&id=57f6fe52&
+var NTextboxvue_type_template_id_57f6fe52_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"n-textbox",class:_vm.classes},[(_vm.icon || _vm.$slots.icon)?_c('div',{staticClass:"n-textbox__icon-wrapper"},[_vm._t("icon")],2):_vm._e(),_c('div',{staticClass:"n-textbox__content"},[_c('label',{staticClass:"n-textbox__label"},[(!_vm.multiLine)?_c('input',{directives:[{name:"autofocus",rawName:"v-autofocus",value:(_vm.autofocus),expression:"autofocus"}],ref:"input",staticClass:"n-textbox__input",attrs:{"autocomplete":_vm.autocomplete ? _vm.autocomplete : null,"disabled":_vm.disabled,"max":_vm.maxValue,"maxlength":_vm.enforceMaxlength ? _vm.maxlength : null,"min":_vm.minValue,"name":_vm.name,"number":_vm.type === 'number' ? true : null,"placeholder":_vm.hasFloatingLabel ? null : _vm.placeholder,"readonly":_vm.readonly,"required":_vm.required,"step":_vm.stepValue,"tabindex":_vm.tabindex,"type":_vm.type,"pattern":_vm.pattern},domProps:{"value":_vm.value},on:{"blur":_vm.onBlur,"change":_vm.onChange,"focus":_vm.onFocus,"input":function($event){return _vm.updateValue($event.target.value)},"keydown":[function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.onKeydownEnter($event)},_vm.onKeydown]}}):_c('textarea',{directives:[{name:"autofocus",rawName:"v-autofocus",value:(_vm.autofocus),expression:"autofocus"}],ref:"textarea",staticClass:"n-textbox__textarea",attrs:{"autocomplete":_vm.autocomplete ? _vm.autocomplete : null,"disabled":_vm.disabled,"maxlength":_vm.enforceMaxlength ? _vm.maxlength : null,"name":_vm.name,"placeholder":_vm.hasFloatingLabel ? null : _vm.placeholder,"readonly":_vm.readonly,"required":_vm.required,"rows":_vm.rows,"tabindex":_vm.tabindex},domProps:{"value":_vm.value},on:{"blur":_vm.onBlur,"change":_vm.onChange,"focus":_vm.onFocus,"input":function($event){return _vm.updateValue($event.target.value)},"keydown":[function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.onKeydownEnter($event)},_vm.onKeydown]}}),(_vm.clearable && _vm.value.length > 0)?_c('n-button-icon',{staticClass:"n-textbox__clearable",attrs:{"is-raised":"","variant":"danger","title":"Clear"},on:{"click":function($event){return _vm.clear()}}},[_c('close-icon',{attrs:{"size":18}})],1):_vm._e(),(_vm.label || _vm.$slots.default)?_c('div',{staticClass:"n-textbox__label-text",class:_vm.labelClasses},[_vm._t("default",[_vm._v(_vm._s(_vm.label))])],2):_vm._e()],1),(_vm.hasFeedback || _vm.maxlength)?_c('div',{staticClass:"n-textbox__feedback"},[(_vm.showError)?_c('div',{staticClass:"n-textbox__feedback-text"},[_vm._t("error",[_vm._v(_vm._s(_vm.error))])],2):(_vm.showHelp)?_c('div',{staticClass:"n-textbox__feedback-text"},[_vm._t("help",[_vm._v(_vm._s(_vm.help))])],2):_vm._e(),(_vm.maxlength && _vm.showMaxLength)?_c('div',{staticClass:"n-textbox__counter"},[_vm._v("\n        "+_vm._s(_vm.valueLength + "/" + _vm.maxlength)+"\n      ")]):_vm._e()]):_vm._e()])])}
+var NTextboxvue_type_template_id_57f6fe52_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/NTextbox.vue?vue&type=template&id=e7d90282&
+// CONCATENATED MODULE: ./src/components/NTextbox.vue?vue&type=template&id=57f6fe52&
 
 // CONCATENATED MODULE: ./src/directives/autofocus.js
 /* harmony default export */ var autofocus = ({
@@ -43685,12 +43685,25 @@ var autosize_default = /*#__PURE__*/__webpack_require__.n(autosize);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ var NTextboxvue_type_script_lang_js_ = ({
   name: "NTextbox",
   directives: {
     autofocus: autofocus
+  },
+  components: {
+    CloseIcon: Close
   },
   props: {
     name: String,
@@ -43744,6 +43757,10 @@ var autosize_default = /*#__PURE__*/__webpack_require__.n(autosize);
       type: Boolean,
       default: true
     },
+    showMaxLength: {
+      type: Boolean,
+      default: true
+    },
     required: {
       type: Boolean,
       default: false
@@ -43762,6 +43779,10 @@ var autosize_default = /*#__PURE__*/__webpack_require__.n(autosize);
     disabled: {
       type: Boolean,
       default: false
+    },
+    clearable: {
+      type: Boolean,
+      default: false
     }
   },
   data: function data() {
@@ -43775,6 +43796,8 @@ var autosize_default = /*#__PURE__*/__webpack_require__.n(autosize);
   computed: {
     classes: function classes() {
       return ["n-textbox--icon-position-".concat(this.iconPosition), {
+        "is-clearable": this.clearable
+      }, {
         "is-active": this.isActive
       }, {
         "is-invalid": this.invalid
@@ -43881,6 +43904,9 @@ var autosize_default = /*#__PURE__*/__webpack_require__.n(autosize);
     onKeydownEnter: function onKeydownEnter(e) {
       this.$emit("keydown-enter", e);
     },
+    clear: function clear() {
+      this.updateValue("");
+    },
     reset: function reset() {
       // Blur the input if it's focused to prevent required errors
       // when it's value is reset
@@ -43923,8 +43949,8 @@ var NTextboxvue_type_style_index_0_lang_scss_ = __webpack_require__("f520");
 
 var NTextbox_component = normalizeComponent(
   components_NTextboxvue_type_script_lang_js_,
-  NTextboxvue_type_template_id_e7d90282_render,
-  NTextboxvue_type_template_id_e7d90282_staticRenderFns,
+  NTextboxvue_type_template_id_57f6fe52_render,
+  NTextboxvue_type_template_id_57f6fe52_staticRenderFns,
   false,
   null,
   null,
