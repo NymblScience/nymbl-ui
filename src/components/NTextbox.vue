@@ -1,10 +1,8 @@
 <template>
   <div class="n-textbox" :class="classes">
-    <!-- <div v-if="icon || $slots.icon" class="n-textbox__icon-wrapper">
-      <slot name="icon">
-        <ui-icon :icon="icon"></ui-icon>
-      </slot>
-    </div> -->
+    <div v-if="icon || $slots.icon" class="n-textbox__icon-wrapper">
+      <slot name="icon"> </slot>
+    </div>
 
     <div class="n-textbox__content">
       <label class="n-textbox__label">
@@ -59,6 +57,17 @@
           @keydown="onKeydown"
         ></textarea>
 
+        <n-button-icon
+          v-if="clearable && value.length > 0"
+          is-raised
+          variant="danger"
+          class="n-textbox__clearable"
+          title="Clear"
+          @click="clear()"
+        >
+          <close-icon :size="18" />
+        </n-button-icon>
+
         <div
           v-if="label || $slots.default"
           class="n-textbox__label-text"
@@ -77,9 +86,9 @@
           <slot name="help">{{ help }}</slot>
         </div>
 
-        <!-- <div v-if="maxlength" class="n-textbox__counter">
+        <div v-if="maxlength && showMaxLength" class="n-textbox__counter">
           {{ valueLength + "/" + maxlength }}
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -87,6 +96,7 @@
 
 <script>
 import autofocus from "../directives/autofocus";
+import CloseIcon from "../icons/Close.vue";
 
 import autosize from "autosize";
 
@@ -96,7 +106,9 @@ export default {
   directives: {
     autofocus
   },
-
+  components: {
+    CloseIcon
+  },
   props: {
     name: String,
     placeholder: String,
@@ -147,6 +159,10 @@ export default {
       type: Boolean,
       default: true
     },
+    showMaxlength: {
+      type: Boolean,
+      default: true
+    },
     required: {
       type: Boolean,
       default: false
@@ -165,6 +181,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    clearable: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -181,6 +201,7 @@ export default {
     classes() {
       return [
         `n-textbox--icon-position-${this.iconPosition}`,
+        { "is-clearable": this.clearable },
         { "is-active": this.isActive },
         { "is-invalid": this.invalid },
         { "is-touched": this.isTouched },
@@ -303,6 +324,10 @@ export default {
       this.$emit("keydown-enter", e);
     },
 
+    clear() {
+      this.updateValue("");
+    },
+
     reset() {
       // Blur the input if it's focused to prevent required errors
       // when it's value is reset
@@ -342,7 +367,11 @@ export default {
   display: flex;
   font-family: $font-stack;
   margin-bottom: $ui-input-margin-bottom;
-
+  &__clearable {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
   &:hover:not(.is-disabled) {
     .n-textbox__label-text {
       color: $ui-input-label-color--hover;

@@ -2,6 +2,9 @@
 <template>
     <n-textbox v-model="value" label="Email" :floatingLabel="false">
     </n-textbox>
+
+    <n-textbox v-model="value" label="Email" :floatingLabel="false" clearable>
+    </n-textbox>
 </template>
 
 <script>
