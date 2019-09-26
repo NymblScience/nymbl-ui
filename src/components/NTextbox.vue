@@ -159,7 +159,7 @@ export default {
       type: Boolean,
       default: true
     },
-    showMaxlength: {
+    showMaxLength: {
       type: Boolean,
       default: true
     },
@@ -369,7 +369,7 @@ export default {
   margin-bottom: $ui-input-margin-bottom;
   &__clearable {
     position: absolute;
-    top: 0;
+    bottom: -4px;
     right: 0;
   }
   &:hover:not(.is-disabled) {
