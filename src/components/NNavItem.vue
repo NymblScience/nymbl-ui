@@ -1,8 +1,9 @@
 <template>
   <b-nav-item
-    :tab-index="tabIndex"
+    :tabindex="tabindex"
     v-bind="$attrs"
     :disabled="disabled"
+    :link-attrs="linkAttrs()"
     v-on="$listeners"
   >
     <slot />
@@ -21,9 +22,19 @@ export default {
       default: false,
       type: Boolean
     },
-    tabIndex: {
-      default: 0,
-      type: Number
+    tabindex: {
+      default: false,
+      type: [Number, Boolean]
+    }
+  },
+  methods: {
+    linkAttrs() {
+      if (this.tabindex) {
+        return {
+          tabindex: this.tabindex
+        };
+      }
+      return "";
     }
   }
 };

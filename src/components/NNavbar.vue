@@ -144,7 +144,7 @@
         <menu-icon />
       </n-button-icon>
 
-      <b-navbar-brand class="navbar-brand" href="#">
+      <b-navbar-brand tabindex="-1" class="navbar-brand" href="#">
         <slot name="logo" />
       </b-navbar-brand>
 
