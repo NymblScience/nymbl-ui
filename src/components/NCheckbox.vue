@@ -140,7 +140,7 @@ $n-checkbox-focus-ring-size: $n-checkbox-size * 2.1;
   font-family: $font-stack;
   font-weight: normal;
   margin: 0;
-  margin-bottom: rem(8px);
+  // margin-bottom: rem(8px);
   position: relative;
 
   &:not(.is-disabled):not(.is-checked):hover,

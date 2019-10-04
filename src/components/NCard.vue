@@ -111,6 +111,13 @@ export default {
       font-size: 1.35rem;
     }
   }
+  .n-navbar {
+    margin-top: -0.8rem;
+    margin-bottom: 0.3rem;
+    background: transparent !important;
+    box-shadow: none !important;
+    z-index: 1989 !important;
+  }
   &__body {
     padding: 0 1.5rem 1rem;
   }

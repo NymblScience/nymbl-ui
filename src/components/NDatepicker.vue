@@ -218,6 +218,13 @@ export default {
       return this.pickerType === "modal";
     }
   },
+  watch: {
+    value(value) {
+      console.log("new :", value);
+      console.log("this.date :", this.date);
+      this.$emit("input", this.date);
+    }
+  },
 
   mounted() {
     document.addEventListener("click", this.onExternalClick);

@@ -365,6 +365,7 @@ export default {
 .n-textbox {
   align-items: flex-start;
   display: flex;
+  position: relative;
   font-family: $font-stack;
   margin-bottom: $ui-input-margin-bottom;
   &__clearable {
