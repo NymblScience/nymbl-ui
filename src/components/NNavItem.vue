@@ -34,7 +34,7 @@ export default {
           tabindex: this.tabindex
         };
       }
-      return "";
+      return {};
     }
   }
 };
