@@ -14,6 +14,8 @@ import NDatepicker from "./NDatepicker.vue";
 import NRadio from "./NRadio.vue";
 import NRadioGroup from "./NRadioGroup.vue";
 import NCard from "./NCard.vue";
+import NForm from "./NForm.vue";
+import NFormItem from "./NFormItem.vue";
 import NTable from "./NTable.vue";
 import NCalendar from "./NCalendar.vue";
 import NTableColumn from "./NTableColumn.vue";
@@ -27,6 +29,8 @@ const Components = {
   NButton,
   NButtonIcon,
   NModal,
+  NForm,
+  NFormItem,
   NNavbar,
   NNavDropdown,
   NNavItem,
