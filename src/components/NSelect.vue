@@ -181,9 +181,12 @@ export default {
   props: {
     name: String,
     tabindex: [String, Number],
+    // selectedOption: {
+    //   type: [String, Number, Object, Array],
+    //   required: true
+    // },
     value: {
-      type: [String, Number, Object, Array],
-      required: true
+      type: [String, Number, Object, Array]
     },
     options: {
       type: Array,
@@ -265,7 +268,7 @@ export default {
       isTouched: false,
       selectedIndex: -1,
       highlightedIndex: -1,
-      initialValue: JSON.stringify(this.value)
+      initialValue: JSON.stringify(this.selectedOption)
     };
   },
 
@@ -300,7 +303,7 @@ export default {
     },
 
     isLabelInline() {
-      return this.value.length === 0 && !this.isActive;
+      return this.selectedOption.length === 0 && !this.isActive;
     },
 
     hasFeedback() {
@@ -315,6 +318,14 @@ export default {
 
     showHelp() {
       return Boolean(this.help) || Boolean(this.$slots.help);
+    },
+
+    selectedOption() {
+      return this.options.filter(option =>
+        option[this.keys.value] == null
+          ? option === this.value
+          : option[this.keys.value] === this.value
+      )[0];
     },
 
     filteredOptions() {
@@ -339,8 +350,8 @@ export default {
 
     displayText() {
       if (this.multiple) {
-        if (this.value.length > 0) {
-          return this.value
+        if (this.selectedOption.length > 0) {
+          return this.selectedOption
             .map(value => value[this.keys.label] || value)
             .join(this.multipleDelimiter);
         }
@@ -348,7 +359,9 @@ export default {
         return "";
       }
 
-      return this.value ? this.value[this.keys.label] || this.value : "";
+      return this.selectedOption
+        ? this.selectedOption[this.keys.label] || this.selectedOption
+        : "";
     },
 
     hasDisplayText() {
@@ -368,17 +381,17 @@ export default {
     submittedValue() {
       // Assuming that if there is no name or no value,
       // then there's no need to compute the submittedValue
-      if (!this.name || !this.value) {
+      if (!this.name || !this.selectedOption) {
         return;
       }
 
-      if (Array.isArray(this.value)) {
-        return this.value
+      if (Array.isArray(this.selectedOption)) {
+        return this.selectedOption
           .map(option => option[this.keys.value] || option)
           .join(",");
       }
 
-      return this.value[this.keys.value] || this.value;
+      return this.selectedOption[this.keys.value] || this.selectedOption;
     }
   },
 
@@ -402,7 +415,7 @@ export default {
   },
 
   created() {
-    if (!this.value || this.value === "") {
+    if (!this.selectedOption || this.selectedOption === "") {
       this.setValue(null);
     }
   },
@@ -411,8 +424,15 @@ export default {
     setValue(value) {
       value = value ? value : this.multiple ? [] : "";
 
-      this.$emit("input", value);
-      this.$emit("change", value);
+      this.$emit(
+        "input",
+        value[this.keys.value] == null ? value : value[this.keys.value]
+      );
+
+      this.$emit(
+        "change",
+        value[this.keys.value] == null ? value : value[this.keys.value]
+      );
     },
 
     highlightOption(index, options = { autoScroll: true }) {
@@ -470,24 +490,26 @@ export default {
 
     isOptionSelected(option) {
       if (this.multiple) {
-        return looseIndexOf(this.value, option) > -1;
+        return looseIndexOf(this.selectedOption, option) > -1;
       }
 
-      return looseEqual(this.value, option);
+      return looseEqual(this.selectedOption, option);
     },
 
     updateOption(option, options = { select: true }) {
       let value = [];
       let updated = false;
-      const i = looseIndexOf(this.value, option);
+      const i = looseIndexOf(this.selectedOption, option);
 
       if (options.select && i < 0) {
-        value = this.value.concat(option);
+        value = this.selectedOption.concat(option);
         updated = true;
       }
 
       if (!options.select && i > -1) {
-        value = this.value.slice(0, i).concat(this.value.slice(i + 1));
+        value = this.selectedOption
+          .slice(0, i)
+          .concat(this.selectedOption.slice(i + 1));
         updated = true;
       }
 
@@ -929,13 +951,13 @@ n-select.is-active:not(.is-disabled) .n-select__label-text,
 .n-select.n-select.is-invalid:not(.is-disabled)
   .n-select__icon-wrapper
   .ui-icon {
-  color: $form-color-active;
+  color: $form-color-invalid;
 }
 .n-select.n-select.is-invalid:not(.is-disabled) .n-select__display {
-  border-bottom-color: $form-color-active;
+  border-bottom-color: $form-color-invalid;
 }
 .n-select.n-select.is-invalid:not(.is-disabled) .n-select__feedback {
-  color: $form-color-active;
+  color: $form-color-invalid;
 }
 
 .n-select-option.is-selected {
