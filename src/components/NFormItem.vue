@@ -1,7 +1,7 @@
 <template>
-<div class="n-form__item">
-
-</div>
+  <div class="n-form__item">
+    <slot />
+  </div>
 </template>
 
 <script>
@@ -11,14 +11,13 @@ export default {
     label: {
       type: [String, Boolean],
       default: false
-    },
-
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss">
 .n-form__item {
-  padding: 1rem 0;
+  padding-bottom: 0.7rem;
 }
 </style>

@@ -1,12 +1,6 @@
 <template>
-  <form
-    class="n-form"
-    v-bind="$attrs"
-
-    v-on="$listeners"
-  >
+  <form class="n-form" v-bind="$attrs" v-on="$listeners">
     <slot />
-    
     <div class="n-form__footer">
       <slot name="footer" />
     </div>
@@ -20,10 +14,11 @@ export default {
 <style lang="scss">
 .n-form {
   &__footer {
+    text-align: right;
     .n-button {
-      margin-right: 0.3rem;
+      margin-right: 0.5rem;
     }
-    .n-button::last-child{
+    .n-button:last-child {
       margin-right: 0;
     }
   }
