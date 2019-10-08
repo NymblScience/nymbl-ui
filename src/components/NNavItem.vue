@@ -42,12 +42,11 @@ export default {
 };
 </script>
 <style lang="scss">
-.n-nav-item__content {
+.n-nav-item .n-nav-item__content {
   cursor: pointer;
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
   padding-right: 1rem;
   padding-left: 1rem;
 }
