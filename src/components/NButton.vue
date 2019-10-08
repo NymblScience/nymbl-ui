@@ -5,7 +5,7 @@
     class="n-button"
     :disabled="disabled || loading"
     :href="isAnchor ? (disabled ? null : href) : null"
-    :type="isAnchor ? null : buttonType"
+    :type="isAnchor ? null : type"
     @click="onClick"
   >
     <div class="n-button__content">
@@ -50,6 +50,13 @@ export default {
      *
      */
     buttonType: {
+      default: null,
+      type: String
+    },
+    /**
+     *
+     */
+    type: {
       default: null,
       type: String
     },

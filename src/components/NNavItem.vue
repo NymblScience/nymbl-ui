@@ -24,7 +24,7 @@ export default {
     },
     tabindex: {
       default: false,
-      type: [Number, Boolean]
+      type: [Number, Boolean, String]
     }
   },
   methods: {
