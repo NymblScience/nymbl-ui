@@ -90,10 +90,18 @@ export default {
       default: false
     }
   },
+  data() {
+    return {
+      data: ""
+    };
+  },
 
   methods: {
-    open() {
+    open(data) {
       this.$refs.modal.open();
+      if (data) {
+        this.data = data;
+      }
     },
 
     close() {
@@ -101,7 +109,7 @@ export default {
     },
 
     confirm() {
-      this.$emit("confirm");
+      this.$emit("confirm", this.data);
 
       if (this.closeOnConfirm) {
         this.$refs.modal.close();
