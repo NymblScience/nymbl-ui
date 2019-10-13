@@ -14,7 +14,9 @@
     @reveal="onModalReveal"
   >
     <div class="n-confirm__message">
-      <slot></slot>
+      <slot :data="data">
+        {{ data }}
+      </slot>
     </div>
 
     <div slot="footer" class="n-confirm__footer">
