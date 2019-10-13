@@ -85,8 +85,8 @@ export function humanize(date) {
   if (date == null) {
     return "";
   }
-
-  return date.toLocaleDateString().toString();
+  const dateObj = new Date(date);
+  return dateObj.toLocaleDateString().toString();
 }
 
 export function clone(date) {
