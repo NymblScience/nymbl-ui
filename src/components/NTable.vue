@@ -23,7 +23,7 @@
         v-else
         :key="'row-' + index"
         class="n-table-row"
-        @click.native="$emit('row-click', index, $event)"
+        @click.native="$emit('row-click', row, index, $event)"
       >
         <n-table-column
           v-if="isExpandable"
