@@ -1,31 +1,32 @@
 const path = require("path");
-const VueLoaderPlugin = require("vue-loader/lib/plugin");
+// const VueLoaderPlugin = require("vue-loader/lib/plugin");
+
 module.exports = {
   require: [
     path.join(__dirname, "src/assets/styles.css"),
     path.join(__dirname, "src/assets/sass/main.scss")
   ],
 
-  webpackConfig: {
-    module: {
-      rules: [
-        {
-          test: /\.vue$/,
-          loader: "vue-loader"
-        },
+  // webpackConfig: {
+  //   module: {
+  //     rules: [
+  //       {
+  //         test: /\.vue$/,
+  //         loader: "vue-loader"
+  //       },
 
-        {
-          test: /\.svg$/,
-          loader: "vue-svg-loader"
-        },
-        {
-          test: /\.(ico|jpg|png)$/,
-          loader: "file-loader"
-        }
-      ]
-    },
-    plugins: [new VueLoaderPlugin()]
-  },
+  //       {
+  //         test: /\.svg$/,
+  //         loader: "vue-svg-loader"
+  //       },
+  //       {
+  //         test: /\.(ico|jpg|png)$/,
+  //         loader: "file-loader"
+  //       }
+  //     ]
+  //   },
+  //   plugins: [new VueLoaderPlugin()]
+  // },
   // set your styleguidist configuration here
   title: "Nymbl Style Guide",
   components: "src/components/**/[A-Z]*.vue",

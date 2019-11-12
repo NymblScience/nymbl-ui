@@ -12,9 +12,9 @@
     <a
       v-else
       target="_self"
-      href="#"
       class="nav-link n-nav-link"
       tabindex="tabindex"
+      :class="{ 'n-nav-item-active': isActive(to) }"
       @click="$router.push(to)"
     >
       <slot />
@@ -38,10 +38,25 @@ export default {
       default: false,
       type: [Boolean, String]
     }
+  },
+  methods: {
+    isActive(to) {
+      // If no vue router is defined.
+      if (!this.$route) {
+        return false;
+      }
+      return this.$route.matched.filter(path => path.path === to).length > 0;
+    }
   }
 };
 </script>
 <style lang="scss">
+@import "@/assets/sass/colors.scss";
+
+.n-nav-item-active {
+  color: $green-2;
+  font-weight: 600;
+}
 .n-nav-item .n-nav-item__content {
   cursor: pointer;
   height: 100%;
