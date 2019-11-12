@@ -52,10 +52,13 @@ export default {
 </script>
 <style lang="scss">
 @import "@/assets/sass/colors.scss";
-
-.n-nav-item-active {
-  color: $green-2;
-  font-weight: 600;
+// TODO remove !important, boootstrap-vue dependency.
+.n-nav-item .n-nav-item-active {
+  color: $green-2 !important;
+  font-weight: 500;
+}
+.n-nav-item .nav-link {
+  cursor: pointer;
 }
 .n-nav-item .n-nav-item__content {
   cursor: pointer;
