@@ -40200,12 +40200,12 @@ var NNavDropdown_component = normalizeComponent(
 )
 
 /* harmony default export */ var NNavDropdown = (NNavDropdown_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6c215482-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NNavItem.vue?vue&type=template&id=4fb66992&
-var NNavItemvue_type_template_id_4fb66992_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',{staticClass:"n-nav-item nav-item",attrs:{"tabindex":_vm.tabindex}},[(!_vm.to)?_c('div',{staticClass:"n-nav-item__content nav-link n-nav-link",attrs:{"target":"_self","tabindex":_vm.tabindex},on:{"click":function($event){return _vm.$emit('click')}}},[_vm._t("default")],2):_c('a',{staticClass:"nav-link n-nav-link",class:{ 'n-nav-item-active': _vm.isActive(_vm.to) },attrs:{"target":"_self","tabindex":"tabindex"},on:{"click":function($event){return _vm.$router.push(_vm.to)}}},[_vm._t("default")],2)])}
-var NNavItemvue_type_template_id_4fb66992_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6c215482-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NNavItem.vue?vue&type=template&id=1ff72840&
+var NNavItemvue_type_template_id_1ff72840_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',{staticClass:"n-nav-item nav-item",attrs:{"tabindex":_vm.tabindex}},[(!_vm.to)?_c('div',{staticClass:"n-nav-item__content nav-link n-nav-link",attrs:{"target":"_self","tabindex":_vm.tabindex},on:{"click":function($event){return _vm.$emit('click')}}},[_vm._t("default")],2):_c('a',{staticClass:"nav-link n-nav-link",class:{ 'n-nav-item-active': _vm.isActive(_vm.to) || _vm.active },attrs:{"target":"_self","tabindex":"tabindex"},on:{"click":function($event){return _vm.$router.push(_vm.to)}}},[_vm._t("default")],2)])}
+var NNavItemvue_type_template_id_1ff72840_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/NNavItem.vue?vue&type=template&id=4fb66992&
+// CONCATENATED MODULE: ./src/components/NNavItem.vue?vue&type=template&id=1ff72840&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NNavItem.vue?vue&type=script&lang=js&
 
@@ -40246,6 +40246,10 @@ var NNavItemvue_type_template_id_4fb66992_staticRenderFns = []
     to: {
       default: false,
       type: [Boolean, String]
+    },
+    active: {
+      default: false,
+      type: Boolean
     }
   },
   methods: {
@@ -40277,8 +40281,8 @@ var NNavItemvue_type_style_index_0_lang_scss_ = __webpack_require__("f35c");
 
 var NNavItem_component = normalizeComponent(
   components_NNavItemvue_type_script_lang_js_,
-  NNavItemvue_type_template_id_4fb66992_render,
-  NNavItemvue_type_template_id_4fb66992_staticRenderFns,
+  NNavItemvue_type_template_id_1ff72840_render,
+  NNavItemvue_type_template_id_1ff72840_staticRenderFns,
   false,
   null,
   null,

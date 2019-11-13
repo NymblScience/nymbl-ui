@@ -14,7 +14,7 @@
       target="_self"
       class="nav-link n-nav-link"
       tabindex="tabindex"
-      :class="{ 'n-nav-item-active': isActive(to) }"
+      :class="{ 'n-nav-item-active': isActive(to) || active }"
       @click="$router.push(to)"
     >
       <slot />
@@ -37,6 +37,10 @@ export default {
     to: {
       default: false,
       type: [Boolean, String]
+    },
+    active: {
+      default: false,
+      type: Boolean
     }
   },
   methods: {
