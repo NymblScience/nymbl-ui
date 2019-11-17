@@ -112,7 +112,7 @@ export default {
       type: String
     },
     /**
-     * Specify row class
+     * Specify row class. e.g. getRowClass(row, index)
      */
     rowClass: {
       default: null,
