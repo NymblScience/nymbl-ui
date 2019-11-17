@@ -219,7 +219,7 @@ export default {
     }
   },
   watch: {
-    value(value) {
+    value() {
       this.$emit("input", this.date);
     }
   },
@@ -239,6 +239,7 @@ export default {
     onDateSelect(date) {
       this.$emit("input", date);
       this.inputDate = dateUtils.humanize(date);
+      this.$emit("change", date);
       this.closePicker();
     },
     onUpdateInput() {
