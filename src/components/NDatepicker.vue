@@ -220,8 +220,6 @@ export default {
   },
   watch: {
     value(value) {
-      console.log("new :", value);
-      console.log("this.date :", this.date);
       this.$emit("input", this.date);
     }
   },
