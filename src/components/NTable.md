@@ -2,7 +2,7 @@
 ```vue
 <template>
   <div>
-    <n-table :sortBy="{order: 'ascending', prop: 'name'}" :data="data">
+    <n-table  :row-class="getRowClass" :sortBy="{order: 'ascending', prop: 'name'}" :data="data">
       <template v-slot:default="table">
         <n-table-column align="center" sortable prop="name" label="Name">{{ table.row.name }}</n-table-column>
         <n-table-column align="left" sortable prop="id" label="Id">{{ table.row.id }}</n-table-column>
@@ -22,8 +22,16 @@ export default {
   components: {
     NTableColumn
   },
+  methods: {
+    getRowClass(row, index) {
+      if (index === 3) {
+        return "is-red"
+      }
+    }
+  },
   data() {
     return {
+
       data: [
         {
           id: "1",
@@ -54,4 +62,9 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+  .is-red .n-table-column {
+    background-color:#ac1a1f!important;
+  }
+</style>
 ```

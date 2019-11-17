@@ -23,6 +23,7 @@
         v-else
         :key="'row-' + index"
         class="n-table-row"
+        :class="getRowClass(row, index)"
         @click.native="$emit('row-click', row, index, $event)"
       >
         <n-table-column
@@ -109,6 +110,13 @@ export default {
     emptyText: {
       default: "Empty",
       type: String
+    },
+    /**
+     * Specify row class
+     */
+    rowClass: {
+      default: null,
+      type: Function
     }
   },
   data() {
@@ -219,6 +227,12 @@ export default {
       this.sortedBy = property;
 
       this.sortOrder = sortOrder;
+    },
+    getRowClass(row, index) {
+      if (this.rowClass) {
+        return this.rowClass(row, index);
+      }
+      return "";
     }
   }
 };
