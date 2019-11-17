@@ -43478,12 +43478,12 @@ var NFormItem_component = normalizeComponent(
 )
 
 /* harmony default export */ var NFormItem = (NFormItem_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6c215482-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NTable.vue?vue&type=template&id=a44294ca&
-var NTablevue_type_template_id_a44294ca_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',_vm._g(_vm._b({ref:"n-table",staticClass:"n-table",class:_vm.classes},'div',_vm.$attrs,false),_vm.$listeners),[(_vm.loaded && _vm.labels.length > 0)?_c('n-table-header',{attrs:{"labels":_vm.labels,"sort-order":_vm.sortOrder,"sorted-by":_vm.sortedBy,"is-expandable":_vm.isExpandable},on:{"changeSort":_vm.changeSort}}):_vm._e(),_c('n-table-rows',{ref:"rows"},[(_vm.isEmpty)?_c('div',{staticClass:"n-table-empty"},[_vm._v(_vm._s(_vm.emptyText))]):_vm._l((_vm.orderedRows),function(row,index){return _c('n-table-row',{key:'row-' + index,staticClass:"n-table-row",nativeOn:{"click":function($event){return _vm.$emit('row-click', row, index, $event)}}},[(_vm.isExpandable)?_c('n-table-column',{staticClass:"n-table-expand-toggle n-table-column-expand",attrs:{"is-expandable":_vm.isExpandable},nativeOn:{"click":function($event){return _vm.toggleExpand(index)}}},[_c('ChevronRight',{staticClass:"n-table-expand-toggle-icon",class:{ 'is-expanded': _vm.expandedRows.includes(index) }})],1):_vm._e(),_vm._t("default",null,{"row":row}),(_vm.isExpandable && _vm.expandedRows.includes(index))?_c('div',{staticClass:"n-table-row-expanded box"},[_vm._t("expanded",null,{"row":row})],2):_vm._e()],2)})],2)],1)}
-var NTablevue_type_template_id_a44294ca_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6c215482-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/NTable.vue?vue&type=template&id=2597dc1e&
+var NTablevue_type_template_id_2597dc1e_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',_vm._g(_vm._b({ref:"n-table",staticClass:"n-table",class:_vm.classes},'div',_vm.$attrs,false),_vm.$listeners),[(_vm.loaded && _vm.labels.length > 0)?_c('n-table-header',{attrs:{"labels":_vm.labels,"sort-order":_vm.sortOrder,"sorted-by":_vm.sortedBy,"is-expandable":_vm.isExpandable},on:{"changeSort":_vm.changeSort}}):_vm._e(),_c('n-table-rows',{ref:"rows"},[(_vm.isEmpty)?_c('div',{staticClass:"n-table-empty"},[_vm._v(_vm._s(_vm.emptyText))]):_vm._l((_vm.orderedRows),function(row,index){return _c('n-table-row',{key:'row-' + index,staticClass:"n-table-row",class:_vm.getRowClass(row, index),nativeOn:{"click":function($event){return _vm.$emit('row-click', row, index, $event)}}},[(_vm.isExpandable)?_c('n-table-column',{staticClass:"n-table-expand-toggle n-table-column-expand",attrs:{"is-expandable":_vm.isExpandable},nativeOn:{"click":function($event){return _vm.toggleExpand(index)}}},[_c('ChevronRight',{staticClass:"n-table-expand-toggle-icon",class:{ 'is-expanded': _vm.expandedRows.includes(index) }})],1):_vm._e(),_vm._t("default",null,{"row":row}),(_vm.isExpandable && _vm.expandedRows.includes(index))?_c('div',{staticClass:"n-table-row-expanded box"},[_vm._t("expanded",null,{"row":row})],2):_vm._e()],2)})],2)],1)}
+var NTablevue_type_template_id_2597dc1e_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/NTable.vue?vue&type=template&id=a44294ca&
+// CONCATENATED MODULE: ./src/components/NTable.vue?vue&type=template&id=2597dc1e&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es7.array.includes.js
 var es7_array_includes = __webpack_require__("6762");
@@ -44078,6 +44078,7 @@ function orderBy(property, array) {
 //
 //
 //
+//
 
 
 
@@ -44138,6 +44139,14 @@ function orderBy(property, array) {
     emptyText: {
       default: "Empty",
       type: String
+    },
+
+    /**
+     * Specify row class
+     */
+    rowClass: {
+      default: null,
+      type: Function
     }
   },
   data: function data() {
@@ -44249,6 +44258,13 @@ function orderBy(property, array) {
 
       this.sortedBy = property;
       this.sortOrder = sortOrder;
+    },
+    getRowClass: function getRowClass(row, index) {
+      if (this.rowClass) {
+        return this.rowClass(row, index);
+      }
+
+      return "";
     }
   }
 });
@@ -44268,8 +44284,8 @@ var NTablevue_type_style_index_0_lang_scss_ = __webpack_require__("9eed");
 
 var NTable_component = normalizeComponent(
   components_NTablevue_type_script_lang_js_,
-  NTablevue_type_template_id_a44294ca_render,
-  NTablevue_type_template_id_a44294ca_staticRenderFns,
+  NTablevue_type_template_id_2597dc1e_render,
+  NTablevue_type_template_id_2597dc1e_staticRenderFns,
   false,
   null,
   null,
