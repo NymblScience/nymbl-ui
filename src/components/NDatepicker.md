@@ -6,6 +6,7 @@
       :default-date="new Date('3003/2/10')"
       :label="'Label'"
       v-model="value"
+      :has-year="false"
     ></n-datepicker>
 
     <n-datepicker

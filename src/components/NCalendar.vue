@@ -1,6 +1,6 @@
 <template>
   <div class="n-calendar" :class="classes">
-    <div v-if="!isStatic" class="n-calendar__header">
+    <div v-if="!isStatic && hasYear" class="n-calendar__header">
       <div
         class="n-calendar__header-year"
         tabindex="0"
@@ -33,6 +33,7 @@
         <n-calendar-controls
           ref="controls"
           :is-static="isStatic"
+          :has-year="hasYear"
           :date-in-view="dateInView"
           :lang="lang"
           :max-date="maxDate"
@@ -83,6 +84,10 @@ export default {
     isStatic: {
       type: Boolean,
       default: false
+    },
+    hasYear: {
+      type: Boolean,
+      default: true
     },
     controls: {
       type: Boolean,

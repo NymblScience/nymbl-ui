@@ -40,6 +40,7 @@
             :color="color"
             :date-filter="dateFilter"
             :lang="lang"
+            :has-year="hasYear"
             :max-date="maxDate"
             :min-date="minDate"
             :orientation="orientation"
@@ -129,6 +130,10 @@ export default {
       default: false
     },
     textInput: {
+      type: Boolean,
+      default: true
+    },
+    hasYear: {
       type: Boolean,
       default: true
     }

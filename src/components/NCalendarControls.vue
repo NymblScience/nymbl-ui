@@ -21,7 +21,9 @@
       </svg>
     </n-button-icon>
 
-    <div class="n-calendar-controls__month-and-year">{{ monthAndYear }}</div>
+    <div class="n-calendar-controls__month-and-year">
+      {{ month }} <span v-if="hasYear">{{ year }}</span>
+    </div>
 
     <n-button-icon
       v-if="!isStatic"
@@ -60,6 +62,10 @@ export default {
       type: Boolean,
       default: false
     },
+    hasYear: {
+      type: Boolean,
+      default: true
+    },
     color: {
       type: String,
       default: "default" // 'default', 'primary' or 'accent'
@@ -80,13 +86,11 @@ export default {
       }
       return classes;
     },
-
-    monthAndYear() {
-      return (
-        dateUtils.getMonthFull(this.dateInView, this.lang) +
-        " " +
-        this.dateInView.getFullYear()
-      );
+    month() {
+      return dateUtils.getMonthFull(this.dateInView, this.lang);
+    },
+    year() {
+      return this.dateInView.getFullYear();
     },
 
     previousMonthDisabled() {
