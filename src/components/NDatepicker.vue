@@ -11,6 +11,7 @@
           v-model="inputDate"
           :label="label"
           :help="help"
+          :disabled="disabled"
           :invalid="invalid"
           :error="error"
           :name="name"
@@ -32,6 +33,7 @@
           v-show="!disabled"
           ref="popover"
           tabindex="-1"
+          :append-to-body="true"
           :ignore-on-click="'red'"
           @close="onPickerClose"
           @open="onPickerOpen"
@@ -248,7 +250,12 @@ export default {
       this.closePicker();
     },
     onUpdateInput() {
+      if (this.inputDate === "") {
+        this.$emit("input", null);
+        return;
+      }
       let date = new Date(this.inputDate);
+
       if (!isNaN(date.getTime())) {
         this.$emit("input", date);
       }
@@ -343,6 +350,7 @@ export default {
 
     clear() {
       this.$emit("input", null);
+      this.inputDate = null;
     },
 
     reset() {
