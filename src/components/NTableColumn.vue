@@ -37,6 +37,9 @@ export default {
       const classes = [];
       return classes;
     }
+  },
+  created() {
+    this.$emit("created");
   }
 };
 </script>

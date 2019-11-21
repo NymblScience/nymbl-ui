@@ -18,6 +18,10 @@
     <n-table-rows ref="rows">
       <div v-if="isEmpty" class="n-table-empty">{{ emptyText }}</div>
 
+      <n-table-row v-if="isEmpty" v-show="false" :is-empty="isEmpty">
+        <slot :row="{}"></slot>
+      </n-table-row>
+
       <n-table-row
         v-for="(row, index) in orderedRows"
         v-else
@@ -26,7 +30,7 @@
         :class="getRowClass(row, index)"
         @click.native="$emit('row-click', row, index, $event)"
       >
-        <n-table-column
+        <!-- <n-table-column
           v-if="isExpandable"
           class="n-table-expand-toggle n-table-column-expand"
           :is-expandable="isExpandable"
@@ -36,7 +40,7 @@
             :class="{ 'is-expanded': expandedRows.includes(index) }"
             class="n-table-expand-toggle-icon"
           />
-        </n-table-column>
+        </n-table-column> -->
 
         <slot :row="row" />
         <!-- <transition-expand> -->
@@ -55,10 +59,10 @@
 import NTableHeader from "./NTableHeader.vue";
 import NTableRows from "./NTableRows.vue";
 import NTableRow from "./NTableRow.vue";
-import NTableColumn from "./NTableColumn.vue";
+// import NTableColumn from "./NTableColumn.vue";
 
 import orderBy from "../helpers/orderBy";
-import ChevronRight from "vue-material-design-icons/ChevronRight.vue";
+// import ChevronRight from "vue-material-design-icons/ChevronRight.vue";
 // import { TransitionExpand } from "vue-transition-expand";
 // import "vue-transition-expand/dist/vue-transition-expand.css";
 
@@ -67,10 +71,10 @@ export default {
   components: {
     NTableHeader,
     NTableRow,
-    NTableRows,
-    NTableColumn,
+    NTableRows
+    // NTableColumn
     // TransitionExpand,
-    ChevronRight
+    // ChevronRight
   },
   props: {
     /**
@@ -135,9 +139,8 @@ export default {
 
     children() {
       // #TODO Add protection that just column elements are valid children.
-      if (this.loaded) {
-        let columns = this.$refs.rows.$children[0];
-        return columns;
+      if (this.loaded && !this.isEmpty && this.$refs.rows) {
+        return this.$refs.rows.$children;
       }
       return [];
     },
@@ -146,20 +149,23 @@ export default {
       if (this.isEmpty) {
         return labels;
       }
-      this.children.$children.forEach(column => {
-        if (column._props.isExpandable) {
-          return;
-        }
 
-        let label = {
-          label: column._props.label,
-          sortable: column._props.sortable,
-          prop: column._props.prop,
-          align: column._props.align,
-          labelAlign: column._props.align
-        };
-        labels.push(label);
-      });
+      if (this.children[0]) {
+        this.children[0].$children.forEach(column => {
+          if (column._props.isExpandable) {
+            return;
+          }
+
+          let label = {
+            label: column._props.label,
+            sortable: column._props.sortable,
+            prop: column._props.prop,
+            align: column._props.align,
+            labelAlign: column._props.align
+          };
+          labels.push(label);
+        });
+      }
 
       return labels;
     },
@@ -179,12 +185,10 @@ export default {
       return orderedData;
     },
     isEmpty() {
-      if (this.data.length < 1) {
-        return true;
-      }
-      return false;
+      return this.data.length < 1;
     }
   },
+
   created() {
     if (this.sortBy.order) {
       this.sortOrder = this.sortBy.order;
@@ -196,15 +200,9 @@ export default {
   },
   mounted() {
     this.loaded = true;
-
-    // this.orderedRows = this.data;
-
-    // if (this.sortBy.prop) {
-    //   this.changeSort(this.sortBy.prop, this.sortOrder);
-    // }
   },
   methods: {
-    toggleExpand(row) {
+    and(row) {
       let expandedRows = this.expandedRows;
 
       if (expandedRows.includes(row)) {
