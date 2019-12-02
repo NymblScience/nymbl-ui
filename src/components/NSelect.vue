@@ -31,13 +31,30 @@
             class="n-select__display-value"
             :class="{ 'is-placeholder': !hasDisplayText }"
           >
-            {{
-              hasDisplayText
-                ? displayText
-                : hasFloatingLabel && isLabelInline
-                ? null
-                : placeholder
-            }}
+            <div v-if="type === 'image'" class="n-select-option__image">
+              <div class="n-select-option__image-text">
+                {{
+                  hasDisplayText
+                    ? displayText
+                    : hasFloatingLabel && isLabelInline
+                    ? null
+                    : placeholder
+                }}
+              </div>
+              <div
+                class="n-select-option__image-object"
+                :style="imageStyle"
+              ></div>
+            </div>
+            <div v-else>
+              {{
+                hasDisplayText
+                  ? displayText
+                  : hasFloatingLabel && isLabelInline
+                  ? null
+                  : placeholder
+              }}
+            </div>
           </div>
 
           <div class="n-select__dropdown-button">
@@ -392,6 +409,11 @@ export default {
       }
 
       return this.selectedOption[this.keys.value] || this.selectedOption;
+    },
+    imageStyle() {
+      return {
+        "background-image": "url(" + this.selectedOption[this.keys.image] + ")"
+      };
     }
   },
 
@@ -915,6 +937,20 @@ export default {
   margin: 0;
   padding-top: $ui-input-feedback-padding-top;
   position: relative;
+}
+
+.n-select-option__image {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.n-select-option__image-object {
+  background-position: 50%;
+  background-size: cover;
+  height: rem(32px);
+  margin-right: rem(12px);
+  width: rem(32px);
 }
 
 // ================================================

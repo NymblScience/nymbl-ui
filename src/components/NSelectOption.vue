@@ -5,13 +5,10 @@
         {{ option[keys.label] || option }}
       </div>
 
-      <!-- <div class="n-select-option__image" v-if="type === 'image'">
-                <div class="n-select-option__image-object" :style="imageStyle"></div>
-
-                <div
-                    class="n-select-option__image-text"
-                >{{ option[keys.label] }}</div>
-            </div> -->
+      <div v-if="type === 'image'" class="n-select-option__image">
+        <div class="n-select-option__image-text">{{ option[keys.label] }}</div>
+        <div class="n-select-option__image-object" :style="imageStyle"></div>
+      </div>
 
       <!-- <div class="n-select-option__checkbox" v-if="multiple">
                 <ui-icon v-if="selected">
@@ -126,12 +123,13 @@ $n-select-option-checkbox-color: rgba(black, 0.38) !default;
 .n-select-option__image {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .n-select-option__image-object {
   background-position: 50%;
   background-size: cover;
-  border-radius: 50%;
   height: rem(32px);
   margin-right: rem(12px);
   width: rem(32px);
