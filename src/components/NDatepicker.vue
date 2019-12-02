@@ -255,10 +255,10 @@ export default {
         return;
       }
       let date = new Date(this.inputDate);
-
-      if (!isNaN(date.getTime())) {
-        this.$emit("input", date);
-      }
+      if (date)
+        if (!isNaN(date.getTime())) {
+          this.$emit("input", date);
+        }
     },
     openPicker() {
       if (this.disabled) {
@@ -282,6 +282,7 @@ export default {
     onClick() {
       this.isActive = true;
       this.openPicker();
+      console.log("click");
     },
 
     onFocus(e) {
@@ -291,6 +292,7 @@ export default {
       this.isActive = true;
       this.openPicker();
       this.$emit("focus", e);
+      console.log("focus");
     },
 
     onBlur(e) {
