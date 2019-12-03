@@ -91,7 +91,7 @@
             @keydown.tab="onBlur"
             @keydown.up.prevent="highlightOption(highlightedIndex - 1)"
           >
-            <!-- <div
+            <div
               v-if="hasSearch"
               class="n-select__search"
               @click.stop
@@ -106,26 +106,26 @@
                 :placeholder="searchPlaceholder"
               />
 
-            <ui-icon class="n-select__search-icon">
+              <div class="n-select__search-icon">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
                 >
                   <path
                     d="M9.516 14.016c2.484 0 4.5-2.016 4.5-4.5s-2.016-4.5-4.5-4.5-4.5 2.016-4.5 4.5 2.016 4.5 4.5 4.5zm6 0l4.97 4.97-1.5 1.5-4.97-4.97v-.797l-.28-.282c-1.126.984-2.626 1.547-4.22 1.547-3.61 0-6.516-2.86-6.516-6.47S5.906 3 9.516 3s6.47 2.906 6.47 6.516c0 1.594-.564 3.094-1.548 4.22l.28.28h.798z"
                   />
                 </svg>
-              </ui-icon> 
+              </div>
 
-            <n-loading-circle
+              <n-loading-circle
                 v-if="loading"
                 class="n-select__search-progress"
                 :size="20"
                 :stroke="4"
               ></n-loading-circle>
-            </div>  -->
+            </div>
 
             <ul ref="optionsList" class="n-select__options">
               <n-select-option
@@ -175,21 +175,21 @@
 
 <script>
 import NPopover from "./NPopover.vue";
-// import NLoadingCircle from "./NLoadingCircle.vue";
+import NLoadingCircle from "./NLoadingCircle.vue";
 import NSelectOption from "./NSelectOption.vue";
 
 import RespondsToExternalClick from "../mixins/RespondsToExternalClick";
 import { looseIndexOf, looseEqual } from "../helpers/util";
 import { scrollIntoView, resetScroll } from "../helpers/element-scroll";
 
-// import fuzzysearch from "fuzzysearch";
+import fuzzysearch from "fuzzysearch";
 
 export default {
   name: "NSelect",
 
   components: {
     NPopover,
-    // NLoadingCircle,
+    NLoadingCircle,
     NSelectOption
   },
 
@@ -346,23 +346,23 @@ export default {
     },
 
     filteredOptions() {
-      // if (this.disableFilter) {
-      //   return this.options;
-      // }
+      if (this.disableFilter) {
+        return this.options;
+      }
 
-      // const options = this.options.filter(option => {
-      //   if (this.filter) {
-      //     return this.filter(option, this.query, this.defaultFilter);
-      //   }
+      const options = this.options.filter(option => {
+        if (this.filter) {
+          return this.filter(option, this.query, this.defaultFilter);
+        }
 
-      //   return this.defaultFilter(option, this.query);
-      // });
+        return this.defaultFilter(option, this.query);
+      });
 
-      // if (this.sort) {
-      //   options.sort(this.sort.bind(this));
-      // }
+      if (this.sort) {
+        options.sort(this.sort.bind(this));
+      }
 
-      return this.options;
+      return options;
     },
 
     displayText() {
@@ -546,9 +546,8 @@ export default {
       if (typeof text === "string") {
         text = text.toLowerCase();
       }
-      console.log("object :", query);
-      return;
-      // return fuzzysearch(query.toLowerCase(), text);
+
+      return fuzzysearch(query.toLowerCase(), text);
     },
 
     clearSelection() {
@@ -904,6 +903,7 @@ export default {
   color: $ui-input-icon-color;
   font-size: rem(20px);
   left: rem(12px);
+  top: 0.1rem !important;
 }
 
 .n-select__search-progress {
