@@ -897,6 +897,7 @@ export default {
     position: absolute;
     top: rem(8px);
   }
+  background: #fff;
 }
 
 .n-select__search-icon {
