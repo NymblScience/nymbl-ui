@@ -5,6 +5,7 @@
       v-for="(label, index) in labels"
       :key="'label-' + index"
       class="n-table-label"
+      :style="{ 'max-width': label.maxWidth + 'px' }"
     >
       <div
         v-if="label.sortable"

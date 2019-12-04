@@ -1,5 +1,8 @@
 <template>
-  <div class="n-table-column" :style="'text-align:' + align">
+  <div
+    class="n-table-column"
+    :style="{ 'text-align': align, 'max-width': maxWidth + 'px' }"
+  >
     <slot></slot>
   </div>
 </template>
@@ -30,6 +33,10 @@ export default {
     isExpandable: {
       type: Boolean,
       default: false
+    },
+    maxWidth: {
+      type: Number,
+      default: null
     }
   },
   computed: {

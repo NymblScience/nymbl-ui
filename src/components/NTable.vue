@@ -161,7 +161,8 @@ export default {
             sortable: column._props.sortable,
             prop: column._props.prop,
             align: column._props.align,
-            labelAlign: column._props.align
+            labelAlign: column._props.align,
+            maxWidth: column._props.maxWidth
           };
           labels.push(label);
         });
