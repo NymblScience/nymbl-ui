@@ -12,6 +12,7 @@
       :sort-order="sortOrder"
       :sorted-by="sortedBy"
       :is-expandable="isExpandable"
+      :slots="$slots"
       @changeSort="changeSort"
     />
 
@@ -91,6 +92,13 @@ export default {
       default: false,
       type: Boolean
     },
+
+    filter: {
+      default: () => {
+        return { props: [], value: "" };
+      },
+      type: Object
+    },
     /**
      * Sort by property, optionally specifify the order
      */
@@ -162,7 +170,8 @@ export default {
             prop: column._props.prop,
             align: column._props.align,
             labelAlign: column._props.align,
-            maxWidth: column._props.maxWidth
+            maxWidth: column._props.maxWidth,
+            customHeader: column._props.customHeader
           };
           labels.push(label);
         });
@@ -177,6 +186,17 @@ export default {
 
       if (this.sortedBy) {
         orderedData = orderBy(this.sortedBy, data);
+      }
+
+      if (this.filter.value) {
+        let props =
+          this.filter.props.length < 1
+            ? Object.keys(orderedData[0])
+            : this.filter.props;
+        console.log(props);
+        // const filteredData = orderedData["0"].filter(d =>
+        //   d.includes(this.filter.value)
+        // );
       }
 
       if (this.sortOrder === "descending") {
@@ -203,17 +223,17 @@ export default {
     this.loaded = true;
   },
   methods: {
-    and(row) {
-      let expandedRows = this.expandedRows;
+    // and(row) {
+    //   let expandedRows = this.expandedRows;
 
-      if (expandedRows.includes(row)) {
-        let filteredRows = expandedRows.filter(item => item !== row);
-        this.expandedRows = filteredRows;
-        return;
-      }
+    //   if (expandedRows.includes(row)) {
+    //     let filteredRows = expandedRows.filter(item => item !== row);
+    //     this.expandedRows = filteredRows;
+    //     return;
+    //   }
 
-      this.expandedRows.push(row);
-    },
+    //   this.expandedRows.push(row);
+    // },
     changeSort(property, sortOrder = "ascending") {
       if (sortOrder === "toggle") {
         if (this.sortOrder === "ascending") {

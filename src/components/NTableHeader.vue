@@ -1,14 +1,18 @@
 <template>
-  <div class="n-table-header">
-    <div v-if="isExpandable" class="n-table-column-expand n-table-label" />
+  <div v-if="loaded" class="n-table-header">
+    <!-- <div v-if="isExpandable" class="n-table-column-expand n-table-label" /> -->
     <div
       v-for="(label, index) in labels"
       :key="'label-' + index"
       class="n-table-label"
       :style="{ 'max-width': label.maxWidth + 'px' }"
     >
+      <span v-if="label.customHeader.length > 0">
+        <customHeader :custom-header="slots[label.customHeader]"></customHeader>
+      </span>
+
       <div
-        v-if="label.sortable"
+        v-else-if="label.sortable"
         class="n-table-label-sortable"
         :class="{
           'label-centered': label.align === 'center',
@@ -26,6 +30,7 @@
         >
         </n-table-arrows>
       </div>
+
       <span v-else>
         {{ label.label }}
       </span>
@@ -33,11 +38,19 @@
   </div>
 </template>
 <script>
+const CustomHeader = {
+  props: ["customHeader"],
+  render: function(createElement) {
+    return createElement("div", this.customHeader);
+  }
+};
+
 import NTableArrows from "./NTableArrows.vue";
 export default {
   name: "NTableHeader",
   components: {
-    NTableArrows
+    NTableArrows,
+    CustomHeader
   },
   props: {
     labels: {
@@ -57,12 +70,34 @@ export default {
     sortedBy: {
       type: String,
       default: ""
+    },
+    slots: {
+      type: [Array, Object],
+      default: () => {
+        return [];
+      }
     }
+  },
+  data() {
+    return {
+      loaded: false
+    };
   },
   computed: {
     classes() {
       const classes = [];
       return classes;
+    }
+  },
+  mounted() {
+    this.loaded = true;
+  },
+  methods: {
+    toCamelCase(str) {
+      str
+        .replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase())
+        .replace(/^\w/, c => c.toLowerCase());
+      return str;
     }
   }
 };

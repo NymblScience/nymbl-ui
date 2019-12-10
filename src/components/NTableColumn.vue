@@ -34,6 +34,11 @@ export default {
       type: Boolean,
       default: false
     },
+
+    customHeader: {
+      type: [Boolean, String],
+      default: false
+    },
     maxWidth: {
       type: Number,
       default: null
