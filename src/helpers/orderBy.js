@@ -1,7 +1,7 @@
-function orderBy(property, array) {
+const orderBy = (property, array, sortMethod) => {
   property = property.split(".");
   const length = property.length;
-  array.sort((a, b) => {
+  let sortFunction = (a, b) => {
     let i = 0;
     while (i < length) {
       a = a[property[i]].toLowerCase();
@@ -15,7 +15,11 @@ function orderBy(property, array) {
       return 1;
     }
     return 0;
-  });
+  };
+  if (sortMethod) {
+    sortFunction = sortMethod;
+  }
+  array.sort(sortFunction);
   return array;
-}
+};
 export default orderBy;

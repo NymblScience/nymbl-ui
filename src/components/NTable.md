@@ -3,9 +3,10 @@
   <div>
     <div class="styleguide-section">
       <h3>Default</h3>
-      <n-table :row-class="getRowClass" :sortBy="{order: 'ascending', prop: 'name'}" :data="data">
+      <n-table :row-class="getRowClass" :sortMethod="(a,b) => a > b" :sortBy="{order: 'ascending', prop: 'name'}" :data="data" >
           <template v-slot:name>
-            <div>Test Label</div>
+            <div>Custom Header</div>
+            <input>
           </template>
   
         <template v-slot:default="table">
@@ -30,7 +31,7 @@
       <n-table :filter="filter" :sortBy="{order: 'ascending', prop: 'name'}" :data="data2">
         <template v-slot:default="table">
           
-          <n-table-column align="center" sortable prop="name" label="Name">{{ table.row.name }}</n-table-column>
+          <n-table-column align="center" :sort-method="function(a, b){return b - a}" sortable prop="name" label="Name">{{ table.row.name }}</n-table-column>
           <n-table-column align="left" sortable prop="id" label="Id">{{ table.row.id }}</n-table-column>
         </template>
       </n-table>
@@ -116,11 +117,14 @@ export default {
       dataEmpty: [],
       filter: {
         value: "",
-        props: ["name"]
+        props: ["name", "id"]
       }
     };
   },
   methods: {
+    sortMethod(a, b) {
+        return a - b
+    },
     getRowClass(row, index) {
       if (index === 3) {
         return "is-red";

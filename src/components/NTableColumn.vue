@@ -1,7 +1,11 @@
 <template>
   <div
     class="n-table-column"
-    :style="{ 'text-align': align, 'max-width': maxWidth + 'px' }"
+    :style="{
+      'text-align': align,
+      'max-width': maxWidth + 'px',
+      'min-width': minWidth + 'px'
+    }"
   >
     <slot></slot>
   </div>
@@ -42,12 +46,19 @@ export default {
     maxWidth: {
       type: Number,
       default: null
+    },
+    minWidth: {
+      type: Number,
+      default: null
     }
   },
   computed: {
     classes() {
       const classes = [];
       return classes;
+    },
+    isNested() {
+      return this.$parent.$options.name === "NTableColumn";
     }
   },
   created() {

@@ -129,6 +129,13 @@ export default {
     rowClass: {
       default: null,
       type: Function
+    },
+    /**
+     * Sorting method, works when sortable is true. Should return a number, just like Array.sort
+     */
+    sortMethod: {
+      default: null,
+      type: Function
     }
   },
   data() {
@@ -163,6 +170,9 @@ export default {
           if (column._props.isExpandable) {
             return;
           }
+          if (column.isNested) {
+            return;
+          }
 
           let label = {
             label: column._props.label,
@@ -171,7 +181,9 @@ export default {
             align: column._props.align,
             labelAlign: column._props.align,
             maxWidth: column._props.maxWidth,
-            customHeader: column._props.customHeader
+            minWidth: column._props.minWidth,
+            customHeader: column._props.customHeader,
+            sortMethod: column._props.sortMethod
           };
           labels.push(label);
         });
@@ -185,7 +197,7 @@ export default {
       let orderedData = data;
 
       if (this.sortedBy) {
-        orderedData = orderBy(this.sortedBy, data);
+        orderedData = orderBy(this.sortedBy, data, this.sortMethod);
       }
 
       if (this.filter.value) {
@@ -193,10 +205,17 @@ export default {
           this.filter.props.length < 1
             ? Object.keys(orderedData[0])
             : this.filter.props;
-        console.log(props);
+
+        orderedData = orderedData.filter(data =>
+          props.some(prop =>
+            data[prop].toLowerCase().includes(this.filter.value)
+          )
+        );
+
         // const filteredData = orderedData["0"].filter(d =>
         //   d.includes(this.filter.value)
         // );
+        // console.log("filteredData :", filteredData);
       }
 
       if (this.sortOrder === "descending") {

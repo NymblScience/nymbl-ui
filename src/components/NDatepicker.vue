@@ -282,7 +282,6 @@ export default {
     onClick() {
       this.isActive = true;
       this.openPicker();
-      console.log("click");
     },
 
     onFocus(e) {
@@ -292,7 +291,6 @@ export default {
       this.isActive = true;
       this.openPicker();
       this.$emit("focus", e);
-      console.log("focus");
     },
 
     onBlur(e) {

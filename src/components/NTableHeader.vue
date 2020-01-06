@@ -5,7 +5,10 @@
       v-for="(label, index) in labels"
       :key="'label-' + index"
       class="n-table-label"
-      :style="{ 'max-width': label.maxWidth + 'px' }"
+      :style="{
+        'max-width': label.maxWidth + 'px',
+        'min-width': label.minWidth + 'px'
+      }"
     >
       <span v-if="label.customHeader.length > 0">
         <customHeader :custom-header="slots[label.customHeader]"></customHeader>
@@ -19,21 +22,18 @@
           'label-right': label.align === 'right'
         }"
       >
-        <span @click="$emit('changeSort', label.prop, 'toggle')">
-          {{ label.label }}</span
-        >
+        <span @click="$emit('changeSort', label.prop, 'toggle')">{{
+          label.label
+        }}</span>
         <n-table-arrows
           :active-arrow="sortOrder"
           :is-active="sortedBy === label.prop"
           @sortAscending="$emit('changeSort', label.prop, 'ascending')"
           @sortDescending="$emit('changeSort', label.prop, 'descending')"
-        >
-        </n-table-arrows>
+        ></n-table-arrows>
       </div>
 
-      <span v-else>
-        {{ label.label }}
-      </span>
+      <span v-else>{{ label.label }}</span>
     </div>
   </div>
 </template>
