@@ -5,8 +5,8 @@
       <h3>Default</h3>
       <n-table :row-class="getRowClass" :sortMethod="(a,b) => a > b" :sortBy="{order: 'ascending', prop: 'name'}" :data="data" >
           <template v-slot:name>
-            <div>Custom Header</div>
-            <input>
+            <div>Custom Header Slot</div>
+            <n-textbox v-model="textbox" />
           </template>
   
         <template v-slot:default="table">
@@ -25,14 +25,14 @@
       <n-textbox
         v-model="filter.value"
         clearable
-        label="Search"
+        label="Search"  
         style="max-width:300px; margin: 40px 0;"
       />
       <n-table :filter="filter" :sortBy="{order: 'ascending', prop: 'name'}" :data="data2">
+        <template #header> <n-table-column style="flex-grow: 1; flex-basis:0; text-align: center">asd</n-table-column><n-table-column style="flex-grow: 1; flex-basis:0; text-align: center">asd</n-table-column></template>
         <template v-slot:default="table">
-          
-          <n-table-column align="center" :sort-method="function(a, b){return b - a}" sortable prop="name" label="Name">{{ table.row.name }}</n-table-column>
-          <n-table-column align="left" sortable prop="id" label="Id">{{ table.row.id }}</n-table-column>
+            <n-table-column align="center" :sort-method="function(a, b){return b - a}" sortable prop="name" label="Name">{{ table.row.name }}</n-table-column>
+            <n-table-column align="left" sortable prop="id" label="Id">{{ table.row.id }}</n-table-column>
         </template>
       </n-table>
     </div>
@@ -118,7 +118,8 @@ export default {
       filter: {
         value: "",
         props: ["name", "id"]
-      }
+      },
+      textbox: ""
     };
   },
   methods: {

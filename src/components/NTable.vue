@@ -6,6 +6,9 @@
     v-bind="$attrs"
     v-on="$listeners"
   >
+    <div style="display:flex">
+      <slot name="header"> </slot>
+    </div>
     <n-table-header
       v-if="loaded && labels.length > 0"
       :labels="labels"
@@ -62,7 +65,7 @@ import NTableRows from "./NTableRows.vue";
 import NTableRow from "./NTableRow.vue";
 // import NTableColumn from "./NTableColumn.vue";
 
-import orderBy from "../helpers/orderBy";
+// import orderBy from "../helpers/orderBy";
 // import ChevronRight from "vue-material-design-icons/ChevronRight.vue";
 // import { TransitionExpand } from "vue-transition-expand";
 // import "vue-transition-expand/dist/vue-transition-expand.css";
@@ -170,9 +173,6 @@ export default {
           if (column._props.isExpandable) {
             return;
           }
-          if (column.isNested) {
-            return;
-          }
 
           let label = {
             label: column._props.label,
@@ -196,9 +196,9 @@ export default {
 
       let orderedData = data;
 
-      if (this.sortedBy) {
-        orderedData = orderBy(this.sortedBy, data, this.sortMethod);
-      }
+      // if (this.sortedBy) {
+      //   orderedData = orderBy(this.sortedBy, data);
+      // }
 
       if (this.filter.value) {
         let props =
@@ -208,14 +208,9 @@ export default {
 
         orderedData = orderedData.filter(data =>
           props.some(prop =>
-            data[prop].toLowerCase().includes(this.filter.value)
+            data[prop].toLowerCase().includes(this.filter.value.toLowerCase())
           )
         );
-
-        // const filteredData = orderedData["0"].filter(d =>
-        //   d.includes(this.filter.value)
-        // );
-        // console.log("filteredData :", filteredData);
       }
 
       if (this.sortOrder === "descending") {
@@ -312,6 +307,7 @@ export default {
   border-bottom: 1px solid #ebeef5;
   display: flex;
   flex-wrap: wrap;
+  font-size: 1rem;
   transition: background-color 0.25s ease;
   .n-table-row-expanded {
     flex-basis: 100%;
@@ -328,6 +324,10 @@ export default {
   .n-table-column {
     flex-grow: 1;
     flex-basis: 0;
+    overflow: hidden;
+    padding: 0 3px;
+    font-size: 0.95rem;
+    text-overflow: ellipsis;
   }
   &:hover {
     background: #e9fdfe;

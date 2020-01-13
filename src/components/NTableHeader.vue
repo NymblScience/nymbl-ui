@@ -1,6 +1,7 @@
 <template>
   <div v-if="loaded" class="n-table-header">
     <!-- <div v-if="isExpandable" class="n-table-column-expand n-table-label" /> -->
+
     <div
       v-for="(label, index) in labels"
       :key="'label-' + index"
@@ -9,19 +10,17 @@
         'max-width': label.maxWidth + 'px',
         'min-width': label.minWidth + 'px'
       }"
+      :class="{
+        'text-center': label.labelAlign.toLowerCase() === 'center',
+        'text-right': label.labelAlign.toLowerCase() === 'right',
+        'text-left': label.labelAlign.toLowerCase() === 'left'
+      }"
     >
       <span v-if="label.customHeader.length > 0">
         <customHeader :custom-header="slots[label.customHeader]"></customHeader>
       </span>
 
-      <div
-        v-else-if="label.sortable"
-        class="n-table-label-sortable"
-        :class="{
-          'label-centered': label.align === 'center',
-          'label-right': label.align === 'right'
-        }"
-      >
+      <span v-else-if="label.sortable" class="n-table-label-sortable">
         <span @click="$emit('changeSort', label.prop, 'toggle')">{{
           label.label
         }}</span>
@@ -31,9 +30,11 @@
           @sortAscending="$emit('changeSort', label.prop, 'ascending')"
           @sortDescending="$emit('changeSort', label.prop, 'descending')"
         ></n-table-arrows>
-      </div>
+      </span>
 
-      <span v-else>{{ label.label }}</span>
+      <span v-else>
+        {{ label.label }}
+      </span>
     </div>
   </div>
 </template>
@@ -70,6 +71,10 @@ export default {
     sortedBy: {
       type: String,
       default: ""
+    },
+    labelAlign: {
+      type: String,
+      default: "left"
     },
     slots: {
       type: [Array, Object],
@@ -117,6 +122,7 @@ export default {
     font-size: 0.85rem;
     text-transform: uppercase;
     font-weight: 500;
+    padding: 10px 0 8px 0;
     color: #595959;
     user-select: none;
     text-align: center;
@@ -130,13 +136,14 @@ export default {
     align-items: center;
     flex: 1 0 auto;
   }
-  .label-centered {
-    align-items: center;
-    justify-content: center;
+  .text-center {
+    text-align: center;
   }
-  .label-right {
-    align-items: flex-end;
-    justify-content: flex-end;
+  .text-right {
+    text-align: right;
+  }
+  .text-left {
+    text-align: left;
   }
 }
 </style>

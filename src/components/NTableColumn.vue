@@ -50,15 +50,16 @@ export default {
     minWidth: {
       type: Number,
       default: null
+    },
+    sortMethod: {
+      type: Function,
+      default: null
     }
   },
   computed: {
     classes() {
       const classes = [];
       return classes;
-    },
-    isNested() {
-      return this.$parent.$options.name === "NTableColumn";
     }
   },
   created() {
