@@ -18,6 +18,7 @@ import NCard from "./NCard.vue";
 import NForm from "./NForm.vue";
 import NFormItem from "./NFormItem.vue";
 import NTable from "./NTable.vue";
+import NPagination from "./NPagination.vue";
 import NCalendar from "./NCalendar.vue";
 import NTableColumn from "./NTableColumn.vue";
 import NMenu from "./NMenu.vue";
@@ -45,6 +46,7 @@ const Components = {
   NDatepicker,
   NTable,
   NTableColumn,
+  NPagination,
   NCard,
   NCalendar,
   NMenu,
