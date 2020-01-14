@@ -1,34 +1,42 @@
 <template>
   <div class="n-pagination">
-    <n-button-icon
-      :disabled="active === 1"
-      class="n-pagination_prev"
-      @click="previous"
-      >Previos</n-button-icon
-    >
-    <div class="n-pagination_pages" :class="classes">
-      <div
-        v-for="page in pages"
-        :key="page"
-        :class="{ active: active == page }"
-        class="n-pagination_pages-page"
-        @click="setPage(page)"
-      >
-        {{ page }}
+    <div class="n-pagination_container">
+      <n-button-icon
+        :disabled="active === 1"
+        class="n-pagination_prev"
+        @click="previous"
+        ><ChevronLeft
+      /></n-button-icon>
+      <div class="n-pagination_pages" :class="classes">
+        <div
+          v-for="page in pages"
+          :key="page"
+          :class="{ active: active == page }"
+          class="n-pagination_pages-page"
+          @click="setPage(page)"
+        >
+          <span>{{ page }}</span>
+        </div>
       </div>
+      <n-button-icon
+        :disabled="active === this.pages"
+        class="n-pagination_next"
+        @click="next"
+        ><ChevronRight
+      /></n-button-icon>
     </div>
-    <n-button-icon
-      :disabled="active === this.pages"
-      class="n-pagination_next"
-      @click="next"
-      >Next</n-button-icon
-    >
   </div>
 </template>
 
 <script>
+import ChevronRight from "vue-material-design-icons/ChevronRight.vue";
+import ChevronLeft from "vue-material-design-icons/ChevronLeft.vue";
 export default {
   name: "NPagination",
+  components: {
+    ChevronRight,
+    ChevronLeft
+  },
   props: {
     pages: {
       default: 1,
@@ -48,7 +56,6 @@ export default {
 
   methods: {
     previous() {
-      console.log("set");
       let page = 1;
       if (this.active == 1) {
         this.setPage(1);
@@ -58,7 +65,6 @@ export default {
       this.setPage(page);
     },
     next() {
-      console.log("set");
       let page = 1;
       if (this.active === this.pages.length + 1) {
         this.setPage(1);
@@ -71,6 +77,9 @@ export default {
       this.isCollapsedLocal = !this.isCollapsedLocal;
     },
     setPage(page) {
+      if (this.active === page) {
+        return;
+      }
       this.$emit("change", page);
       this.active = page;
     }
@@ -84,32 +93,45 @@ export default {
 .n-pagination {
   height: 100%;
 
-  display: flex;
-  justify-content: space-around;
   padding: 5px 10px;
+  &_container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
   &_pages {
+    margin: 20px;
     background: #fff;
     padding: 5px 10px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    border-radius: 0.35rem;
+    font-size: 1.1rem;
+    border-radius: 0.5rem;
     display: flex;
     justify-content: space-around;
     &-page.active {
       background: $green-2;
       color: #fff;
+      cursor: default;
     }
     &-page {
       user-select: none;
       cursor: pointer;
-      text-align: center;
-      width: 20px;
-      height: 20px;
+
+      width: 30px;
+      display: flex;
+      margin-right: 8px;
+      align-items: center;
+      justify-content: center;
+      height: 30px;
       border-radius: 50%;
       transition: all 400ms;
       &:hover {
         background: $green-2;
         color: #fff;
       }
+    }
+    &-page:last-child {
+      margin-right: 0;
     }
   }
 }
