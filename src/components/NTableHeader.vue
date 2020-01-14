@@ -96,14 +96,6 @@ export default {
   },
   mounted() {
     this.loaded = true;
-  },
-  methods: {
-    toCamelCase(str) {
-      str
-        .replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase())
-        .replace(/^\w/, c => c.toLowerCase());
-      return str;
-    }
   }
 };
 </script>

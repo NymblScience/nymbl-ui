@@ -2,7 +2,7 @@
   <div class="n-pagination">
     <div class="n-pagination_container">
       <n-button-icon
-        :disabled="active === 1"
+        :disabled="active === 1 || pages === 1"
         class="n-pagination_prev"
         @click="previous"
         ><ChevronLeft
@@ -19,7 +19,7 @@
         </div>
       </div>
       <n-button-icon
-        :disabled="active === this.pages"
+        :disabled="active === pages || pages === 1"
         class="n-pagination_next"
         @click="next"
         ><ChevronRight
@@ -45,7 +45,7 @@ export default {
   },
   data() {
     return {
-      active: 2
+      active: 1
     };
   },
   computed: {
@@ -72,9 +72,6 @@ export default {
       }
       page = this.active + 1;
       this.setPage(page);
-    },
-    collapse() {
-      this.isCollapsedLocal = !this.isCollapsedLocal;
     },
     setPage(page) {
       if (this.active === page) {

@@ -50,10 +50,6 @@ export default {
     minWidth: {
       type: Number,
       default: null
-    },
-    sortMethod: {
-      type: Function,
-      default: null
     }
   },
   computed: {
