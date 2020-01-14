@@ -11,7 +11,7 @@
         <div
           v-for="page in pages"
           :key="page"
-          :class="{ active: active == page }"
+          :class="{ active: active == page, disabled: pages === 1 }"
           class="n-pagination_pages-page"
           @click="setPage(page)"
         >
@@ -109,6 +109,16 @@ export default {
       background: $green-2;
       color: #fff;
       cursor: default;
+    }
+    &-page.disabled {
+      background: #fff;
+      color: $gray-1;
+      cursor: default;
+      &:hover {
+        cursor: default;
+        background: #fff;
+        color: $gray-1;
+      }
     }
     &-page {
       user-select: none;
