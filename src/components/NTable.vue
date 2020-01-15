@@ -232,6 +232,11 @@ export default {
       return this.data.length < 1;
     }
   },
+  watch: {
+    orderedRows() {
+      this.createStickyHeader(500);
+    }
+  },
 
   created() {
     if (this.sortBy.order) {
@@ -262,10 +267,11 @@ export default {
     //   this.expandedRows.push(row);
     // },
     createStickyHeader(timeout = 100) {
+      const that = this;
       // Fixed header for the table component
       setTimeout(function() {
         stickybits(".n-table-header", {
-          stickyBitStickyOffset: this.stickyHeaderOffset,
+          stickyBitStickyOffset: that.stickyHeaderOffset,
           useStickyClasses: true
         });
       }, timeout);

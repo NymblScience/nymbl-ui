@@ -32,7 +32,7 @@
         ></n-table-arrows>
       </span>
 
-      <span v-else>
+      <span v-else class="n-table-label-container">
         {{ label.label }}
       </span>
     </div>
@@ -114,12 +114,19 @@ export default {
     font-size: 0.85rem;
     text-transform: uppercase;
     font-weight: 500;
-    padding: 10px 0 8px 0;
+    padding: 18px 0 8px 0;
     color: #595959;
     user-select: none;
     text-align: center;
+    flex-flow: row nowrap;
+    display: flex;
+    align-items: center;
+
     .n-table-label-sortable {
       cursor: pointer;
+    }
+    &.text-center {
+      justify-content: center;
     }
   }
   .n-table-label-sortable {
@@ -128,6 +135,7 @@ export default {
     align-items: center;
     flex: 1 0 auto;
   }
+
   .text-center {
     text-align: center;
   }
