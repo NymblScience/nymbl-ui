@@ -18,7 +18,9 @@
           autocomplete="off"
           :placeholder="placeholder"
           :readonly="!textInput"
+          :clearable="clearable"
           @focus="onFocus"
+          @clear="clear"
           @keydown.tab="onBlur"
           @keydown.enter.prevent="openPicker"
           @keydown.space.prevent="openPicker"
@@ -128,6 +130,10 @@ export default {
     help: String,
     error: String,
     disabled: {
+      type: Boolean,
+      default: false
+    },
+    clearable: {
       type: Boolean,
       default: false
     },
@@ -351,6 +357,7 @@ export default {
     clear() {
       this.$emit("input", null);
       this.inputDate = null;
+      this.$emit("change", null);
     },
 
     reset() {

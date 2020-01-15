@@ -325,6 +325,7 @@ export default {
     },
 
     clear() {
+      this.$emit("clear");
       this.updateValue("");
     },
 
