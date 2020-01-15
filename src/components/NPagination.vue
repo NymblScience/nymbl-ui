@@ -38,6 +38,9 @@ export default {
     ChevronLeft
   },
   props: {
+    /**
+     * Page count
+     */
     pages: {
       default: 1,
       type: Number
@@ -77,6 +80,9 @@ export default {
       if (this.active === page) {
         return;
       }
+      /**
+       * Hmdle
+       */
       this.$emit("change", page);
       this.active = page;
     }

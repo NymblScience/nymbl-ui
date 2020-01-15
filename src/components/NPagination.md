@@ -9,10 +9,10 @@ export default {
     return {
       data: [],
     };
-  },
+  },  
   methods: {
-    handleChange(s) {
-        console.log('s :', s);
+    handleChange(page) {
+        console.log('page:', page);
     }
   },
 };
