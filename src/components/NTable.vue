@@ -63,6 +63,7 @@
 import NTableHeader from "./NTableHeader.vue";
 import NTableRows from "./NTableRows.vue";
 import NTableRow from "./NTableRow.vue";
+import stickybits from "stickybits";
 // import NTableColumn from "./NTableColumn.vue";
 
 // import orderBy from "../helpers/orderBy";
@@ -94,6 +95,14 @@ export default {
     isExpandable: {
       default: false,
       type: Boolean
+    },
+    stickyHeader: {
+      default: false,
+      type: Boolean
+    },
+    stickyHeaderOffset: {
+      default: 0,
+      type: Number
     },
 
     filter: {
@@ -213,9 +222,9 @@ export default {
         );
       }
 
-      if (this.sortOrder === "descending") {
-        return orderedData.reverse();
-      }
+      // if (this.sortOrder === "descending" && !this.sortDisabled) {
+      //   return orderedData.reverse();
+      // }
 
       return orderedData;
     },
@@ -231,6 +240,10 @@ export default {
 
     if (this.sortBy.prop) {
       this.sortedBy = this.sortBy.prop;
+    }
+
+    if (this.stickyHeader) {
+      this.createStickyHeader();
     }
   },
   mounted() {
@@ -248,6 +261,15 @@ export default {
 
     //   this.expandedRows.push(row);
     // },
+    createStickyHeader(timeout = 100) {
+      // Fixed header for the table component
+      setTimeout(function() {
+        stickybits(".n-table-header", {
+          stickyBitStickyOffset: this.stickyHeaderOffset,
+          useStickyClasses: true
+        });
+      }, timeout);
+    },
     changeSort(property, sortOrder = "ascending") {
       if (sortOrder === "toggle") {
         if (this.sortOrder === "ascending") {
@@ -260,6 +282,10 @@ export default {
       this.sortedBy = property;
 
       this.sortOrder = sortOrder;
+      this.$emit("sort", {
+        sortedBy: this.sortedBy,
+        sortOrder: this.sortOrder
+      });
     },
     getRowClass(row, index) {
       if (this.rowClass) {

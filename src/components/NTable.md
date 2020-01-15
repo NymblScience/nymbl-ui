@@ -3,16 +3,25 @@
   <div>
     <div class="styleguide-section">
       <h3>Default</h3>
-      <n-table :row-class="getRowClass" :sortMethod="(a,b) => a > b" :sortBy="{order: 'ascending', prop: 'name'}" :data="data" >
-          <template v-slot:name>
-            <div>Custom Header Slot</div>
-            <n-textbox v-model="textbox" />
-          </template>
-  
-        <template v-slot:default="table">
+      <n-table
+        :row-class="getRowClass"
+        :sortMethod="(a,b) => a > b"
+        :sortBy="{order: 'ascending', prop: 'name'}"
+        :data="data"
+      >
+        <template v-slot:name>
+          <div>Custom Header Slot</div>
+          <n-textbox v-model="textbox" />
+        </template>
 
-          <n-table-column customHeader="name" align="center" sortable prop="name" label="Name">
-            {{ table.row.name }}</n-table-column>
+        <template v-slot:default="table">
+          <n-table-column
+            customHeader="name"
+            align="center"
+            sortable
+            prop="name"
+            label="Name"
+          >{{ table.row.name }}</n-table-column>
           <n-table-column align="left" sortable prop="id" label="Id">{{ table.row.id }}</n-table-column>
           <n-table-column sortable prop="date" label="Date">{{ table.row.date }}</n-table-column>
           <n-table-column align="left" sortable label="Phone" prop="phone">{{ table.row.phone }}</n-table-column>
@@ -25,26 +34,35 @@
       <n-textbox
         v-model="filter.value"
         clearable
-        label="Search"  
+        label="Search"
         style="max-width:300px; margin: 40px 0;"
       />
       <n-table :filter="filter" :sortBy="{order: 'ascending', prop: 'name'}" :data="data2">
-        <template #header> <n-table-column style="flex-grow: 1; flex-basis:0; text-align: center">asd</n-table-column><n-table-column style="flex-grow: 1; flex-basis:0; text-align: center">asd</n-table-column></template>
+        <template #header>
+          <n-table-column style="flex-grow: 1; flex-basis:0; text-align: center">asd</n-table-column>
+          <n-table-column style="flex-grow: 1; flex-basis:0; text-align: center">asd</n-table-column>
+        </template>
         <template v-slot:default="table">
-            <n-table-column align="center" :sort-method="function(a, b){return b - a}" sortable prop="name" label="Name">{{ table.row.name }}</n-table-column>
-            <n-table-column align="left" sortable prop="id" label="Id">{{ table.row.id }}</n-table-column>
+          <n-table-column
+            align="center"
+            :sort-method="function(a, b){return b - a}"
+            sortable
+            prop="name"
+            label="Name"
+          >{{ table.row.name }}</n-table-column>
+          <n-table-column align="left" sortable prop="id" label="Id">{{ table.row.id }}</n-table-column>
         </template>
       </n-table>
     </div>
     <div class="styleguide-section">
       <h3>Empty Table</h3>
-      <n-table :sortBy="{order: 'ascending', prop: 'name'}" :data="dataEmpty">
+      <n-table sticky-header  :sortBy="{order: 'ascending', prop: 'name'}" :data="dataEmpty">
         <template v-slot:default="table">
           <n-table-column align="center" sortable prop="name" label="Name">{{ table.row.name }}</n-table-column>
           <n-table-column align="left" sortable prop="id" label="Id">{{ table.row.id }}</n-table-column>
         </template>
       </n-table>
-      <n-button buttonType="text" @click="addData">Add data</n-button>
+      <n-button  buttonType="text" @click="addData">Add data</n-button>
     </div>
   </div>
 </template>
@@ -114,7 +132,14 @@ export default {
           phone: "22"
         }
       ],
-      dataEmpty: [],
+      dataEmpty: new Array(40).fill(
+        {
+          name: "Ford",
+          id: "1"
+        },
+        { name: "Trillian", id: "2" }
+      )
+    ,
       filter: {
         value: "",
         props: ["name", "id"]
@@ -124,7 +149,7 @@ export default {
   },
   methods: {
     sortMethod(a, b) {
-        return a - b
+      return a - b;
     },
     getRowClass(row, index) {
       if (index === 3) {
@@ -132,13 +157,13 @@ export default {
       }
     },
     addData() {
-      this.dataEmpty = [
+      this.dataEmpty = new Array(10).fill(
         {
           name: "Ford",
           id: "1"
         },
         { name: "Trillian", id: "2" }
-      ];
+      );
     }
   }
 };

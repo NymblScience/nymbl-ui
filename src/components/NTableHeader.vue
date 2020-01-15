@@ -106,7 +106,7 @@ export default {
   margin: 0;
   list-style: none;
   border-bottom: 1px solid #ebeef5;
-
+  background: #fff;
   display: flex;
   .n-table-label {
     flex-grow: 1;
