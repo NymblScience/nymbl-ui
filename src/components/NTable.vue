@@ -20,7 +20,12 @@
     />
 
     <n-table-rows ref="rows">
-      <div v-if="isEmpty" class="n-table-empty">{{ emptyText }}</div>
+      <div v-if="isEmpty" class="n-table-empty">
+        <span v-if="!loading">{{ emptyText }}</span>
+        <span v-else>
+          Loading...
+        </span>
+      </div>
 
       <n-table-row v-if="isEmpty" v-show="false" :is-empty="isEmpty">
         <slot :row="{}"></slot>
@@ -66,7 +71,7 @@ import NTableRow from "./NTableRow.vue";
 import stickybits from "stickybits";
 // import NTableColumn from "./NTableColumn.vue";
 
-// import orderBy from "../helpers/orderBy";
+import orderBy from "../helpers/orderBy";
 // import ChevronRight from "vue-material-design-icons/ChevronRight.vue";
 // import { TransitionExpand } from "vue-transition-expand";
 // import "vue-transition-expand/dist/vue-transition-expand.css";
@@ -77,6 +82,7 @@ export default {
     NTableHeader,
     NTableRow,
     NTableRows
+
     // NTableColumn
     // TransitionExpand,
     // ChevronRight
@@ -91,7 +97,10 @@ export default {
       },
       type: Array
     },
-
+    loading: {
+      default: false,
+      type: Boolean
+    },
     isExpandable: {
       default: false,
       type: Boolean
@@ -143,11 +152,11 @@ export default {
       type: Function
     },
     /**
-     * Sorting method, works when sortable is true. Should return a number, just like Array.sort
+     * Disable sorting. Used whenever back-end does the sorting.
      */
-    sortMethod: {
-      default: null,
-      type: Function
+    sortDisabled: {
+      default: false,
+      type: Boolean
     }
   },
   data() {
@@ -155,6 +164,7 @@ export default {
       loaded: false,
       sortedBy: "",
       sortOrder: "ascending",
+      sortMethod: null,
       expandedRows: []
     };
   },
@@ -205,9 +215,9 @@ export default {
 
       let orderedData = data;
 
-      // if (this.sortedBy) {
-      //   orderedData = orderBy(this.sortedBy, data);
-      // }
+      if (this.sortedBy && !this.sortDisabled) {
+        orderedData = orderBy(this.sortedBy, data, this.sortMethod);
+      }
 
       if (this.filter.value) {
         let props =
@@ -222,9 +232,9 @@ export default {
         );
       }
 
-      // if (this.sortOrder === "descending" && !this.sortDisabled) {
-      //   return orderedData.reverse();
-      // }
+      if (this.sortOrder === "descending" && !this.sortDisabled) {
+        return orderedData.reverse();
+      }
 
       return orderedData;
     },
@@ -234,7 +244,7 @@ export default {
   },
   watch: {
     orderedRows() {
-      this.createStickyHeader(500);
+      this.createStickyHeader(1500);
     }
   },
 
@@ -246,13 +256,12 @@ export default {
     if (this.sortBy.prop) {
       this.sortedBy = this.sortBy.prop;
     }
-
-    if (this.stickyHeader) {
-      this.createStickyHeader();
-    }
   },
   mounted() {
     this.loaded = true;
+    if (this.stickyHeader) {
+      this.createStickyHeader(1500);
+    }
   },
   methods: {
     // and(row) {
@@ -276,7 +285,7 @@ export default {
         });
       }, timeout);
     },
-    changeSort(property, sortOrder = "ascending") {
+    changeSort(property, sortOrder = "ascending", sortMethod) {
       if (sortOrder === "toggle") {
         if (this.sortOrder === "ascending") {
           sortOrder = "descending";
@@ -288,6 +297,11 @@ export default {
       this.sortedBy = property;
 
       this.sortOrder = sortOrder;
+      if (sortMethod) {
+        this.sortMethod = sortMethod;
+      } else {
+        this.sortMethod = false;
+      }
       this.$emit("sort", {
         sortedBy: this.sortedBy,
         sortOrder: this.sortOrder

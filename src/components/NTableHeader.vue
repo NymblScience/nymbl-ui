@@ -21,9 +21,10 @@
       </span>
 
       <span v-else-if="label.sortable" class="n-table-label-sortable">
-        <span @click="$emit('changeSort', label.prop, 'toggle')">{{
-          label.label
-        }}</span>
+        <span
+          @click="$emit('changeSort', label.prop, 'toggle', label.sortMethod)"
+          >{{ label.label }}</span
+        >
         <n-table-arrows
           :active-arrow="sortOrder"
           :is-active="sortedBy === label.prop"

@@ -22,6 +22,10 @@ export default {
       type: Boolean,
       default: false
     },
+    sortMethod: {
+      type: [Function, Boolean],
+      default: false
+    },
     prop: {
       type: String,
       default: ""

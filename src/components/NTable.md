@@ -5,7 +5,7 @@
       <h3>Default</h3>
       <n-table
         :row-class="getRowClass"
-        :sortMethod="(a,b) => a > b"
+    
         :sortBy="{order: 'ascending', prop: 'name'}"
         :data="data"
       >
@@ -39,13 +39,13 @@
       />
       <n-table :filter="filter" :sortBy="{order: 'ascending', prop: 'name'}" :data="data2">
         <template #header>
-          <n-table-column style="flex-grow: 1; flex-basis:0; text-align: center">asd</n-table-column>
-          <n-table-column style="flex-grow: 1; flex-basis:0; text-align: center">asd</n-table-column>
+          <n-table-column style="flex-grow: 1; flex-basis:0; text-align: center">Test Header</n-table-column>
+          <n-table-column style="flex-grow: 1; flex-basis:0; text-align: center">Test Header 2</n-table-column>
         </template>
         <template v-slot:default="table">
           <n-table-column
             align="center"
-            :sort-method="function(a, b){return b - a}"
+           :sort-method="sortMethod"
             sortable
             prop="name"
             label="Name"
@@ -149,8 +149,25 @@ export default {
   },
   methods: {
     sortMethod(a, b) {
-      return a - b;
+     if (a.name === null) {
+        return 1;
+      }
+      if (b.name === null) {
+        return -1;
+      }
+
+      const aName = a.name.toUpperCase();
+      const bName = b.name.toUpperCase();
+
+      if (aName < bName) {
+        return -1;
+      }
+      if (aName > bName) {
+        return 1;
+      }
+      return 0;
     },
+
     getRowClass(row, index) {
       if (index === 3) {
         return "is-red";
