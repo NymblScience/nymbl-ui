@@ -188,6 +188,7 @@ export default {
       }
 
       if (this.children[0]) {
+        console.log(this.children[0]);
         this.children[0].$children.forEach(column => {
           if (column._props.isExpandable) {
             return;
