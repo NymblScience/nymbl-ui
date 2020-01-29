@@ -1,15 +1,12 @@
 ```vue
 <template>
-  <n-pagination :pageSize="3" :data="data" :pages="10" @change="handleChange" />
+  <n-pagination pageSize="100"  :pages="10" page-size-switch @change="handleChange" />
+
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      data: [],
-    };
-  },  
+
   methods: {
     handleChange(page) {
         console.log('page:', page);
