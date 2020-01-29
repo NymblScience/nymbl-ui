@@ -1,41 +1,48 @@
 <template>
   <div v-if="loaded" class="n-table-header">
     <!-- <div v-if="isExpandable" class="n-table-column-expand n-table-label" /> -->
+    <div style="display: flex">
+      <slot v-show="columnWidths.length > 0" :columnWidths="columnWidths" />
+    </div>
 
-    <div
-      v-for="(label, index) in labels"
-      :key="'label-' + index"
-      class="n-table-label"
-      :style="{
-        'max-width': label.maxWidth + 'px',
-        'min-width': label.minWidth + 'px'
-      }"
-      :class="{
-        'text-center': label.labelAlign.toLowerCase() === 'center',
-        'text-right': label.labelAlign.toLowerCase() === 'right',
-        'text-left': label.labelAlign.toLowerCase() === 'left'
-      }"
-    >
-      <span v-if="label.customHeader.length > 0">
-        <customHeader :custom-header="slots[label.customHeader]"></customHeader>
-      </span>
+    <div style="display: flex">
+      <div
+        v-for="(label, index) in labels"
+        :key="label.label + index"
+        :ref="'label' + index"
+        class="n-table-label"
+        :class="{
+          'text-center': label.align === 'center',
+          'border-right': label.borderRight
+        }"
+        :style="{
+          'max-width': label.maxWidth + 'px',
+          'min-width': label.minWidth + 'px'
+        }"
+      >
+        <span v-if="label.customHeader.length > 0">
+          <customHeader
+            :custom-header="slots[label.customHeader]"
+          ></customHeader>
+        </span>
 
-      <span v-else-if="label.sortable" class="n-table-label-sortable">
-        <span
-          @click="$emit('changeSort', label.prop, 'toggle', label.sortMethod)"
-          >{{ label.label }}</span
-        >
-        <n-table-arrows
-          :active-arrow="sortOrder"
-          :is-active="sortedBy === label.prop"
-          @sortAscending="$emit('changeSort', label.prop, 'ascending')"
-          @sortDescending="$emit('changeSort', label.prop, 'descending')"
-        ></n-table-arrows>
-      </span>
+        <span v-else-if="label.sortable" class="n-table-label-sortable">
+          <span
+            @click="$emit('changeSort', label.prop, 'toggle', label.sortMethod)"
+            >{{ label.label }}</span
+          >
+          <n-table-arrows
+            :active-arrow="sortOrder"
+            :is-active="sortedBy === label.prop"
+            @sortAscending="$emit('changeSort', label.prop, 'ascending')"
+            @sortDescending="$emit('changeSort', label.prop, 'descending')"
+          ></n-table-arrows>
+        </span>
 
-      <span v-else class="n-table-label-container">
-        {{ label.label }}
-      </span>
+        <span v-else style="" class="n-table-label-container">
+          {{ label.label }}
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -93,8 +100,22 @@ export default {
     classes() {
       const classes = [];
       return classes;
+    },
+    columnWidths() {
+      if (!this.loaded) {
+        return [];
+      }
+
+      const widths = [];
+      this.$nextTick(function() {
+        Object.keys(this.$refs).forEach(key =>
+          widths.push(this.$refs[key][0].offsetWidth)
+        );
+      });
+      return widths;
     }
   },
+
   mounted() {
     this.loaded = true;
   }
@@ -108,7 +129,7 @@ export default {
   list-style: none;
   border-bottom: 1px solid #ebeef5;
   background: #fff;
-  display: flex;
+  z-index: 2020;
   .n-table-label {
     flex-grow: 1;
     flex-basis: 0;
@@ -128,6 +149,9 @@ export default {
     }
     &.text-center {
       justify-content: center;
+    }
+    &.border-right {
+      border-right: 1px solid gray;
     }
   }
   .n-table-label-sortable {

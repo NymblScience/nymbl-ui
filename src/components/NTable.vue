@@ -4,11 +4,9 @@
     class="n-table"
     :class="classes"
     v-bind="$attrs"
+    :style="isEmpty ? null : { 'padding-bottom': rowPadding + 'px' }"
     v-on="$listeners"
   >
-    <div style="display:flex">
-      <slot name="header"> </slot>
-    </div>
     <n-table-header
       v-if="loaded && labels.length > 0"
       :labels="labels"
@@ -17,11 +15,18 @@
       :is-expandable="isExpandable"
       :slots="$slots"
       @changeSort="changeSort"
-    />
+    >
+      <template v-slot:default="columnWidths">
+        <slot :columnWidths="columnWidths.columnWidths" name="header"> </slot>
+      </template>
+    </n-table-header>
 
     <n-table-rows ref="rows">
       <div v-if="isEmpty" class="n-table-empty">
-        <span v-if="!loading">{{ emptyText }}</span>
+        <span v-if="!loading && !isFiltered && filter.value.length === 0">{{
+          emptyText
+        }}</span>
+        <span v-else-if="!loading">{{ notFoundText }}</span>
         <span v-else>
           Loading...
         </span>
@@ -32,35 +37,27 @@
       </n-table-row>
 
       <n-table-row
-        v-for="(row, index) in orderedRows"
-        v-else
+        v-for="(row, index) in rows"
         :key="'row-' + index"
         class="n-table-row"
         :class="getRowClass(row, index)"
         @click.native="$emit('row-click', row, index, $event)"
+        @mounted="rowLoadedTrue(index + 1)"
       >
-        <!-- <n-table-column
-          v-if="isExpandable"
-          class="n-table-expand-toggle n-table-column-expand"
-          :is-expandable="isExpandable"
-          @click.native="toggleExpand(index)"
-        >
-          <ChevronRight
-            :class="{ 'is-expanded': expandedRows.includes(index) }"
-            class="n-table-expand-toggle-icon"
-          />
-        </n-table-column> -->
-
         <slot :row="row" />
-        <!-- <transition-expand> -->
-        <div
-          v-if="isExpandable && expandedRows.includes(index)"
-          class="n-table-row-expanded box"
-        >
-          <slot name="expanded" :row="row"> </slot>
-        </div>
-        <!-- </transition-expand> -->
       </n-table-row>
+
+      <!-- <RecycleScroller
+        v-slot="{ item, index }"
+        class="scroller"
+        :items="rows"
+        :item-size="64"
+        key-field="id"
+      >
+        <n-table-row @mounted="rowLoadedTrue(index + 1)">
+          <slot :row="item" />
+        </n-table-row>
+      </RecycleScroller> -->
     </n-table-rows>
   </div>
 </template>
@@ -70,6 +67,10 @@ import NTableRows from "./NTableRows.vue";
 import NTableRow from "./NTableRow.vue";
 import stickybits from "stickybits";
 // import NTableColumn from "./NTableColumn.vue";
+// import { Fragment } from "vue-fragment";
+
+// import { RecycleScroller } from "vue-virtual-scroller";
+import "vue-virtual-scroller/dist/vue-virtual-scroller.css";
 
 import orderBy from "../helpers/orderBy";
 // import ChevronRight from "vue-material-design-icons/ChevronRight.vue";
@@ -82,10 +83,6 @@ export default {
     NTableHeader,
     NTableRow,
     NTableRows
-
-    // NTableColumn
-    // TransitionExpand,
-    // ChevronRight
   },
   props: {
     /**
@@ -112,6 +109,10 @@ export default {
     stickyHeaderOffset: {
       default: 0,
       type: Number
+    },
+    isFiltered: {
+      default: false,
+      type: Boolean
     },
 
     filter: {
@@ -141,7 +142,14 @@ export default {
      * Specify empty text
      */
     emptyText: {
-      default: "Empty",
+      default: "No Entries",
+      type: String
+    },
+    /**
+     * Specify empty text
+     */
+    notFoundText: {
+      default: "No Entries Found",
       type: String
     },
     /**
@@ -157,6 +165,13 @@ export default {
     sortDisabled: {
       default: false,
       type: Boolean
+    },
+    /**
+     * Disable sorting. Used whenever back-end does the sorting.
+     */
+    rowsz: {
+      default: false,
+      type: Boolean
     }
   },
   data() {
@@ -165,7 +180,8 @@ export default {
       sortedBy: "",
       sortOrder: "ascending",
       sortMethod: null,
-      expandedRows: []
+      expandedRows: [],
+      rowLoaded: 30
     };
   },
   computed: {
@@ -173,7 +189,12 @@ export default {
       const classes = [];
       return classes;
     },
-
+    rowPadding() {
+      if (this.data && this.rows) {
+        return (this.data.length - this.rows.length) * 90;
+      }
+      return 0;
+    },
     children() {
       // #TODO Add protection that just column elements are valid children.
       if (this.loaded && !this.isEmpty && this.$refs.rows) {
@@ -187,30 +208,39 @@ export default {
         return labels;
       }
 
-      if (this.children[0]) {
-        this.children[0].$children.forEach(column => {
-          if (column._props.isExpandable) {
+      const createLabel = column => {
+        return {
+          label: column._props.label,
+          sortable: column._props.sortable,
+          prop: column._props.prop,
+          align: column._props.align,
+          labelAlign: column._props.align,
+          maxWidth: column._props.maxWidth,
+          minWidth: column._props.minWidth,
+          customHeader: column._props.customHeader,
+          sortMethod: column._props.sortMethod,
+          borderRight: column._props.borderRight
+        };
+      };
+
+      const getLabel = column => {
+        column.$children.forEach(column => {
+          if (column.$options._componentTag !== "n-table-column") {
+            getLabel(column);
             return;
           }
 
-          let label = {
-            label: column._props.label,
-            sortable: column._props.sortable,
-            prop: column._props.prop,
-            align: column._props.align,
-            labelAlign: column._props.align,
-            maxWidth: column._props.maxWidth,
-            minWidth: column._props.minWidth,
-            customHeader: column._props.customHeader,
-            sortMethod: column._props.sortMethod
-          };
-          labels.push(label);
+          labels.push(createLabel(column));
         });
+      };
+
+      if (this.children[0]) {
+        getLabel(this.children[0]);
       }
 
       return labels;
     },
-    orderedRows() {
+    rows() {
       let data = this.data;
 
       let orderedData = data;
@@ -220,35 +250,28 @@ export default {
       }
 
       if (this.filter.value) {
-        let props =
-          this.filter.props.length < 1
-            ? Object.keys(orderedData[0])
-            : this.filter.props;
-
-        orderedData = orderedData.filter(data =>
-          props.some(prop =>
-            data[prop].toLowerCase().includes(this.filter.value.toLowerCase())
-          )
-        );
+        orderedData = this.filterRows(orderedData);
       }
 
       if (this.sortOrder === "descending" && !this.sortDisabled) {
         return orderedData.reverse();
       }
 
-      return orderedData;
+      return orderedData.slice(0, this.rowLoaded);
     },
     isEmpty() {
-      return this.data.length < 1;
+      return this.rows.length < 1;
     }
   },
+
   watch: {
-    orderedRows() {
-      this.createStickyHeader(1500);
+    rows() {
+      this.updateStickyHeader(1000);
     }
   },
 
   created() {
+    // const that = this;
     if (this.sortBy.order) {
       this.sortOrder = this.sortBy.order;
     }
@@ -256,6 +279,9 @@ export default {
     if (this.sortBy.prop) {
       this.sortedBy = this.sortBy.prop;
     }
+    // setTimeout(function() {
+    //   that.rowLoaded = true;
+    // }, 10000);
   },
   mounted() {
     this.loaded = true;
@@ -263,26 +289,46 @@ export default {
       this.createStickyHeader(1500);
     }
   },
+
   methods: {
-    // and(row) {
-    //   let expandedRows = this.expandedRows;
+    filterRows(data) {
+      const props =
+        this.filter.props.length < 1 ? Object.keys(data[0]) : this.filter.props;
 
-    //   if (expandedRows.includes(row)) {
-    //     let filteredRows = expandedRows.filter(item => item !== row);
-    //     this.expandedRows = filteredRows;
-    //     return;
-    //   }
+      return data.filter(data =>
+        props.some(prop =>
+          data[prop]
+            ? data[prop].toLowerCase().includes(this.filter.value.toLowerCase())
+            : false
+        )
+      );
+    },
+    rowLoadedTrue(index) {
+      const that = this;
 
-    //   this.expandedRows.push(row);
-    // },
+      if (index % 30 == 0) {
+        setTimeout(function() {
+          console.log("that.rowLoaded :", that.rowLoaded);
+          that.rowLoaded = index + 30;
+        }, 0);
+      }
+    },
+
     createStickyHeader(timeout = 100) {
       const that = this;
       // Fixed header for the table component
-      setTimeout(function() {
+      setTimeout(() => {
         stickybits(".n-table-header", {
           stickyBitStickyOffset: that.stickyHeaderOffset,
           useStickyClasses: true
         });
+      }, timeout);
+    },
+    updateStickyHeader(timeout = 0) {
+      setTimeout(function() {
+        const stickybitsInstancetoBeUpdated = stickybits(".n-table-header");
+
+        stickybitsInstancetoBeUpdated.update();
       }, timeout);
     },
     changeSort(property, sortOrder = "ascending", sortMethod) {
@@ -349,7 +395,6 @@ export default {
 }
 
 .n-table-row {
-  padding: 10px 0;
   border-bottom: 1px solid #ebeef5;
   display: flex;
   flex-wrap: wrap;
@@ -367,14 +412,7 @@ export default {
   .is-expanded {
     display: block;
   }
-  .n-table-column {
-    flex-grow: 1;
-    flex-basis: 0;
-    overflow: hidden;
-    padding: 0 3px;
-    font-size: 0.95rem;
-    text-overflow: ellipsis;
-  }
+
   &:hover {
     background: #e9fdfe;
   }

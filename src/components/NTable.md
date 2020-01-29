@@ -38,10 +38,10 @@
         style="max-width:300px; margin: 40px 0;"
       />
       <n-table :filter="filter" :sortBy="{order: 'ascending', prop: 'name'}" :data="data2">
-        <template #header>
+        <!-- <template #header>
           <n-table-column style="flex-grow: 1; flex-basis:0; text-align: center">Test Header</n-table-column>
           <n-table-column style="flex-grow: 1; flex-basis:0; text-align: center">Test Header 2</n-table-column>
-        </template>
+        </template> -->
         <template v-slot:default="table">
           <n-table-column
             align="center"
@@ -50,7 +50,7 @@
             prop="name"
             label="Name"
           >{{ table.row.name }}</n-table-column>
-          <n-table-column align="left" sortable prop="id" label="Id">{{ table.row.id }}</n-table-column>
+            <n-table-column align="left" sortable prop="id" label="Id">{{ table.row.id }}</n-table-column>
         </template>
       </n-table>
     </div>
@@ -132,12 +132,13 @@ export default {
           phone: "22"
         }
       ],
-      dataEmpty: new Array(40).fill(
+      dataEmpty: new Array(10).fill(
         {
           name: "Ford",
           id: "1"
         },
-        { name: "Trillian", id: "2" }
+        { name: "Trillian", id: "2" },
+              { name: "Arthur", id: "3" }
       )
     ,
       filter: {
@@ -174,7 +175,7 @@ export default {
       }
     },
     addData() {
-      this.dataEmpty = new Array(10).fill(
+      this.dataEmpty = new Array(4).fill(
         {
           name: "Ford",
           id: "1"

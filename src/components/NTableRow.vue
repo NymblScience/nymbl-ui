@@ -17,6 +17,12 @@ export default {
       const classes = [];
       return classes;
     }
+  },
+  mounted() {
+    const that = this;
+    this.$nextTick(function() {
+      that.$emit("mounted");
+    });
   }
 };
 </script>

@@ -1,11 +1,8 @@
 <template>
   <div
     class="n-table-column"
-    :style="{
-      'text-align': align,
-      'max-width': maxWidth + 'px',
-      'min-width': minWidth + 'px'
-    }"
+    :class="{ 'border-right': borderRight, 'n-table-column_parent': span }"
+    :style="computedStyle"
   >
     <slot></slot>
   </div>
@@ -42,6 +39,10 @@ export default {
       type: Boolean,
       default: false
     },
+    borderRight: {
+      type: Boolean,
+      default: false
+    },
 
     customHeader: {
       type: [Boolean, String],
@@ -54,12 +55,42 @@ export default {
     minWidth: {
       type: Number,
       default: null
+    },
+    span: {
+      type: [Object],
+      default: null
+    },
+    columnWidths: {
+      type: Array,
+      default: () => []
     }
   },
   computed: {
     classes() {
       const classes = [];
       return classes;
+    },
+    width() {
+      if (this.span && this.columnWidths.length > 0) {
+        const widths = this.columnWidths.slice(
+          this.span.from,
+          this.span.to ? this.span.to : ""
+        );
+        return widths.reduce((a, c) => a + c);
+      }
+      return null;
+    },
+    computedStyle() {
+      const styles = {
+        "text-align": this.align,
+        "max-width": this.maxWidth + "px",
+        "min-width": this.minWidth + "px"
+      };
+      if (this.width) {
+        styles.width = this.width + "px";
+        styles["text-align"] = "center";
+      }
+      return styles;
     }
   },
   created() {
@@ -71,4 +102,30 @@ export default {
 @import "@/assets/sass/animations.scss";
 @import "@/assets/sass/colors.scss";
 @import "@/assets/sass/config.scss";
+.n-table-column {
+  flex-grow: 1;
+  flex-basis: 0;
+  overflow: hidden;
+  padding: 10px 3px;
+  font-size: 0.95rem;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  &.border-right {
+    border-right: 1px solid gray;
+  }
+  &_parent {
+    display: inline-block;
+    padding: 0;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-right: 1px solid lightgray;
+    flex-grow: unset;
+    flex-basis: unset;
+    &:last-child {
+      border-right: 0;
+    }
+  }
+}
 </style>
