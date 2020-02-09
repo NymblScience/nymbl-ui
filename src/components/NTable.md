@@ -3,16 +3,11 @@
   <div>
     <div class="styleguide-section">
       <h3>Default</h3>
-      <n-table
-        :row-class="getRowClass"
-    
-        :sortBy="{order: 'ascending', prop: 'name'}"
-        :data="data"
-      >
-        <template v-slot:name>
+      <n-table :row-class="getRowClass" :sortBy="{order: 'ascending', prop: 'name'}" :data="data">
+        <!-- <template v-slot:name>
           <div>Custom Header Slot</div>
           <n-textbox v-model="textbox" />
-        </template>
+        </template>-->
 
         <template v-slot:default="table">
           <n-table-column
@@ -38,31 +33,17 @@
         style="max-width:300px; margin: 40px 0;"
       />
       <n-table :filter="filter" :sortBy="{order: 'ascending', prop: 'name'}" :data="data2">
-        <!-- <template #header>
-          <n-table-column style="flex-grow: 1; flex-basis:0; text-align: center">Test Header</n-table-column>
-          <n-table-column style="flex-grow: 1; flex-basis:0; text-align: center">Test Header 2</n-table-column>
-        </template> -->
         <template v-slot:default="table">
           <n-table-column
             align="center"
-           :sort-method="sortMethod"
+            :sort-method="sortMethod"
             sortable
             prop="name"
             label="Name"
           >{{ table.row.name }}</n-table-column>
-            <n-table-column align="left" sortable prop="id" label="Id">{{ table.row.id }}</n-table-column>
-        </template>
-      </n-table>
-    </div>
-    <div class="styleguide-section">
-      <h3>Empty Table</h3>
-      <n-table sticky-header  :sortBy="{order: 'ascending', prop: 'name'}" :data="dataEmpty">
-        <template v-slot:default="table">
-          <n-table-column align="center" sortable prop="name" label="Name">{{ table.row.name }}</n-table-column>
           <n-table-column align="left" sortable prop="id" label="Id">{{ table.row.id }}</n-table-column>
         </template>
       </n-table>
-      <n-button  buttonType="text" @click="addData">Add data</n-button>
     </div>
   </div>
 </template>
@@ -70,6 +51,7 @@
 <script>
 const NTableColumn = require("./NTableColumn.vue").default;
 const NTextbox = require("./NTextbox.vue").default;
+const faker = require("faker");
 
 export default {
   name: "NTableExample",
@@ -80,32 +62,7 @@ export default {
 
   data() {
     return {
-      data: [
-        {
-          id: "1",
-          date: "10/18/2018 13:21:11",
-          name: "The Shadow",
-          phone: "11"
-        },
-        {
-          id: "1",
-          date: "10/18/2018 13:21:11",
-          name: "Arthur",
-          phone: "11"
-        },
-        {
-          id: "2",
-          date: "10/18/2018 13:11:11",
-          name: "The Wasp",
-          phone: "00"
-        },
-        {
-          id: "3",
-          date: "12/18/2018 13:20:11",
-          name: "Supergirl",
-          phone: "22"
-        }
-      ],
+      data: this.getFakeData(),
       data2: [
         {
           id: "1",
@@ -132,15 +89,7 @@ export default {
           phone: "22"
         }
       ],
-      dataEmpty: new Array(10).fill(
-        {
-          name: "Ford",
-          id: "1"
-        },
-        { name: "Trillian", id: "2" },
-              { name: "Arthur", id: "3" }
-      )
-    ,
+
       filter: {
         value: "",
         props: ["name", "id"]
@@ -150,7 +99,7 @@ export default {
   },
   methods: {
     sortMethod(a, b) {
-     if (a.name === null) {
+      if (a.name === null) {
         return 1;
       }
       if (b.name === null) {
@@ -168,20 +117,20 @@ export default {
       }
       return 0;
     },
+    getFakeData() {
+      const data = new Array(10).fill("");
+      return data.map(a => ({
+        name: faker.name.findName(),
+        id: faker.random.uuid(),
+        date: faker.date.past(),
+        phone: faker.phone.phoneNumber()
+      }));
+    },
 
     getRowClass(row, index) {
       if (index === 3) {
         return "is-red";
       }
-    },
-    addData() {
-      this.dataEmpty = new Array(4).fill(
-        {
-          name: "Ford",
-          id: "1"
-        },
-        { name: "Trillian", id: "2" }
-      );
     }
   }
 };
