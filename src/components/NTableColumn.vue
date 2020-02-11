@@ -1,7 +1,11 @@
 <template>
   <div
     class="n-table-column"
-    :class="{ 'border-right': borderRight, 'n-table-column_parent': span }"
+    :class="{
+      'border-right': borderRight,
+      'n-table-column_parent': span,
+      'align-center': align === 'center'
+    }"
     :style="computedStyle"
   >
     <slot></slot>
@@ -39,11 +43,18 @@ export default {
       type: Boolean,
       default: false
     },
+    isNested: {
+      type: Boolean,
+      default: false
+    },
+    nestedWidth: {
+      type: [Boolean, Number],
+      default: 1
+    },
     borderRight: {
       type: Boolean,
       default: false
     },
-
     customHeader: {
       type: [Boolean, String],
       default: false
@@ -59,10 +70,6 @@ export default {
     span: {
       type: [Object],
       default: null
-    },
-    columnWidths: {
-      type: Array,
-      default: () => []
     }
   },
   computed: {
@@ -70,16 +77,7 @@ export default {
       const classes = [];
       return classes;
     },
-    width() {
-      if (this.span && this.columnWidths.length > 0) {
-        const widths = this.columnWidths.slice(
-          this.span.from,
-          this.span.to ? this.span.to : ""
-        );
-        return widths.reduce((a, c) => a + c);
-      }
-      return null;
-    },
+
     computedStyle() {
       const styles = {
         "text-align": this.align,
@@ -89,6 +87,9 @@ export default {
       if (this.width) {
         styles.width = this.width + "px";
         styles["text-align"] = "center";
+      }
+      if (this.nestedWidth) {
+        styles.flex = this.nestedWidth;
       }
       return styles;
     }
@@ -111,6 +112,9 @@ export default {
   text-overflow: ellipsis;
   display: flex;
   align-items: center;
+  &.align-center {
+    justify-content: center;
+  }
   &.border-right {
     border-right: 1px solid gray;
   }

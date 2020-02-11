@@ -3,23 +3,28 @@
   <div>
     <div class="styleguide-section">
       <h3>Default</h3>
-      <n-table :row-class="getRowClass" :sortBy="{order: 'ascending', prop: 'name'}" :data="data">
-        <!-- <template v-slot:name>
-          <div>Custom Header Slot</div>
-          <n-textbox v-model="textbox" />
-        </template>-->
-
+      <n-table
+        :row-class="getRowClass"
+        :sortBy="{ order: 'ascending', prop: 'name' }"
+        :data="data"
+      >
         <template v-slot:default="table">
-          <n-table-column
-            customHeader="name"
-            align="center"
-            sortable
-            prop="name"
-            label="Name"
-          >{{ table.row.name }}</n-table-column>
-          <n-table-column align="left" sortable prop="id" label="Id">{{ table.row.id }}</n-table-column>
-          <n-table-column sortable prop="date" label="Date">{{ table.row.date }}</n-table-column>
-          <n-table-column align="left" sortable label="Phone" prop="phone">{{ table.row.phone }}</n-table-column>
+          <n-table-column is-nested border-right label="Parent">
+            <n-table-column align="center" sortable prop="name" label="Name">{{
+              table.row.name
+            }}</n-table-column>
+            <n-table-column align="center" sortable prop="name" label="2">{{
+              table.row.name
+            }}</n-table-column>
+          </n-table-column>
+          <n-table-column is-nested border-right label="Parent 2">
+            <n-table-column align="center" sortable prop="name" label="Name">{{
+              table.row.name
+            }}</n-table-column>
+            <n-table-column align="center" sortable prop="name" label="2">{{
+              table.row.name
+            }}</n-table-column>
+          </n-table-column>
         </template>
         <template v-slot:expanded="row">{{ row.row }}</template>
       </n-table>
@@ -32,7 +37,11 @@
         label="Search"
         style="max-width:300px; margin: 40px 0;"
       />
-      <n-table :filter="filter" :sortBy="{order: 'ascending', prop: 'name'}" :data="data2">
+      <n-table
+        :filter="filter"
+        :sortBy="{ order: 'ascending', prop: 'name' }"
+        :data="data2"
+      >
         <template v-slot:default="table">
           <n-table-column
             align="center"
@@ -40,8 +49,11 @@
             sortable
             prop="name"
             label="Name"
-          >{{ table.row.name }}</n-table-column>
-          <n-table-column align="left" sortable prop="id" label="Id">{{ table.row.id }}</n-table-column>
+            >{{ table.row.name }}</n-table-column
+          >
+          <n-table-column align="left" sortable prop="id" label="Id">{{
+            table.row.id
+          }}</n-table-column>
         </template>
       </n-table>
     </div>

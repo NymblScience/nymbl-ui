@@ -1,65 +1,38 @@
 <template>
   <div v-if="loaded" class="n-table-header">
-    <!-- <div v-if="isExpandable" class="n-table-column-expand n-table-label" /> -->
     <div style="display: flex">
-      <slot v-show="columnWidths.length > 0" :columnWidths="columnWidths" />
-    </div>
-
-    <div style="display: flex">
-      <div
-        v-for="(label, index) in labels"
-        :key="label.label + index"
-        :ref="'label' + index"
-        class="n-table-label"
-        :class="{
-          'text-center': label.align === 'center',
-          'border-right': label.borderRight
-        }"
-        :style="{
-          'max-width': label.maxWidth + 'px',
-          'min-width': label.minWidth + 'px'
-        }"
+      <n-table-label
+        v-for="label in labels"
+        :key="label.label"
+        :slots="slots"
+        :label="label"
+        :sort-order="sortOrder"
+        :sorted-by="sortedBy"
+        @changeSort="changeSort"
       >
-        <span v-if="label.customHeader.length > 0">
-          <customHeader
-            :custom-header="slots[label.customHeader]"
-          ></customHeader>
-        </span>
-
-        <span v-else-if="label.sortable" class="n-table-label-sortable">
-          <span
-            @click="$emit('changeSort', label.prop, 'toggle', label.sortMethod)"
-            >{{ label.label }}</span
+        <div style="display:flex; width: 100%;">
+          <n-table-label
+            v-for="(labelNested, index) in label.labels"
+            :key="'nested-' + index"
+            :label="labelNested"
+            :slots="slots"
+            :sort-order="sortOrder"
+            :sorted-by="sortedBy"
+            @changeSort="changeSort"
           >
-          <n-table-arrows
-            :active-arrow="sortOrder"
-            :is-active="sortedBy === label.prop"
-            @sortAscending="$emit('changeSort', label.prop, 'ascending')"
-            @sortDescending="$emit('changeSort', label.prop, 'descending')"
-          ></n-table-arrows>
-        </span>
-
-        <span v-else style="" class="n-table-label-container">
-          {{ label.label }}
-        </span>
-      </div>
+          </n-table-label>
+        </div>
+      </n-table-label>
     </div>
   </div>
 </template>
 <script>
-const CustomHeader = {
-  props: ["customHeader"],
-  render: function(createElement) {
-    return createElement("div", this.customHeader);
-  }
-};
+import NTableLabel from "./NTableLabel.vue";
 
-import NTableArrows from "./NTableArrows.vue";
 export default {
   name: "NTableHeader",
   components: {
-    NTableArrows,
-    CustomHeader
+    NTableLabel
   },
   props: {
     labels: {
@@ -68,10 +41,6 @@ export default {
         return [];
       }
     },
-    isExpandable: {
-      type: Boolean,
-      default: false
-    },
     sortOrder: {
       type: String,
       default: "ascending"
@@ -79,10 +48,6 @@ export default {
     sortedBy: {
       type: String,
       default: ""
-    },
-    labelAlign: {
-      type: String,
-      default: "left"
     },
     slots: {
       type: [Array, Object],
@@ -96,28 +61,13 @@ export default {
       loaded: false
     };
   },
-  computed: {
-    classes() {
-      const classes = [];
-      return classes;
-    },
-    columnWidths() {
-      if (!this.loaded) {
-        return [];
-      }
-
-      const widths = [];
-      this.$nextTick(function() {
-        Object.keys(this.$refs).forEach(key =>
-          widths.push(this.$refs[key][0].offsetWidth)
-        );
-      });
-      return widths;
-    }
-  },
-
   mounted() {
     this.loaded = true;
+  },
+  methods: {
+    changeSort(prop, sortOrder) {
+      this.$emit("changeSort", prop, sortOrder);
+    }
   }
 };
 </script>
@@ -130,45 +80,5 @@ export default {
   border-bottom: 1px solid #ebeef5;
   background: #fff;
   z-index: 2020;
-  .n-table-label {
-    flex-grow: 1;
-    flex-basis: 0;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    font-weight: 500;
-    padding: 18px 0 8px 0;
-    color: #595959;
-    user-select: none;
-    text-align: center;
-    flex-flow: row nowrap;
-    display: flex;
-    align-items: center;
-
-    .n-table-label-sortable {
-      cursor: pointer;
-    }
-    &.text-center {
-      justify-content: center;
-    }
-    &.border-right {
-      border-right: 1px solid gray;
-    }
-  }
-  .n-table-label-sortable {
-    flex-flow: row nowrap;
-    display: flex;
-    align-items: center;
-    flex: 1 0 auto;
-  }
-
-  .text-center {
-    text-align: center;
-  }
-  .text-right {
-    text-align: right;
-  }
-  .text-left {
-    text-align: left;
-  }
 }
 </style>

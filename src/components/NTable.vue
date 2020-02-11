@@ -15,21 +15,15 @@
       :is-expandable="isExpandable"
       :slots="$slots"
       @changeSort="changeSort"
-    >
-      <template v-slot:default="columnWidths">
-        <slot :columnWidths="columnWidths.columnWidths" name="header"> </slot>
-      </template>
-    </n-table-header>
+    />
 
     <n-table-rows ref="rows">
       <div v-if="isEmpty" class="n-table-empty">
-        <span v-if="!loading && !isFiltered && filter.value.length === 0">{{
-          emptyText
-        }}</span>
-        <span v-else-if="!loading">{{ notFoundText }}</span>
-        <span v-else>
-          Loading...
+        <span v-if="!loading && !isFiltered && filter.value.length === 0">
+          {{ emptyText }}
         </span>
+        <span v-else-if="!loading">{{ notFoundText }}</span>
+        <span v-else>Loading...</span>
       </div>
 
       <n-table-row v-if="isEmpty" v-show="false" :is-empty="isEmpty">
@@ -42,7 +36,7 @@
         class="n-table-row"
         :class="getRowClass(row, index)"
         @click.native="$emit('row-click', row, index, $event)"
-        @mounted="rowLoadedTrue(index + 1)"
+        @mounted="isRowLoaded(index + 1)"
       >
         <slot :row="row" />
       </n-table-row>
@@ -54,10 +48,10 @@
         :item-size="64"
         key-field="id"
       >
-        <n-table-row @mounted="rowLoadedTrue(index + 1)">
+        <n-table-row @mounted="isRowLoaded(index + 1)">
           <slot :row="item" />
         </n-table-row>
-      </RecycleScroller> -->
+      </RecycleScroller>-->
     </n-table-rows>
   </div>
 </template>
@@ -165,13 +159,6 @@ export default {
     sortDisabled: {
       default: false,
       type: Boolean
-    },
-    /**
-     * Disable sorting. Used whenever back-end does the sorting.
-     */
-    rowsz: {
-      default: false,
-      type: Boolean
     }
   },
   data() {
@@ -203,7 +190,8 @@ export default {
       return [];
     },
     labels() {
-      const labels = [];
+      let labels = [];
+
       if (this.isEmpty) {
         return labels;
       }
@@ -219,23 +207,30 @@ export default {
           minWidth: column._props.minWidth,
           customHeader: column._props.customHeader,
           sortMethod: column._props.sortMethod,
-          borderRight: column._props.borderRight
+          borderRight: column._props.borderRight,
+          isNested: column._props.isNested,
+          nestedWidth: column._props.nestedWidth,
+          // Get nested columns as children
+          labels: column._props.isNested ? getLabels(column) : []
         };
       };
 
-      const getLabel = column => {
-        column.$children.forEach(column => {
-          if (column.$options._componentTag !== "n-table-column") {
-            getLabel(column);
-            return;
-          }
+      const getLabels = column2 => {
+        let labels = [];
 
-          labels.push(createLabel(column));
-        });
+        for (const column of column2.$children) {
+          if (column.$options._componentTag === "n-table-column") {
+            labels.push(createLabel(column));
+          } else if (column.$options._componentTag.includes("user-list")) {
+            labels.push(getLabels(column)[0]);
+          }
+        }
+
+        return labels;
       };
 
       if (this.children[0]) {
-        getLabel(this.children[0]);
+        labels = getLabels(this.children[0]);
       }
 
       return labels;
@@ -266,7 +261,9 @@ export default {
 
   watch: {
     rows() {
-      this.updateStickyHeader(1000);
+      this.$nextTick(() => {
+        // this.updateStickyHeader(5000);
+      });
     }
   },
 
@@ -286,7 +283,7 @@ export default {
   mounted() {
     this.loaded = true;
     if (this.stickyHeader) {
-      this.createStickyHeader(1500);
+      this.createStickyHeader(0);
     }
   },
 
@@ -303,7 +300,7 @@ export default {
         )
       );
     },
-    rowLoadedTrue(index) {
+    isRowLoaded(index) {
       const that = this;
 
       if (index % 30 == 0) {
@@ -327,7 +324,10 @@ export default {
     updateStickyHeader(timeout = 0) {
       setTimeout(function() {
         const stickybitsInstancetoBeUpdated = stickybits(".n-table-header");
-
+        console.log(
+          "stickybitsInstancetoBeUpdated :",
+          stickybitsInstancetoBeUpdated
+        );
         stickybitsInstancetoBeUpdated.update();
       }, timeout);
     },
