@@ -10,7 +10,7 @@
       </div>
     </div>
 
-    <div :class="{ 'title-hidden': isTitle }" class="n-card__body">
+    <div class="n-card__body" :class="classes">
       <transition-expand>
         <div v-if="!isCollapsedLocal">
           <slot />
@@ -55,6 +55,13 @@ export default {
     isTransparent: {
       default: false,
       type: Boolean
+    },
+    /**
+     * Whether card is transparent
+     */
+    noPadding: {
+      default: false,
+      type: Boolean
     }
   },
   data() {
@@ -70,7 +77,13 @@ export default {
       return true;
     },
     classes() {
-      return [{ "is-transparent": this.isTransparent }];
+      return [
+        {
+          "is-transparent": this.isTransparent,
+          "no-padding": this.noPadding,
+          "title-hidden": this.isTitle
+        }
+      ];
     }
   },
   created() {
@@ -120,7 +133,12 @@ export default {
   }
   &__body {
     padding: 0 1.5rem 1rem;
+    &.no-padding {
+      padding: 0;
+      padding-top: 0;
+    }
   }
+
   &.is-transparent {
     .n-card__body {
       padding: 0 0 1rem;
@@ -135,6 +153,9 @@ export default {
 
 .title-hidden {
   padding-top: 1rem;
+  &.no-padding {
+    padding: 0;
+  }
 }
 
 .n-card__header-buttons {

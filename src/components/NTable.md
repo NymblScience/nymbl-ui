@@ -62,33 +62,8 @@ export default {
 
   data() {
     return {
-      data: this.getFakeData(),
-      data2: [
-        {
-          id: "1",
-          date: "10/18/2018 13:21:11",
-          name: "The Shadow",
-          phone: "11"
-        },
-        {
-          id: "1",
-          date: "10/18/2018 13:21:11",
-          name: "Arthur",
-          phone: "11"
-        },
-        {
-          id: "2",
-          date: "10/18/2018 13:11:11",
-          name: "The Wasp",
-          phone: "00"
-        },
-        {
-          id: "3",
-          date: "12/18/2018 13:20:11",
-          name: "Supergirl",
-          phone: "22"
-        }
-      ],
+      data: this.getFakeData(10),
+      data2: this.getFakeData(4),
 
       filter: {
         value: "",
@@ -117,8 +92,8 @@ export default {
       }
       return 0;
     },
-    getFakeData() {
-      const data = new Array(10).fill("");
+    getFakeData(count = 10) {
+      const data = new Array(count).fill("");
       return data.map(a => ({
         name: faker.name.findName(),
         id: faker.random.uuid(),
