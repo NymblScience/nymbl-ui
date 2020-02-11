@@ -115,8 +115,8 @@ export default {
   &.align-center {
     justify-content: center;
   }
-  &.border-right {
-    border-right: 1px solid gray;
+  &.border-right:last-child {
+    border-right: 1px solid #fff !important;
   }
   &_parent {
     display: inline-block;

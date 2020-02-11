@@ -84,13 +84,14 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/assets/sass/colors.scss";
 .n-table-label {
   flex-grow: 1;
   flex-basis: 0;
   font-size: 0.85rem;
   text-transform: uppercase;
   font-weight: 500;
-  padding: 18px 3px 8px 3px;
+  padding: 9px 3px 8px 3px;
   color: #595959;
   user-select: none;
   text-align: center;
@@ -109,7 +110,11 @@ export default {
   }
   &_nested {
     display: flex;
+    color: $gray-1;
     flex-flow: row wrap;
+    &:last-child {
+      border-right: none !important;
+    }
   }
 }
 .n-table-label-sortable {
