@@ -91,7 +91,7 @@ export default {
   font-size: 0.85rem;
   text-transform: uppercase;
   font-weight: 500;
-  padding: 9px 3px 8px 3px;
+  padding: 6px 3px 6px 3px;
   color: #595959;
   user-select: none;
   text-align: center;

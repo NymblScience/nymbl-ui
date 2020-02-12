@@ -38,7 +38,7 @@
         @click.native="$emit('row-click', row, index, $event)"
         @mounted="isRowLoaded(index + 1)"
       >
-        <slot :row="row" />
+        <slot :row="row" :index="index" />
       </n-table-row>
 
       <!-- <RecycleScroller
