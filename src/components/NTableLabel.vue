@@ -94,7 +94,6 @@ export default {
   padding: 6px 3px 6px 3px;
   color: #595959;
   user-select: none;
-  text-align: center;
   flex-flow: row nowrap;
   display: flex;
   align-items: center;
