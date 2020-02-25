@@ -1,20 +1,33 @@
 ```vue
 <template>
-  <div>
+  <div style="max-width: 300px">
     <n-datepicker
       placeholder="Pick a Date"
-      :default-date="new Date('3003/2/10')"
-      :label="'Label'"
+      :label="'Basic'"
       v-model="value"
       :has-year="false"
-    ></n-datepicker>
+    />
 
     <n-datepicker
       placeholder="Pick a Date"
-      :default-date="new Date('3003/2/10')"
-      :label="'Label'"
+      :label="'With Year'"
       v-model="value2"
-    ></n-datepicker>
+    />
+
+    <n-datepicker
+      placeholder="Pick a Date"
+      :default-date="defaultDate"
+      :label="'Default Date'"
+      v-model="value2"
+    />
+
+    <n-datepicker
+      placeholder="Pick a Date"
+      label="Clearable"
+      v-model="value"
+      :has-year="false"
+      clearable
+    />
   </div>
 </template>
 
@@ -24,6 +37,7 @@ export default {
   data() {
     return {
       value: "1977-07-11T00:00:00",
+      defaultDate:  new Date('2001/2/10'),
       value2: null
     };
   }

@@ -4,7 +4,7 @@
       <div
         class="n-datepicker__display-value"
         :class="{ 'is-placeholder': !hasDisplayText }"
-        @click="onClick"
+        @click="onClick($event)"
       >
         <n-textbox
           ref="textbox"
@@ -22,8 +22,6 @@
           @focus="onFocus"
           @clear="clear"
           @keydown.tab="onBlur"
-          @keydown.enter.prevent="openPicker"
-          @keydown.space.prevent="openPicker"
           @input="onUpdateInput"
         >
         </n-textbox>
@@ -36,7 +34,8 @@
           ref="popover"
           tabindex="-1"
           :append-to-body="true"
-          :ignore-on-click="'red'"
+          open-on="manual"
+          :close-on-scroll="false"
           @close="onPickerClose"
           @open="onPickerOpen"
         >
@@ -249,6 +248,11 @@ export default {
     focusTextBox() {
       return;
     },
+    isPickerOpen() {
+      return this.usesModal
+        ? this.$refs.modal.isOpen
+        : this.$refs.popover.isOpen();
+    },
     onDateSelect(date) {
       this.$emit("input", date);
       this.inputDate = dateUtils.humanize(date);
@@ -266,37 +270,51 @@ export default {
           this.$emit("input", date);
         }
     },
+
+    togglePicker() {
+      if (this.isPickerOpen()) {
+        this.closePicker();
+      } else {
+        this.openPicker();
+      }
+    },
+
     openPicker() {
       if (this.disabled) {
         return;
       }
-      this.$refs[this.usesModal ? "modal" : "popover"].open();
+
+      this.$refs["popover"].open();
     },
 
-    closePicker(options = { autoBlur: false }) {
+    closePicker() {
       if (this.usesPopover) {
         this.$refs.popover.close();
       }
-
-      if (options.autoBlur) {
-        this.isActive = false;
-      } else {
-        // this.$refs.textbox.$refs.textbox.focus();
-      }
     },
 
-    onClick() {
-      this.isActive = true;
-      this.openPicker();
+    onClick(event) {
+      const clearable = document.getElementsByClassName("n-textbox__clearable");
+      if (event.composedPath().includes(clearable[0])) {
+        console.log("clearble");
+        this.closePicker();
+
+        return;
+      }
+
+      this.togglePicker();
     },
 
     onFocus(e) {
-      if (this.usesPopover && !this.$refs.popover.isOpen()) {
-        return;
-      }
+      // if (this.usesPopover && !this.$refs.popover.isOpen()) {
+      //   return;
+      // }
       this.isActive = true;
-      this.openPicker();
+
       this.$emit("focus", e);
+      if (this.isPickerOpen()) {
+        this.closePicker({ returnFocus: false });
+      }
     },
 
     onBlur(e) {
@@ -308,10 +326,6 @@ export default {
     },
 
     onPickerOpen() {
-      if (this.usesModal) {
-        this.valueAtModalOpen = this.date ? dateUtils.clone(this.date) : null;
-      }
-
       if (!this.value && this.defaultDate) {
         this.$emit("input", this.defaultDate);
       }
@@ -322,7 +336,7 @@ export default {
 
     onPickerClose() {
       this.$emit("close");
-
+      this.$emit("close");
       if (!this.isTouched) {
         this.isTouched = true;
         this.$emit("touch");
@@ -349,15 +363,17 @@ export default {
         return;
       }
 
-      if (this.isActive) {
-        this.isActive = false;
-      }
+      this.isActive = false;
     },
 
     clear() {
       this.$emit("input", null);
       this.inputDate = null;
       this.$emit("change", null);
+      this.$emit("clear");
+      this.$nextTick(() => {
+        this.closePicker({ autoBlur: true });
+      });
     },
 
     reset() {
