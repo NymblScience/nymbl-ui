@@ -3,12 +3,12 @@
     <menu-up
       :class="{ 'n-active': activeArrow === 'ascending' && isActive }"
       style="margin-top: -0.18rem"
-      @click="$emit('sortAscending')"
+      @click="$emit('sort')"
     />
     <menu-down
       :class="{ 'n-active': activeArrow === 'descending' && isActive }"
       style="margin-top: -1rem"
-      @click="$emit('sortDescending')"
+      @click="$emit('sort')"
     />
   </div>
 </template>

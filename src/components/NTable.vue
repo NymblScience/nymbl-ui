@@ -40,18 +40,6 @@
       >
         <slot :row="row" :index="index" />
       </n-table-row>
-
-      <!-- <RecycleScroller
-        v-slot="{ item, index }"
-        class="scroller"
-        :items="rows"
-        :item-size="64"
-        key-field="id"
-      >
-        <n-table-row @mounted="isRowLoaded(index + 1)">
-          <slot :row="item" />
-        </n-table-row>
-      </RecycleScroller>-->
     </n-table-rows>
   </div>
 </template>
@@ -60,16 +48,7 @@ import NTableHeader from "./NTableHeader.vue";
 import NTableRows from "./NTableRows.vue";
 import NTableRow from "./NTableRow.vue";
 import stickybits from "stickybits";
-// import NTableColumn from "./NTableColumn.vue";
-// import { Fragment } from "vue-fragment";
-
-// import { RecycleScroller } from "vue-virtual-scroller";
-import "vue-virtual-scroller/dist/vue-virtual-scroller.css";
-
 import orderBy from "../helpers/orderBy";
-// import ChevronRight from "vue-material-design-icons/ChevronRight.vue";
-// import { TransitionExpand } from "vue-transition-expand";
-// import "vue-transition-expand/dist/vue-transition-expand.css";
 
 export default {
   name: "NTable",
@@ -158,6 +137,13 @@ export default {
      */
     sortDisabled: {
       default: false,
+      type: Boolean
+    },
+    /**
+     * Enable/Disable url Queries. Vue $router has to be included.
+     */
+    urlQueries: {
+      default: true,
       type: Boolean
     }
   },
@@ -267,8 +253,12 @@ export default {
     }
   },
 
-  created() {
-    // const that = this;
+  mounted() {
+    this.loaded = true;
+    if (this.stickyHeader) {
+      this.createStickyHeader(0);
+    }
+
     if (this.sortBy.order) {
       this.sortOrder = this.sortBy.order;
     }
@@ -276,15 +266,11 @@ export default {
     if (this.sortBy.prop) {
       this.sortedBy = this.sortBy.prop;
     }
-    // setTimeout(function() {
-    //   that.rowLoaded = true;
-    // }, 10000);
-  },
-  mounted() {
-    this.loaded = true;
-    if (this.stickyHeader) {
-      this.createStickyHeader(0);
-    }
+
+    // // Add sort order to URL
+    // if (this.urlQueries) {
+    //   this.changeSort(this.$route.query.sortedBy, this.$route.query.sortOrder);
+    // }
   },
 
   methods: {
@@ -305,7 +291,6 @@ export default {
 
       if (index % 30 == 0) {
         setTimeout(function() {
-          console.log("that.rowLoaded :", that.rowLoaded);
           that.rowLoaded = index + 30;
         }, 0);
       }
@@ -341,13 +326,14 @@ export default {
       }
 
       this.sortedBy = property;
-
       this.sortOrder = sortOrder;
+
       if (sortMethod) {
         this.sortMethod = sortMethod;
       } else {
         this.sortMethod = false;
       }
+
       this.$emit("sort", {
         sortedBy: this.sortedBy,
         sortOrder: this.sortOrder

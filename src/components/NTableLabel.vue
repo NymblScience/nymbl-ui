@@ -24,8 +24,7 @@
       <n-table-arrows
         :active-arrow="sortOrder"
         :is-active="sortedBy === label.prop"
-        @sortAscending="$emit('changeSort', label.prop, 'ascending')"
-        @sortDescending="$emit('changeSort', label.prop, 'descending')"
+        @sort="$emit('changeSort', label.prop, 'toggle')"
       ></n-table-arrows>
     </span>
 
