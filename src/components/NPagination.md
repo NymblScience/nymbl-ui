@@ -1,6 +1,6 @@
 ```vue
 <template>
-  <n-pagination pageSize="100"  :pages="10" page-size-switch @change="handleChange" />
+  <n-pagination pageSize="100"  :pages="10" page-size-switch @change="handleChange" :urlQueries="false"/>
 
 </template>
 

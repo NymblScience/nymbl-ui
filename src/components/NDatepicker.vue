@@ -294,6 +294,7 @@ export default {
     },
 
     onClick(event) {
+      console.log(event);
       const clearable = document.getElementsByClassName("n-textbox__clearable");
       if (event.composedPath().includes(clearable[0])) {
         console.log("clearble");
@@ -371,9 +372,9 @@ export default {
       this.inputDate = null;
       this.$emit("change", null);
       this.$emit("clear");
-      this.$nextTick(() => {
+      setTimeout(() => {
         this.closePicker({ autoBlur: true });
-      });
+      }, 0);
     },
 
     reset() {

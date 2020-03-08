@@ -15,7 +15,7 @@ export default {
 
   data() {
     return {
-      value: "",
+      value: null,
       value2: "Clear Me",
       options: ['Red', 'Blue', 'Green']
     };

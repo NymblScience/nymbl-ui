@@ -29,6 +29,7 @@
           @blur="onBlur"
           @change="onChange"
           @focus="onFocus"
+          @click.native="click"
           @input="updateValue($event.target.value)"
           @keydown.enter="onKeydownEnter"
           @keydown="onKeydown"
@@ -196,7 +197,6 @@ export default {
       autosizeInitialized: false
     };
   },
-
   computed: {
     classes() {
       return [
@@ -268,6 +268,15 @@ export default {
 
     showHelp() {
       return Boolean(this.help) || Boolean(this.$slots.help);
+    }
+  },
+  watch: {
+    value(value) {
+      // Normalize the value to an empty string if it's null
+      if (value === null) {
+        this.initialValue = "";
+        this.updateValue("");
+      }
     }
   },
 
@@ -355,6 +364,9 @@ export default {
 
     focus() {
       (this.$refs.input || this.$refs.textarea).focus();
+    },
+    click() {
+      this.$emit("click");
     }
   }
 };
