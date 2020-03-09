@@ -20,6 +20,7 @@
     "fuzzysearch": "^1.0.3",
     "hammerjs": "^2.0.8",
     "keen-ui": "^1.1.2",
+    "moment": "^2.24.0",
     "sortablejs": "^1.10.0-rc3",
     "stickybits": "^3.7.3",
     "tippy.js": "^3.4.0",

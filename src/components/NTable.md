@@ -9,20 +9,20 @@
         :data="data"
       >
         <template v-slot:default="table">
-          <n-table-column is-nested border-right label="Parent">
-            <n-table-column align="center" sortable prop="name" label="Name">{{
+          <n-table-column is-nested border-right label="User">
+            <n-table-column  sortable prop="name" label="Name">{{
               table.row.name
             }}</n-table-column>
-            <n-table-column align="center" sortable prop="name" label="2">{{
-              table.row.name
+            <n-table-column   label="Date">{{
+              formatDate(table.row.date)
             }}</n-table-column>
           </n-table-column>
-          <n-table-column is-nested border-right label="Parent 2">
-            <n-table-column align="center" sortable prop="name" label="Name">{{
-              table.row.name
+          <n-table-column is-nested border-right label="Contact">
+            <n-table-column  sortable prop="email" label="Email">{{
+              table.row.email
             }}</n-table-column>
-            <n-table-column align="center" sortable prop="name" label="2">{{
-              table.row.name
+            <n-table-column  sortable prop="phone" label="Phone">{{
+              table.row.phone
             }}</n-table-column>
           </n-table-column>
         </template>
@@ -70,6 +70,7 @@
 const NTableColumn = require("./NTableColumn.vue").default;
 const NTextbox = require("./NTextbox.vue").default;
 const faker = require("faker");
+const moment = require("moment");
 
 export default {
   name: "NTableExample",
@@ -125,6 +126,9 @@ export default {
       if (index === 3) {
         return "is-red";
       }
+    },
+    formatDate(date) {
+      return moment(date).format("YYYY/MM/DD")
     }
   }
 };
@@ -135,7 +139,7 @@ export default {
 }
 .expand-example {
   max-width: 100%;
-  margin: 10px 40px;
+  margin: 10px 0;
   background-image: linear-gradient(45deg, #f1f1f1 25%, transparent 25%),
     linear-gradient(-45deg, #f1f1f1 25%, transparent 25%), linear-gradient(
       45deg,
