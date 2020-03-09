@@ -13,13 +13,14 @@
       :sort-order="sortOrder"
       :sorted-by="sortedBy"
       :is-expandable="isExpandable"
+      :expand-width="expandWidth"
       :slots="$slots"
       @changeSort="changeSort"
     />
 
     <n-table-rows ref="rows">
       <div v-if="isEmpty" class="n-table-empty">
-        <span v-if="!loading && !isFiltered && filter.value.length === 0">
+        <span v-if="!loading && !isFiltezred && filter.value.length === 0">
           {{ emptyText }}
         </span>
         <span v-else-if="!loading">{{ notFoundText }}</span>
@@ -32,13 +33,32 @@
 
       <n-table-row
         v-for="(row, index) in rows"
-        :key="'row-' + index"
-        class="n-table-row"
-        :class="getRowClass(row, index)"
+        :key="row.key"
+        :class="
+          (getRowClass(row, index),
+          { 'is-expanded': expandedRows.includes(row.key) })
+        "
         @click.native="$emit('row-click', row, index, $event)"
         @mounted="isRowLoaded(index + 1)"
       >
+        <n-table-column-expand
+          v-if="isExpandable"
+          :id="row.key"
+          :expanded-rows="expandedRows"
+          :expand-width="expandWidth"
+          @expand="toggleExpand(row.key)"
+        />
+
         <slot :row="row" :index="index" />
+
+        <n-table-row-expand
+          v-if="isExpandable"
+          :id="row.key"
+          :expand-width="expandWidth"
+          :expanded-rows="expandedRows"
+        >
+          <slot :row="row" name="expanded" />
+        </n-table-row-expand>
       </n-table-row>
     </n-table-rows>
   </div>
@@ -47,15 +67,20 @@
 import NTableHeader from "./NTableHeader.vue";
 import NTableRows from "./NTableRows.vue";
 import NTableRow from "./NTableRow.vue";
+import NTableRowExpand from "./NTableRowExpand.vue";
+import NTableColumnExpand from "./NTableColumnExpand.vue";
 import stickybits from "stickybits";
 import orderBy from "../helpers/orderBy";
+import { v4 as uuidv4 } from "uuid";
 
 export default {
   name: "NTable",
   components: {
     NTableHeader,
     NTableRow,
-    NTableRows
+    NTableRows,
+    NTableRowExpand,
+    NTableColumnExpand
   },
   props: {
     /**
@@ -154,6 +179,7 @@ export default {
       sortOrder: "ascending",
       sortMethod: null,
       expandedRows: [],
+      expandWidth: 50,
       rowLoaded: 30
     };
   },
@@ -222,36 +248,37 @@ export default {
       return labels;
     },
     rows() {
-      let data = this.data;
-
-      let orderedData = data;
+      let data = [...this.data];
 
       if (this.sortedBy && !this.sortDisabled) {
-        orderedData = orderBy(this.sortedBy, data, this.sortMethod);
+        data = orderBy(this.sortedBy, data, this.sortMethod);
       }
 
       if (this.filter.value) {
-        orderedData = this.filterRows(orderedData);
+        data = this.filterRows(data);
       }
+
+      // Add Id for Vue Key.add
+      data.forEach(row => (row.key = uuidv4()));
 
       if (this.sortOrder === "descending" && !this.sortDisabled) {
-        return orderedData.reverse();
+        return data.reverse();
       }
 
-      return orderedData.slice(0, this.rowLoaded);
+      return data.slice(0, this.rowLoaded);
     },
     isEmpty() {
       return this.rows.length < 1;
     }
   },
 
-  watch: {
-    rows() {
-      this.$nextTick(() => {
-        // this.updateStickyHeader(5000);
-      });
-    }
-  },
+  // watch: {
+  //   rows() {
+  //     this.$nextTick(() => {
+  //       // this.updateStickyHeader(5000);
+  //     });
+  //   }
+  // },
 
   mounted() {
     this.loaded = true;
@@ -343,7 +370,14 @@ export default {
       if (this.rowClass) {
         return this.rowClass(row, index);
       }
+
       return "";
+    },
+    toggleExpand(key) {
+      const expandedRows = [...this.expandedRows];
+      expandedRows.includes(key)
+        ? (this.expandedRows = expandedRows.filter(row => row !== key))
+        : this.expandedRows.push(key);
     }
   }
 };
@@ -364,43 +398,20 @@ export default {
   font-size: 1.3rem;
 }
 
-.n-table-column-expand {
-  max-width: 2rem;
-}
-
-.n-table-expand-toggle {
-  cursor: pointer;
-}
-.n-table-expand-toggle-icon {
-  // transform: rotate(1deg);
-  transition: transform 2s ease-in-out, -webkit-transform 2s ease-in-out;
-}
-
-.n-table-expand-toggle-icon.is-expanded {
-  transform: rotate(90deg);
-}
-
 .n-table-row {
   border-bottom: 1px solid #ebeef5;
   display: flex;
   flex-wrap: wrap;
   font-size: 1rem;
   transition: background-color 0.25s ease;
-  .n-table-row-expanded {
-    flex-basis: 100%;
-    // display: none;
-    margin-left: 2rem;
-    padding-top: 1rem;
-    &:hover {
-      background: #fff;
-    }
-  }
-  .is-expanded {
-    display: block;
-  }
 
   &:hover {
     background: #e9fdfe;
+  }
+  &.is-expanded {
+    &:hover {
+      background: unset;
+    }
   }
 }
 </style>

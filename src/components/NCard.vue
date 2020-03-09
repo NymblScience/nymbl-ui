@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import { TransitionExpand } from "vue-transition-expand";
-import "vue-transition-expand/dist/vue-transition-expand.css";
+import TransitionExpand from "../transitions/TransitionExpand";
+
 import ChevronRight from "vue-material-design-icons/ChevronRight.vue";
 export default {
   name: "NCard",

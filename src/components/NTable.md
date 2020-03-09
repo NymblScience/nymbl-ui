@@ -30,7 +30,7 @@
       </n-table>
     </div>
     <div class="styleguide-section">
-      <h3>Filter</h3>
+      <h3>Expand and Filter</h3>
       <n-textbox
         v-model="filter.value"
         clearable
@@ -41,19 +41,25 @@
         :filter="filter"
         :sortBy="{ order: 'ascending', prop: 'name' }"
         :data="data2"
+        is-expandable
       >
         <template v-slot:default="table">
           <n-table-column
-            align="center"
             :sort-method="sortMethod"
             sortable
             prop="name"
             label="Name"
             >{{ table.row.name }}</n-table-column
           >
-          <n-table-column align="left" sortable prop="id" label="Id">{{
-            table.row.id
+          <n-table-column sortable prop="email" label="Email">{{
+            table.row.email
           }}</n-table-column>
+          <n-table-column sortable prop="phone" label="Phone">{{
+            table.row.phone
+          }}</n-table-column>
+        </template>
+        <template #expanded>
+          <div class="expand-example" />
         </template>
       </n-table>
     </div>
@@ -79,7 +85,7 @@ export default {
 
       filter: {
         value: "",
-        props: ["name", "id"]
+        props: ["name", "phone", "email"]
       },
       textbox: ""
     };
@@ -110,7 +116,8 @@ export default {
         name: faker.name.findName(),
         id: faker.random.uuid(),
         date: faker.date.past(),
-        phone: faker.phone.phoneNumber()
+        phone: faker.phone.phoneNumber(),
+        email: faker.internet.email()
       }));
     },
 
@@ -125,6 +132,19 @@ export default {
 <style lang="scss">
 .is-red .n-table-column {
   background-color: #ac1a1f !important;
+}
+.expand-example {
+  max-width: 100%;
+  margin: 10px 40px;
+  background-image: linear-gradient(45deg, #f1f1f1 25%, transparent 25%),
+    linear-gradient(-45deg, #f1f1f1 25%, transparent 25%), linear-gradient(
+      45deg,
+      transparent 75%,
+      #f1f1f1 75%
+    ), linear-gradient(-45deg, transparent 75%, #f1f1f1 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  height: 100px;
 }
 </style>
 ```

@@ -2,6 +2,10 @@
   <div v-if="loaded" class="n-table-header">
     <div style="display: flex">
       <n-table-label
+        v-if="isExpandable"
+        :style="{ 'max-width': expandWidth + 'px' }"
+      ></n-table-label>
+      <n-table-label
         v-for="label in labels"
         :key="label.label"
         :slots="slots"
@@ -44,6 +48,14 @@ export default {
     sortOrder: {
       type: String,
       default: "ascending"
+    },
+    isExpandable: {
+      type: Boolean,
+      default: false
+    },
+    expandWidth: {
+      type: Number,
+      default: 70
     },
     sortedBy: {
       type: String,
