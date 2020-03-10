@@ -259,7 +259,9 @@ export default {
       }
 
       // Add Id for Vue Key.add
-      data.forEach(row => (row.key = uuidv4()));
+      if (this.isExpandable) {
+        data.forEach(row => (row.key = uuidv4()));
+      }
 
       if (this.sortOrder === "descending" && !this.sortDisabled) {
         return data.reverse();
