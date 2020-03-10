@@ -35,7 +35,7 @@ var styles = function styles(_ref) {
   return {
     list: {
       margin: 0,
-      paddingLeft: space[2]
+      paddingLeft: "0"
     },
     item: {
       color: color.base,
@@ -50,6 +50,7 @@ var styles = function styles(_ref) {
     isChild:
       ((_isChild = {}),
       (_isChild[mq.small] = {
+        padding: 0,
         display: "inline-block",
         margin: [[0, space[1], 0, 0]],
         color: '#000000'
@@ -59,11 +60,12 @@ var styles = function styles(_ref) {
       color: '#000000',
       marginTop: space[3],
       fontFamily: fontFamily.base,
-      fontWeight: "400"
+      fontWeight: "600",
+      pointerEvents: "none",
     },
     isSelected: {
       fontWeight: "400",
-      color: '#999999'
+      color: '#09b3b0'
     }
   };
 };

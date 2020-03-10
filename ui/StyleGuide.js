@@ -64,6 +64,7 @@ var styles = function styles(_ref) {
         top: 0,
         left: 0,
         bottom: 0,
+        padding: "30px",
         width: sidebarWidth,
         overflow: "auto",
         "-webkit-overflow-scrolling": "touch"
@@ -77,11 +78,10 @@ var styles = function styles(_ref) {
       }
     ),
     logo: {
-      padding: space[2],
-      borderBottom: [[1, color.border, "solid"]]
+      padding: 0
     },
     footer: {
-      display: "block",
+      display: "none",
       color: color.light,
       fontFamily: fontFamily.base,
       fontSize: fontSize.small

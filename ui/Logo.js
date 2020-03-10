@@ -7,19 +7,18 @@ import logo from "./logo.svg";
 
 const styles = ({ fontFamily }) => ({
   logo: {
-    margin: 0,
+    margin: "0 0 30px 0",
     fontFamily: fontFamily.base,
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: "normal",
     display: "block",
     textAlign: "center",
-    color: "#666"
+    color: "#595959",
+    padding: "0"
   },
   image: {
     display: "block",
-
-    maxWidth: "120px",
-    margin: "15px auto"
+    maxWidth: "200px"
   }
 });
 
@@ -27,7 +26,6 @@ export function LogoRenderer({ classes, children }) {
   return (
     <h1 className={classes.logo}>
       <img className={classes.image} src={logo} />
-      {children}
     </h1>
   );
 }

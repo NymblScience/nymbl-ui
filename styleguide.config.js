@@ -14,7 +14,7 @@ module.exports = {
   sections: [
 
     {
-      name: "Style",
+      name: "Style Guide",
       components: "src/style/**/[A-Z]*.vue",
       exampleMode: "hide", // 'hide' | 'collapse' | 'expand'
       usageMode: "hide" // 'hide' | 'collapse' | 'expand'
@@ -47,7 +47,8 @@ module.exports = {
     LogoRenderer: path.join(__dirname, 'ui/Logo'),
     StyleGuideRenderer: path.join(__dirname, 'ui/StyleGuide'),
     TableOfContentsRenderer: path.join(__dirname, 'ui/TableOfContents'),
-    ComponentsListRenderer: path.join(__dirname, 'ui/ComponentsList')
+    ComponentsListRenderer: path.join(__dirname, 'ui/ComponentsList'),
+    LinkRenderer: path.join(__dirname, 'ui/Link')
     
     
     // SectionsRenderer: path.join(__dirname, 'styleguide/components/SectionsRenderer')
