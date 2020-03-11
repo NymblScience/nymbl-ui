@@ -207,6 +207,9 @@ export default {
       this.incrementOpenModalCount();
 
       this.$emit("open");
+      this.$nextTick(() => {
+        this.$store.commit("updateOpenedModals", this);
+      });
     },
 
     onClose() {
@@ -221,6 +224,10 @@ export default {
     onLeave() {
       this.$emit("hide");
       const newCount = this.decrementOpenModalCount();
+
+      this.$nextTick(() => {
+        this.$store.commit("removeFromOpenedModals", this);
+      });
 
       if (newCount === 0) {
         classlist.remove(document.body, "n-modal-is-open");
