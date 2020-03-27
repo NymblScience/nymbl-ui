@@ -603,18 +603,22 @@ export default {
 }
 .n-textbox.n-textbox.is-invalid:not(.is-disabled) .n-textbox__input,
 .n-textbox.n-textbox.is-invalid:not(.is-disabled) .n-textbox__textarea {
+  color: $form-color-invalid;
   border-bottom-color: $form-color-invalid;
 }
 .n-textbox.n-textbox.is-invalid:not(.is-disabled) .n-textbox__feedback {
   color: $form-color-invalid;
 }
 
-.n-textbox.n-textbox.is-active:not(.is-disabled) .n-textbox__input,
-.n-textbox.n-textbox.is-active:not(.is-disabled) .n-textbox__textarea {
+.n-textbox.n-textbox.is-active:not(.is-disabled):not(.is-invalid)
+  .n-textbox__input,
+.n-textbox.n-textbox.is-active:not(.is-disabled):not(.is-invalid)
+  .n-textbox__textarea {
   border-bottom-color: $form-color-active;
 }
-.n-textbox.n-textbox.is-active:not(.is-disabled) .n-textbox__label-text,
-.n-textbox.n-textbox.is-active:not(.is-disabled)
+.n-textbox.n-textbox.is-active:not(.is-disabled):not(.is-invalid)
+  .n-textbox__label-text,
+.n-textbox.n-textbox.is-active:not(.is-disabled):not(.is-invalid)
   .n-textbox__icon-wrapper
   .ui-icon {
   color: $form-color-active;
