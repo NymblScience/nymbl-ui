@@ -7,7 +7,7 @@ module.exports = {
     path.join(__dirname, "src/assets/sass/main.scss")
   ],
 
-  title: "Style Guide",
+  title: "Nymbl Style Guide",
   components: "src/components/**/[A-Z]*.vue",
   defaultExample: false,
   exampleMode: "collapse",
@@ -22,6 +22,10 @@ module.exports = {
     {
       name: "Components",
       components: "src/components/**/[A-Z]*.vue"
+    },
+    {
+      name: "Plugins",
+      components: "src/plugins/**/[a-z]*.vue"
     }
   ],
 
