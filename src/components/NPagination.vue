@@ -129,7 +129,7 @@ export default {
      * Enable/Disable url Queries. Needs Vue $router included.
      */
     urlQueries: {
-      default: true,
+      default: false,
       type: Boolean
     }
   },
@@ -149,6 +149,25 @@ export default {
     },
     classes() {
       return [{ "is-transparent": this.isTransparent }];
+    },
+    pageSizeQuery() {
+      return this.$route.query.pageSize;
+    },
+    pageQuery() {
+      return this.$route.query.page;
+    }
+  },
+
+  watch: {
+    pageSizeQuery(newPageSize) {
+      if (newPageSize !== this.pageSize) {
+        this.setPageSize(newPageSize);
+      }
+    },
+    pageQuery(newPage) {
+      if (newPage !== this.page) {
+        this.setPage(newPage);
+      }
     }
   },
   mounted() {
@@ -159,6 +178,13 @@ export default {
       if (pageSize) {
         this.pageSizeValue = pageSize;
         this.$emit("pageSizeChange", pageSize);
+      } else {
+        this.$router.push({
+          query: { ...this.$route.query, page: this.active }
+        });
+        this.$router.push({
+          query: { ...this.$route.query, pageSize: this.pageSize }
+        });
       }
       if (page) {
         this.setPage(page);
@@ -207,7 +233,12 @@ export default {
         this.$router.push({
           query: { ...this.$route.query, pageSize: pageSize }
         });
+        // Remove page query
+        this.$router.push({
+          query: { ...this.$route.query, page: 1 }
+        });
       }
+      this.pageSizeValue = pageSize;
       this.$emit("pageSizeChange", pageSize);
     }
   }

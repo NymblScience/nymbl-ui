@@ -4,10 +4,12 @@ function orderBy(property, array, sortMethod) {
   const defaultSort = (a, b) => {
     let i = 0;
     while (i < length) {
-      a = a[property[i]].toLowerCase();
-      b = b[property[i]].toLowerCase();
+      a = a[property[i]].toString().toLowerCase();
+      b = b[property[i]].toString().toLowerCase();
+
       i++;
     }
+    console.log(a, b);
     if (a < b) {
       return -1;
     }

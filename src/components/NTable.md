@@ -39,7 +39,7 @@
       />
       <n-table
         :filter="filter"
-        :sortBy="{ order: 'ascending', prop: 'name' }"
+          :sortBy="{ order: 'ascending', prop: 'name' }"
         :data="data2"
         is-expandable
       >

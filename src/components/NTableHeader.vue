@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     changeSort(prop, sortOrder) {
-      this.$emit("changeSort", prop, sortOrder);
+      this.$emit("changeSort", prop, sortOrder, null, true);
     }
   }
 };

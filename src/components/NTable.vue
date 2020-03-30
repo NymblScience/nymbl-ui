@@ -33,27 +33,25 @@
 
       <n-table-row
         v-for="(row, index) in rows"
-        :key="row.key"
-        :class="
-          (getRowClass(row, index),
-          { 'is-expanded': expandedRows.includes(row.key) })
-        "
+        :key="index.toString()"
+        :class="getRowClasses(row, index)"
         @click.native="$emit('row-click', row, index, $event)"
         @mounted="isRowLoaded(index + 1)"
       >
         <n-table-column-expand
           v-if="isExpandable"
-          :id="row.key"
+          :id="index.toString()"
+          ref="expand"
           :expanded-rows="expandedRows"
           :expand-width="expandWidth"
-          @expand="toggleExpand(row.key)"
+          @expand="toggleExpand(index.toString())"
         />
 
         <slot :row="row" :index="index" />
 
         <n-table-row-expand
           v-if="isExpandable"
-          :id="row.key"
+          :id="index.toString()"
           :expand-width="expandWidth"
           :expanded-rows="expandedRows"
         >
@@ -71,7 +69,7 @@ import NTableRowExpand from "./NTableRowExpand.vue";
 import NTableColumnExpand from "./NTableColumnExpand.vue";
 import stickybits from "stickybits";
 import orderBy from "../helpers/orderBy";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 
 export default {
   name: "NTable",
@@ -168,7 +166,7 @@ export default {
      * Enable/Disable url Queries. Vue $router has to be included.
      */
     urlQueries: {
-      default: true,
+      default: false,
       type: Boolean
     }
   },
@@ -259,9 +257,9 @@ export default {
       }
 
       // Add Id for Vue Key.add
-      if (this.isExpandable) {
-        data.forEach(row => (row.key = uuidv4()));
-      }
+      // if (this.isExpandable) {
+      //   data.forEach(row => (row.key = uuidv4()));
+      // }
 
       if (this.sortOrder === "descending" && !this.sortDisabled) {
         return data.reverse();
@@ -271,16 +269,26 @@ export default {
     },
     isEmpty() {
       return this.rows.length < 1;
+    },
+    sortQueries() {
+      return {
+        sortedBy: this.$route.query.sortedBy,
+        sortOrder: this.$route.query.sortOrder
+      };
     }
   },
 
-  // watch: {
-  //   rows() {
-  //     this.$nextTick(() => {
-  //       // this.updateStickyHeader(5000);
-  //     });
-  //   }
-  // },
+  watch: {
+    sortQueries: {
+      immediate: false,
+      deep: true,
+      handler(newSortQueries) {
+        if (this.urlQueries) {
+          this.changeSort(newSortQueries.sortedBy, newSortQueries.sortOrder);
+        }
+      }
+    }
+  },
 
   mounted() {
     this.loaded = true;
@@ -296,10 +304,23 @@ export default {
       this.sortedBy = this.sortBy.prop;
     }
 
-    // // Add sort order to URL
-    // if (this.urlQueries) {
-    //   this.changeSort(this.$route.query.sortedBy, this.$route.query.sortOrder);
-    // }
+    // Add sort order to URL
+    if (this.urlQueries) {
+      if (this.$route.query.sortedBy) {
+        this.changeSort(
+          this.$route.query.sortedBy,
+          this.$route.query.sortOrder
+        );
+      } else {
+        this.$router.push({
+          query: {
+            ...this.$route.query,
+            sortedBy: this.sortedBy,
+            sortOrder: this.sortOrder
+          }
+        });
+      }
+    }
   },
 
   methods: {
@@ -345,13 +366,52 @@ export default {
         stickybitsInstancetoBeUpdated.update();
       }, timeout);
     },
-    changeSort(property, sortOrder = "ascending", sortMethod) {
+    changeSort(
+      property,
+      sortOrder = "ascending",
+      sortMethod,
+      isHeader = false
+    ) {
       if (sortOrder === "toggle") {
         if (this.sortOrder === "ascending") {
           sortOrder = "descending";
         } else {
           sortOrder = "ascending";
         }
+      }
+
+      if (isHeader) {
+        this.$router.push({
+          query: {
+            ...this.$route.query,
+            page: 1
+          }
+        });
+      }
+
+      let current = {
+        sortedBy: this.sortedBy,
+        sortOrder: this.sortOrder
+      };
+      let next = {
+        sortedBy: property,
+        sortOrder: sortOrder
+      };
+
+      if (JSON.stringify(next) === JSON.stringify(current)) {
+        console.log("returned");
+        return;
+      }
+
+      // Add to URL query
+      if (this.urlQueries) {
+        this.$router.push({
+          query: {
+            ...this.$route.query,
+            sortedBy: property,
+            sortOrder: sortOrder
+          }
+        });
       }
 
       this.sortedBy = property;
@@ -368,18 +428,27 @@ export default {
         sortOrder: this.sortOrder
       });
     },
-    getRowClass(row, index) {
+    getRowClasses(row, index) {
+      let classes = [];
       if (this.rowClass) {
-        return this.rowClass(row, index);
+        classes = this.rowClass(row, index).split(" ");
       }
 
-      return "";
+      if (this.expandedRows.includes(index.toString())) {
+        classes.push("is-expanded");
+      }
+
+      return classes.join(" ");
     },
-    toggleExpand(key) {
+    toggleExpand(key, close = false) {
       const expandedRows = [...this.expandedRows];
-      expandedRows.includes(key)
-        ? (this.expandedRows = expandedRows.filter(row => row !== key))
-        : this.expandedRows.push(key);
+      if (expandedRows.includes(key) || close) {
+        this.expandedRows = expandedRows.filter(row => row !== key);
+        this.$emit("expand", "closed", key);
+      } else {
+        this.expandedRows.push(key);
+        this.$emit("expand", "expanded", key);
+      }
     }
   }
 };
