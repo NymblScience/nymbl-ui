@@ -17,14 +17,11 @@
 <script>
 const logo = require("../assets/img/nymblscience-logo.svg");
 const NNavItem = require("./NNavItem.vue").default;
-const NNavDropdown = require("./NNavDropdown.vue").default;
-const NDropdownItem = require("./NDropdownItem.vue").default;
 const StarIcon = require("../assets/icons/Star.vue").default;
 export default {
   components: {
     NNavItem,
-    NNavDropdown,
-    NDropdownItem,
+
     StarIcon
   },
   data() {
