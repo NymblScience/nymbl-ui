@@ -14,9 +14,8 @@
     @reveal="onModalReveal"
   >
     <div class="n-confirm__message">
-      <slot :data="data">
-        {{ data }}
-      </slot>
+      <slot :data="data">{{ data }}</slot>
+      <span v-if="isPlugin">{{ body }}</span>
     </div>
 
     <div slot="footer" class="n-confirm__footer">
@@ -64,6 +63,14 @@ export default {
     type: {
       type: String,
       default: "primary" // any of the color prop values of NButton
+    },
+    body: {
+      type: String,
+      default: "Are you sure?"
+    },
+    isPlugin: {
+      type: Boolean,
+      default: false
     },
     size: String,
     confirmButtonText: {
