@@ -28,10 +28,9 @@ jobs:
         npm install
         npm run build
 
-
-   - name: Commit /dist
-        run: |
-          git config --global user.name 'Nymbl'
-          git config --global user.email 'your-username@users.noreply.github.com'
-          git commit -am "Automated build"
-          git push
+    - name: Commit /dist
+      run: |
+        git config --global user.name 'Nymbl'
+        git config --global user.email 'your-username@users.noreply.github.com'
+        git commit -am "Automated build"
+        git push
