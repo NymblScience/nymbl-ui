@@ -32,6 +32,6 @@ jobs:
       run: |
         git config --global user.name 'Nymbl'
         git config --global user.email 'support@nymblscience.com'
-        git add . -f
+        git add dist -f
         git commit -m "Automated build."
         git push
