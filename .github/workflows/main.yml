@@ -33,5 +33,5 @@ jobs:
         run: |
           git config --global user.name 'Nymbl'
           git config --global user.email 'your-username@users.noreply.github.com'
-          git commit -am "Automated report"
+          git commit -am "Automated build"
           git push
