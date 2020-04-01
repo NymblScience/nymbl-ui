@@ -10,7 +10,8 @@
     "deploy": "npm run build-bundle; npm run styleguide:build; gh-pages -d styleguide",
     "build-bundle": "vue-cli-service build --target lib --name nymbl-ui ./src/index.js",
     "styleguide": "vue-cli-service styleguidist --open",
-    "styleguide:build": "vue-cli-service styleguidist:build"
+    "styleguide:build": "vue-cli-service styleguidist:build",
+    "preinstall": "npx npm-force-resolutions"
   },
   "main": "./dist/nymbl-ui.common.js",
   "dependencies": {
@@ -51,5 +52,9 @@
     "sass-loader": "^7.1.0",
     "vue-cli-plugin-styleguidist": "^4.15.2",
     "vue-template-compiler": "^2.6.9"
+  },
+  "resolutions": {
+    "minimist": "1.2.3",
+    "mkdir": "0.5.3"
   }
 }
