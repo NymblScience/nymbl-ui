@@ -9,7 +9,7 @@
     "deploy": "npm run build-bundle; npm run styleguide:build; gh-pages -d styleguide",
     "build-bundle": "vue-cli-service build --target lib --name nymbl-ui ./src/index.js",
     "styleguide": "vue-cli-service styleguidist --open",
-    "styleguide:build": "vue-cli-service styleguidist:build",
+    "styleguide:build": "vue-cli-service styleguidist:build"
   },
   "main": "./dist/nymbl-ui.common.js",
   "dependencies": {
