@@ -10,7 +10,6 @@
     "build-bundle": "vue-cli-service build --target lib --name nymbl-ui ./src/index.js",
     "styleguide": "vue-cli-service styleguidist --open",
     "styleguide:build": "vue-cli-service styleguidist:build",
-    "preinstall": "npx npm-force-resolutions"
   },
   "main": "./dist/nymbl-ui.common.js",
   "dependencies": {

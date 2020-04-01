@@ -25,6 +25,7 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Build UI components
       run: |
+        npx npm-force-resolutions
         npm install
         npm run build
 
