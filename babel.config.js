@@ -3,7 +3,7 @@ module.exports = {
 	overrides: [
 		{
 			test: './src',
-			presets: ['@vue/app']
+			presets: ['@vue/cli-plugin-babel/preset']
 		},
 		{
 			test: './ui',

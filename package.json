@@ -6,15 +6,17 @@
     "serve": "npm run styleguide",
     "build": "npm run build-bundle",
     "lint": "vue-cli-service lint",
+    "deploy": "npm run build-bundle; npm run styleguide:build; gh-pages -d styleguide",
     "build-bundle": "vue-cli-service build --target lib --name nymbl-ui ./src/index.js",
     "styleguide": "vue-cli-service styleguidist --open",
     "styleguide:build": "vue-cli-service styleguidist:build",
-    "deploy": "npm run build-bundle; npm run styleguide:build; gh-pages -d styleguide",
-    "test:unit": "vue-cli-service test:unit"
+    "preinstall": "npx npm-force-resolutions"
   },
+  "main": "./dist/nymbl-ui.common.js",
   "dependencies": {
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "2.0.0-rc.20",
+    "core-js": "^3.6.4",
     "eslint-plugin-import": "^2.16.0",
     "faker": "^4.1.0",
     "fuzzysearch": "^1.0.3",
@@ -32,7 +34,7 @@
   },
   "devDependencies": {
     "@babel/preset-react": "^7.0.0",
-    "@vue/cli-plugin-babel": "^3.5.0",
+    "@vue/cli-plugin-babel": "^4.2.3",
     "@vue/cli-plugin-eslint": "^4.2.3",
     "@vue/cli-service": "^4.2.3",
     "@vue/eslint-config-prettier": "^4.0.1",
@@ -47,8 +49,11 @@
     "gh-pages": "^2.0.1",
     "node-sass": "^4.13.1",
     "sass-loader": "^7.1.0",
-    "vue-cli-plugin-styleguidist": "^4.10.1",
+    "vue-cli-plugin-styleguidist": "^4.15.2",
     "vue-template-compiler": "^2.6.9"
   },
-  "main": "./dist/nymbl-ui.common.js"
+  "resolutions": {
+    "minimist": "1.2.3",
+    "mkdir": "0.5.3"
+  }
 }
