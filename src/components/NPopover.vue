@@ -89,8 +89,12 @@ export default {
     disabled(value) {
       if (this.tip) {
         if (value === true) {
+          this.tip.instances[0].disable();
+
           this.tip.disable();
         } else {
+          this.tip.instances[0].enable();
+
           this.tip.enable();
         }
       }
@@ -166,7 +170,7 @@ export default {
       this.tip = tippy(this.triggerEl, options);
 
       if (this.disabled) {
-        this.tip.disable();
+        this.tip.instances[0].disable();
       }
     },
 

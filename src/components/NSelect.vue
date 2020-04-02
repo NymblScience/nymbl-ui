@@ -570,7 +570,7 @@ export default {
       if (this.disabled) {
         return;
       }
-
+      console.log("opendropdown");
       this.$refs.dropdown.open();
     },
 
@@ -590,6 +590,9 @@ export default {
     },
 
     onFocus(e) {
+      if (this.disabled) {
+        return;
+      }
       if (this.isActive) {
         return;
       }
