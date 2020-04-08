@@ -34,8 +34,9 @@
       <n-table-row
         v-for="(row, index) in rows"
         :key="index.toString()"
+        :ref="`row-${index}`"
         :class="getRowClasses(row, index)"
-        @click.native="$emit('row-click', row, index, $event)"
+        @click.native="handleRowClick(row, index, $event)"
         @mounted="isRowLoaded(index + 1)"
       >
         <n-table-column-expand
@@ -439,6 +440,25 @@ export default {
       }
 
       return classes.join(" ");
+    },
+    handleRowClick(row, index, $event) {
+      const rowElement = this.$refs[`row-${index}`][0].$el;
+
+      const expandColumn = rowElement.getElementsByClassName(
+        "n-table-column__expand"
+      );
+
+      const expandRow = rowElement.getElementsByClassName(
+        "n-table-row__expanded"
+      );
+
+      if (
+        $event.composedPath().includes(expandColumn[0]) ||
+        $event.composedPath().includes(expandRow[0])
+      ) {
+        return;
+      }
+      this.$emit("row-click", row, index, $event);
     },
     toggleExpand(key, close = false) {
       const expandedRows = [...this.expandedRows];
