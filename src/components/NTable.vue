@@ -458,7 +458,7 @@ export default {
       ) {
         return;
       }
-      this.$emit("row-click", row, index, $event);
+      this.$emit("row-click", row, index, $event, rowElement);
     },
     toggleExpand(key, close = false) {
       const expandedRows = [...this.expandedRows];
