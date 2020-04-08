@@ -47599,11 +47599,8 @@ var components = __webpack_require__("7b38");
 var main = __webpack_require__("9299");
 
 // CONCATENATED MODULE: ./src/plugins/nconfirm.js
- // This is your plugin object. It can be exported to be used anywhere.
 
 var nconfirm_confirm = {
-  // The install method is all that needs to exist on the plugin object.
-  // It takes the global Vue object as well as user-defined options.
   install: function install(Vue) {
     Vue.component("NConfirm", NConfirm);
 
