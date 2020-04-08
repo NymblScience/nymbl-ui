@@ -58,6 +58,8 @@ export default {
   &-container {
     border-left: 2px solid $green-2;
   }
-  padding-bottom: 5px;
+  &.is-expanded {
+    padding-bottom: 5px;
+  }
 }
 </style>
