@@ -25,6 +25,7 @@ import NMenu from "./components/NMenu.vue";
 import { BContainer, BRow, BCol } from "bootstrap-vue/es/components";
 import "./assets/sass/main.scss";
 import nconfirm from "./plugins/nconfirm.js";
+import nmessage from "./plugins/nmessage.js";
 
 Vue.config.productionTip = false;
 
@@ -57,7 +58,8 @@ const Components = {
 };
 
 const Plugins = {
-  nconfirm
+  nconfirm,
+  nmessage
 };
 
 const NymblUI = { Components, Plugins };

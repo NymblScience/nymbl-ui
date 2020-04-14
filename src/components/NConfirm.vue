@@ -3,11 +3,8 @@
     ref="modal"
     class="n-confirm"
     role="alertdialog"
-    :dismiss-on="dismissOn"
     :dismissible="!loading"
     :title="title"
-    :transition="transition"
-    :size="size"
     @close="onModalClose"
     @hide="onModalHide"
     @open="onModalOpen"
@@ -22,7 +19,6 @@
       <n-button
         ref="denyButton"
         :disabled="loading"
-        :icon="denyButtonIcon"
         button-type="text"
         variant="danger"
         @click="deny"
@@ -32,7 +28,6 @@
       <n-button
         ref="confirmButton"
         button-type="text"
-        :icon="confirmButtonIcon"
         :loading="loading"
         @click="confirm"
         >{{ confirmButtonText }}</n-button
@@ -72,18 +67,17 @@ export default {
       type: Boolean,
       default: false
     },
-    size: String,
+
     confirmButtonText: {
       type: String,
       default: "OK"
     },
 
-    confirmButtonIcon: String,
     denyButtonText: {
       type: String,
       default: "Cancel"
     },
-    denyButtonIcon: String,
+
     autofocus: {
       type: String,
       default: "none" // 'confirm-button', 'deny-button' or 'none'
@@ -92,8 +86,8 @@ export default {
       type: Boolean,
       default: true
     },
-    dismissOn: String,
-    transition: String,
+    // dismissOn: String,
+
     loading: {
       type: Boolean,
       default: false

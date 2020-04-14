@@ -1,8 +1,20 @@
 <template>
   <div class="color-container">
-    <div v-for="color in colors" :key="color" class="color">
-      <div :style="{ background: color }" class="color-block"></div>
-      <div class="color-code">{{ color }}</div>
+    <div
+      v-for="(color, key) in colors"
+      :key="color"
+      class="color"
+      @click="handleColorClick(color)"
+    >
+      <div :style="{ background: color }" class="color-block">
+        <span>Copy!</span>
+      </div>
+      <div class="color-code">
+        {{ color }} <br />
+        <div style="color: #999">${{ key }}</div>
+        <!--<br />
+        <n-button size="sm">Copy</n-button> -->
+      </div>
     </div>
   </div>
 </template>
@@ -13,29 +25,36 @@ export default {
   name: "Colors",
   computed: {
     colors() {
-      return Object.values(colors);
+      return colors;
+    }
+  },
+  methods: {
+    handleColorClick(color) {
+      this.$nMessage(`${color} copied.`);
     }
   }
 };
 </script>
 <style lang="scss">
+$color-block-size: 120px;
 .color-container {
   max-width: 500px;
-  margin: 50px auto;
 }
 .color {
   width: 24.6%;
   display: inline-block;
   text-align: center;
+  cursor: pointer;
 }
 .color-block {
   background: red;
   // width: 200px;
   padding: 40px;
-  width: 80px;
-  height: 80px;
-  height: 2rem;
-  margin: 0 auto;
+  width: $color-block-size;
+  height: $color-block-size;
+  display: flex;
+  align-items: center;
+  margin: 20px 20px;
 
   // margin-right: 20px;
   // margin-bottom: 10px;
