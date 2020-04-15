@@ -86,23 +86,23 @@ export default {
 @import "@/assets/sass/imports.scss";
 
 .n-message {
-  transition: all 200ms;
+  transition: all 400ms;
   border-radius: 3px;
   width: 100%;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   background: $blue-2;
-  padding: 5px 10px;
+  padding: 10px 10px;
   color: $gray-1;
   margin-bottom: 10px;
-  font-size: 1rem;
-  color: #fff;
+  font-size: 1.1rem;
+  color: #f1f1f1;
 
   padding-right: 30px;
   position: relative;
   &-container {
     display: flex;
     align-items: center;
-    min-height: 28px;
+    min-height: 30px;
     .n-button {
       margin-left: auto;
       order: 2;
@@ -118,7 +118,7 @@ export default {
     right: 6px;
     top: 1px;
     cursor: pointer;
-    transition: color 200ms;
+    transition: color 300ms;
     &:hover {
       color: $red-3;
     }
