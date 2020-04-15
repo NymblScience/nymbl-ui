@@ -1,34 +1,34 @@
 <template>
   <div :class="classes" class="n-message">
     <div v-if="title" class="n-message-title">{{ title }}</div>
-    {{ message }}
-    <n-button
-      v-if="button"
-      :size="button.size ? button.size : sm"
-      @click="button.click"
-    >
-      {{ button.text ? button.text : "" }}</n-button
-    >
-    <n-button-icon
-      v-if="showClose"
-      class="n-message-close"
-      title="Close"
-      is-transperent
-      @click="close"
-    >
-      <close-icon :size="20" />
-    </n-button-icon>
+    <div class="n-message-container">
+      {{ message }}
+      <n-button
+        v-if="button"
+        :size="button.size ? button.size : sm"
+        @click="button.click"
+      >
+        {{ button.text ? button.text : "" }}</n-button
+      >
+
+      <close-icon
+        v-if="showClose"
+        class="n-message-close"
+        title="Close"
+        is-transperent
+        :size="10"
+        @click="close"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import CloseIcon from "../icons/Close.vue";
-import NButtonIcon from "./NButtonIcon.vue";
 
 export default {
   components: {
-    CloseIcon,
-    NButtonIcon
+    CloseIcon
   },
   props: {
     message: {
@@ -89,23 +89,39 @@ export default {
   transition: all 200ms;
   border-radius: 3px;
   width: 100%;
-  box-shadow: 0 1px 2px rgba(57, 63, 72, 0.3);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   background: $blue-2;
   padding: 5px 10px;
   color: $gray-1;
   margin-bottom: 10px;
   font-size: 0.9rem;
   color: #fff;
+
+  padding-right: 30px;
+  position: relative;
+  &-container {
+    display: flex;
+    align-items: center;
+    min-height: 28px;
+    .n-button {
+      margin-left: auto;
+      order: 2;
+    }
+  }
   &-title {
     font-weight: 600;
     width: 100%;
   }
-  display: flex;
-  align-items: center;
+
   &-close {
-    order: 2;
+    position: absolute;
+    right: 6px;
+    top: 1px;
     cursor: pointer;
-    margin-left: auto;
+    transition: color 200ms;
+    &:hover {
+      color: $red-3;
+    }
   }
   &.is-success {
     background: $green-2;

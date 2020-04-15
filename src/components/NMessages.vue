@@ -1,8 +1,8 @@
 <template>
-  <transition-group id="n-messages" name="toasts" tag="div" class="c-toasts">
+  <transition-group id="n-messages" name="toasts" tag="div">
     <n-message
-      v-for="(message, index) in messages"
-      :key="index"
+      v-for="message in messages"
+      :key="message.id"
       :message="message.message"
       :title="message.title"
       :type="message.type"
@@ -16,7 +16,7 @@
 
 <script>
 import NMessage from "./NMessage.vue";
-
+import uuid from "uuid";
 export default {
   components: {
     NMessage
@@ -27,8 +27,10 @@ export default {
       messages: []
     };
   },
+
   methods: {
     add(options) {
+      options.id = uuid.v4();
       this.messages.push(options);
     },
     close(msgToClose) {
