@@ -94,7 +94,7 @@ export default {
   padding: 5px 10px;
   color: $gray-1;
   margin-bottom: 10px;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #fff;
 
   padding-right: 30px;
