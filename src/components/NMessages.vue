@@ -30,8 +30,10 @@ export default {
 
   methods: {
     add(options) {
-      options.id = uuid.v4();
-      this.messages.push(options);
+      this.$nextTick(() => {
+        options.id = uuid.v4();
+        this.messages.push(options);
+      });
     },
     close(msgToClose) {
       this.messages = this.messages.filter(msg => msg !== msgToClose);
