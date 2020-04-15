@@ -19,10 +19,12 @@
     <div class="styleguide-section">
       <h3>Without Close Button</h3>
       <n-button size="sm" @click="openNoClose">Open</n-button>
+      <n-button size="sm" @click="openWithTitle">Open Title</n-button>
     </div>
     <div class="styleguide-section">
       <h3>Persistant</h3>
       <n-button size="sm" @click="openPersistant">Open</n-button>
+      <n-button size="sm" @click="openWithButton">Button</n-button>
     </div>
     <n-button size="sm" @click="$nMessage.closeAll()">Close All</n-button>
   </div>
@@ -67,6 +69,27 @@ export default {
     openPersistant() {
       this.$nMessage({
         message: "Oops. Something horrendous hapoened.",
+        duration: 0
+      });
+    },
+    openWithTitle() {
+      this.$nMessage({
+        title: "Title",
+        message: "Oops. Something horrendous hapoened.",
+        duration: 0
+      });
+    },
+    openWithButton() {
+      const refreshPage = () => window.location.reload(true);
+
+      this.$nMessage({
+        message: "New version is available.",
+        button: {
+          click: refreshPage,
+          size: "sm",
+          text: "reload"
+        },
+        showClose: true,
         duration: 0
       });
     }

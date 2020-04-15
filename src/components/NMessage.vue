@@ -1,13 +1,19 @@
 <template>
   <div :class="classes" class="n-message">
-    {{ title ? title : null }}
+    <div v-if="title" class="n-message-title">{{ title }}</div>
     {{ message }}
+    <n-button
+      v-if="button"
+      :size="button.size ? button.size : sm"
+      @click="button.click"
+    >
+      {{ button.text ? button.text : "" }}</n-button
+    >
     <n-button-icon
       v-if="showClose"
-      is-raised
-      variant="danger"
       class="n-message-close"
       title="Close"
+      is-transperent
       @click="close"
     >
       <close-icon :size="20" />
@@ -44,6 +50,10 @@ export default {
     showClose: {
       type: Boolean,
       default: true
+    },
+    button: {
+      type: [Object, Boolean],
+      default: false
     }
   },
   computed: {
@@ -80,10 +90,16 @@ export default {
   border-radius: 3px;
   width: 100%;
   box-shadow: 0 1px 2px rgba(57, 63, 72, 0.3);
-  border-left: solid 2px $blue-2;
-  padding: 10px;
-  margin-bottom: 15px;
-  background: #fff;
+  background: $blue-2;
+  padding: 5px 10px;
+  color: $gray-1;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  color: #fff;
+  &-title {
+    font-weight: 600;
+    width: 100%;
+  }
   display: flex;
   align-items: center;
   &-close {
@@ -92,10 +108,10 @@ export default {
     margin-left: auto;
   }
   &.is-success {
-    border-left: solid 2px $green-2;
+    background: $green-2;
   }
   &.is-error {
-    border-left: solid 2px $red-2;
+    background: $red-2;
   }
 }
 </style>

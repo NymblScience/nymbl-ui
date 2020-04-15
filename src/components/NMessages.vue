@@ -7,6 +7,7 @@
       :title="message.title"
       :type="message.type"
       :duration="message.duration"
+      :button="message.button"
       :show-close="message.showClose"
       @close="close(message)"
     />
@@ -55,11 +56,11 @@ export default {
 <style lang="scss" scoped>
 #n-messages {
   position: fixed;
-  top: 30px;
-  // left: calc(50% - 150px);
-  right: 30px;
+  top: 10px;
+  left: calc(50% - 200px);
+
   z-index: 9999;
 
-  width: 350px;
+  width: 400px;
 }
 </style>
