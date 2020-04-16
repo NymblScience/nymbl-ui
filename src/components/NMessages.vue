@@ -60,7 +60,7 @@ export default {
 <style lang="scss" scoped>
 #n-messages {
   position: fixed;
-  top: 30px;
+  top: 20px;
   left: calc(50% - 200px);
 
   z-index: 9999;

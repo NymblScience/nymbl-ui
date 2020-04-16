@@ -74,9 +74,12 @@ export default {
   },
   methods: {
     close() {
+      const that = this;
       this.$emit("close");
-      this.$destroy();
-      this.$el.remove();
+      setTimeout(function() {
+        that.$destroy();
+        that.$el.remove();
+      }, 500);
     }
   }
 };
@@ -89,14 +92,13 @@ export default {
   transition: all 400ms;
   border-radius: 3px;
   width: 100%;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  background: $blue-2;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
+  background: $blue-1;
   padding: 10px 10px;
   color: $gray-1;
   margin-bottom: 10px;
   font-size: 1.1rem;
-  color: #f1f1f1;
-
+  color: #f9f9f9;
   padding-right: 30px;
   position: relative;
   &-container {
@@ -115,7 +117,7 @@ export default {
 
   &-close {
     position: absolute;
-    right: 6px;
+    right: 8px;
     top: 1px;
     cursor: pointer;
     transition: color 300ms;
@@ -124,10 +126,10 @@ export default {
     }
   }
   &.is-success {
-    background: $green-2;
+    background: $green-1;
   }
   &.is-error {
-    background: $red-2;
+    background: $red-1;
   }
 }
 </style>
