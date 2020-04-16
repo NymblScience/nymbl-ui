@@ -4,7 +4,9 @@
     class="n-table"
     :class="classes"
     v-bind="$attrs"
-    :style="isEmpty ? null : { 'padding-bottom': rowPadding + 'px' }"
+    :style="
+      isEmpty || filter.value ? null : { 'padding-bottom': rowPadding + 'px' }
+    "
     v-on="$listeners"
   >
     <n-table-header
@@ -104,7 +106,7 @@ export default {
       type: Boolean
     },
     stickyHeaderOffset: {
-      default: 0,
+      default: 63,
       type: Number
     },
     isFiltered: {
@@ -257,11 +259,6 @@ export default {
         data = this.filterRows(data);
       }
 
-      // Add Id for Vue Key.add
-      // if (this.isExpandable) {
-      //   data.forEach(row => (row.key = uuidv4()));
-      // }
-
       if (this.sortOrder === "descending" && !this.sortDisabled) {
         return data.reverse();
       }
@@ -293,9 +290,11 @@ export default {
 
   mounted() {
     this.loaded = true;
-    if (this.stickyHeader) {
-      this.createStickyHeader(0);
-    }
+    this.$nextTick(() => {
+      if (this.stickyHeader) {
+        this.createStickyHeader(1000);
+      }
+    });
 
     if (this.sortBy.order) {
       this.sortOrder = this.sortBy.order;
@@ -347,7 +346,7 @@ export default {
       }
     },
 
-    createStickyHeader(timeout = 100) {
+    createStickyHeader(timeout = 400) {
       const that = this;
       // Fixed header for the table component
       setTimeout(() => {
@@ -357,16 +356,13 @@ export default {
         });
       }, timeout);
     },
-    updateStickyHeader(timeout = 0) {
-      setTimeout(function() {
-        const stickybitsInstancetoBeUpdated = stickybits(".n-table-header");
-        console.log(
-          "stickybitsInstancetoBeUpdated :",
-          stickybitsInstancetoBeUpdated
-        );
-        stickybitsInstancetoBeUpdated.update();
-      }, timeout);
-    },
+    // updateStickyHeader(timeout = 0) {
+    //   setTimeout(function() {
+    //     const stickybitsInstancetoBeUpdated = stickybits(".n-table-header");
+
+    //     stickybitsInstancetoBeUpdated.update();
+    //   }, timeout);
+    // },
     changeSort(
       property,
       sortOrder = "ascending",

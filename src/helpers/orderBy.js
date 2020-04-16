@@ -9,7 +9,6 @@ function orderBy(property, array, sortMethod) {
 
       i++;
     }
-    console.log(a, b);
     if (a < b) {
       return -1;
     }
