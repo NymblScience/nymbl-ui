@@ -18,15 +18,22 @@
       :expand-width="expandWidth"
       :slots="$slots"
       @changeSort="changeSort"
+      @loaded="createStickyHeader(200)"
     />
 
     <n-table-rows ref="rows">
       <div v-if="isEmpty" class="n-table-empty">
-        <span v-if="!loading && !isFiltezred && filter.value.length === 0">
+        <span v-if="!loading && !isFiltered && filter.value.length === 0">
           {{ emptyText }}
         </span>
         <span v-else-if="!loading">{{ notFoundText }}</span>
-        <span v-else>Loading...</span>
+        <n-loading-circle
+          v-else
+          disable-transition
+          class="n-button__loading"
+          :size="24"
+          :stroke="3"
+        ></n-loading-circle>
       </div>
 
       <n-table-row v-if="isEmpty" v-show="false" :is-empty="isEmpty">
@@ -65,6 +72,8 @@
   </div>
 </template>
 <script>
+import NLoadingCircle from "./NLoadingCircle.vue";
+
 import NTableHeader from "./NTableHeader.vue";
 import NTableRows from "./NTableRows.vue";
 import NTableRow from "./NTableRow.vue";
@@ -81,16 +90,15 @@ export default {
     NTableRow,
     NTableRows,
     NTableRowExpand,
-    NTableColumnExpand
+    NTableColumnExpand,
+    NLoadingCircle
   },
   props: {
     /**
      * Table data
      */
     data: {
-      default: function() {
-        return [];
-      },
+      default: () => [],
       type: Array
     },
     loading: {
@@ -269,10 +277,13 @@ export default {
       return this.rows.length < 1;
     },
     sortQueries() {
-      return {
-        sortedBy: this.$route.query.sortedBy,
-        sortOrder: this.$route.query.sortOrder
-      };
+      if (this.urlQueries) {
+        return {
+          sortedBy: this.$route.query.sortedBy,
+          sortOrder: this.$route.query.sortOrder
+        };
+      }
+      return {};
     }
   },
 
@@ -290,11 +301,6 @@ export default {
 
   mounted() {
     this.loaded = true;
-    this.$nextTick(() => {
-      if (this.stickyHeader) {
-        this.createStickyHeader(1000);
-      }
-    });
 
     if (this.sortBy.order) {
       this.sortOrder = this.sortBy.order;
@@ -331,7 +337,10 @@ export default {
       return data.filter(data =>
         props.some(prop =>
           data[prop]
-            ? data[prop].toLowerCase().includes(this.filter.value.toLowerCase())
+            ? data[prop]
+                .toString()
+                .toLowerCase()
+                .includes(this.filter.value.toLowerCase())
             : false
         )
       );
@@ -377,7 +386,7 @@ export default {
         }
       }
 
-      if (isHeader) {
+      if (isHeader && this.urlQueries) {
         this.$router.push({
           query: {
             ...this.$route.query,

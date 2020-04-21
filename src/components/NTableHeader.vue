@@ -75,10 +75,11 @@ export default {
   },
   mounted() {
     this.loaded = true;
+    this.$emit("loaded");
   },
   methods: {
-    changeSort(prop, sortOrder) {
-      this.$emit("changeSort", prop, sortOrder, null, true);
+    changeSort(prop, sortOrder, sortMethod) {
+      this.$emit("changeSort", prop, sortOrder, sortMethod, true);
     }
   }
 };
@@ -88,9 +89,9 @@ export default {
 .n-table-header {
   padding: 0;
   margin: 0;
+  background: #fff;
   list-style: none;
   border-bottom: 1px solid #ebeef5;
-  background: #fff;
   z-index: 2020;
 }
 </style>

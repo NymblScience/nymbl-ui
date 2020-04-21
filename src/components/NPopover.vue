@@ -91,11 +91,11 @@ export default {
         if (value === true) {
           this.tip.instances[0].disable();
 
-          this.tip.disable();
+          // this.tip.disable();
         } else {
           this.tip.instances[0].enable();
 
-          this.tip.enable();
+          // this.tip.enable();
         }
       }
     }

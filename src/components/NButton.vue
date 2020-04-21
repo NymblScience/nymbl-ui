@@ -286,64 +286,6 @@ export default {
     background-color: #dac6bb;
   }
 }
-// .n-button.btn-icon.n-button__primary svg {
-//   color: #85ece8;
-// }
-
-// .n-button.btn-icon.n-button__secondary svg {
-//   color: #95bfdd;
-// }
-
-// .n-button.btn-icon.n-button__danger svg {
-//   color: #dac6bb;
-// }
-
-// .n-button.btn-icon {
-//   color: #595959;
-//   box-shadow: none;
-//   background: none;
-//   border: none;
-//   -webkit-filter: drop-shadow(0.05rem 0.05rem 0.05rem rgba(0, 0, 0, 0.3));
-//   filter: drop-shadow(0.05rem 0.05rem 0.05rem rgba(0, 0, 0, 0.3));
-
-//   &:hover {
-//     background: none !important;
-//     box-shadow: none !important;
-//     -webkit-filter: drop-shadow(0.053rem 0.053rem 0.053rem rgba(0, 0, 0, 0.5));
-//     filter: drop-shadow(0.053rem 0.053rem 0.053rem rgba(0, 0, 0, 0.5));
-//   }
-//   &:focus {
-//     background: none !important;
-//     box-shadow: none !important;
-//     -webkit-filter: drop-shadow(0.053rem 0.053rem 0.053rem rgba(0, 0, 0, 0.5));
-//     filter: drop-shadow(0.053rem 0.053rem 0.053rem rgba(0, 0, 0, 0.5));
-//   }
-//   &:active {
-//     -webkit-filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0.3));
-//     filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0.4));
-//     background: none !important;
-//     outline: none !important;
-//     box-shadow: none !important;
-//   }
-// }
-
-// .n-button.btn-icon.btn-icon-flat {
-//   filter: none;
-//   &:hover {
-//     filter: none;
-//   }
-//   &:focus {
-//     filter: none;
-//   }
-//   &:active {
-//     filter: none;
-//   }
-// }
-
-// .n-button.btn-icon-round {
-//   border-radius: 999rem;
-//   padding: 8px;
-// }
 
 .n-button--block {
   display: block;

@@ -2,35 +2,7 @@
 <template>
   <div>
     <div class="styleguide-section">
-      <h3>Default</h3>
-      <n-table
-        :row-class="getRowClass"
-        :sortBy="{ order: 'ascending', prop: 'name' }"
-        :data="data"
-      >
-        <template v-slot:default="table">
-          <n-table-column is-nested border-right label="User">
-            <n-table-column  sortable prop="name" label="Name">{{
-              table.row.name
-            }}</n-table-column>
-            <n-table-column   label="Date">{{
-              formatDate(table.row.date)
-            }}</n-table-column>
-          </n-table-column>
-          <n-table-column is-nested border-right label="Contact">
-            <n-table-column  sortable prop="email" label="Email">{{
-              table.row.email
-            }}</n-table-column>
-            <n-table-column  sortable prop="phone" label="Phone">{{
-              table.row.phone
-            }}</n-table-column>
-          </n-table-column>
-        </template>
-        <template v-slot:expanded="row">{{ row.row }}</template>
-      </n-table>
-    </div>
-    <div class="styleguide-section">
-      <h3>Expand and Filter</h3>
+      <!-- <h3>Expand and Filter</h3> -->
       <n-textbox
         v-model="filter.value"
         clearable
@@ -39,24 +11,32 @@
       />
       <n-table
         :filter="filter"
-          :sortBy="{ order: 'ascending', prop: 'name' }"
-        :data="data2"
+        :sortBy="{ order: 'ascending', prop: 'name' }"
+        :data="data"
         is-expandable
       >
         <template v-slot:default="table">
+          <n-table-column sortable prop="date" label="Date">
+            {{
+            formatDate(table.row.date)
+            }}
+          </n-table-column>
           <n-table-column
-            :sort-method="sortMethod"
+  
             sortable
             prop="name"
             label="Name"
-            >{{ table.row.name }}</n-table-column
-          >
-          <n-table-column sortable prop="email" label="Email">{{
+          >{{ table.row.name }}</n-table-column>
+          <n-table-column sortable prop="email" label="Email">
+            {{
             table.row.email
-          }}</n-table-column>
-          <n-table-column sortable prop="phone" label="Phone">{{
+            }}
+          </n-table-column>
+          <n-table-column sortable prop="phone" label="Phone">
+            {{
             table.row.phone
-          }}</n-table-column>
+            }}
+          </n-table-column>
         </template>
         <template #expanded>
           <div class="expand-example" />
@@ -69,7 +49,8 @@
 <script>
 const NTableColumn = require("./NTableColumn.vue").default;
 const NTextbox = require("./NTextbox.vue").default;
-const faker = require("faker");
+const { users } = require("../users");
+// const faker = require("faker");
 const moment = require("moment");
 
 export default {
@@ -81,8 +62,7 @@ export default {
 
   data() {
     return {
-      data: this.getFakeData(10),
-      data2: this.getFakeData(4),
+      data: users,
 
       filter: {
         value: "",
@@ -92,35 +72,25 @@ export default {
     };
   },
   methods: {
-    sortMethod(a, b) {
-      if (a.name === null) {
-        return 1;
-      }
-      if (b.name === null) {
-        return -1;
-      }
+    // sortMethod(a, b) {
+    //   if (a.name === null) {
+    //     return 1;
+    //   }
+    //   if (b.name === null) {
+    //     return -1;
+    //   }
 
-      const aName = a.name.toUpperCase();
-      const bName = b.name.toUpperCase();
+    //   const aName = a.name.toUpperCase();
+    //   const bName = b.name.toUpperCase();
 
-      if (aName < bName) {
-        return -1;
-      }
-      if (aName > bName) {
-        return 1;
-      }
-      return 0;
-    },
-    getFakeData(count = 10) {
-      const data = new Array(count).fill("");
-      return data.map(a => ({
-        name: faker.name.findName(),
-        id: faker.random.uuid(),
-        date: faker.date.past(),
-        phone: faker.phone.phoneNumber(),
-        email: faker.internet.email()
-      }));
-    },
+    //   if (aName < bName) {
+    //     return -1;
+    //   }
+    //   if (aName > bName) {
+    //     return 1;
+    //   }
+    //   return 0;
+    // },
 
     getRowClass(row, index) {
       if (index === 3) {
@@ -128,7 +98,7 @@ export default {
       }
     },
     formatDate(date) {
-      return moment(date).format("YYYY/MM/DD")
+      return moment(date).format("YYYY/MM/DD");
     }
   }
 };
@@ -141,11 +111,9 @@ export default {
   max-width: 100%;
   margin: 10px 0;
   background-image: linear-gradient(45deg, #f1f1f1 25%, transparent 25%),
-    linear-gradient(-45deg, #f1f1f1 25%, transparent 25%), linear-gradient(
-      45deg,
-      transparent 75%,
-      #f1f1f1 75%
-    ), linear-gradient(-45deg, transparent 75%, #f1f1f1 75%);
+    linear-gradient(-45deg, #f1f1f1 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #f1f1f1 75%),
+    linear-gradient(-45deg, transparent 75%, #f1f1f1 75%);
   background-size: 20px 20px;
   background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
   height: 100px;

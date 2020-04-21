@@ -24,7 +24,7 @@
       <n-table-arrows
         :active-arrow="sortOrder"
         :is-active="sortedBy === label.prop"
-        @sort="$emit('changeSort', label.prop, 'toggle')"
+        @click="$emit('changeSort', label.prop, 'toggle', label.sortMethod)"
       ></n-table-arrows>
     </span>
 
@@ -77,6 +77,16 @@ export default {
       default: () => {
         return [];
       }
+    }
+  },
+  mounted() {
+    if (this.label.sortMethod && this.sortedBy === this.label.prop) {
+      this.$emit(
+        "changeSort",
+        this.label.prop,
+        "toggle",
+        this.label.sortMethod
+      );
     }
   }
 };
