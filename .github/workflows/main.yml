@@ -37,5 +37,5 @@ jobs:
         git commit -m "Automated build."
         git push
 
-      - name: Bump version
-      run: npm version minor
+    - name: Bump version
+    run: npm version minor
