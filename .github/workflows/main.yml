@@ -29,13 +29,11 @@ jobs:
         npm install
         npm run build
 
-    - name: Commit /dist
+    - name: Commit /dist & version bump
       run: |
         git config --global user.name 'Nymbl'
         git config --global user.email 'support@nymblscience.com'
         git add dist -f
         git commit -m "Automated build."
         git push
-
-    - name: Bump version
-    run: npm version minor
+        npm version minor
