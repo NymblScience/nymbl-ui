@@ -23,17 +23,19 @@ jobs:
     - uses: actions/checkout@v2
 
     # Runs a set of commands using the runners shell
-    - name: Build UI components
+    - name: Build UI components & version bump
       run: |
+        npm version minor
         npx npm-force-resolutions
         npm install
         npm run build
 
-    - name: Commit /dist & version bump
+    - name: Commit /dist 
       run: |
         git config --global user.name 'Nymbl'
         git config --global user.email 'support@nymblscience.com'
         git add dist -f
+        git add package-lock.js
         git commit -m "Automated build."
         git push
-        npm version minor
+
