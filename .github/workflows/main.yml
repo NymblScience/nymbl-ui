@@ -36,3 +36,7 @@ jobs:
         git add dist -f
         git commit -m "Automated build."
         git push
+
+      - name: Bump version
+      run: |
+        npm version minor
