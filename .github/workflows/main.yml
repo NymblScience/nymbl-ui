@@ -25,6 +25,8 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Build UI components & version bump
       run: |
+        git config --global user.name 'Nymbl'
+        git config --global user.email 'support@nymblscience.com'
         npm version minor
         npx npm-force-resolutions
         npm install
@@ -32,8 +34,7 @@ jobs:
 
     - name: Commit /dist 
       run: |
-        git config --global user.name 'Nymbl'
-        git config --global user.email 'support@nymblscience.com'
+
         git add dist -f
         git add package-lock.js
         git commit -m "Automated build."
