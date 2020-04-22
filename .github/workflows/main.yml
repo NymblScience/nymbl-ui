@@ -34,9 +34,7 @@ jobs:
 
     - name: Commit /dist 
       run: |
-
         git add dist -f
-        git add package-lock.js
         git commit -m "Automated build."
         git push
 
