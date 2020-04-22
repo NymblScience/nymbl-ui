@@ -38,5 +38,4 @@ jobs:
         git push
 
       - name: Bump version
-      run: |
-        npm version minor
+      run: npm version minor
