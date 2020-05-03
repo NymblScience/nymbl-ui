@@ -60,11 +60,14 @@ export default {
 <style lang="scss" scoped>
 #n-messages {
   position: fixed;
-  top: 20px;
-  left: calc(50% - 200px);
-
+  top: 0;
+  left: 0;
   z-index: 9999;
-
-  width: 400px;
+  width: 100%;
+  @media (min-width: 440px) {
+    left: calc(50% - 200px);
+    top: 20px;
+    width: 400px;
+  }
 }
 </style>

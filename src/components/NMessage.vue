@@ -90,7 +90,7 @@ export default {
 
 .n-message {
   transition: all 400ms;
-  border-radius: 3px;
+  border-radius: 0;
   width: 100%;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
   background: $blue-1;
@@ -101,6 +101,9 @@ export default {
   color: #f9f9f9;
   padding-right: 30px;
   position: relative;
+  @media (min-width: 440px) {
+    border-radius: 3px;
+  }
   &-container {
     display: flex;
     align-items: center;
@@ -118,7 +121,7 @@ export default {
   &-close {
     position: absolute;
     right: 8px;
-    top: 1px;
+    top: 8px;
     cursor: pointer;
     transition: color 300ms;
     &:hover {
