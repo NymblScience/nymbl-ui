@@ -1,6 +1,8 @@
 // The Material Design color palette
 @import 'md-colors';
 
+@import 'colors';
+
 // The UI font stack
 $font-stack             : Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 
@@ -37,7 +39,7 @@ $ui-input-margin-bottom             : rem(16px) !default;
 $ui-input-label-color               : $secondary-text-color !default;
 $ui-input-label-color--hover        : rgba(black, 0.75) !default;
 $ui-input-label-color--active       : $brand-primary-color !default;
-$ui-input-label-color--invalid      : $md-red !default;
+$ui-input-label-color--invalid      : $red-2 !default;
 $ui-input-label-font-size           : rem(15px) !default;
 $ui-input-label-line-height         : normal !default;
 $ui-input-label-margin-bottom       : 0 !default;

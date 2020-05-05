@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700");
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono:300,400,500,700");
+
 
 // Load Nymbl UI colors
 @import "@/assets/sass/colors.scss";
@@ -37,7 +39,7 @@ $btn-disabled-opacity: 0.5 !default;
 
 $btn-focus-width: 0;
 
-$body-bg: $white !default;
+$body-bg: #F7F7F7 !default;
 
 $body-color: #231f20 !default;
 
