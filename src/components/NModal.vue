@@ -23,8 +23,12 @@
           :class="{ 'n-modal-confirm': type === 'confirm' }"
           @keydown.native.stop.esc="onEsc"
         >
-          <div v-if="type !== 'confirm'" class="n-modal-header">
-            <slot name="header">
+          <div
+            v-if="type !== 'confirm'"
+            class="n-modal-header"
+            :class="{ 'no-title': noTitle }"
+          >
+            <slot v-if="!noTitle" name="header">
               <h1 class="n-modal-header-text">{{ title }}</h1>
             </slot>
 
@@ -117,6 +121,10 @@ export default {
     customClass: {
       type: String,
       default: ""
+    },
+    noTitle: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -284,12 +292,6 @@ $n-modal-header-font-size: rem(18px);
     .n-modal-wrapper {
       vertical-align: initial;
     }
-
-    // &.has-footer .n-modal-body {
-    //   max-height: calc(
-    //     100vh - #{$n-modal-header-height + $n-modal-footer-height}
-    //   );
-    // }
   }
 
   &.has-footer {
@@ -307,21 +309,6 @@ $n-modal-header-font-size: rem(18px);
   }
 }
 
-// Disable scrolling & add placeholder for scrollbar. Removes shifting.
-// .n-modal-is-open {
-//   overflow: hidden;
-//   padding-right: 17.5px;
-//   .n-navbar {
-//     padding-right: 17.5px;
-//   }
-//   &.is-mobile {
-//     padding-right: 0;
-//     .n-navbar {
-//       padding-right: 0px;
-//     }
-//   }
-// }
-
 .n-modal-mask {
   background-color: $n-modal-mask-background;
   transition: opacity $n-modal-transition-duration ease;
@@ -338,9 +325,6 @@ $n-modal-header-font-size: rem(18px);
   overflow: hidden;
   text-align: center;
   margin: 0 auto;
-  // &.has-dummy-scrollbar {
-  //   overflow-y: scroll;
-  // }
 }
 
 .n-modal-container {
@@ -354,7 +338,6 @@ $n-modal-header-font-size: rem(18px);
   max-width: 90vw;
   outline: none;
   overflow: hidden;
-  // padding: 0;
   text-align: initial;
   transition: all $n-modal-transition-duration ease;
   width: rem(528px);
@@ -383,6 +366,10 @@ $n-modal-header-font-size: rem(18px);
   // align-items: center;
   flex: 1 0 auto;
   justify-content: space-between;
+  &.no-title {
+    height: 0;
+    padding: 0;
+  }
 }
 
 .n-modal-header-text {
