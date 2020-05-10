@@ -456,4 +456,12 @@ $n-modal-header-font-size: rem(18px);
 .n-modal-transition-fade-leave-active {
   opacity: 0;
 }
+
+.modal-open {
+  overflow: hidden;
+}
+
+.modal-open .navigation-main {
+  padding-right: 51px !important;
+}
 </style>

@@ -41,6 +41,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import "@/assets/sass/animations.scss";
+@import "@/assets/sass/colors.scss";
+@import "@/assets/sass/config.scss";
 .n-table-arrows {
   display: flex;
   flex-direction: column;
@@ -52,9 +55,6 @@ export default {
 .n-table-arrows .n-active {
   transition: color 0.1s ease;
 
-  color: #09b3b0;
+  color: $green-2;
 }
-@import "@/assets/sass/animations.scss";
-@import "@/assets/sass/colors.scss";
-@import "@/assets/sass/config.scss";
 </style>

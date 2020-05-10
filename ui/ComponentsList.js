@@ -65,7 +65,7 @@ var styles = function styles(_ref) {
     },
     isSelected: {
       fontWeight: "400",
-      color: '#09b3b0'
+      color: '#1B807E'
     }
   };
 };

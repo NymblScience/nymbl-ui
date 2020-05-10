@@ -24,7 +24,7 @@ var styles = function styles(_ref) {
       },
       '&:hover, &:active': {
         isolate: false,
-        color: "#09b3b0",
+        color: "#1B807E",
         cursor: 'pointer'
       },
 

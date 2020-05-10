@@ -10,7 +10,7 @@ $font-stack             : Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI",
 $base-font-size         : 100% !default; // typically 16px in most browsers
 
 // Brand colors
-$brand-primary-color    : #09B3B0 !default;
+$brand-primary-color    : $green-2 !default;
 $brand-accent-color     : $md-purple-a400 !default;
 
 // Primary text color
