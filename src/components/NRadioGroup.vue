@@ -59,7 +59,6 @@ export default {
       required: true
     },
     value: {
-      type: [Number, String, Object, Array, Boolean],
       required: true
     },
     keys: {

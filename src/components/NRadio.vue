@@ -36,11 +36,9 @@ export default {
     label: String,
     tabindex: [String, Number],
     value: {
-      type: [Number, String, Object, Array, Boolean],
       required: true
     },
     trueValue: {
-      type: [Number, String, Object, Array, Boolean],
       required: true
     },
     checked: {
