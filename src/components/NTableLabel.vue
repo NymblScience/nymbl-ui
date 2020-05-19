@@ -16,15 +16,15 @@
       <custom-header :custom-header="slots[label.customHeader]"></custom-header>
     </span>
 
-    <span v-else-if="label.sortable" class="n-table-label-sortable">
-      <span
-        @click="$emit('changeSort', label.prop, 'toggle', label.sortMethod)"
-        >{{ label.label }}</span
-      >
+    <span
+      v-else-if="label.sortable"
+      class="n-table-label-sortable"
+      @click="$emit('changeSort', label.prop, 'toggle', label.sortMethod)"
+    >
+      <span>{{ label.label }}</span>
       <n-table-arrows
         :active-arrow="sortOrder"
         :is-active="sortedBy === label.prop"
-        @click="$emit('changeSort', label.prop, 'toggle', label.sortMethod)"
       ></n-table-arrows>
     </span>
 
