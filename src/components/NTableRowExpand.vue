@@ -3,27 +3,21 @@
     :class="{ 'is-expanded': expandedRows.includes(id) }"
     class="n-table-row__expanded"
   >
-    <transition-expand>
-      <div v-if="expandedRows.includes(id)">
-        <div
-          class="n-table-row__expanded-container"
-          :style="{ 'padding-left': expandWidth + 'px' }"
-        >
-          <slot />
-        </div>
+    <div v-if="expandedRows.includes(id)">
+      <div
+        class="n-table-row__expanded-container"
+        :style="{ 'padding-left': expandWidth + 'px' }"
+      >
+        <slot />
       </div>
-    </transition-expand>
+    </div>
   </div>
 </template>
 
 <script>
-import TransitionExpand from "../transitions/TransitionExpand";
-
 export default {
   name: "NTableRowExpand",
-  components: {
-    TransitionExpand
-  },
+
   props: {
     expandedRows: {
       type: Array,
