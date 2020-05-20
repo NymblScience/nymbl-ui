@@ -9,66 +9,68 @@
     "
     v-on="$listeners"
   >
-    <n-table-header
-      v-if="loaded && labels.length > 0"
-      :labels="labels"
-      :sort-order="sortOrder"
-      :sorted-by="sortedBy"
-      :is-expandable="isExpandable"
-      :expand-width="expandWidth"
-      :slots="$slots"
-      @changeSort="changeSort"
-      @loaded="createStickyHeader(200)"
-    />
+    <div>
+      <n-table-header
+        v-if="loaded && labels.length > 0"
+        :labels="labels"
+        :sort-order="sortOrder"
+        :sorted-by="sortedBy"
+        :is-expandable="isExpandable"
+        :expand-width="expandWidth"
+        :slots="$slots"
+        @changeSort="changeSort"
+        @loaded="createStickyHeader(200)"
+      />
 
-    <n-table-rows ref="rows">
-      <div v-if="isEmpty" class="n-table-empty">
-        <span v-if="!loading && !isFiltered && filter.value.length === 0">
-          {{ emptyText }}
-        </span>
-        <span v-else-if="!loading">{{ notFoundText }}</span>
-        <n-loading-circle
-          v-else
-          disable-transition
-          class="n-button__loading"
-          :size="24"
-          :stroke="3"
-        ></n-loading-circle>
-      </div>
+      <n-table-rows ref="rows">
+        <div v-if="isEmpty" class="n-table-empty">
+          <span v-if="!loading && !isFiltered && filter.value.length === 0">
+            {{ emptyText }}
+          </span>
+          <span v-else-if="!loading">{{ notFoundText }}</span>
+          <n-loading-circle
+            v-else
+            disable-transition
+            class="n-button__loading"
+            :size="24"
+            :stroke="3"
+          ></n-loading-circle>
+        </div>
 
-      <n-table-row v-if="isEmpty" v-show="false" :is-empty="isEmpty">
-        <slot :row="{}"></slot>
-      </n-table-row>
+        <n-table-row v-if="isEmpty" v-show="false" :is-empty="isEmpty">
+          <slot :row="{}"></slot>
+        </n-table-row>
 
-      <n-table-row
-        v-for="(row, index) in rows"
-        :key="index.toString()"
-        :ref="`row-${index}`"
-        :class="getRowClasses(row, index)"
-        @click.native="handleRowClick(row, index, $event)"
-        @mounted="isRowLoaded(index + 1)"
-      >
-        <n-table-column-expand
-          v-if="isExpandable"
-          :id="index.toString()"
-          ref="expand"
-          :expanded-rows="expandedRows"
-          :expand-width="expandWidth"
-          @expand="toggleExpand(index.toString())"
-        />
-
-        <slot :row="row" :index="index" />
-
-        <n-table-row-expand
-          v-if="isExpandable"
-          :id="index.toString()"
-          :expand-width="expandWidth"
-          :expanded-rows="expandedRows"
+        <n-table-row
+          v-for="(row, index) in rows"
+          :key="index.toString()"
+          :ref="`row-${index}`"
+          :class="getRowClasses(row, index)"
+          @click.native="handleRowClick(row, index, $event)"
+          @mounted="isRowLoaded(index + 1)"
         >
-          <slot :row="row" name="expanded" />
-        </n-table-row-expand>
-      </n-table-row>
-    </n-table-rows>
+          <n-table-column-expand
+            v-if="isExpandable"
+            :id="index.toString()"
+            ref="expand"
+            :expanded-rows="expandedRows"
+            :expand-width="expandWidth"
+            @expand="toggleExpand(index.toString())"
+          />
+
+          <slot :row="row" :index="index" />
+
+          <n-table-row-expand
+            v-if="isExpandable"
+            :id="index.toString()"
+            :expand-width="expandWidth"
+            :expanded-rows="expandedRows"
+          >
+            <slot :row="row" name="expanded" />
+          </n-table-row-expand>
+        </n-table-row>
+      </n-table-rows>
+    </div>
   </div>
 </template>
 <script>
@@ -356,6 +358,9 @@ export default {
     },
 
     createStickyHeader(timeout = 400) {
+      if (!this.stickyHeader) {
+        return;
+      }
       const that = this;
       // Fixed header for the table component
       setTimeout(() => {
@@ -483,6 +488,14 @@ export default {
 @import "@/assets/sass/colors.scss";
 @import "@/assets/sass/config.scss";
 
+.n-table {
+  .n-table-rows,
+  .n-table.header {
+    @media (max-width: 1000px) {
+      min-width: 1000px;
+    }
+  }
+}
 .active {
   color: green;
 }
