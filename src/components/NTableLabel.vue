@@ -28,7 +28,9 @@
       ></n-table-arrows>
     </span>
 
-    <span v-else class="n-table-label-container">{{ label.label }}</span>
+    <span v-else class="n-table-label-container" style="width: 100%">{{
+      label.label
+    }}</span>
 
     <slot> </slot>
   </div>
