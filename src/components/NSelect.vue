@@ -203,7 +203,7 @@ export default {
     //   required: true
     // },
     value: {
-      type: [String, Number, Object, Array]
+      type: [String, Number, Object, Array, Boolean]
     },
     options: {
       type: Array,
