@@ -46,9 +46,9 @@ export default {
 .n-table-row__expanded {
   flex-basis: 100%;
   cursor: unset;
-  &:hover {
-    background: #fff;
-  }
+  // &:hover {
+  //   background: #  box-shadow:inset 0 0 0 99999px rgba(255,255,255,0.2);;
+  // }
   &-container {
     border-left: 2px solid $green-2;
   }

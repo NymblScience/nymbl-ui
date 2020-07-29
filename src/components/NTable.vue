@@ -512,14 +512,15 @@ export default {
   display: flex;
   flex-wrap: wrap;
   font-size: 1rem;
-  transition: background-color 0.25s ease;
+  transition: all 0.25s ease;
 
   &:hover {
-    background: #e9fdfe;
+    box-shadow: inset 0 0 0 99999px rgba(0, 0, 0, 0.03);
   }
+
   &.is-expanded {
     &:hover {
-      background: unset;
+      box-shadow: inset 0 0 0 99999px rgba(0, 0, 0, 0.03);
     }
   }
 }
