@@ -191,7 +191,7 @@ $n-checkbox-focus-ring-size: $n-checkbox-size * 2.1;
   height: $n-checkbox-size;
   position: relative;
   width: $n-checkbox-size;
-
+  border-radius: $ui-default-border-radius;
   // Background
   &::before {
     border-radius: $ui-default-border-radius;
