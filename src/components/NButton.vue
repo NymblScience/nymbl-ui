@@ -236,34 +236,34 @@ export default {
   color: #231f20;
   letter-spacing: 0.05rem;
   font-weight: 500;
-  &:focus {
+  &:focus:not([disabled]) {
     background-image: linear-gradient(#c9ffff, #85ece8);
     background-color: #85ece8;
     box-shadow: 0 1px 2px rgba(25, 25, 26, 0.7);
   }
-  &:hover {
+  &:hover:not([disabled]) {
     background-image: linear-gradient(#c9ffff, #85ece8);
     background-color: #85ece8;
     color: #0a6b69;
   }
-  &:active {
+  &:active:not([disabled]) {
     background-color: #85ece8;
   }
 }
 
 .n-button.n-button__text.n-button__secondary {
   color: #245072;
-  &:focus {
+  &:focus:not([disabled]) {
     background-image: linear-gradient(#c1e1f8, #95bfdd);
     background-color: #95bfdd;
     color: #245072;
   }
-  &:hover {
+  &:hover:not([disabled]) {
     background-image: linear-gradient(#c1e1f8, #95bfdd);
     background-color: #95bfdd;
     color: #245072;
   }
-  &:active {
+  &:active:not([disabled]) {
     background-color: #95bfdd;
     color: #245072;
   }
@@ -271,17 +271,17 @@ export default {
 
 .n-button.n-button__text.n-button__danger {
   color: #603f2c;
-  &:focus {
+  &:focus:not([disabled]) {
     background-image: linear-gradient(#dac6bb, #a99386);
     color: #603f2c;
     background-color: #dac6bb;
   }
-  &:hover {
+  &:hover:not([disabled]) {
     background-image: linear-gradient(#dac6bb, #a99386);
     color: #603f2c;
     background-color: #dac6bb;
   }
-  &:active {
+  &:active:not([disabled]) {
     color: #603f2c;
     background-color: #dac6bb;
   }
