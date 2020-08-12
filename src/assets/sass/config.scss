@@ -1,0 +1,23 @@
+// Nymbl UI config
+
+@import "@/assets/sass/colors.scss";
+
+$n-border-radius: 0.18rem !default;
+$n-border-radius-lg: 0.30rem !default;
+$n-border-radius-sm: 0.10rem !default;
+
+
+// Forms 
+$form-color-active: $green-2!default;
+$form-color-invalid: $red-2!default;
+$form-color-label: #292F2F!default;
+$form-color-placeholder: #A2A2A2!default;
+$form-color: darken(#595959, 10%);
+
+.form-label-style {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.03rem;
+    color: $form-color-label;
+    margin-bottom: 0.2rem;
+}
