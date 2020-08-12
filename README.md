@@ -1,7 +1,9 @@
 # Nymbl UI
 
+## Setup
 
-## Project setup
+
+### Install dependencies
 ```
 npm install
 ```
@@ -11,12 +13,22 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Build Style Guide
+
 ```
 npm run build
 ```
 
+### Build UI bundle
+
+```
+npm run build:bundle
+```
+
+## Tests
+
 ### Run your unit tests
+
 ```
 npm run test:unit
 ```
