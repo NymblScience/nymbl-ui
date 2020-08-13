@@ -2,7 +2,7 @@
   <div
     class="n-table-column"
     :class="{
-      'border-right': borderRight,
+      'border-solid border-r': borderRight,
       'n-table-column_parent': span,
       'align-center': align === 'center'
     }"
@@ -83,6 +83,7 @@ export default {
         'text-align': this.align,
         'max-width': `${this.maxWidth}px`,
         'min-width': `${this.minWidth}px`,
+        'border-right-color': '#ebeef5',
       };
       if (this.width) {
         styles.width = `${this.width}px`;
@@ -112,6 +113,7 @@ export default {
   text-overflow: ellipsis;
   display: flex;
   align-items: center;
+  border-color: #ebeef5;
   &.align-center {
     justify-content: center;
   }
@@ -124,7 +126,6 @@ export default {
     text-align: center;
     font-size: 0.9rem;
     font-weight: 500;
-    border-right: 1px solid lightgray;
     flex-grow: unset;
     flex-basis: unset;
     &:last-child {

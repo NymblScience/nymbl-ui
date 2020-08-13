@@ -3,13 +3,14 @@
     class="n-table-label"
     :class="{
       'text-center': label.align === 'center' || label.isNested,
-      'border-right': label.borderRight || label.isNested,
+      'border-solid border-r': label.borderRight || label.isNested,
       'n-table-label_nested': label.isNested
     }"
     :style="{
       'max-width': label.maxWidth + 'px',
       'min-width': label.minWidth + 'px',
-      flex: label.nestedWidth
+      flex: label.nestedWidth,
+      'border-right-color': '#ebeef5!important'
     }"
   >
     <span v-if="label.customHeader">
@@ -103,6 +104,7 @@ export default {
   user-select: none;
   flex-flow: row nowrap;
   display: flex;
+  border-color: #ebeef5;
   align-items: center;
 
   .n-table-label-sortable {
@@ -111,9 +113,7 @@ export default {
   &.text-center {
     justify-content: center;
   }
-  &.border-right {
-    border-right: 1px solid gray;
-  }
+
   &_nested {
     display: flex;
     color: $gray-1;
