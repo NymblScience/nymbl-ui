@@ -29,7 +29,7 @@
           @blur="onBlur"
           @change="onChange"
           @focus="onFocus"
-          @click.native="click"
+          @click="click"
           @input="updateValue($event.target.value)"
           @keydown.enter="onKeydownEnter"
           @keydown="onKeydown"
