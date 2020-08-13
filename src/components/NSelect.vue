@@ -440,20 +440,21 @@ export default {
   },
 
   methods: {
+    /* eslint-disable  */
     setValue(value) {
-      const valueComputed = value || (this.multiple ? [] : '');
+      value = value ? value : this.multiple ? [] : "";
 
       this.$emit(
-        'input',
-        valueComputed[this.keys.value] == null ? valueComputed : valueComputed[this.keys.value],
+        "input",
+        value[this.keys.value] == null ? value : value[this.keys.value]
       );
 
       this.$emit(
-        'change',
-        value[this.keys.value] == null ? valueComputed : valueComputed[this.keys.value],
+        "change",
+        value[this.keys.value] == null ? value : value[this.keys.value]
       );
     },
-
+    /* eslint-enable  */
     highlightOption(index, options = { autoScroll: true }) {
       let indexComputed = index;
       if (this.highlightedIndex === indexComputed || this.$refs.options.length === 0) {
