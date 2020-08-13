@@ -15,7 +15,8 @@
 </template>
 
 <script>
-import uuid from 'uuid';
+
+import { v4 as uuid } from 'uuid';
 import NMessage from './NMessage.vue';
 
 export default {
@@ -33,7 +34,7 @@ export default {
     add(options) {
       this.$nextTick(() => {
         const optionsComputed = options;
-        optionsComputed.id = uuid.v4();
+        optionsComputed.id = uuid;
         this.messages.push(optionsComputed);
       });
     },
