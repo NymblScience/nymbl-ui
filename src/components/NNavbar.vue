@@ -126,7 +126,7 @@
 <template>
   <div
 
-    class="n-navbar w-full flex items-center"
+    class="n-navbar w-full flex items-center px-12"
     :class="{ drawer, 'n-transparent': transparent, fixed, 'top-0': fixed, 'right-0': fixed, 'left-0': fixed}"
   >
     <div class="w-full flex" style="max-width: 2000px">
@@ -139,7 +139,7 @@
         <menu-icon />
       </n-button-icon>
 
-      <div tabindex="-1" class="navbar-brand" href="#" >
+      <div tabindex="-1" class="navbar-brand flex item-center" href="#" >
         <slot name="logo" />
       </div>
 

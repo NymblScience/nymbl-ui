@@ -2,7 +2,7 @@
   <li class="n-nav-item nav-item flex  items-center" :tabindex="tabindex">
     <div
       v-if="!to"
-      class="n-nav-item__content nav-link n-nav-link hover:text-green-200 transition-colors duration-300"
+      class="n-nav-item__content nav-link  cursor-pointer n-nav-link hover:text-green-200 transition-colors duration-300"
       target="_self"
       :tabindex="tabindex"
       @click="$emit('click')"
@@ -12,9 +12,9 @@
     <a
       v-else
       target="_self"
-      class="nav-link n-nav-link n-nav-item__content hover:text-green-200 transition-colors duration-300"
+      class="nav-link cursor-pointer n-nav-link n-nav-item__content hover:text-green-200 transition-colors duration-300 "
       tabindex="tabindex"
-      :class="{ 'text-green': isActive(to), 'font-bold': isActive(to), 'hover:text-green-200 transition-colors duration-300': isActive(to)}"
+      :class="{ 'is-active': isActive(to) || active,  'hover:text-green-200 transition-colors duration-300': isActive(to) || active}"
       @click="$router.push(to)"
     >
       <slot />
@@ -56,15 +56,16 @@ export default {
 </script>
 <style lang="scss">
 @import "@/assets/sass/colors.scss";
-.n-nav-item .n-nav-item-active {
-  color: $green-2 !important;
-  font-weight: 500;
-}
+
 .n-nav-item .nav-link {
   cursor: pointer;
+  &.is-active {
+    font-weight: 500;
+    color: $green-3;
+  }
 }
 .n-nav-item .n-nav-item__content {
-  cursor: pointer;
+
   height: 100%;
   display: flex;
   align-items: center;
