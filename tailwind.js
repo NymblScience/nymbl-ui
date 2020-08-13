@@ -5,9 +5,12 @@ module.exports = {
       display: ['Roboto', 'sans-serif'],
       body: ['Roboto', 'sans-serif'],
     },
+    borderColor: (theme) => ({
+      ...theme('colors'),
+      default: theme('colors.gray.100', 'currentColor'),
+    }),
     extend: {
       colors: {
-
         green: {
           100: '#1B807E',
           200: '#499998',
