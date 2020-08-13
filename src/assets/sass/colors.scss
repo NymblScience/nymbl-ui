@@ -1,5 +1,41 @@
-// Nymbl color palette
-// use as `import colors from "@/assets/sass/colors.scss"`
+// Nymbl colors
+
+$green-1: #1B807E;
+$green-2:  #499998;
+$green-3: #7cb3b2;
+$green-4: #A4CCCB;
+
+$blue-1: #215F97;
+$blue-2: #4D7FAC;
+$blue-3: #7A9FC1;
+$blue-4: #A6BFD5;
+
+$light-blue-4: '#A5DDF3';
+$light-blue-3: '#77CCEE';
+$light-blue-2: '#4ABBE8';
+$light-blue-1: '#1DAAE2';
+
+$brown-1: #5e3d2a;
+$brown-2: #8e6853;
+$brown-3: #a79184;
+$brown-4: #d9c5ba;
+
+$gray-1: #292f2f;
+$gray-2: #4E4E4E;
+$gray-3: #7A7A7A;
+$gray-4: #222222;
+
+$orange-1: #bb5f15;
+$orange-2: #e2771f;
+$orange-3: #edab6f;
+$orange-4: #f8d8b9;
+
+$red-1: #751316;
+$red-2: #ac1a1f;
+$red-3: #d47f80;
+$red-4: #f5d0d0;
+
+
 
 $white: #ffffff;
 $light-gray: #bebebe;
@@ -14,14 +50,12 @@ $dark-blue: #0446af;
 
 $teal: blue;
 
-$label-color: #7A7A7A;
+$label-color: $gray-2;
 
-// Nymbl Styles
 $red: lighten($light-red, 20%);
 $green: lighten($dark-green, 4%);
 $orange: #f3c28d;
-$userCheckedColor: #caf0ee;
-$header-bg: $blue;
+
 
 $bg-color: #fafafa;
 
@@ -32,33 +66,8 @@ $active-color: #fff;
 $text-color: #1f1f20;
 
 // Black hues
-$text: #3c4043;
+$text: #222;
 $gray: #5f6368;
-
-$green-1: #0c6a69;
-$green-2:  #1B807E; //#09b3b0
-$green-3: #83eae7;
-$green-4: #ccfeff;
-$blue-1: #244f6f;
-$blue-2: #4b88b5;
-$blue-3: #94bfdf;
-$blue-4: #c2e2f9;
-$brown-1: #5e3d2a;
-$brown-2: #8e6853;
-$brown-3: #a79184;
-$brown-4: #d9c5ba;
-$gray-1: #292f2f;
-$gray-2: #595959;
-$gray-3: #a2a2a2;
-$gray-4: #bcbcbc;
-$orange-1: #bb5f15;
-$orange-2: #e2771f;
-$orange-3: #edab6f;
-$orange-4: #f8d8b9;
-$red-1: #751316;
-$red-2: #ac1a1f;
-$red-3: #d47f80;
-$red-4: #f5d0d0;
 
 :export {
   green-1: $green-1;
@@ -85,7 +94,4 @@ $red-4: #f5d0d0;
   orange-2: $orange-2;
   orange-3: $orange-3;
   orange-4: $orange-4;
-
-
-
 }

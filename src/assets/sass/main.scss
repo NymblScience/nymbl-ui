@@ -1,9 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700");
-@import url("https://fonts.googleapis.com/css?family=Roboto+Mono:300,400,500,700");
-
 
 // Load Nymbl UI colors
 @import "@/assets/sass/colors.scss";
+
 // Load Nymbl UI defaults
 @import "@/assets/sass/config.scss";
 
@@ -50,7 +49,7 @@ $zindex-modal:                      2050 !default;
 
 html {
   font-size: 100%;
-  line-height: 1.2;
+  line-height: 1.4;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen,
   Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   color: $text-color;
