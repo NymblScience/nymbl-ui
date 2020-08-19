@@ -9,7 +9,7 @@
     :type="isAnchor ? null : buttonType"
     @click="onClick"
   >
-    <div v-if="icon || $slots.default" class="n-button-icon__icon">
+    <div v-if="icon || $slots.default" class="n-button-icon__icon text-purple">
       <slot> </slot>
     </div>
 
@@ -120,10 +120,19 @@ export default {
   computed: {
     classes() {
       return [
+        'cursor-pointer',
+        'bg-gray-100',
+        'hover:bg-gray-110',
+        'text-gray-400',
+        'hover:text-gray-390',
+        'focus:bg-gray-110',
+        'transition',
+        'active:text-green-400',
+        'duration-200', 'ease-in-out',
         `n-button-icon--color-${this.color}`,
         `n-button-icon--type-${this.type}`,
         `n-button-icon--size-${this.size}`,
-        { 'n-button__primary': this.variant === 'primary' },
+        { 'bg-': this.variant === 'primary' },
         { 'n-button__secondary': this.variant === 'secondary' },
         { 'n-button__danger': this.variant === 'danger' },
         { 'n-button-icon__raised': this.isRaised },
@@ -199,20 +208,21 @@ $n-button-icon--size-large: rem(48px) !default;
 
 .n-button-icon {
   align-items: center;
-  background: none;
+
   border-radius: 50%;
-  border: none;
-  cursor: default;
   display: inline-flex;
   justify-content: center;
   margin: 0;
-  outline: none;
+
   overflow: hidden;
   padding: 0;
   position: relative;
-  &:focus {
-    outline: none;
-    // background-color: darken(#f1f1f1, 7.5%);
+  &.is-disabled {
+    pointer-events:none;
+  }
+
+    &:focus {
+      outline: none;
   }
   // Fix for border radius not clipping internal content of positioned elements (Chrome/Opera)
   -webkit-mask-image: -webkit-radial-gradient(circle, white, black);
@@ -363,192 +373,4 @@ $n-button-icon--size-large: rem(48px) !default;
   }
 }
 
-// ================================================
-// Colors
-// ================================================
-
-.n-button-icon--color-black,
-.n-button-icon--color-white {
-  background-color: transparent;
-
-  &:hover:not(.is-disabled),
-  &.has-dropdown-open {
-    background-color: rgba(black, 0.1);
-  }
-}
-
-// ================================================
-// Types
-// ================================================
-
-.n-button-icon--type-primary {
-  &.n-button-icon--color-default {
-    color: $primary-text-color;
-    background-color: #f1f1f1;
-
-    &:hover:not(.is-disabled),
-    &.has-dropdown-open {
-      background-color: darken(#f1f1f1, 7.5%);
-    }
-
-    .n-button-icon__focus-ring {
-      background-color: darken(#f1f1f1, 12%);
-    }
-
-    .ui-ripple-ink__ink {
-      opacity: 0.2;
-    }
-  }
-
-  &.n-button-icon--color-primary,
-  &.n-button-icon--color-accent,
-  &.n-button-icon--color-green,
-  &.n-button-icon--color-orange,
-  &.n-button-icon--color-red {
-    color: white;
-
-    .ui-ripple-ink__ink {
-      opacity: 0.4;
-    }
-  }
-
-  &.n-button-icon--color-primary {
-    background-color: $brand-primary-color;
-
-    &:hover:not(.is-disabled),
-    &.has-dropdown-open {
-      background-color: darken($brand-primary-color, 10%);
-    }
-
-    .n-button-icon__focus-ring {
-      background-color: darken($brand-primary-color, 12%);
-    }
-  }
-
-  &.n-button-icon--color-accent {
-    background-color: $brand-accent-color;
-
-    &:hover:not(.is-disabled),
-    &.has-dropdown-open {
-      background-color: darken($brand-accent-color, 10%);
-    }
-
-    .n-button-icon__focus-ring {
-      background-color: darken($brand-accent-color, 12%);
-    }
-  }
-
-  &.n-button-icon--color-green {
-    background-color: $md-green;
-
-    &:hover:not(.is-disabled),
-    &.has-dropdown-open {
-      background-color: darken($md-green, 10%);
-    }
-
-    .n-button-icon__focus-ring {
-      background-color: darken($md-green, 12%);
-    }
-  }
-
-  &.n-button-icon--color-orange {
-    background-color: $md-orange;
-
-    &:hover:not(.is-disabled),
-    &.has-dropdown-open {
-      background-color: darken($md-orange, 10%);
-    }
-
-    .n-button-icon__focus-ring {
-      background-color: darken($md-orange, 12%);
-    }
-  }
-
-  &.n-button-icon--color-red {
-    background-color: $md-red;
-
-    &:hover:not(.is-disabled),
-    &.has-dropdown-open {
-      background-color: darken($md-red, 10%);
-    }
-
-    .n-button-icon__focus-ring {
-      background-color: darken($md-red, 12%);
-    }
-  }
-}
-
-.n-button-icon--type-secondary {
-  &.n-button-icon--color-default {
-    color: $secondary-text-color;
-
-    &:hover:not(.is-disabled),
-    &.has-dropdown-open,
-    &.has-focus-ring:focus,
-    body[modality="keyboard"] &:focus {
-      color: $primary-text-color;
-    }
-
-    &:hover:not(.is-disabled),
-    &.has-dropdown-open {
-      background-color: rgba(black, 0.1);
-    }
-
-    .n-button-icon__focus-ring {
-      background-color: rgba(black, 0.26);
-    }
-  }
-
-  &.n-button-icon--color-primary {
-    color: $brand-primary-color;
-
-    &:hover:not(.is-disabled),
-    &.has-dropdown-open {
-      background-color: rgba($brand-primary-color, 0.12);
-    }
-
-    .n-button-icon__focus-ring {
-      background-color: rgba($brand-primary-color, 0.26);
-    }
-  }
-
-  &.n-button-icon--color-accent {
-    color: $brand-accent-color;
-
-    &:hover:not(.is-disabled),
-    &.has-dropdown-open {
-      background-color: rgba($brand-accent-color, 0.12);
-    }
-
-    .n-button-icon__focus-ring {
-      background-color: rgba($brand-accent-color, 0.26);
-    }
-  }
-
-  &.n-button-icon--color-green {
-    color: $md-green-600;
-
-    &:hover:not(.is-disabled),
-    &.has-dropdown-open {
-      background-color: rgba($md-green-600, 0.12);
-    }
-
-    .n-button-icon__focus-ring {
-      background-color: rgba($md-green-600, 0.26);
-    }
-  }
-
-  &.n-button-icon--color-orange {
-    color: $md-orange;
-
-    &:hover:not(.is-disabled),
-    &.has-dropdown-open {
-      background-color: rgba($md-orange, 0.12);
-    }
-
-    .n-button-icon__focus-ring {
-      background-color: rgba($md-orange, 0.26);
-    }
-  }
-}
 </style>

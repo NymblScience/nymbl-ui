@@ -4,6 +4,10 @@
           <close> </close>
     </n-button-icon>
     <br />
+        <n-button-icon disabled>
+          <close> </close>
+    </n-button-icon>
+    <br />
     <n-button-icon variant="danger" is-raised>
           <close> </close>
     </n-button-icon>
