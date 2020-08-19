@@ -1,7 +1,7 @@
 <template>
   <div class="n-card" :class="classes">
     <div v-if="title.length > 0" class="n-card__header">
-      <div class="n-card__title">
+      <div class="n-card__title text-2x">
         {{ title }}
       </div>
       <div class="n-card__header-buttons">
@@ -113,7 +113,7 @@ export default {
     width: 100%;
     font-size: 1.24rem;
     color: #292f2f;
-    font-weight: 400;
+    font-weight: 500;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
