@@ -1,3 +1,9 @@
+const Color = require('color');
+// const alpha = (clr, val) => Color(clr).alpha(val).rgb().string()
+const lighten = (clr, val) => Color(clr).lighten(val).rgb().string();
+// const darken = (clr, val) => Color(clr).darken(val).rgb().string()
+
+
 module.exports = {
   purge: [],
   theme: {
@@ -31,8 +37,11 @@ module.exports = {
         },
         gray: {
           100: '#EBEBEB',
+          110: '#d9d9d9',
+          150: lighten('#7A7A7A', 0.3),
           200: '#7A7A7A',
           300: '#4E4E4E',
+          390: lighten('#222222', 0.3),
           400: '#222222',
         },
       },
