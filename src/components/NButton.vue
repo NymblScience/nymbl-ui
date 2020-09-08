@@ -26,6 +26,7 @@ import NLoadingCircle from './NLoadingCircle.vue';
 
 export default {
   name: 'NButton',
+
   components: {
     NLoadingCircle,
   },

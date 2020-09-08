@@ -14,6 +14,7 @@
 <script>
 export default {
   name: 'NCardExample',
+  title: 'Card',
   data() {
     return {
       enabled: false,

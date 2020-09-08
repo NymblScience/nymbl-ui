@@ -8,7 +8,8 @@
 <script>
 
 export default {
-
+  name: 'NRadioExample',
+  title: 'Radio',
   data() {
     return {
       value: '',

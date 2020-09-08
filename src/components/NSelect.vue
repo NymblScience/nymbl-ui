@@ -185,7 +185,6 @@ import { scrollIntoView, resetScroll } from '../helpers/element-scroll';
 
 export default {
   name: 'NSelect',
-
   components: {
     NPopover,
     NLoadingCircle,

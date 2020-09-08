@@ -1,21 +1,24 @@
+const webpack = require('webpack');
+
 module.exports = {
   devServer: {
     open: true,
-    port: 8089
+    port: 8089,
   },
   configureWebpack: {
-    devtool: 'source-map'
+    plugins: [
+      new webpack.DefinePlugin({
+        APP_VER: JSON.stringify(require('./package.json').version),
+      }),
+    ],
+    devtool: 'source-map',
   },
-  chainWebpack: config => {
-
+  chainWebpack: (config) => {
     config.module
-      .rule("eslint")
-      .use("eslint-loader")
+      .rule('eslint')
+      .use('eslint-loader')
       .options({
-        fix: true
+        fix: true,
       });
-  }
+  },
 };
-
-
-

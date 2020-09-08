@@ -19,6 +19,7 @@ const Close = require('../../node_modules/vue-material-design-icons/Close.vue').
 
 export default {
   name: 'NButtonIconExample',
+  title: 'Button Icon',
   components: {
     Close,
   },

@@ -1,6 +1,6 @@
 <template>
   <div class="n-textbox" :class="classes">
-    <div v-if="icon || $slots.icon" class="n-textbox__icon-wrapper">
+    <div v-if="icon || $slots.icon" class="n-textbox__icon-wrapper" style="">
       <slot name="icon"> </slot>
     </div>
 
@@ -11,6 +11,7 @@
           ref="input"
           v-autofocus="autofocus"
           class="n-textbox__input"
+          :class="clearable ? 'pr-8' : '' "
           :autocomplete="autocomplete ? autocomplete : null"
           :disabled="disabled"
           :max="maxValue"
@@ -186,6 +187,10 @@ export default {
     clearable: {
       type: Boolean,
       default: false,
+    },
+    width: {
+      type: String,
+      default: null,
     },
   },
 

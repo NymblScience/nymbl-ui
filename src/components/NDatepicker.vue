@@ -65,6 +65,7 @@ import { defaultLang, humanize } from '../helpers/date';
 
 export default {
   name: 'NDatepicker',
+  title: 'Datepicker',
   components: {
     NCalendar,
     NTextbox,
@@ -254,9 +255,10 @@ export default {
         : this.$refs.popover.isOpen();
     },
     onDateSelect(date) {
-      this.$emit('input', date);
-      this.inputDate = humanize(date);
-      this.$emit('change', date);
+      this.$emit('input', date.toISOString());
+      console.log(date);
+      this.inputDate = humanize(date.toISOString());
+      this.$emit('change', date.toISOString());
       this.closePicker();
     },
     onUpdateInput() {
@@ -265,7 +267,7 @@ export default {
         return;
       }
       /* eslint-disable */
-      const date = new Date(this.inputDate);
+      const date = new Date(this.inputDate).toISOString();
       if (date) {
         if (!isNaN(date.getTime())) {
           this.$emit('input', date);

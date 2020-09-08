@@ -2,7 +2,7 @@
   <li class="n-nav-item nav-item flex  items-center" :tabindex="tabindex">
     <div
       v-if="!to"
-      class="n-nav-item__content nav-link  cursor-pointer n-nav-link hover:text-green-200 transition-colors duration-300"
+      class="n-nav-item__content nav-link  cursor-pointer n-nav-link hover:text-green-200 transition-colors duration-300  w-full "
       target="_self"
       :tabindex="tabindex"
       @click="$emit('click')"
@@ -12,7 +12,7 @@
     <a
       v-else
       target="_self"
-      class="nav-link cursor-pointer n-nav-link n-nav-item__content hover:text-green-200 transition-colors duration-300 "
+      class="nav-link cursor-pointer n-nav-link n-nav-item__content hover:text-green-200 transition-colors duration-300 w-full "
       tabindex="tabindex"
       :class="{ 'is-active': isActive(to) || active,  'hover:text-green-200 transition-colors duration-300': isActive(to) || active}"
       @click="$router.push(to)"

@@ -34,6 +34,7 @@
 <script>
 export default {
   name: 'NSelectExample',
+  title: 'Select',
   data() {
     return {
       value: 'Red',

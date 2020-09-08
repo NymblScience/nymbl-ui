@@ -33,6 +33,7 @@ const img = require('../assets/img/nymbl-pain-front.png');
 
 export default {
   name: 'NModalExample',
+  title: 'Modal',
   data() {
     return {
       enabled: false,

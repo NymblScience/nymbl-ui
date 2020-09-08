@@ -53,6 +53,7 @@ import { users } from '../users';
 
 export default {
   name: 'NTableExample',
+  title: 'Table',
   components: {
     NTableColumn,
     NTextbox,

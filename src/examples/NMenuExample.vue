@@ -24,6 +24,8 @@
 const Close = require('../../node_modules/vue-material-design-icons/Close.vue').default;
 
 export default {
+  name: 'NMenuExample',
+  title: 'Menu',
   components: {
     Close,
   },

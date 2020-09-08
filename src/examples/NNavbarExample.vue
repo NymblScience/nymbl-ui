@@ -1,7 +1,7 @@
 <template>
   <n-navbar :drawer="true">
     <template v-slot:logo>
-      <img class="navbar__logo" :src="logo" />
+      <img style="max-width:7rem" class="navbar__logo" :src="logo" />
     </template>
     <template v-slot:nav-items-drawer>
       <n-nav-item :active="true">Item One</n-nav-item>
@@ -19,6 +19,7 @@ import NNavItem from '@/components/NNavItem.vue';
 
 export default {
   name: 'NNavbarExample',
+  title: 'Navigation Bar',
   components: {
     NNavItem,
   },

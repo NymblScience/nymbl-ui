@@ -30,6 +30,7 @@
 <script>
 export default {
   name: 'NButtonExample',
+  title: 'Buttons',
   data() {
     return {
       loading: false,
