@@ -407,6 +407,10 @@ export default {
       return this.selectedOption[this.keys.value] || this.selectedOption;
     },
     imageStyle() {
+      if (!this.selectedOption || !this.keys || !this.keys.image || !this.selectedOption[this.keys.image]) {
+        return '';
+      }
+
       return {
         'background-image': `url(${this.selectedOption[this.keys.image]})`,
       };
