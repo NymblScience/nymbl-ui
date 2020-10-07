@@ -262,6 +262,9 @@ export default {
       this.closePicker();
     },
     onUpdateInput() {
+      const isValidDate = (dateObject) => new Date(dateObject)
+        .toString() !== 'Invalid Date';
+
       if (this.inputDate === '') {
         this.$emit('input', null);
         return;
@@ -269,9 +272,10 @@ export default {
       /* eslint-disable */
       const date = new Date(this.inputDate).toISOString();
       if (date) {
-        if (!isNaN(date.getTime())) {
+        if (isValidDate(date)) {
           this.$emit('input', date);
         }
+        
       }
       /* eslint-enable */
     },
