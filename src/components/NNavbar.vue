@@ -6,7 +6,6 @@
   box-shadow: 0 1px 2px rgba(57, 63, 72, 0.3);
   background: #ffffff;
   z-index: 2003;
-
   min-height: 4rem;
 }
 
@@ -129,7 +128,7 @@
     class="n-navbar w-full flex items-center px-12"
     :class="{ drawer, 'n-transparent': transparent, fixed, 'top-0': fixed, 'right-0': fixed, 'left-0': fixed}"
   >
-    <div class="w-full flex" style="max-width: 2000px">
+    <div class="w-full flex mx-auto"  :style="`max-width: ${containerWidth}`">
       <n-button-icon
         v-if="drawer"
         is-raised
@@ -205,6 +204,14 @@ export default {
     fixed: {
       type: String,
       default: null,
+    },
+
+    /**
+     * Set inner container width
+     */
+    containerWidth: {
+      type: String,
+      default: '2000px',
     },
     /**
      * Set to `true` to make the navbar stick to the top of the viewport
