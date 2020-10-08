@@ -180,14 +180,15 @@ export default {
         this.$emit('pageSizeChange', pageSize);
       } else {
         this.$router.push({
-          query: { ...this.$route.query, page: this.active },
-        });
-        this.$router.push({
           query: { ...this.$route.query, pageSize: this.pageSize },
         });
       }
       if (page) {
         this.setPage(page);
+      } else {
+        this.$router.push({
+          query: { ...this.$route.query, page: this.active },
+        });
       }
     }
   },
@@ -223,23 +224,21 @@ export default {
       if (this.active === page) {
         return;
       }
+
       if (this.urlQueries) {
-        if (this.urlQueries) {
-          this.$router.push({ query: { ...this.$route.query, page } });
-        }
+        this.updateQuery({ page });
       }
+
       this.$emit('change', page);
       this.active = page;
     },
     setPageSize(pageSize) {
       if (this.urlQueries) {
-        this.$router.push({
-          query: { ...this.$route.query, pageSize },
-        });
+        this.updateQuery({ pageSize });
+
         // Remove page query
-        this.$router.push({
-          query: { ...this.$route.query, page: 1 },
-        });
+
+        this.updateQuery({ page: 1 });
       }
       this.pageSizeValue = pageSize;
       this.$emit('pageSizeChange', pageSize);
