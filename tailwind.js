@@ -17,6 +17,10 @@ module.exports = {
     }),
     extend: {
       colors: {
+        red: {
+          100: '#953232          ',
+
+        },
         green: {
           100: '#1B807E',
           200: '#499998',
@@ -48,6 +52,7 @@ module.exports = {
 
     },
   },
-  variants: {},
+  variants: ['responsive', 'group-hover', 'hover', 'focus', 'active'],
+
   plugins: [],
 };
