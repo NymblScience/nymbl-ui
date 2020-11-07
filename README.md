@@ -1,7 +1,8 @@
 # Nymbl UI
 
-## Setup
+https://nymblscience.github.io/nymbl-ui
 
+## Development
 
 ### Install dependencies
 ```
@@ -33,12 +34,16 @@ npm run build:bundle
 npm run test:unit
 ```
 
-### Run your end-to-end tests
+## Deploy to Github Pages
+
+### Install `gh-pages` globally
+
 ```
-npm run test:e2e
+npm install -g gh-pages
 ```
 
-### Lints and fixes files
+### Build & Deploy
+
 ```
-npm run lint
+npm run deploy
 ```

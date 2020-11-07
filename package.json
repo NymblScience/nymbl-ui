@@ -8,7 +8,8 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "build:bundle": "vue-cli-service build --target lib --name nymbl-ui ./src/index.js"
+    "build:bundle": "vue-cli-service build --target lib --name nymbl-ui ./src/index.js",
+    "deploy": "vue-cli-service build; gh-pages -d styleguide"
   },
   "main": "./dist/nymbl-ui.common.js",
   "dependencies": {
@@ -23,7 +24,7 @@
     "sortablejs": "^1.10.2",
     "stickybits": "^3.7.7",
     "tippy.js": "^6.2.5",
-    "tweenjs": "^1.0.2",
+    "tweenjs": "^1.0.2",``
     "uuid": "^8.2.0",
     "vue": "^2.6.11",
     "vue-click-outside": "^1.1.0",
