@@ -1,4 +1,8 @@
 import Vue from 'vue';
+
+import NSection from '@/ui/NSection.vue';
+import VueClipboard from 'vue-clipboard2';
+
 import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
@@ -16,6 +20,29 @@ Vue.use(NymblUI.Plugins.nconfirm);
 Vue.use(NymblUI.Plugins.nmessage);
 
 Vue.config.productionTip = false;
+Vue.component('NSection', NSection);
+
+Vue.use(VueClipboard);
+
+Vue.mixin({
+
+  methods: {
+
+    updateQuery(query) {
+      this.$router.push({
+        query: { ...this.$route.query, ...query },
+      });
+    },
+    removeQuery(queryToRemove) {
+      const query = { ...this.$route.query };
+      if (!query[queryToRemove]) {
+        return;
+      }
+      delete query[queryToRemove];
+      this.$router.replace({ query });
+    },
+  },
+});
 
 new Vue({
   router,
