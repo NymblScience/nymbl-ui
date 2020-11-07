@@ -35,7 +35,7 @@
             <div class="n-modal-close-button">
               <n-button-icon
                 v-if="!removeCloseButton"
-                is-raised
+
                 variant="danger"
                 class="n-modal-close"
                 title="Close"

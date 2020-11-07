@@ -6,75 +6,72 @@
 
     <div class="n-textbox__content">
       <label class="n-textbox__label">
-        <input
-          v-if="!multiLine"
-          ref="input"
-          v-autofocus="autofocus"
-          class="n-textbox__input"
-          :class="clearable ? 'pr-8' : '' "
-          :autocomplete="autocomplete ? autocomplete : null"
-          :disabled="disabled"
-          :max="maxValue"
-          :maxlength="enforceMaxlength ? maxlength : null"
-          :min="minValue"
-          :name="name"
-          :number="type === 'number' ? true : null"
-          :placeholder="hasFloatingLabel ? null : placeholder"
-          :readonly="readonly"
-          :required="required"
-          :step="stepValue"
-          :tabindex="tabindex"
-          :type="type"
-          :value="value"
-          :pattern="pattern"
-          @blur="onBlur"
-          @change="onChange"
-          @focus="onFocus"
-          @click="click"
-          @input="updateValue($event.target.value)"
-          @keydown.enter="onKeydownEnter"
-          @keydown="onKeydown"
-        />
+        <div class="flex relative">
+          <input
+            v-if="!multiLine"
+            ref="input"
+            v-autofocus="autofocus"
+            class="n-textbox__input"
+            :class="clearable ? 'pr-20' : ''"
+            :autocomplete="autocomplete ? autocomplete : null"
+            :disabled="disabled"
+            :max="maxValue"
+            :maxlength="enforceMaxlength ? maxlength : null"
+            :min="minValue"
+            :name="name"
+            :number="type === 'number' ? true : null"
+            :placeholder="hasFloatingLabel ? null : placeholder"
+            :readonly="readonly"
+            :required="required"
+            :step="stepValue"
+            :tabindex="tabindex"
+            :type="type"
+            :value="value"
+            :pattern="pattern"
+            @blur="onBlur"
+            @change="onChange"
+            @focus="onFocus"
+            @click="click"
+            @input="updateValue($event.target.value)"
+            @keydown.enter="onKeydownEnter"
+            @keydown="onKeydown"
+          />
 
-        <textarea
-          v-else
-          ref="textarea"
-          v-autofocus="autofocus"
-          class="n-textbox__textarea"
-          :autocomplete="autocomplete ? autocomplete : null"
-          :disabled="disabled"
-          :maxlength="enforceMaxlength ? maxlength : null"
-          :name="name"
-          :placeholder="hasFloatingLabel ? null : placeholder"
-          :readonly="readonly"
-          :required="required"
-          :rows="rows"
-          :tabindex="tabindex"
-          :value="value"
-          @blur="onBlur"
-          @change="onChange"
-          @focus="onFocus"
-          @input="updateValue($event.target.value)"
-          @keydown.enter="onKeydownEnter"
-          @keydown="onKeydown"
-        ></textarea>
+          <textarea
+            v-else
+            ref="textarea"
+            v-autofocus="autofocus"
+            class="n-textbox__textarea"
+            :autocomplete="autocomplete ? autocomplete : null"
+            :disabled="disabled"
+            :maxlength="enforceMaxlength ? maxlength : null"
+            :name="name"
+            :placeholder="hasFloatingLabel ? null : placeholder"
+            :readonly="readonly"
+            :required="required"
+            :rows="rows"
+            :tabindex="tabindex"
+            :value="value"
+            @blur="onBlur"
+            @change="onChange"
+            @focus="onFocus"
+            @input="updateValue($event.target.value)"
+            @keydown.enter="onKeydownEnter"
+            @keydown="onKeydown"
+          ></textarea>
 
-        <n-button-icon
-          v-if="clearable && value.length > 0"
-          is-raised
-          variant="danger"
-          class="n-textbox__clearable"
-          title="Clear"
-          @click="clear()"
-        >
-          <close-icon :size="18" />
-        </n-button-icon>
-
-        <div
-          v-if="label || $slots.default"
-          class="n-textbox__label-text"
-          :class="labelClasses"
-        >
+          <n-button-icon
+            v-if="clearable && value.length > 0"
+            is-raised
+            variant="danger"
+            class="n-textbox__clearable absolute right-0"
+            title="Clear"
+            @click="clear()"
+          >
+            <close-icon :size="18" />
+          </n-button-icon>
+        </div>
+        <div v-if="label || $slots.default" class="n-textbox__label-text" :class="labelClasses">
           <slot>{{ label }}</slot>
         </div>
       </label>
@@ -266,9 +263,7 @@ export default {
     },
 
     showError() {
-      return (
-        this.invalid && (Boolean(this.error) || Boolean(this.$slots.error))
-      );
+      return this.invalid && (Boolean(this.error) || Boolean(this.$slots.error));
     },
 
     showHelp() {
@@ -388,7 +383,8 @@ export default {
   margin-bottom: $ui-input-margin-bottom;
   &__clearable {
     position: absolute;
-    bottom: -4px;
+    top: 50%;
+    margin-top: -18px!important;
     right: 0;
   }
   &:hover:not(.is-disabled) {
@@ -449,9 +445,7 @@ export default {
     // The webkit-autofill value will only be propagated on first click into the viewport.
     // Before that .is-inline will be wrongly set and cause the auto filled input value and the label to overlap.
     // This fix will style the wrong .is-inline like an .is-floating in case :-webkit-autofill is set.
-    .n-textbox__label
-      > input:-webkit-autofill
-      + .n-textbox__label-text.is-inline {
+    .n-textbox__label > input:-webkit-autofill + .n-textbox__label-text.is-inline {
       transform: translateY(0) scale(1);
     }
   }
@@ -600,9 +594,7 @@ export default {
 }
 
 .n-textbox.n-textbox.is-invalid:not(.is-disabled) .n-textbox__label-text,
-.n-textbox.n-textbox.is-invalid:not(.is-disabled)
-  .n-textbox__icon-wrapper
-  .ui-icon,
+.n-textbox.n-textbox.is-invalid:not(.is-disabled) .n-textbox__icon-wrapper .ui-icon,
 .n-textbox.n-textbox.is-invalid:not(.is-disabled) .n-textbox__counter {
   color: $form-color-invalid;
 }
@@ -615,14 +607,11 @@ export default {
   color: $form-color-invalid;
 }
 
-.n-textbox.n-textbox.is-active:not(.is-disabled):not(.is-invalid)
-  .n-textbox__input,
-.n-textbox.n-textbox.is-active:not(.is-disabled):not(.is-invalid)
-  .n-textbox__textarea {
+.n-textbox.n-textbox.is-active:not(.is-disabled):not(.is-invalid) .n-textbox__input,
+.n-textbox.n-textbox.is-active:not(.is-disabled):not(.is-invalid) .n-textbox__textarea {
   border-bottom-color: $form-color-active;
 }
-.n-textbox.n-textbox.is-active:not(.is-disabled):not(.is-invalid)
-  .n-textbox__label-text,
+.n-textbox.n-textbox.is-active:not(.is-disabled):not(.is-invalid) .n-textbox__label-text,
 .n-textbox.n-textbox.is-active:not(.is-disabled):not(.is-invalid)
   .n-textbox__icon-wrapper
   .ui-icon {

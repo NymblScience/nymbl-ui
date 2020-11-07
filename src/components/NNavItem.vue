@@ -1,21 +1,32 @@
 <template>
   <li class="n-nav-item nav-item flex  items-center" :tabindex="tabindex">
     <div
-      v-if="!to"
+      v-if="!to && !href"
       class="n-nav-item__content nav-link  cursor-pointer n-nav-link hover:text-green-200 transition-colors duration-300  w-full "
       target="_self"
+      :class="{  'hover:text-green-200 transition-colors duration-300 is-active': isActive(to)}"
       :tabindex="tabindex"
       @click="$emit('click')"
     >
       <slot />
     </div>
     <a
-      v-else
+      v-else-if="to"
       target="_self"
       class="nav-link cursor-pointer n-nav-link n-nav-item__content hover:text-green-200 transition-colors duration-300 w-full "
       tabindex="tabindex"
-      :class="{ 'is-active': isActive(to) || active,  'hover:text-green-200 transition-colors duration-300': isActive(to) || active}"
+      :class="{  'hover:text-green-200 transition-colors duration-300 is-active': isActive(to)}"
       @click="$router.push(to)"
+    >
+      <slot />
+    </a>
+    <a
+      v-else-if="href"
+      target="_self"
+      class="nav-link cursor-pointer n-nav-link n-nav-item__content hover:text-green-200 transition-colors duration-300 w-full "
+      tabindex="tabindex"
+      :class="{  'hover:text-green-200 transition-colors duration-300 is-active': isActive(to)}"
+      :href="href"
     >
       <slot />
     </a>
@@ -38,6 +49,10 @@ export default {
       default: false,
       type: [Boolean, String],
     },
+    href: {
+      default: false,
+      type: [Boolean, String],
+    },
     active: {
       default: false,
       type: Boolean,
@@ -45,10 +60,14 @@ export default {
   },
   methods: {
     isActive(to) {
+      if (this.active) {
+        return true;
+      }
       // If no vue router is defined.
       if (!this.$route) {
         return false;
       }
+
       return this.$route.matched.filter((path) => path.path === to).length > 0;
     },
   },

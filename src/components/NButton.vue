@@ -99,22 +99,40 @@ export default {
   },
   computed: {
     classes() {
+      const isText = this.buttonType === 'text';
       return [
+        { 'px-5 py-3 text-lg': !this.size },
         {
           'n-button__icon':
             this.buttonType === 'icon' || this.buttonType === 'icon-flat',
         },
         { 'n-button__icon--flat': this.buttonType === 'icon-flat' },
-        { 'n-button__text': this.buttonType === 'text' },
+        { 'n-button__text': isText },
+
+        { 'bg-green-100': this.variant === 'primary' && !isText },
+        { 'bg-blue-400': this.variant === 'secondary' && !isText },
+        { 'bg-red-100': this.variant === 'danger' && !isText },
+
+        // Variants
         { 'n-button__primary': this.variant === 'primary' },
         { 'n-button__secondary': this.variant === 'secondary' },
         { 'n-button__danger': this.variant === 'danger' },
-        { 'n-button--sm': this.size === 'sm' },
-        { 'n-button--lg': this.size === 'lg' },
+
+        // Text buttons
+        { 'text-green-100 hover:text-green-200 focus:text-green-200 bg-transparent bg-none active:bg-green-300 active:text-white': this.variant === 'primary' && isText },
+        { 'text-blue-400 hover:text-blue-200 focus:text-blue-200 bg-transparent bg-none active:bg-blue-200 active:text-white': this.variant === 'secondary' && isText },
+        { 'text-red-100 hover:text-red-100 focus:text-red-100 bg-transparent bg-none active:bg-red-100 active:text-white': this.variant === 'danger' && isText },
+
+        // Sizes
+        { 'n-button--sm text-sm px-3 py-2 ': this.size === 'sm' },
+        { 'n-button--lg text-xl px-6 py-4': this.size === 'lg' },
+
+        // Misc
         { 'n-button--block': this.block },
         { 'is-anchor': this.isAnchor },
         { 'is-loading': this.loading },
         { 'is-disabled': this.disabled || this.loading },
+        { 'text-gray-100': this.disabled },
       ];
     },
     isAnchor() {
@@ -140,8 +158,9 @@ export default {
   text-decoration: none;
   background-color: transparent;
   border: 1px solid transparent;
-  padding: 0.8rem 1.1rem;
-  font-size: 0.96rem;
+
+  color: #fff;
+
   cursor: pointer;
   border-radius: 0.24rem;
   white-space: nowrap;
@@ -150,25 +169,27 @@ export default {
   box-shadow: 1px 1px 2px rgba(25, 25, 26, 0.3);
   border: none;
   line-height: 1;
-  letter-spacing: 0.06rem;
-  &--sm {
-    padding: 0.6rem 0.8rem;
-    font-size: 0.8rem;
-  }
-  &--lg {
-    padding: 1rem 1.4rem;
-    font-size: 1.2rem;
-  }
+  letter-spacing: 0.08rem;
+  // &--sm {
+  //   padding: 0.8rem 1rem;
+  //   font-size: 1rem;
+  // }
+  // &--lg {
+  //   padding: 0.8rem 1rem;
+  //   font-size: 2rem;
+  // }
   &:active:not([disabled]) {
     box-shadow: none !important;
   }
   transition: all 250ms;
   &:focus:not([disabled]) {
-    outline: none;
-    box-shadow: 0 1px 2px rgba(25, 25, 26, 0.7);
+      outline: none;
+       filter: brightness(110%);
+    box-shadow: 0 2px 4px rgba(25, 25, 26, 0.7);
   }
   &:hover:not([disabled]) {
-    box-shadow: 0 1px 2px rgba(25, 25, 26, 0.7);
+     filter: brightness(110%);
+    box-shadow: 0 2px 4px rgba(25, 25, 26, 0.7);
   }
   &.is-loading {
     cursor: default;
@@ -190,104 +211,99 @@ export default {
 }
 
 .n-button.n-button__primary {
-  background-image: linear-gradient(#c9ffff, #85ece8);
-  background-color: #85ece8;
-  color: #0a6b69;
+
   &:active:not([disabled]) {
-    background: #85ece8 !important;
-    color: #0a6b69 !important;
+    // background: #85ece8 !important;
+    // color: #0a6b69 !important;
   }
   &:focus:not([disabled]) {
-    background-image: linear-gradient(#c9ffff, #85ece8);
+    outline:none
+    // background-image: linear-gradient(#c9ffff, #85ece8);
   }
   &:hover:not([disabled]) {
-    color: #0a6b69;
+    // color: #0a6b69;
   }
 }
 
-.n-button.n-button__secondary {
-  background-image: linear-gradient(#c1e1f8, #95bfdd);
-  background-color: #95bfdd;
-  color: #245072;
-  &:active {
-    background: #95bfdd !important;
-    color: #245072 !important;
-  }
-  &:hover {
-    color: #245072;
-  }
-}
+// .n-button.n-button__secondary {
+//   background-image: linear-gradient(#c1e1f8, #95bfdd);
+//   background-color: #95bfdd;
+//   color: #245072;
+//   &:active {
+//     background: #95bfdd !important;
+//     color: #245072 !important;
+//   }
+//   &:hover {
+//     color: #245072;
+//   }
+// }
 
-.n-button.n-button__danger {
-  background-image: linear-gradient(#dac6bb, #a99386);
-  color: #603f2c;
-  background-color: #dac6bb;
-  &:active:not([disabled]) {
-    background: #dac6bb !important;
-    color: #603f2c !important;
-  }
-  &:hover {
-    color: #603f2c;
-  }
-}
+// .n-button.n-button__danger {
+//   background-image: linear-gradient(#dac6bb, #a99386);
+//   color: #603f2c;
+//   background-color: #dac6bb;
+//   &:active:not([disabled]) {
+//     background: #dac6bb !important;
+//     color: #603f2c !important;
+//   }
+//   &:hover {  // background: none!important;
+
+//     color: #603f2c;
+//   }
+// }
 
 .n-button.n-button__text {
-  background: none;
-  border: none;
-  box-shadow: none;
-  color: #231f20;
+  // background: none!important;
+  border: none!important;
+  box-shadow: none!important;
+
   letter-spacing: 0.05rem;
   font-weight: 500;
-  &:focus:not([disabled]) {
-    background-image: linear-gradient(#c9ffff, #85ece8);
-    background-color: #85ece8;
-    box-shadow: 0 1px 2px rgba(25, 25, 26, 0.7);
-  }
-  &:hover:not([disabled]) {
-    background-image: linear-gradient(#c9ffff, #85ece8);
-    background-color: #85ece8;
-    color: #0a6b69;
-  }
-  &:active:not([disabled]) {
-    background-color: #85ece8;
-  }
+  // &:focus:not([disabled]) {
+  //   background-image: linear-gradient(#c9ffff, #85ece8);
+  //   background-color: #85ece8;
+  //   box-shadow: 0 1px 2px rgba(25, 25, 26, 0.7);
+  // }
+  // &:hover:not([disabled]) {
+  //   background-image: linear-gradient(#c9ffff, #85ece8);
+  //   background-color: #85ece8;
+  //   color: #0a6b69;
+  // }
+  // &:active:not([disabled]) {
+  //   background-color: #85ece8;
+  // }
 }
 
-.n-button.n-button__text.n-button__secondary {
-  color: #245072;
-  &:focus:not([disabled]) {
-    background-image: linear-gradient(#c1e1f8, #95bfdd);
-    background-color: #95bfdd;
-    color: #245072;
-  }
-  &:hover:not([disabled]) {
-    background-image: linear-gradient(#c1e1f8, #95bfdd);
-    background-color: #95bfdd;
-    color: #245072;
-  }
-  &:active:not([disabled]) {
-    background-color: #95bfdd;
-    color: #245072;
-  }
-}
+// .n-button.n-button__text.n-button__secondary {
+//   color: #245072;
+//   &:focus:not([disabled]) {
 
-.n-button.n-button__text.n-button__danger {
-  color: #603f2c;
-  &:focus:not([disabled]) {
-    background-image: linear-gradient(#dac6bb, #a99386);
-    color: #603f2c;
-    background-color: #dac6bb;
-  }
-  &:hover:not([disabled]) {
-    background-image: linear-gradient(#dac6bb, #a99386);
-    color: #603f2c;
-    background-color: #dac6bb;
-  }
-  &:active {
-    color: #603f2c;
-    background-color: #dac6bb;
-  }
-}
+//     color: #245072;
+//   }
+//   &:hover:not([disabled]) {
+
+//     color: #245072;
+//   }
+//   &:active:not([disabled]) {
+
+//     color: #245072;
+//   }
+// }
+
+// .n-button.n-button__text.n-button__danger {
+//   color: #603f2c;
+//   &:focus:not([disabled]) {
+
+//     color: #603f2c;
+//   }
+//   &:hover:not([disabled]) {
+
+//     color: #603f2c;
+//   }
+//   &:active {
+//     color: #603f2c;
+//   }
+// }
 
 .n-button--block {
   display: block;

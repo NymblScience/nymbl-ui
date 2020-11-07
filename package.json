@@ -27,6 +27,7 @@
     "uuid": "^8.2.0",
     "vue": "^2.6.11",
     "vue-click-outside": "^1.1.0",
+    "vue-clipboard2": "^0.3.1",
     "vue-fragment": "^1.5.1",
     "vue-material-design-icons": "^4.7.1",
     "vue-router": "^3.2.0",

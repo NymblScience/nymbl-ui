@@ -16,7 +16,7 @@
         class="n-message-close"
         title="Close"
         is-transperent
-        :size="10"
+        :size="16"
         @click="close"
       />
     </div>

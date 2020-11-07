@@ -37,11 +37,8 @@
 </template>
 
 <script>
-// import NIcon from "./NIcon.vue";
 import NPopover from './NPopover.vue';
 import NLoadingCircle from './NLoadingCircle.vue';
-// import UiRippleInk from './UiRippleInk.vue';
-// import UiTooltip from './UiTooltip.vue';
 
 export default {
   name: 'NButtonIcon',
@@ -80,10 +77,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    isRaised: {
-      type: Boolean,
-      default: false,
-    },
+
     hasDropdown: {
       type: Boolean,
       default: false,
@@ -135,7 +129,6 @@ export default {
         { 'bg-': this.variant === 'primary' },
         { 'n-button__secondary': this.variant === 'secondary' },
         { 'n-button__danger': this.variant === 'danger' },
-        { 'n-button-icon__raised': this.isRaised },
         { 'is-anchor': this.isAnchor },
         { 'is-loading': this.loading },
         { 'is-disabled': this.disabled || this.loading },
@@ -263,40 +256,7 @@ $n-button-icon--size-large: rem(48px) !default;
   &.is-disabled {
     opacity: 0.6;
   }
-  &__raised {
-    color: #595959;
-    border-radius: 0;
-    box-shadow: none !important;
-    background: none !important;
-    border: none !important;
-    -webkit-filter: drop-shadow(0.05rem 0.05rem 0.05rem rgba(0, 0, 0, 0.3));
-    filter: drop-shadow(0.05rem 0.05rem 0.05rem rgba(0, 0, 0, 0.3));
 
-    &:hover {
-      background: none !important;
-      box-shadow: none !important;
-      -webkit-filter: drop-shadow(
-        0.053rem 0.053rem 0.053rem rgba(0, 0, 0, 0.5)
-      );
-      filter: drop-shadow(0.053rem 0.053rem 0.053rem rgba(0, 0, 0, 0.5));
-    }
-    &:focus {
-      outline: none;
-      background: none !important;
-      box-shadow: none !important;
-      -webkit-filter: drop-shadow(
-        0.053rem 0.053rem 0.053rem rgba(0, 0, 0, 0.5)
-      );
-      filter: drop-shadow(0.053rem 0.053rem 0.053rem rgba(0, 0, 0, 0.5));
-    }
-    &:active {
-      -webkit-filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0.3));
-      filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0.4));
-      background: none !important;
-      outline: none !important;
-      box-shadow: none !important;
-    }
-  }
 }
 
 .n-button-icon__icon {

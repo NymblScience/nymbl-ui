@@ -1,16 +1,16 @@
 <template>
-  <div class="n-card" :class="classes">
+  <div class="n-card p-5 shadow-md" :class="classes">
     <div v-if="title.length > 0" class="n-card__header">
-      <div class="n-card__title text-2x">
+      <div class="n-card__title text-xl">
         {{ title }}
       </div>
-      <div class="n-card__header-buttons">
+      <div class="n-card__header-buttons text-gray-400">
         <slot name="header-buttons" />
         <ChevronRight v-if="isCollapsible" @click.native="collapse()" />
       </div>
     </div>
 
-    <div class="n-card__body" :class="classes">
+    <div class="n-card__body py-4" :class="classes">
       <transition-expand>
         <div v-if="!isCollapsedLocal">
           <slot />
@@ -57,7 +57,7 @@ export default {
       type: Boolean,
     },
     /**
-     * Whether card is transparent
+     * Whether card has padding
      */
     noPadding: {
       default: false,
@@ -88,9 +88,6 @@ export default {
   },
   created() {
     this.isCollapsedLocal = this.isCollapsed;
-    // if (this.isCollapsible) {
-    //   console.log(this.$children);
-    // }
   },
   methods: {
     collapse() {
@@ -106,14 +103,12 @@ export default {
 .n-card {
   background: #fff;
   height: 100%;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
   border-radius: 0.2rem;
   &__header {
-    padding: 1rem 1.5rem;
+    // padding: 1rem 1.5rem;
     width: 100%;
-    font-size: 1.24rem;
-    color: #292f2f;
-    font-weight: 500;
+
+    // font-weight: 500;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -131,30 +126,10 @@ export default {
     box-shadow: none !important;
     z-index: 1989 !important;
   }
-  &__body {
-    padding: 0 1.5rem 1rem;
-    &.no-padding {
-      padding: 0;
-      padding-top: 0;
-    }
-  }
 
   &.is-transparent {
-    .n-card__body {
-      padding: 0 0 1rem;
-    }
-    .title-hidden {
-      padding-top: 1rem;
-    }
     box-shadow: none;
     background: transparent;
-  }
-}
-
-.title-hidden {
-  padding-top: 1rem;
-  &.no-padding {
-    padding: 0;
   }
 }
 
