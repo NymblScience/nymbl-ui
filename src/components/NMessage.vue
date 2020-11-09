@@ -129,7 +129,7 @@ export default {
     }
   }
   &.is-success {
-    background: $green-1;
+    background: $green-2;
   }
   &.is-error {
     background: $red-1;
