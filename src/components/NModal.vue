@@ -35,13 +35,12 @@
             <div class="n-modal-close-button">
               <n-button-icon
                 v-if="!removeCloseButton"
-
-                variant="danger"
+                is-transperent
                 class="n-modal-close"
                 title="Close"
                 @click="close"
               >
-                <close-icon :size="20" />
+                <close-icon :size="22" />
               </n-button-icon>
             </div>
           </div>
@@ -367,6 +366,11 @@ $n-modal-header-font-size: rem(18px);
   flex: 1 0 auto;
   justify-content: space-between;
   &.no-title {
+    .n-button-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
     height: 0;
     padding: 0;
   }
@@ -380,14 +384,14 @@ $n-modal-header-font-size: rem(18px);
   font-size: 1.2rem;
   color: #292f2f;
   margin: 0;
-  align-self: flex-start;
+  // align-self: flex-start;
 }
 
 .n-modal-close-button {
   margin-top: -0.25rem;
   margin-left: auto;
   margin-right: rem(-8px);
-  align-self: flex-start;
+  // align-self: flex-start;
 }
 
 .n-modal-body {
