@@ -77,7 +77,10 @@ export default {
       type: Boolean,
       default: false,
     },
-
+    isTransperent: {
+      type: Boolean,
+      default: false,
+    },
     hasDropdown: {
       type: Boolean,
       default: false,
@@ -115,13 +118,14 @@ export default {
     classes() {
       return [
         'cursor-pointer',
-        'bg-gray-100',
+        { 'bg-gray-100': !this.isTransperent },
         'hover:bg-gray-110',
         'text-gray-400',
         'hover:text-gray-390',
         'focus:bg-gray-110',
+        'active:text-gray-200',
+        'active:bg-gray-110',
         'transition',
-        'active:text-green-400',
         'duration-200', 'ease-in-out',
         `n-button-icon--color-${this.color}`,
         `n-button-icon--type-${this.type}`,

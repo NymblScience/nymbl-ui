@@ -18,14 +18,14 @@
         <li
           v-for="year in yearRange"
           v-if="!isYearOutOfRange(year)"
-          class="n-calendar__year"
+          class="n-calendar__year font-bold text-gray-150 text-lg py-4"
           tabindex="0"
           :class="getYearClasses(year)"
           @click="selectYear(year)"
           @keydown.enter="selectYear(year)"
           :key="year"
         >
-
+            {{ year }}
         </li>
           <!-- eslint-enable -->
       </ul>
