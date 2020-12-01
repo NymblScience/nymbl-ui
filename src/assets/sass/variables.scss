@@ -41,7 +41,7 @@ $ui-input-label-color--hover        : rgba(black, 0.75) !default;
 $ui-input-label-color--active       : $brand-primary-color !default;
 $ui-input-label-color--invalid      : $red-2 !default;
 $ui-input-label-font-size           : rem(15px) !default;
-$ui-input-label-line-height         : normal !default;
+$ui-input-label-line-height         : 1.3 !default;
 $ui-input-label-margin-bottom       : 0 !default;
 $ui-input-label-top--inline         : rem(26px) !default;
 
@@ -77,7 +77,7 @@ $ui-input-button-margin-top--with-label : rem(27px) !default;
 
 // Input feedback, help and error text
 $ui-input-feedback-font-size            : rem(14px) !default;
-$ui-input-feedback-line-height          : 1.2 !default;
+$ui-input-feedback-line-height          : 1.3 !default;
 $ui-input-feedback-padding-top          : rem(4px) !default;
 $ui-input-feedback-opacity--disabled    : 0.8 !default;
 $ui-input-feedback-color                : $secondary-text-color !default;
