@@ -17,6 +17,7 @@
       tabindex="tabindex"
       :class="{  'hover:text-green-200 transition-colors duration-300 is-active': isActive(to)}"
       @click="$router.push(to)"
+      @click.middle="openInNewTab(to)"
     >
       <slot />
     </a>
@@ -69,6 +70,10 @@ export default {
       }
 
       return this.$route.matched.filter((path) => path.path === to).length > 0;
+    },
+    openInNewTab(to) {
+      const route = this.$router.resolve(to);
+      window.open(route.href, '_blank');
     },
   },
 };
