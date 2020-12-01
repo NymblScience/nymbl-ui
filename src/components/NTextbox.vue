@@ -365,6 +365,23 @@ export default {
     focus() {
       (this.$refs.input || this.$refs.textarea).focus();
     },
+    setFocusAt(char) {
+      this.moveCursor(this.$refs.input || this.$refs.textarea, char);
+    },
+    moveCursor(elem, caretPos) {
+      let range;
+
+      if (elem.createTextRange) {
+        range = elem.createTextRange();
+        range.move('character', caretPos);
+        range.select();
+      } else {
+        elem.focus();
+        if (elem.selectionStart !== undefined) {
+          elem.setSelectionRange(caretPos, caretPos);
+        }
+      }
+    },
     click() {
       this.$emit('click');
     },
