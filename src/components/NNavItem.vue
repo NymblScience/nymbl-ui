@@ -16,8 +16,8 @@
       class="nav-link cursor-pointer n-nav-link n-nav-item__content hover:text-green-200 transition-colors duration-300 w-full "
       tabindex="tabindex"
       :class="{  'hover:text-green-200 transition-colors duration-300 is-active': isActive(to)}"
-      @click="$router.push(to)"
-      @click.middle="openInNewTab(to)"
+      @click.exact="handleClick(to, $event)"
+      :href="$router.resolve(to).href"
     >
       <slot />
     </a>
@@ -71,9 +71,11 @@ export default {
 
       return this.$route.matched.filter((path) => path.path === to).length > 0;
     },
-    openInNewTab(to) {
-      const route = this.$router.resolve(to);
-      window.open(route.href, '_blank');
+    handleClick(to, event) {
+      if (event) {
+        event.preventDefault();
+      }
+      this.$router.push(to);
     },
   },
 };

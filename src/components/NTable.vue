@@ -47,6 +47,7 @@
           :key="index.toString()"
           :ref="`row-${index}`"
           :class="getRowClasses(row, index)"
+          :href="getRowLink(row, index)"
           @click.native="handleRowClick(row, index, $event)"
           @mouseDown.middle="handleRowClickMiddle(row, index, $event)"
           @click.middle.native="handleRowClickMiddle(row, index, $event)"
@@ -167,6 +168,14 @@ export default {
       default: null,
       type: Function,
     },
+    
+        /**
+     * Specify row link. e.g. getRowLink(row, index)
+     */
+    rowLink: {
+      default: null,
+      type: Function,
+    },
     /**
      * Disable sorting. Used whenever back-end does the sorting.
      */
@@ -180,6 +189,13 @@ export default {
     urlQueries: {
       default: false,
       type: Boolean,
+    },
+    /**
+     * Add a link to go when row is clicked.
+     */
+    link: {
+      default: false,
+      type: [Boolean]
     },
   },
   data() {
@@ -442,6 +458,13 @@ export default {
       }
 
       return classes.join(' ');
+    },
+    getRowLink(row, index) {
+      let link;
+      if (this.rowLink) {
+        link = this.rowLink(row, index)
+      }
+      return link
     },
     handleRowClick(row, index, $event) {
       
