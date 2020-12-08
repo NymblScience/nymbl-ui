@@ -225,33 +225,6 @@ export default {
   }
 }
 
-// .n-button.n-button__secondary {
-//   background-image: linear-gradient(#c1e1f8, #95bfdd);
-//   background-color: #95bfdd;
-//   color: #245072;
-//   &:active {
-//     background: #95bfdd !important;
-//     color: #245072 !important;
-//   }
-//   &:hover {
-//     color: #245072;
-//   }
-// }
-
-// .n-button.n-button__danger {
-//   background-image: linear-gradient(#dac6bb, #a99386);
-//   color: #603f2c;
-//   background-color: #dac6bb;
-//   &:active:not([disabled]) {
-//     background: #dac6bb !important;
-//     color: #603f2c !important;
-//   }
-//   &:hover {  // background: none!important;
-
-//     color: #603f2c;
-//   }
-// }
-
 .n-button.n-button__text {
   // background: none!important;
   border: none!important;
@@ -259,51 +232,12 @@ export default {
 
   letter-spacing: 0.05rem;
   font-weight: 500;
-  // &:focus:not([disabled]) {
-  //   background-image: linear-gradient(#c9ffff, #85ece8);
-  //   background-color: #85ece8;
-  //   box-shadow: 0 1px 2px rgba(25, 25, 26, 0.7);
-  // }
-  // &:hover:not([disabled]) {
-  //   background-image: linear-gradient(#c9ffff, #85ece8);
-  //   background-color: #85ece8;
-  //   color: #0a6b69;
-  // }
-  // &:active:not([disabled]) {
-  //   background-color: #85ece8;
-  // }
+
+  circle {
+    stroke: #333!important;
+  }
+
 }
-
-// .n-button.n-button__text.n-button__secondary {
-//   color: #245072;
-//   &:focus:not([disabled]) {
-
-//     color: #245072;
-//   }
-//   &:hover:not([disabled]) {
-
-//     color: #245072;
-//   }
-//   &:active:not([disabled]) {
-
-//     color: #245072;
-//   }
-// }
-
-// .n-button.n-button__text.n-button__danger {
-//   color: #603f2c;
-//   &:focus:not([disabled]) {
-
-//     color: #603f2c;
-//   }
-//   &:hover:not([disabled]) {
-
-//     color: #603f2c;
-//   }
-//   &:active {
-//     color: #603f2c;
-//   }
-// }
 
 .n-button--block {
   display: block;
