@@ -1,5 +1,8 @@
 <template>
-  <div class="n-table-row">
+  <a @click.exact="handleClick(href, $event)" v-if="href" :href="href" class="n-table-row">
+    <slot></slot>
+  </a>
+  <div v-else class="n-table-row">
     <slot></slot>
   </div>
 </template>
@@ -10,6 +13,15 @@ export default {
     label: {
       type: String,
       default: '',
+    },
+    href: String,
+  },
+  methods: {
+    handleClick(to, event) {
+      if (event) {
+        event.preventDefault();
+      }
+      this.$router.push(to);
     },
   },
   computed: {
