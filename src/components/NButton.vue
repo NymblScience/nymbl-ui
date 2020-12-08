@@ -147,6 +147,7 @@ export default {
 };
 </script>
 <style lang="scss">
+@import "@/assets/sass/colors.scss";
 .n-button {
   display: inline-flex;
   justify-content: center;
@@ -234,7 +235,7 @@ export default {
   font-weight: 500;
 
   circle {
-    stroke: #333!important;
+    stroke: $text-color!important;
   }
 
 }
