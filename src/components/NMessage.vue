@@ -15,7 +15,7 @@
         v-if="showClose"
         class="n-message-close"
         title="Close"
-        is-transperent
+        is-transparent
         :size="16"
         @click="close"
       />

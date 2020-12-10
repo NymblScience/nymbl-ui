@@ -77,7 +77,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    isTransperent: {
+    isTransparent: {
       type: Boolean,
       default: false,
     },
@@ -118,7 +118,7 @@ export default {
     classes() {
       return [
         'cursor-pointer',
-        { 'bg-gray-100': !this.isTransperent },
+        { 'bg-gray-100': !this.isTransparent },
         'hover:bg-gray-110',
         'text-gray-400',
         'hover:text-gray-390',

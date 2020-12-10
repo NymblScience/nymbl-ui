@@ -64,6 +64,7 @@
             v-if="clearable && value.length > 0"
             is-raised
             variant="danger"
+            is-transparent
             class="n-textbox__clearable absolute right-0"
             title="Clear"
             @click="clear()"

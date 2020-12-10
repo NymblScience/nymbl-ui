@@ -5,7 +5,7 @@
       class="n-calendar-controls__nav-button"
       icon="keyboard_arrow_left"
       type="secondary"
-      is-transperent
+      is-transparent
       :color="color === 'default' ? 'default' : 'white'"
       :disabled="previousMonthDisabled"
       @click="goToPreviousMonth"
@@ -24,7 +24,7 @@
       class="n-calendar-controls__nav-button"
       icon="keyboard_arrow_right"
       type="secondary"
-      is-transperent
+      is-transparent
       :color="color === 'default' ? 'default' : 'white'"
       :disabled="nextMonthDisabled"
       @click="goToNextMonth"
