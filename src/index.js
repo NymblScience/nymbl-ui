@@ -3,6 +3,7 @@ import Vue from 'vue';
 import NButton from './components/NButton.vue';
 import NButtonIcon from './components/NButtonIcon.vue';
 import NModal from './components/NModal.vue';
+import NPopover from './components/NPopover.vue';
 import NConfirm from './components/NConfirm.vue';
 import NNavbar from './components/NNavbar.vue';
 import NNavItem from './components/NNavItem.vue';
@@ -31,11 +32,11 @@ const Components = {
   NButton,
   NButtonIcon,
   NModal,
+  NPopover,
   NConfirm,
   NForm,
   NFormItem,
   NNavbar,
-  // NNavDropdown,
   NNavItem,
   NCheckbox,
   NTextbox,
