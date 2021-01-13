@@ -15,6 +15,7 @@ import NDatepicker from './components/NDatepicker.vue';
 import NRadio from './components/NRadio.vue';
 import NRadioGroup from './components/NRadioGroup.vue';
 import NCard from './components/NCard.vue';
+import NUpload from './components/NUpload.vue';
 import NForm from './components/NForm.vue';
 import NFormItem from './components/NFormItem.vue';
 import NTable from './components/NTable.vue';
@@ -22,6 +23,7 @@ import NPagination from './components/NPagination.vue';
 import NCalendar from './components/NCalendar.vue';
 import NTableColumn from './components/NTableColumn.vue';
 import NMenu from './components/NMenu.vue';
+import NLoadingCircle from './components/NLoadingCircle.vue';
 import './assets/sass/main.scss';
 import nconfirm from './plugins/nconfirm';
 import nmessage from './plugins/nmessage';
@@ -50,7 +52,9 @@ const Components = {
   NPagination,
   NCard,
   NCalendar,
+  NLoadingCircle,
   NMenu,
+  NUpload,
 
 };
 

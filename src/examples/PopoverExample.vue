@@ -5,7 +5,7 @@
         <n-button>
           On Hover
         </n-button>
-        <n-popover class="my-popover-style" open-on="hover" position="top">
+        <n-popover class="my-popover-style" open-on="hover" position="top" animation="fade">
           <div class="px-10 py-5 rounded-lg bg-white"><h2>Content</h2></div>
         </n-popover>
       </div>
@@ -13,7 +13,7 @@
         <n-button>
           On Click
         </n-button>
-        <n-popover class="my-popover-style" open-on="click" position="top">
+        <n-popover class="my-popover-style" open-on="click" position="top" animation="fade">
           <div class="px-10 py-5 rounded-lg bg-white"><h2>Content</h2></div>
         </n-popover>
       </div>

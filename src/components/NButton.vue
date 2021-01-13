@@ -22,14 +22,14 @@
   </component>
 </template>
 <script>
-import NLoadingCircle from './NLoadingCircle.vue';
+// import NLoadingCircle from './NLoadingCircle.vue';
 
 export default {
   name: 'NButton',
 
-  components: {
-    NLoadingCircle,
-  },
+  // components: {
+  //   NLoadingCircle,
+  // },
   props: {
     /**
      * Specify `lg` or `sm` for the button size.

@@ -7,7 +7,6 @@
       :class="classes"
       :style="{ width: size + 'px', height: size + 'px' }"
     >
-      <!-- Alternative circle rendering to explore: http://jsfiddle.net/6e3QJ/29/ -->
       <svg
         v-if="type === 'determinate'"
         class="n-loading-circle__determinate"
