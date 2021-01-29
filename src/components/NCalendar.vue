@@ -289,7 +289,7 @@ $n-calendar-padding: rem(8px) !default;
 
 .n-calendar__header-year {
   font-size: rem(15px);
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: rem(8px);
 }
 
@@ -324,7 +324,7 @@ $n-calendar-padding: rem(8px) !default;
 
   &.is-selected {
     font-size: rem(24px);
-    font-weight: 500;
+    font-weight: 600;
     height: rem(40px);
   }
 }

@@ -6,13 +6,19 @@
 
     <div class="n-textbox__content">
       <label class="n-textbox__label">
-        <div class="flex relative">
+
+        <div class="flex relative" >
           <input
+
             v-if="!multiLine"
             ref="input"
             v-autofocus="autofocus"
             class="n-textbox__input"
-            :class="clearable ? 'pr-20' : ''"
+            :class="{
+          'pr-20' : clearable,
+          'text-center' : center,
+          'is-border' : border
+        }"
             :autocomplete="autocomplete ? autocomplete : null"
             :disabled="disabled"
             :max="maxValue"
@@ -190,6 +196,14 @@ export default {
       type: String,
       default: null,
     },
+    border: {
+      type: Boolean,
+      default: false,
+    },
+    center: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data() {
@@ -208,6 +222,7 @@ export default {
         { 'is-active': this.isActive },
         { 'is-invalid': this.invalid },
         { 'is-touched': this.isTouched },
+
         { 'is-multi-line': this.multiLine },
         { 'has-counter': this.maxlength },
         { 'is-disabled': this.disabled },
@@ -399,6 +414,13 @@ export default {
   position: relative;
   font-family: $font-stack;
   margin-bottom: $ui-input-margin-bottom;
+  .is-center {
+    justify-items: center;
+  }
+  .is-border {
+    border-radius: 10px;
+    border:1px solid #000
+  }
   &__clearable {
     position: absolute;
     top: 50%;
@@ -412,15 +434,15 @@ export default {
 
     .n-textbox__input,
     .n-textbox__textarea {
-      border-bottom-color: $ui-input-border-color--hover;
+      border-color: $ui-input-border-color--hover;
     }
   }
 
   &.is-active:not(.is-disabled) {
     .n-textbox__input,
     .n-textbox__textarea {
-      border-bottom-color: $ui-input-border-color--active;
-      border-bottom-width: $ui-input-border-width--active;
+      border-color: $ui-input-border-color--active;
+      border-width: $ui-input-border-width--active;
     }
 
     .n-textbox__label-text,
@@ -477,7 +499,7 @@ export default {
 
     .n-textbox__input,
     .n-textbox__textarea {
-      border-bottom-color: $ui-input-border-color--invalid;
+      border-color: $ui-input-border-color--invalid;
     }
 
     .n-textbox__feedback {
@@ -488,8 +510,8 @@ export default {
   &.is-disabled {
     .n-textbox__input,
     .n-textbox__textarea {
-      border-bottom-style: $ui-input-border-style--disabled;
-      border-bottom-width: $ui-input-border-width--active;
+      border-style: $ui-input-border-style--disabled;
+      border-width: $ui-input-border-width--active;
       color: $ui-input-text-color--disabled;
     }
 
@@ -558,6 +580,11 @@ export default {
 
 .n-textbox__input {
   height: $ui-input-height;
+}
+
+// Remove Border from legacy input
+.is-border .n-textbox__input {
+  border: 1px solid black
 }
 
 .n-textbox__textarea {

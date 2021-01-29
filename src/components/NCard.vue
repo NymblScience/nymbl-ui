@@ -108,7 +108,7 @@ export default {
     // padding: 1rem 1.5rem;
     width: 100%;
 
-    // font-weight: 500;
+    // font-weight: 600;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;

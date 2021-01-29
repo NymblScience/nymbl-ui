@@ -70,13 +70,12 @@ export default {
       default: 'primary',
       type: String,
     },
-    /**
-     * Applies just to the icon button.
-     */
-    round: {
+
+    rounded: {
       default: null,
       type: Boolean,
     },
+
     /**
      * Disable button default functionality.
      */
@@ -101,7 +100,7 @@ export default {
     classes() {
       const isText = this.buttonType === 'text';
       return [
-        { 'px-5 py-3 text-lg': !this.size },
+        { 'px-6 py-3 text-lg': !this.size },
         {
           'n-button__icon':
             this.buttonType === 'icon' || this.buttonType === 'icon-flat',
@@ -117,19 +116,21 @@ export default {
         { 'n-button__primary': this.variant === 'primary' },
         { 'n-button__secondary': this.variant === 'secondary' },
         { 'n-button__danger': this.variant === 'danger' },
-
+        { 'n-button__transparent': this.variant === 'transparent' },
         // Text buttons
         { 'text-green-100 hover:text-green-200 focus:text-green-200 bg-transparent bg-none active:bg-green-300 active:text-white': this.variant === 'primary' && isText },
         { 'text-blue-400 hover:text-blue-200 focus:text-blue-200 bg-transparent bg-none active:bg-blue-200 active:text-white': this.variant === 'secondary' && isText },
         { 'text-red-100 hover:text-red-100 focus:text-red-100 bg-transparent bg-none active:bg-red-100 active:text-white': this.variant === 'danger' && isText },
+        { 'text-green-100 hover:text-green-100 focus:text-green-100 bg-transparent bg-none active:text-green-100 active:text-white border border-solid': this.variant === 'transparent' },
 
         // Sizes
-        { 'n-button--sm text-sm px-3 py-2 ': this.size === 'sm' },
-        { 'n-button--lg text-xl px-6 py-4': this.size === 'lg' },
+        { 'n-button--sm text-sm px-4 py-2 ': this.size === 'sm' },
+        { 'n-button--lg text-xl px-8 py-4': this.size === 'lg' },
 
         // Misc
         { 'n-button--block': this.block },
         { 'is-anchor': this.isAnchor },
+        { 'is-rounded': this.rounded },
         { 'is-loading': this.loading },
         { 'is-disabled': this.disabled || this.loading },
         { 'text-gray-100': this.disabled },
@@ -159,26 +160,16 @@ export default {
   text-decoration: none;
   background-color: transparent;
   border: 1px solid transparent;
-
   color: #fff;
-
   cursor: pointer;
   border-radius: 0.24rem;
   white-space: nowrap;
-  font-weight: 500;
-  text-transform: uppercase;
-  box-shadow: 1px 1px 2px rgba(25, 25, 26, 0.3);
+  font-weight: 600;
+  // box-shadow: 1px 1px 2px rgba(25, 25, 26, 0.3);
   border: none;
   line-height: 1;
-  letter-spacing: 0.08rem;
-  // &--sm {
-  //   padding: 0.8rem 1rem;
-  //   font-size: 1rem;
-  // }
-  // &--lg {
-  //   padding: 0.8rem 1rem;
-  //   font-size: 2rem;
-  // }
+  letter-spacing: -0.17px;
+
   &:active:not([disabled]) {
     box-shadow: none !important;
   }
@@ -186,11 +177,11 @@ export default {
   &:focus:not([disabled]) {
       outline: none;
        filter: brightness(110%);
-    box-shadow: 0 2px 4px rgba(25, 25, 26, 0.7);
+    box-shadow: 0 1px 2px rgba(25, 25, 26, 0.7);
   }
   &:hover:not([disabled]) {
      filter: brightness(110%);
-    box-shadow: 0 2px 4px rgba(25, 25, 26, 0.7);
+    box-shadow: 0 1px 2px rgba(25, 25, 26, 0.7);
   }
   &.is-loading {
     cursor: default;
@@ -208,6 +199,9 @@ export default {
   &.is-disabled {
     cursor: default;
     opacity: 0.5;
+  }
+  &.is-rounded {
+    border-radius: 30px;
   }
 }
 
@@ -230,10 +224,6 @@ export default {
   // background: none!important;
   border: none!important;
   box-shadow: none!important;
-
-  letter-spacing: 0.05rem;
-  font-weight: 500;
-
   circle {
     stroke: $text-color!important;
   }

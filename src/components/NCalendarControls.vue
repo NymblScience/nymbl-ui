@@ -155,7 +155,7 @@ export default {
 
 .n-calendar-controls__month-and-year {
   font-size: rem(15px);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 // ================================================

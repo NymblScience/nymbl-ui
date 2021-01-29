@@ -3,7 +3,7 @@
     <n-card class="max-w-lg">
       <n-form @submit.prevent="submit">
         <n-form-item>
-          <n-textbox label="First Name" placeholder="John" v-model="firstName" />
+          <n-textbox border center label="First Name" placeholder="John" v-model="firstName" />
         </n-form-item>
         <n-form-item>
           <n-textbox label="Last Name" placeholder="Smith" v-model="lastName" />
@@ -14,7 +14,7 @@
           >
         </n-form-item>
         <n-form-item>
-          <n-select label="Country" placeholder="Select..." v-model="country" :options="countries" />
+          <n-select multiple label="Country" placeholder="Select..." v-model="country" :options="countries" />
         </n-form-item>
         <n-form-item>
           <n-datepicker v-model="dob" placeholder="10/11/1960" label="Date of Birth" />

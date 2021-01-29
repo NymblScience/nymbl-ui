@@ -135,5 +135,5 @@ $error-color: #ff615b;
   display: inline-block;
 }
 .semi-bold {
-  font-weight: 500;
+  font-weight: 600;
 }

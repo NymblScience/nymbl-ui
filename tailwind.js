@@ -8,8 +8,8 @@ module.exports = {
   purge: [],
   theme: {
     fontFamily: {
-      display: ['Roboto', 'sans-serif'],
-      body: ['Roboto', 'sans-serif'],
+      display: ['Source Sans Pro', 'sans-serif'],
+      body: ['Source Sans Pro', 'sans-serif'],
     },
     borderColor: (theme) => ({
       ...theme('colors'),
@@ -19,13 +19,14 @@ module.exports = {
       colors: {
 
         green: {
-          100: '#1B807E',
+          100: '#0C6A69',
           200: '#499998',
           300: '#7cb3b2',
           400: '#A4CCCB',
         },
         blue: {
           100: '#A6BFD5',
+          150: '#2D9CDB',
           200: '#7A9FC1',
           300: '#4D7FAC',
           400: '#215F97',

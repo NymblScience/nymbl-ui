@@ -22,7 +22,7 @@ export default {
   padding-bottom: 0.7rem;
   &-label {
     font-size: 0.85rem;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.03rem;
     color: #292f2f;
   }

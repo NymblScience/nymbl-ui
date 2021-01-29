@@ -98,7 +98,7 @@ export default {
   flex-basis: 0;
   font-size: 0.85rem;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
   padding: 6px 3px 6px 3px;
   color: $label-color;
   user-select: none;

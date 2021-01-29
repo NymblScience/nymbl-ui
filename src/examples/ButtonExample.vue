@@ -7,6 +7,11 @@
       <n-button disabled variant="primary">Disabled</n-button>
     </n-section>
 
+    <n-section title="Misc">
+      <n-button rounded variant="primary">Rounded</n-button>
+      <n-button variant="transparent" rounded>Transparent</n-button>
+    </n-section>
+
     <n-section title="Sizes">
       <n-button size="lg">Large</n-button>
       <n-button>Medium</n-button>

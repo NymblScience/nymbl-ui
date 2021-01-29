@@ -125,7 +125,7 @@ export default {
     padding: 0;
     text-align: center;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
     flex-grow: unset;
     flex-basis: unset;
     &:last-child {

@@ -86,7 +86,7 @@ export default {
 .n-nav-item .nav-link {
   cursor: pointer;
   &.is-active {
-    font-weight: 500;
+    font-weight: 600;
     color: $green-3;
   }
 }
