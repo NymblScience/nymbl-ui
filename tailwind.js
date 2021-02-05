@@ -16,6 +16,12 @@ module.exports = {
       default: theme('colors.gray.100', 'currentColor'),
     }),
     extend: {
+      borderRadius: {
+        sm: '0.4167rem',
+        DEFAULT: '0.8333rem',
+        xl: '1.2rem',
+      },
+
       colors: {
 
         green: {

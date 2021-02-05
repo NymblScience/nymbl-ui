@@ -130,7 +130,7 @@ export default {
         // Misc
         { 'n-button--block': this.block },
         { 'is-anchor': this.isAnchor },
-        { 'is-rounded': this.rounded },
+        { 'rounded-xl': this.rounded },
         { 'is-loading': this.loading },
         { 'is-disabled': this.disabled || this.loading },
         { 'text-gray-100': this.disabled },
@@ -199,9 +199,6 @@ export default {
   &.is-disabled {
     cursor: default;
     opacity: 0.5;
-  }
-  &.is-rounded {
-    border-radius: 30px;
   }
 }
 
