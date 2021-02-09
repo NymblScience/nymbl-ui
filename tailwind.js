@@ -21,11 +21,30 @@ module.exports = {
         DEFAULT: '0.8333rem',
         xl: '1.2rem',
       },
+      fontSize: {
+        xs: '0.75rem',
+        sm: ' 0.8333rem',
+        DEFAULT: '1rem',
+        lg: '1.5rem',
+        xl: '2rem',
+      },
+      boxShadow: {
+        DEFAULT: '0px 4px 4px rgba(0, 0, 0, 0.25), 0px 1px 4px rgba(0, 0, 0, 0.25)',
+      },
+      lineHeight: {
+        3: '0.9583rem', // 23px
+        4: '1.25rem', // 30px
+        5: ' 1.542rem', // 37px
+        6: ' 1.875rem', // 45px
+        7: '2.317rem', // 55px
+        8: '2.5rem', // 60px
+      },
 
       colors: {
 
         green: {
           100: '#0C6A69',
+          150: '#1C807E',
           200: '#499998',
           300: '#7cb3b2',
           400: '#A4CCCB',
