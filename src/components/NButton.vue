@@ -100,7 +100,7 @@ export default {
     classes() {
       const isText = this.buttonType === 'text';
       return [
-        { 'px-6 py-3 text-lg': !this.size },
+        { 'px-6 py-3': !this.size },
         {
           'n-button__icon':
             this.buttonType === 'icon' || this.buttonType === 'icon-flat',
@@ -125,7 +125,7 @@ export default {
 
         // Sizes
         { 'n-button--sm text-sm px-4 py-2 ': this.size === 'sm' },
-        { 'n-button--lg text-xl px-8 py-4': this.size === 'lg' },
+        { 'n-button--lg text-lg px-8 py-4': this.size === 'lg' },
 
         // Misc
         { 'n-button--block': this.block },
