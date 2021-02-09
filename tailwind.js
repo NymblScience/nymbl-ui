@@ -11,6 +11,7 @@ module.exports = {
       display: ['Source Sans Pro', 'sans-serif'],
       body: ['Source Sans Pro', 'sans-serif'],
     },
+
     borderColor: (theme) => ({
       ...theme('colors'),
       default: theme('colors.gray.100', 'currentColor'),
@@ -19,7 +20,8 @@ module.exports = {
       borderRadius: {
         sm: '0.4167rem',
         DEFAULT: '0.8333rem',
-        xl: '1.2rem',
+        xl: '1.2rem', // 30px
+        xxl: '5.333rem', // 128px
       },
       fontSize: {
         xs: '0.75rem',
@@ -28,8 +30,13 @@ module.exports = {
         lg: '1.5rem',
         xl: '2rem',
       },
+      fontWeight: {
+
+        bold: 600,
+
+      },
       boxShadow: {
-        DEFAULT: '0px 4px 4px rgba(0, 0, 0, 0.25), 0px 1px 4px rgba(0, 0, 0, 0.25)',
+        default: '0px 4px 4px rgba(0, 0, 0, 0.25), 0px 1px 4px rgba(0, 0, 0, 0.25)',
       },
       lineHeight: {
         3: '0.9583rem', // 23px

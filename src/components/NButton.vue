@@ -75,6 +75,14 @@ export default {
       default: null,
       type: Boolean,
     },
+    roundedXl: {
+      default: null,
+      type: Boolean,
+    },
+    roundedXxl: {
+      default: null,
+      type: Boolean,
+    },
 
     /**
      * Disable button default functionality.
@@ -109,8 +117,10 @@ export default {
         { 'n-button__text': isText },
 
         { 'bg-green-100': this.variant === 'primary' && !isText },
+        { 'bg-green-150': this.variant === 'teal' && !isText },
         { 'bg-blue-400': this.variant === 'secondary' && !isText },
         { 'bg-red-100': this.variant === 'danger' && !isText },
+        { 'bg-white text-green-150 hover:text-green-150 focus:text-green-150 bg-none active:text-green-150': this.variant === 'white' && !isText },
 
         // Variants
         { 'n-button__primary': this.variant === 'primary' },
@@ -122,6 +132,7 @@ export default {
         { 'text-blue-400 hover:text-blue-200 focus:text-blue-200 bg-transparent bg-none active:bg-blue-200 active:text-white': this.variant === 'secondary' && isText },
         { 'text-red-100 hover:text-red-100 focus:text-red-100 bg-transparent bg-none active:bg-red-100 active:text-white': this.variant === 'danger' && isText },
         { 'text-green-100 hover:text-green-100 focus:text-green-100 bg-transparent bg-none active:text-green-100 active:text-white border border-solid': this.variant === 'transparent' },
+        { 'text-green-150 hover:text-green-150 focus:text-green-150 bg-transparent bg-none active:text-green-150 active:text-white border border-solid': this.variant === 'transparent-teal' },
 
         // Sizes
         { 'n-button--sm text-sm px-4 py-2 ': this.size === 'sm' },
@@ -130,7 +141,9 @@ export default {
         // Misc
         { 'n-button--block': this.block },
         { 'is-anchor': this.isAnchor },
-        { 'rounded-xl': this.rounded },
+        { rounded: this.rounded },
+        { 'rounded-xl': this.roundedXl },
+        { 'rounded-xxl': this.roundedXxl },
         { 'is-loading': this.loading },
         { 'is-disabled': this.disabled || this.loading },
         { 'text-gray-100': this.disabled },
