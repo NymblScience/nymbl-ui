@@ -131,8 +131,8 @@ export default {
         { 'text-green-100 hover:text-green-200 focus:text-green-200 bg-transparent bg-none active:bg-green-300 active:text-white': this.variant === 'primary' && isText },
         { 'text-blue-400 hover:text-blue-200 focus:text-blue-200 bg-transparent bg-none active:bg-blue-200 active:text-white': this.variant === 'secondary' && isText },
         { 'text-red-100 hover:text-red-100 focus:text-red-100 bg-transparent bg-none active:bg-red-100 active:text-white': this.variant === 'danger' && isText },
-        { 'text-green-100 hover:text-green-100 focus:text-green-100 bg-transparent bg-none active:text-green-100 active:text-white border border-solid': this.variant === 'transparent' },
-        { 'text-green-150 hover:text-green-150 focus:text-green-150 bg-transparent bg-none active:text-green-150 active:text-white border border-solid': this.variant === 'transparent-teal' },
+        { 'text-green-100 hover:text-green-100 focus:text-green-100 bg-transparent bg-none active:text-green-100 active:text-white border-2 border-solid ': this.variant === 'transparent' },
+        { 'text-green-150 hover:text-green-150 focus:text-green-150 bg-transparent bg-none active:text-green-150 active:text-white border-2 border-solid': this.variant === 'transparent-teal' },
 
         // Sizes
         { 'n-button--sm text-sm px-4 py-2 ': this.size === 'sm' },
