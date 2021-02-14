@@ -38,7 +38,7 @@
             @change="onChange"
             @focus="onFocus"
             @click="click"
-            @input="updateValue($event.target.value)"
+            @input="updateValue($event.target.value, $event)"
             @keydown.enter="onKeydownEnter"
             @keydown="onKeydown"
           />
@@ -61,7 +61,7 @@
             @blur="onBlur"
             @change="onChange"
             @focus="onFocus"
-            @input="updateValue($event.target.value)"
+            @input="updateValue($event.target.value, $event)"
             @keydown.enter="onKeydownEnter"
             @keydown="onKeydown"
           ></textarea>
@@ -318,8 +318,8 @@ export default {
   },
 
   methods: {
-    updateValue(value) {
-      this.$emit('input', value);
+    updateValue(value, e) {
+      this.$emit('input', value, e);
     },
 
     onChange(e) {
@@ -569,7 +569,7 @@ export default {
   cursor: auto;
   display: block;
   font-family: inherit;
-  font-size: $ui-input-text-font-size;
+  font-size: 24px;
   font-weight: normal;
   margin: 0;
   outline: none;
@@ -674,5 +674,9 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+input:-webkit-autofill::first-line {
+  font-size: 24px
 }
 </style>
