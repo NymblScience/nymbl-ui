@@ -1,7 +1,7 @@
 <template>
   <div class="n-card p-5 shadow-md" :class="classes">
     <div v-if="title.length > 0" class="n-card__header">
-      <div class="n-card__title text-xl">
+      <div class="n-card__title text-lg">
         {{ title }}
       </div>
       <div class="n-card__header-buttons text-gray-400">
