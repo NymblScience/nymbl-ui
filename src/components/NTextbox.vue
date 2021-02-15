@@ -569,7 +569,7 @@ export default {
   cursor: auto;
   display: block;
   font-family: inherit;
-  font-size: 24px;
+  font-size: 1rem;
   font-weight: normal;
   margin: 0;
   outline: none;
