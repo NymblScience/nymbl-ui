@@ -676,7 +676,4 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-input:-webkit-autofill::first-line {
-  font-size: 24px
-}
 </style>
