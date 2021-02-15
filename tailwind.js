@@ -18,12 +18,14 @@ module.exports = {
     }),
     extend: {
       borderRadius: {
+     
         sm: '0.4167rem',
         DEFAULT: '0.8333rem',
         xl: '1.2rem', // 30px
         xxl: '5.333rem', // 128px
       },
       fontSize: {
+        xxs: '0.5833rem',
         xs: '0.75rem',
         sm: ' 0.8333rem',
         DEFAULT: '1rem',
