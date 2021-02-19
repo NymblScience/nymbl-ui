@@ -18,7 +18,7 @@ module.exports = {
     }),
     extend: {
       borderRadius: {
-     
+
         sm: '0.4167rem',
         DEFAULT: '0.8333rem',
         xl: '1.2rem', // 30px
@@ -29,6 +29,7 @@ module.exports = {
         xs: '0.75rem',
         sm: ' 0.8333rem',
         DEFAULT: '1rem',
+        mdxl: '1.25rem',
         lg: '1.5rem',
         xl: '2rem',
       },
