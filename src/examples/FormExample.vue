@@ -3,18 +3,23 @@
     <n-card class="max-w-lg">
       <n-form @submit.prevent="submit">
         <n-form-item>
-          <n-textbox border center label="First Name" placeholder="John" v-model="firstName" />
+          <n-textbox label="First Name" placeholder="John" v-model="firstName" />
         </n-form-item>
         <n-form-item>
           <n-textbox label="Last Name" placeholder="Smith" v-model="lastName" />
         </n-form-item>
-                <n-form-item>
+        <n-form-item>
           <n-radio-group name="group1" :options="radioOptions" v-model="gender"
             >Gender</n-radio-group
           >
         </n-form-item>
         <n-form-item>
-          <n-select multiple label="Country" placeholder="Select..." v-model="country" :options="countries" />
+          <n-select
+            label="Country"
+            placeholder="Select..."
+            v-model="country"
+            :options="countries"
+          />
         </n-form-item>
         <n-form-item>
           <n-datepicker v-model="dob" placeholder="10/11/1960" label="Date of Birth" />
@@ -27,20 +32,33 @@
         </template>
       </n-form>
     </n-card>
+    <n-card class="mt-10 max-w-lg">
+      <n-form @submit.prevent="submit">
+        <n-form-item>
+          <n-textbox border center  placeholder="Enter first name" v-model="firstNameBorder" />
+        </n-form-item>
+        <n-form-item>
+          <n-textbox border  center  placeholder="Enter last name" v-model="lastNameBorder" />
+        </n-form-item>
+                <template #footer>
+          <n-button :loading="loading" disabled  @click="submit" type="button">Submit</n-button>
+        </template>
+      </n-form>
+    </n-card>
   </div>
 </template>
 
 <script>
-
 const initialValues = {
   firstName: null,
   lastName: null,
+  firstNameBorder: null,
+  lastNameBorder: null,
   isActive: true,
-  country: null,
+  country: 'null',
   dob: null,
   gender: '',
   loading: false,
-
 };
 export default {
   name: 'FormExample',

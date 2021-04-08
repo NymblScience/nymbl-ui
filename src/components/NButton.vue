@@ -103,6 +103,10 @@ export default {
       default: null,
       type: String,
     },
+    color: {
+      type: [String, Boolean],
+      default: false,
+    },
   },
   computed: {
     classes() {

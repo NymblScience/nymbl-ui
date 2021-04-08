@@ -18,19 +18,12 @@
         @keydown.space.prevent="openDropdown"
         @keydown.tab="onBlur"
       >
-        <div
-          v-if="label || $slots.default"
-          class="n-select__label-text"
-          :class="labelClasses"
-        >
+        <div v-if="label || $slots.default" class="n-select__label-text" :class="labelClasses">
           <slot>{{ label }}</slot>
         </div>
 
         <div class="n-select__display">
-          <div
-            class="n-select__display-value"
-            :class="{ 'is-placeholder': !hasDisplayText }"
-          >
+          <div class="n-select__display-value" :class="{ 'is-placeholder': !hasDisplayText }">
             <div v-if="type === 'image'" class="n-select-option__image">
               <div class="n-select-option__image-text">
                 {{
@@ -41,10 +34,7 @@
                     : placeholder
                 }}
               </div>
-              <div
-                class="n-select-option__image-object"
-                :style="imageStyle"
-              ></div>
+              <div class="n-select-option__image-object" :style="imageStyle"></div>
             </div>
             <div v-else>
               {{
@@ -58,13 +48,21 @@
           </div>
 
           <div class="n-select__dropdown-button">
+
             <svg
-              xmlns="http://www.w3.org/2000/svg"
               width="24"
-              height="24"
+              height="22"
+              class="transform translate-y-1 -translate-x-1"
               viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M6.984 9.984h10.03L12 15z" />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M14.6946 3.13652L8.00913 11.3297C7.7277 11.6749 7.27303 11.6749 6.99087 11.3297L0.305365 3.13652C-0.101789 2.63817 -0.101789 1.82735 0.305365 1.32811C0.712519 0.829757 1.37332 0.829757 1.78048 1.32811L7.50037 8.33693L13.2188 1.32811C13.6267 0.829756 14.2875 0.829756 14.6946 1.32811C15.1018 1.82735 15.1018 2.63817 14.6946 3.13652Z"
+                fill="#909090"
+              />
             </svg>
           </div>
         </div>
@@ -84,19 +82,12 @@
             class="n-select__dropdown-content"
             tabindex="-1"
             @keydown.down.prevent="highlightOption(highlightedIndex + 1)"
-            @keydown.enter.prevent.stop="
-              selectHighlighted(highlightedIndex, $event)
-            "
+            @keydown.enter.prevent.stop="selectHighlighted(highlightedIndex, $event)"
             @keydown.esc.prevent="closeDropdown()"
             @keydown.tab="onBlur"
             @keydown.up.prevent="highlightOption(highlightedIndex - 1)"
           >
-            <div
-              v-if="hasSearch"
-              class="n-select__search"
-              @click.stop
-              @keydown.space.stop
-            >
+            <div v-if="hasSearch" class="n-select__search" @click.stop @keydown.space.stop>
               <input
                 ref="searchInput"
                 v-model="query"
@@ -107,12 +98,7 @@
               />
               <!-- eslint-disable -->
               <div class="n-select__search-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 18 18"
-                > 
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
                   <path
                     d="M9.516 14.016c2.484 0 4.5-2.016 4.5-4.5s-2.016-4.5-4.5-4.5-4.5 2.016-4.5 4.5 2.016 4.5 4.5 4.5zm6 0l4.97 4.97-1.5 1.5-4.97-4.97v-.797l-.28-.282c-1.126.984-2.626 1.547-4.22 1.547-3.61 0-6.516-2.86-6.516-6.47S5.906 3 9.516 3s6.47 2.906 6.47 6.516c0 1.594-.564 3.094-1.548 4.22l.28.28h.798z"
                   />
@@ -139,9 +125,7 @@
                 :selected="isOptionSelected(option)"
                 :type="type"
                 @click.native.stop="selectOption(option, index)"
-                @mouseover.native.stop="
-                  highlightOption(index, { autoScroll: false })
-                "
+                @mouseover.native.stop="highlightOption(index, { autoScroll: false })"
               >
                 <slot
                   name="option"
@@ -326,9 +310,7 @@ export default {
     },
 
     showError() {
-      return (
-        this.invalid && (Boolean(this.error) || Boolean(this.$slots.error))
-      );
+      return this.invalid && (Boolean(this.error) || Boolean(this.$slots.error));
     },
 
     showHelp() {
@@ -372,9 +354,7 @@ export default {
         return '';
       }
 
-      return this.selectedOption
-        ? this.selectedOption[this.keys.label] || this.selectedOption
-        : '';
+      return this.selectedOption ? this.selectedOption[this.keys.label] || this.selectedOption : '';
     },
 
     hasDisplayText() {
@@ -386,9 +366,7 @@ export default {
         return false;
       }
 
-      return this.disableFilter
-        ? this.noResults
-        : this.filteredOptions.length === 0;
+      return this.disableFilter ? this.noResults : this.filteredOptions.length === 0;
     },
 
     submittedValue() {
@@ -399,15 +377,18 @@ export default {
       }
 
       if (Array.isArray(this.selectedOption)) {
-        return this.selectedOption
-          .map((option) => option[this.keys.value] || option)
-          .join(',');
+        return this.selectedOption.map((option) => option[this.keys.value] || option).join(',');
       }
 
       return this.selectedOption[this.keys.value] || this.selectedOption;
     },
     imageStyle() {
-      if (!this.selectedOption || !this.keys || !this.keys.image || !this.selectedOption[this.keys.image]) {
+      if (
+        !this.selectedOption
+        || !this.keys
+        || !this.keys.image
+        || !this.selectedOption[this.keys.image]
+      ) {
         return '';
       }
 
@@ -447,15 +428,9 @@ export default {
     setValue(value) {
       value = value ? value : this.multiple ? [] : "";
 
-      this.$emit(
-        "input",
-        value[this.keys.value] == null ? value : value[this.keys.value]
-      );
+      this.$emit("input", value[this.keys.value] == null ? value : value[this.keys.value]);
 
-      this.$emit(
-        "change",
-        value[this.keys.value] == null ? value : value[this.keys.value]
-      );
+      this.$emit("change", value[this.keys.value] == null ? value : value[this.keys.value]);
     },
     /* eslint-enable  */
     highlightOption(index, options = { autoScroll: true }) {
@@ -531,9 +506,7 @@ export default {
       }
 
       if (!options.select && i > -1) {
-        value = this.selectedOption
-          .slice(0, i)
-          .concat(this.selectedOption.slice(i + 1));
+        value = this.selectedOption.slice(0, i).concat(this.selectedOption.slice(i + 1));
         updated = true;
       }
 
@@ -618,9 +591,7 @@ export default {
       this.$refs.dropdown.$el.style.width = `${this.$refs.label.getBoundingClientRect().width}px`;
 
       this.$nextTick(() => {
-        this.scrollOptionIntoView(
-          this.$refs.optionsList.querySelector('.is-selected'),
-        );
+        this.scrollOptionIntoView(this.$refs.optionsList.querySelector('.is-selected'));
       });
 
       this.$emit('dropdown-open');
@@ -989,9 +960,7 @@ n-select.is-active:not(.is-disabled) .n-select__label-text,
 }
 
 .n-select.n-select.is-invalid:not(.is-disabled) .n-select__label-text,
-.n-select.n-select.is-invalid:not(.is-disabled)
-  .n-select__icon-wrapper
-  .ui-icon {
+.n-select.n-select.is-invalid:not(.is-disabled) .n-select__icon-wrapper .ui-icon {
   color: $form-color-invalid;
 }
 .n-select.n-select.is-invalid:not(.is-disabled) .n-select__display {

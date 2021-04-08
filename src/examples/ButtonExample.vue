@@ -17,6 +17,11 @@
       <n-button>Medium</n-button>
       <n-button size="sm">Small</n-button>
     </n-section>
+    <n-section title="Rounded">
+      <n-button rounded >Rounded</n-button>
+      <n-button rounded-xl>Rounded XL</n-button>
+      <n-button rounded-xxl>Rounded XXL</n-button>
+    </n-section>
     <n-section title="Loading">
       <n-button @click="toggleLoading" :loading="loading">Loading</n-button>
       <n-button @click="toggleLoading" :loading="!loading">Loading</n-button>
