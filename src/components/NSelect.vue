@@ -47,12 +47,12 @@
             </div>
           </div>
 
-          <div class="n-select__dropdown-button">
+          <div class="n-select__dropdown-button flex justify-center items-center h-full">
 
             <svg
               width="24"
               height="22"
-              class="transform translate-y-1 -translate-x-1"
+              class="transform translate-y-1"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
