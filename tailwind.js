@@ -10,6 +10,8 @@ module.exports = {
     fontFamily: {
       display: ['Source Sans Pro', 'sans-serif'],
       body: ['Source Sans Pro', 'sans-serif'],
+      roboto: ['Roboto', 'sans-serif'],
+
     },
 
     borderColor: (theme) => ({
@@ -24,11 +26,15 @@ module.exports = {
         xl: '1.2rem', // 30px
         xxl: '5.333rem', // 128px
       },
+      screens: {
+        xxs: '0px',
+        xs: '320px',
+      },
       fontSize: {
-        xxs: '0.5833rem',
-        xs: '0.75rem',
-        sm: ' 0.8333rem',
-        DEFAULT: '1rem',
+        xxs: '0.5833rem', // 14px
+        xs: '0.75rem', // 18px
+        sm: ' 0.8333rem', // 20px
+        DEFAULT: '1rem', // 24px
         mdxl: '1.25rem',
         lg: '1.5rem',
         xl: '2rem',
@@ -36,7 +42,7 @@ module.exports = {
       fontWeight: {
 
         bold: 600,
-
+        extrabold: 700,
       },
       boxShadow: {
         default: '0px 4px 4px rgba(0, 0, 0, 0.25), 0px 1px 4px rgba(0, 0, 0, 0.25)',
