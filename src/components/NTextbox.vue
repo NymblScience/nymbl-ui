@@ -6,19 +6,18 @@
 
     <div class="n-textbox__content">
       <label class="n-textbox__label">
-
-        <div class="flex relative" >
+        <div class="flex relative">
           <input
-
             v-if="!multiLine"
             ref="input"
             v-autofocus="autofocus"
             class="n-textbox__input"
             :class="{
-          'pr-20' : clearable,
-          'text-center' : center,
-          'is-border' : border
-        }"
+              'pr-20': clearable,
+              'text-center': center,
+              'is-border': border,
+              ...inputClasses,
+            }"
             :autocomplete="autocomplete ? autocomplete : null"
             :disabled="disabled"
             :max="maxValue"
@@ -48,6 +47,7 @@
             ref="textarea"
             v-autofocus="autofocus"
             class="n-textbox__textarea"
+            :class="inputClasses"
             :autocomplete="autocomplete ? autocomplete : null"
             :disabled="disabled"
             :maxlength="enforceMaxlength ? maxlength : null"
@@ -78,12 +78,20 @@
             <close-icon :size="18" />
           </n-button-icon>
         </div>
-        <div v-if="label || $slots.default" class="n-textbox__label-text" :class="labelClasses">
+        <div
+          v-if="label || $slots.default"
+          class="n-textbox__label-text"
+          :class="labelClasses"
+        >
           <slot>{{ label }}</slot>
         </div>
       </label>
 
-      <div v-if="hasFeedback || maxlength" class="n-textbox__feedback">
+      <div
+        v-if="hasFeedback || maxlength"
+        class="n-textbox__feedback"
+        :class="feedbackClasses"
+      >
         <div v-if="showError" class="n-textbox__feedback-text">
           <slot name="error">{{ error }}</slot>
         </div>
@@ -102,12 +110,12 @@
 
 <script>
 /* eslint-disable max-len */
-import autosize from 'autosize';
-import autofocus from '../directives/autofocus';
-import CloseIcon from '../icons/Close.vue';
+import autosize from "autosize";
+import autofocus from "../directives/autofocus";
+import CloseIcon from "../icons/Close.vue";
 
 export default {
-  name: 'NTextbox',
+  name: "NTextbox",
 
   directives: {
     autofocus,
@@ -121,12 +129,12 @@ export default {
     tabindex: [String, Number],
     value: {
       type: [String, Number],
-      default: '',
+      default: "",
     },
     icon: String,
     iconPosition: {
       type: String,
-      default: 'left', // 'left' or 'right'
+      default: "left", // 'left' or 'right'
     },
     label: String,
     floatingLabel: {
@@ -135,7 +143,7 @@ export default {
     },
     type: {
       type: String,
-      default: 'text', // all the possible HTML5 input types, except those that have a special UI
+      default: "text", // all the possible HTML5 input types, except those that have a special UI
     },
     multiLine: {
       type: Boolean,
@@ -158,7 +166,7 @@ export default {
     max: Number,
     step: {
       type: String,
-      default: 'any',
+      default: "any",
     },
     maxlength: Number,
     enforceMaxlength: {
@@ -204,6 +212,11 @@ export default {
       type: Boolean,
       default: false,
     },
+    inputClasses: {
+      type: Object,
+      default: () => {},
+    },
+    feedbackClasses: String,
   },
 
   data() {
@@ -218,23 +231,23 @@ export default {
     classes() {
       return [
         `n-textbox--icon-position-${this.iconPosition}`,
-        { 'is-clearable': this.clearable },
-        { 'is-active': this.isActive },
-        { 'is-invalid': this.invalid },
-        { 'is-touched': this.isTouched },
+        { "is-clearable": this.clearable },
+        { "is-active": this.isActive },
+        { "is-invalid": this.invalid },
+        { "is-touched": this.isTouched },
 
-        { 'is-multi-line': this.multiLine },
-        { 'has-counter': this.maxlength },
-        { 'is-disabled': this.disabled },
-        { 'has-label': this.hasLabel },
-        { 'has-floating-label': this.hasFloatingLabel },
+        { "is-multi-line": this.multiLine },
+        { "has-counter": this.maxlength },
+        { "is-disabled": this.disabled },
+        { "has-label": this.hasLabel },
+        { "has-floating-label": this.hasFloatingLabel },
       ];
     },
 
     labelClasses() {
       return {
-        'is-inline': this.hasFloatingLabel && this.isLabelInline,
-        'is-floating': this.hasFloatingLabel && !this.isLabelInline,
+        "is-inline": this.hasFloatingLabel && this.isLabelInline,
+        "is-floating": this.hasFloatingLabel && !this.isLabelInline,
       };
     },
 
@@ -251,7 +264,7 @@ export default {
     },
 
     minValue() {
-      if (this.type === 'number' && this.min !== undefined) {
+      if (this.type === "number" && this.min !== undefined) {
         return this.min;
       }
 
@@ -259,7 +272,7 @@ export default {
     },
 
     maxValue() {
-      if (this.type === 'number' && this.max !== undefined) {
+      if (this.type === "number" && this.max !== undefined) {
         return this.max;
       }
 
@@ -267,7 +280,7 @@ export default {
     },
 
     stepValue() {
-      return this.type === 'number' ? this.step : null;
+      return this.type === "number" ? this.step : null;
     },
 
     valueLength() {
@@ -290,8 +303,8 @@ export default {
     value(value) {
       // Normalize the value to an empty string if it's null
       if (value === null) {
-        this.initialValue = '';
-        this.updateValue('');
+        this.initialValue = "";
+        this.updateValue("");
       }
     },
   },
@@ -299,8 +312,8 @@ export default {
   created() {
     // Normalize the value to an empty string if it's null
     if (this.value === null) {
-      this.initialValue = '';
-      this.updateValue('');
+      this.initialValue = "";
+      this.updateValue("");
     }
   },
 
@@ -319,47 +332,47 @@ export default {
 
   methods: {
     updateValue(value, e) {
-      this.$emit('input', value, e);
+      this.$emit("input", value, e);
     },
 
     onChange(e) {
-      this.$emit('change', this.value, e);
+      this.$emit("change", this.value, e);
     },
 
     onFocus(e) {
       this.isActive = true;
-      this.$emit('focus', e);
+      this.$emit("focus", e);
     },
 
     onBlur(e) {
       this.isActive = false;
-      this.$emit('blur', e);
+      this.$emit("blur", e);
 
       if (!this.isTouched) {
         this.isTouched = true;
-        this.$emit('touch');
+        this.$emit("touch");
       }
     },
 
     onKeydown(e) {
-      this.$emit('keydown', e);
+      this.$emit("keydown", e);
     },
 
     onKeydownEnter(e) {
-      this.$emit('keydown-enter', e);
+      this.$emit("keydown-enter", e);
     },
 
     clear() {
-      this.updateValue('');
-      this.$emit('clear');
+      this.updateValue("");
+      this.$emit("clear");
     },
 
     reset() {
       // Blur the input if it's focused to prevent required errors
       // when it's value is reset
       if (
-        document.activeElement === this.$refs.input
-        || document.activeElement === this.$refs.textarea
+        document.activeElement === this.$refs.input ||
+        document.activeElement === this.$refs.textarea
       ) {
         document.activeElement.blur();
       }
@@ -389,7 +402,7 @@ export default {
 
       if (elem.createTextRange) {
         range = elem.createTextRange();
-        range.move('character', caretPos);
+        range.move("character", caretPos);
         range.select();
       } else {
         elem.focus();
@@ -399,7 +412,7 @@ export default {
       }
     },
     click() {
-      this.$emit('click');
+      this.$emit("click");
     },
   },
 };
@@ -416,15 +429,17 @@ export default {
   margin-bottom: $ui-input-margin-bottom;
   .is-center {
     justify-items: center;
+    padding-left: 0;
   }
   .is-border {
     border-radius: 10px;
-    border:1px solid #000
+    border: 1px solid #4f4f4f;
+    padding-left: 0.5rem;
   }
   &__clearable {
     position: absolute;
     top: 50%;
-    margin-top: -18px!important;
+    margin-top: -18px !important;
     right: 0;
   }
   &:hover:not(.is-disabled) {
@@ -584,7 +599,8 @@ export default {
 
 // Remove Border from legacy input
 .is-border .n-textbox__input {
-  border: 1px solid black
+  border: 1px solid #4f4f4f;
+  padding-left: 0.5rem;
 }
 
 .n-textbox__textarea {
@@ -675,5 +691,4 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
 </style>

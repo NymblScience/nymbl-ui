@@ -8,7 +8,7 @@
     :type="isAnchor ? null : type"
     @click="onClick"
   >
-    <div class="n-button__content">
+    <div class="n-button__content " :class="containerClasses">
       <slot v-show="!loading" />
     </div>
 
@@ -107,6 +107,10 @@ export default {
       type: [String, Boolean],
       default: false,
     },
+    /**
+     * Cusotm class for container
+     */
+    containerClasses: String,
   },
   computed: {
     classes() {
