@@ -22,7 +22,7 @@
       :secondary-text="hasSecondaryText ? option[keys.secondaryText] : null"
       :target="option[keys.target]"
       :type="option[keys.type]"
-      @click.native="selectOption(option)"
+      @click="selectOption(option)"
       @keydown.enter.native="selectOption(option)"
       @keydown.esc.native.esc="closeMenu"
     >

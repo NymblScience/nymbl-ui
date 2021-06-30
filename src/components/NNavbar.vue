@@ -133,7 +133,7 @@
         v-if="drawer"
         is-raised
         class="n-nav-toggle"
-        @click.native="toggleSidebar()"
+        @click="toggleSidebar()"
       >
         <menu-icon />
       </n-button-icon>
@@ -155,7 +155,7 @@
           is-raised
           variant="danger"
           class="menu-close"
-          @click.native="hide()"
+          @click="hide()"
         >
           <close-icon />
         </n-button-icon>

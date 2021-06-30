@@ -141,7 +141,7 @@
                 :selected="isOptionSelected(option)"
                 :type="type"
                 :class="containerClasses"
-                @click.native.stop="selectOption(option, index)"
+                @click.stop="selectOption(option, index)"
                 @mouseover.native.stop="highlightOption(index, { autoScroll: false })"
               >
                 <slot

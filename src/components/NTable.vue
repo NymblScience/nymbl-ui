@@ -48,7 +48,7 @@
           :ref="`row-${index}`"
           :class="getRowClasses(row, index)"
           :href="getRowLink(row, index)"
-          @click.native="handleRowClick(row, index, $event)"
+          @click="handleRowClick(row, index, $event)"
           @mouseDown.middle="handleRowClickMiddle(row, index, $event)"
           @click.middle.native="handleRowClickMiddle(row, index, $event)"
           @mounted="isRowLoaded(index + 1)"

@@ -2,9 +2,9 @@
   <!-- eslint-disable max-len -->
   <div>
     <div class="styleguide-section">
-      <n-button style="margin-right: 20px" @click.native="openModal('example-modal')">Show Modal</n-button>
-      <n-button style="margin-right: 20px" @click.native="openModal('example-no-title-modal')">No Title</n-button>
-      <n-button @click.native="openModal('confirm-modal')">Confirm</n-button>
+      <n-button style="margin-right: 20px" @click="openModal('example-modal')">Show Modal</n-button>
+      <n-button style="margin-right: 20px" @click="openModal('example-no-title-modal')">No Title</n-button>
+      <n-button @click="openModal('confirm-modal')">Confirm</n-button>
     </div>
 
     <n-modal   ref="example-modal" style="text-align:center" title="An example title of the dialog..">
@@ -14,8 +14,8 @@
       </div>
 
       <template #footer>
-        <n-button buttonType="text" size="sm" variant="danger" @click.native="closeModal('example-modal')">Close</n-button>
-        <n-button buttonType="text" size="sm" variant="primary" @click.native="success('example-modal');">Save</n-button>
+        <n-button buttonType="text" size="sm" variant="danger" @click="closeModal('example-modal')">Close</n-button>
+        <n-button buttonType="text" size="sm" variant="primary" @click="success('example-modal');">Save</n-button>
       </template>
     </n-modal>
 
@@ -26,16 +26,16 @@
       </div>
 
       <template #footer>
-        <n-button buttonType="text" size="sm" variant="danger" @click.native="closeModal('example-modal')">Close</n-button>
-        <n-button buttonType="text" size="sm" variant="primary" @click.native="success('example-modal');">Save</n-button>
+        <n-button buttonType="text" size="sm" variant="danger" @click="closeModal('example-modal')">Close</n-button>
+        <n-button buttonType="text" size="sm" variant="primary" @click="success('example-modal');">Save</n-button>
       </template>
     </n-modal>
 
     <n-modal ref="confirm-modal" type="confirm" centered @close="confirm = false" :show="confirm">
       Are you sure?
         <template #footer>
-        <n-button buttonType="text" size="sm" variant="danger" @click.native="closeModal('confirm-modal') ">No</n-button>
-        <n-button buttonType="text" size="sm" variant="primary" @click.native="success('confirm-modal')">Yes</n-button>
+        <n-button buttonType="text" size="sm" variant="danger" @click="closeModal('confirm-modal') ">No</n-button>
+        <n-button buttonType="text" size="sm" variant="primary" @click="success('confirm-modal')">Yes</n-button>
       </template>
     </n-modal>
   </div>
