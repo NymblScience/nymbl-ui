@@ -9,9 +9,10 @@
     @click="onClick"
   >
     <div class="n-button__content " :class="containerClasses">
-      <slot v-show="!loading" />
+      <div v-show="!loading">
+        <slot  />
+      </div>
     </div>
-
     <n-loading-circle
       v-if="loading"
       disable-transition
