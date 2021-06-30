@@ -1,18 +1,17 @@
 <template>
-  <span :aria-hidden="props.decorative"
-        :aria-label="props.title"
-        :class="[data.class, data.staticClass]"
+  <span :aria-hidden="decorative"
+        :aria-label="title"
         class="material-design-icon menu-up-icon"
         role="img"
-        v-bind="data.attrs"
+
         v-on="listeners">
-    <svg :fill="props.fillColor"
+    <svg :fill="fillColor"
          class="material-design-icon__svg"
-         :width="props.size"
-         :height="props.size"
+         :width="size"
+         :height="size"
          viewBox="0 0 24 24">
       <path d="M7,15L12,10L17,15H7Z">
-        <title>{{ props.title }}</title>
+        <title>{{ title }}</title>
       </path>
     </svg>
   </span>
