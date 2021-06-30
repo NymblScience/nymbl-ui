@@ -14,25 +14,22 @@
       <slot :data="data">{{ data }}</slot>
       <span v-if="isPlugin">{{ body }}</span>
     </div>
+    <template #footer>
+      <div class="n-confirm__footer">
+        <n-button
+          ref="denyButton"
+          :disabled="loading"
+          button-type="text"
+          variant="danger"
+          @click="deny"
+          >{{ denyButtonText }}</n-button
+        >
 
-    <div slot="footer" class="n-confirm__footer">
-      <n-button
-        ref="denyButton"
-        :disabled="loading"
-        button-type="text"
-        variant="danger"
-        @click="deny"
-        >{{ denyButtonText }}</n-button
-      >
-
-      <n-button
-        ref="confirmButton"
-        button-type="text"
-        :loading="loading"
-        @click="confirm"
-        >{{ confirmButtonText }}</n-button
-      >
-    </div>
+        <n-button ref="confirmButton" button-type="text" :loading="loading" @click="confirm">{{
+          confirmButtonText
+        }}</n-button>
+      </div>
+    </template>
   </n-modal>
 </template>
 

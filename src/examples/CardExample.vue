@@ -28,13 +28,15 @@
           <template #header-buttons>
             <n-button-icon ref="dropdownButton" has-dropdown>
               <DotsVertical />
-              <n-menu
-                slot="dropdown"
-                contain-focus
-                @select="message"
-                :options="['Training Levels', 'Check-Ins']"
-                @close="$refs.dropdownButton.closeDropdown()"
-              ></n-menu>
+              <template #dropdown>
+                <n-menu
+
+                  contain-focus
+                  @select="message"
+                  :options="['Training Levels', 'Check-Ins']"
+                  @close="$refs.dropdownButton.closeDropdown()"
+                ></n-menu>
+               </template>
             </n-button-icon>
           </template>
           <!-- eslint-disable max-len -->

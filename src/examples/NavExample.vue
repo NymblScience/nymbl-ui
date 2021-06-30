@@ -17,13 +17,14 @@
       <n-card class="mt-6 p-2 max-w-sm">
         <n-button-icon ref="dropdownButton" has-dropdown>
           <DotsVertical />
-          <n-menu
-            slot="dropdown"
-            contain-focus
-            @select="message"
-            :options="['Coach', 'Account Admin', 'Content Admin']"
-            @close="$refs.dropdownButton.closeDropdown()"
-          ></n-menu>
+          <template #dropdown>
+            <n-menu
+              contain-focus
+              @select="message"
+              :options="['Coach', 'Account Admin', 'Content Admin']"
+              @close="$refs.dropdownButton.closeDropdown()"
+            ></n-menu>
+          </template>
         </n-button-icon>
       </n-card>
     </n-section>
