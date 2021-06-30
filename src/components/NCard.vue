@@ -6,7 +6,7 @@
       </div>
       <div class="n-card__header-buttons text-gray-400">
         <slot name="header-buttons" />
-        <ChevronRight v-if="isCollapsible" @click.native="collapse()" />
+        <ChevronRight v-if="isCollapsible" @click="collapse()" />
       </div>
     </div>
 
