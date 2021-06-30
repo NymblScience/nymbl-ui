@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import DotsVertical from 'vue-material-design-icons/DotsVertical.vue';
+import DotsVertical from '../icons/vue-material/DotsVertical.vue';
 
 export default {
   components: {

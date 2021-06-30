@@ -34,7 +34,7 @@
 <script>
 import logo from '@/assets/img/nymblscience-logo.svg';
 import NNavItem from '@/components/NNavItem.vue';
-import DotsVertical from 'vue-material-design-icons/DotsVertical.vue';
+import DotsVertical from '../icons/vue-material/DotsVertical.vue';
 
 export default {
   name: 'NavExample',

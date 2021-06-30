@@ -83,10 +83,10 @@
 </template>
 
 <script>
-import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
-import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue';
-import ChevronDoubleRight from 'vue-material-design-icons/ChevronDoubleRight.vue';
-import ChevronDoubleLeft from 'vue-material-design-icons/ChevronDoubleLeft.vue';
+import ChevronRight from '../icons/vue-material/ChevronRight.vue';
+import ChevronLeft from '../icons/vue-material/ChevronLeft.vue';
+import ChevronDoubleRight from '../icons/vue-material/ChevronDoubleRight.vue';
+import ChevronDoubleLeft from '../icons/vue-material/ChevronDoubleLeft.vue';
 
 export default {
   name: 'NPagination',

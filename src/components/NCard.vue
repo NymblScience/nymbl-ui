@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
+import ChevronRight from '../icons/vue-material/ChevronRight.vue';
 import TransitionExpand from '../transitions/TransitionExpand.vue';
 
 export default {

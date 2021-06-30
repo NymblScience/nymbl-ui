@@ -12,7 +12,7 @@
   </span>
 </template>
 <script>
-import Close from 'vue-material-design-icons/Close.vue';
+import Close from './vue-material/Close.vue';
 
 export default {
   components: {

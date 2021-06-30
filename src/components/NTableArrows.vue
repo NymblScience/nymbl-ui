@@ -15,9 +15,9 @@
   </div>
 </template>
 <script>
-import MenuUp from 'vue-material-design-icons/MenuUp.vue';
+import MenuUp from '../icons/vue-material/MenuUp.vue';
 
-import MenuDown from 'vue-material-design-icons/MenuDown.vue';
+import MenuDown from '../icons/vue-material/MenuDown.vue';
 
 export default {
   name: 'NTableArrows',
