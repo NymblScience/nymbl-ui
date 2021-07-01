@@ -4,7 +4,7 @@
       <div class="w-2/3 mr-6 h-40">
         <n-card title="Card with a title">
           <!-- eslint-disable max-len -->
-          <template>
+          <template #default>
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
             has been the industry's standard dummy text ever since the 1500s, when an unknown
             printer took a galley of type.
@@ -14,7 +14,7 @@
       <div class="w-1/3 h-40">
         <n-card>
           <!-- eslint-disable max-len -->
-          <template>
+          <template #default>
             Card without a title. Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Printer took a galley of type.
           </template>
@@ -30,17 +30,16 @@
               <DotsVertical />
               <template #dropdown>
                 <n-menu
-
                   contain-focus
                   @select="message"
                   :options="['Training Levels', 'Check-Ins']"
                   @close="$refs.dropdownButton.closeDropdown()"
                 ></n-menu>
-               </template>
+              </template>
             </n-button-icon>
           </template>
           <!-- eslint-disable max-len -->
-          <template>
+          <template #default>
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
             has been the industry's standard dummy text ever since the 1500s, when an unknown
             printer took a galley of type.
@@ -60,7 +59,7 @@
             >
           </template>
           <!-- eslint-disable max-len -->
-          <template>
+          <template #default>
             Card without a title. Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Printer took a galley of type been the industry's standard dummy text ever
             since the 1500s, when an unknown printer took a galley of type. Lorem Ipsum is simply
