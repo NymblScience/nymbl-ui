@@ -11,23 +11,20 @@
     </div>
 
     <div class="n-card__body py-4" :class="classes">
-      <transition-expand>
+
         <div v-if="!isCollapsedLocal">
           <slot />
         </div>
-      </transition-expand>
     </div>
   </div>
 </template>
 
 <script>
 import ChevronRight from '../icons/vue-material/ChevronRight.vue';
-import TransitionExpand from '../transitions/TransitionExpand.vue';
 
 export default {
   name: 'NCard',
   components: {
-    TransitionExpand,
     ChevronRight,
   },
   props: {
