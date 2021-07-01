@@ -3,8 +3,7 @@
         :aria-label="title"
         class="material-design-icon menu-down-icon"
         role="img"
-
-        v-on="listeners">
+>
     <svg :fill="fillColor"
          class="material-design-icon__svg"
          :width="size"
