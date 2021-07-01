@@ -119,6 +119,13 @@ export default {
       type: Boolean,
     },
     /**
+     * Is Transparent
+     */
+    isTransparent: {
+      default: false,
+      type: Boolean,
+    },
+    /**
      * Page Size options
      */
     pageSizes: {
