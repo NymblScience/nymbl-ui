@@ -1,5 +1,5 @@
 <template>
-  <span :aria-hidden="decorative"
+  <span
         :aria-label="title"
         class="material-design-icon chevron-right-icon"
         role="img"
