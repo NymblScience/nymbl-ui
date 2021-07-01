@@ -59,6 +59,10 @@ export default {
       type: [Boolean, String],
       default: false,
     },
+    width: {
+      type: Number,
+      default: null,
+    },
     maxWidth: {
       type: Number,
       default: null,
