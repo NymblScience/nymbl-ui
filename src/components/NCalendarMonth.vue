@@ -21,7 +21,7 @@
         :week-start="date"
         @date-select="onDateSelect"
       >
-        <template v-if="$scopedSlots.date" slot-scope="props">
+        <template v-if="$slots.date" slot-scope="props">
           <slot name="date" :date="props.date"></slot>
         </template>
       </tr>
