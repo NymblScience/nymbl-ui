@@ -50,7 +50,7 @@
           :href="getRowLink(row, index)"
           @click="handleRowClick(row, index, $event)"
           @mouseDown.middle="handleRowClickMiddle(row, index, $event)"
-          @click.middle.native="handleRowClickMiddle(row, index, $event)"
+          @click.middle="handleRowClickMiddle(row, index, $event)"
           @mounted="isRowLoaded(index + 1)"
         >
           <n-table-column-expand

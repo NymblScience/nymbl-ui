@@ -23,8 +23,8 @@
       :target="option[keys.target]"
       :type="option[keys.type]"
       @click="selectOption(option)"
-      @keydown.enter.native="selectOption(option)"
-      @keydown.esc.native.esc="closeMenu"
+      @keydown.enter="selectOption(option)"
+      @keydown.esc="closeMenu"
     >
       <slot name="option" :option="option"></slot>
     </n-menu-option>

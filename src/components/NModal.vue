@@ -21,7 +21,7 @@
           ref="focusContainer"
           class="n-modal-container"
           :class="{ 'n-modal-confirm': type === 'confirm' }"
-          @keydown.native.stop.esc="onEsc"
+          @keydown.stop.esc="onEsc"
         >
           <div
             v-if="type !== 'confirm'"
