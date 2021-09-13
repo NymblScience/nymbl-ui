@@ -1,5 +1,6 @@
 <template>
   <component
+  ref="btn"
     :is="isAnchor ? 'a' : 'button'"
     :class="classes"
     class="n-button"
@@ -164,6 +165,9 @@ export default {
   methods: {
     onClick(e) {
       this.$emit('click', e);
+    },
+    focus() {
+      this.$refs.btn.focus();
     },
   },
 };

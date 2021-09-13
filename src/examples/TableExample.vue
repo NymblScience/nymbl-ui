@@ -13,6 +13,7 @@
           :sortBy="{ order: 'ascending', prop: 'name' }"
           :data="dataA"
           is-expandable
+
         >
           <template v-slot:default="table">
             <n-table-column sortable prop="date" label="Date">
@@ -118,6 +119,7 @@ export default {
     formatDate(date) {
       return moment(date).format('YYYY/MM/DD');
     },
+
   },
 };
 </script>
