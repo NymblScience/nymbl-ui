@@ -177,7 +177,7 @@ export default {
 .n-button {
   display: inline-flex;
   justify-content: center;
-  // color: #231f20;
+
   text-align: center;
   vertical-align: middle;
   user-select: none;
@@ -190,7 +190,6 @@ export default {
   border-radius: 0.24rem;
   white-space: nowrap;
   font-weight: 600;
-  // box-shadow: 1px 1px 2px rgba(25, 25, 26, 0.3);
   border: none;
   line-height: 1;
   letter-spacing: -0.17px;
