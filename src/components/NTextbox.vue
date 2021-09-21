@@ -19,6 +19,8 @@
               ...inputClasses
             }"
             :autocomplete="autocomplete ? autocomplete : null"
+            :autocorrect="autocorrect ? autocorrect : null"
+            :autocapitalize="autocapitalize ? autocapitalize : null"
             :disabled="disabled"
             :max="maxValue"
             :maxlength="enforceMaxlength ? maxlength : null"
