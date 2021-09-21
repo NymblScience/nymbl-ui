@@ -16,7 +16,7 @@
               'pr-20': clearable,
               'text-center': center,
               'is-border': border,
-              ...inputClasses,
+              ...inputClasses
             }"
             :autocomplete="autocomplete ? autocomplete : null"
             :disabled="disabled"
@@ -49,6 +49,8 @@
             class="n-textbox__textarea"
             :class="inputClasses"
             :autocomplete="autocomplete ? autocomplete : null"
+            :autocorrect="autocorrect ? autocorrect : null"
+            :autocapitalize="autocapitalize ? autocapitalize : null"
             :disabled="disabled"
             :maxlength="enforceMaxlength ? maxlength : null"
             :name="name"
@@ -78,20 +80,12 @@
             <close-icon :size="18" />
           </n-button-icon>
         </div>
-        <div
-          v-if="label || $slots.default"
-          class="n-textbox__label-text"
-          :class="labelClasses"
-        >
+        <div v-if="label || $slots.default" class="n-textbox__label-text" :class="labelClasses">
           <slot>{{ label }}</slot>
         </div>
       </label>
 
-      <div
-        v-if="hasFeedback || maxlength"
-        class="n-textbox__feedback"
-        :class="feedbackClasses"
-      >
+      <div v-if="hasFeedback || maxlength" class="n-textbox__feedback" :class="feedbackClasses">
         <div v-if="showError" class="n-textbox__feedback-text">
           <slot name="error">{{ error }}</slot>
         </div>
@@ -154,6 +148,14 @@ export default {
       default: 2,
     },
     autocomplete: String,
+    autocorrect: String,
+    autocapitalize: String,
+
+    autoca: {
+      type: Boolean,
+      default: false,
+    },
+
     autofocus: {
       type: Boolean,
       default: false,
