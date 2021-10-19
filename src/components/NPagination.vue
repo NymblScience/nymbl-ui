@@ -79,13 +79,13 @@
 </template>
 
 <script>
-import ChevronRight from "vue-material-design-icons/ChevronRight.vue";
-import ChevronLeft from "vue-material-design-icons/ChevronLeft.vue";
-import ChevronDoubleRight from "vue-material-design-icons/ChevronDoubleRight.vue";
-import ChevronDoubleLeft from "vue-material-design-icons/ChevronDoubleLeft.vue";
+import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
+import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue';
+import ChevronDoubleRight from 'vue-material-design-icons/ChevronDoubleRight.vue';
+import ChevronDoubleLeft from 'vue-material-design-icons/ChevronDoubleLeft.vue';
 
 export default {
-  name: "NPagination",
+  name: 'NPagination',
   components: {
     ChevronRight,
     ChevronLeft,
@@ -104,7 +104,7 @@ export default {
      * Page count
      */
     pageSize: {
-      default: "25",
+      default: '25',
       type: String,
     },
     /**
@@ -118,7 +118,7 @@ export default {
      * Page Size options
      */
     pageSizes: {
-      default: () => ["25", "50", "100", "250"],
+      default: () => ['25', '50', '100', '250'],
       type: Array,
     },
     /**
@@ -132,7 +132,7 @@ export default {
   data() {
     return {
       active: 1,
-      goTo: "",
+      goTo: '',
       pageSizeValue: this.pageSize,
     };
   },
@@ -144,7 +144,7 @@ export default {
       return this.pages;
     },
     classes() {
-      return [{ "is-transparent": this.isTransparent }];
+      return [{ 'is-transparent': this.isTransparent }];
     },
     pageSizeQuery() {
       return this.$route.query.pageSize;
@@ -173,7 +173,7 @@ export default {
       const { page } = this.$route.query;
       if (pageSize) {
         this.pageSizeValue = pageSize;
-        this.$emit("pageSizeChange", pageSize);
+        this.$emit('pageSizeChange', pageSize);
       } else {
         this.$router.push({
           query: { ...this.$route.query, pageSize: this.pageSize },
@@ -225,7 +225,7 @@ export default {
         this.updateQuery({ page });
       }
 
-      this.$emit("change", page);
+      this.$emit('change', page);
       this.active = page;
     },
     setPageSize(pageSize) {
@@ -237,7 +237,7 @@ export default {
         this.updateQuery({ page: 1 });
       }
       this.pageSizeValue = pageSize;
-      this.$emit("pageSizeChange", pageSize);
+      this.$emit('pageSizeChange', pageSize);
     },
   },
 };
