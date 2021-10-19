@@ -25,9 +25,7 @@
           <span>{{ page }}</span>
         </div>
 
-        <span v-if="pages > 16" style="padding: 0 5px; padding-top: 3px">
-          ...
-        </span>
+        <span v-if="pages > 16" style="padding: 0 5px; padding-top: 3px"> ... </span>
         <div
           v-if="pages > 16"
           :class="{ active: active == page }"
@@ -61,10 +59,8 @@
         />
         <n-button
           size="sm"
-          :disabled="
-            goTo.length === 0 || isNaN(goTo) || goTo > pages || goTo === 0
-          "
-          @click="setPage(goTo)"
+          :disabled="goTo.length === 0 || isNaN(goTo) || goTo > pages || goTo === 0"
+          @click="setPage(Number(goTo))"
           >Go</n-button
         >
       </div>
@@ -203,7 +199,7 @@ export default {
       let page = 1;
       /* eslint-disable */
       if (this.active == 1) {
-      /* eslint-enable */
+        /* eslint-enable */
 
         this.setPage(1);
         return;
