@@ -11,12 +11,7 @@
       :role="role"
       @click.self="onBackdropClick"
     >
-      <div
-        class="n-modal-wrapper"
-        :class="{ 'has-dummy-scrollbar': preventShift }"
-        :style="alignTopStyle"
-        @click.self="onBackdropClick"
-      >
+      <div class="n-modal-wrapper" :style="alignTopStyle" @click.self="onBackdropClick">
         <n-focus-container
           ref="focusContainer"
           class="n-modal-container"
@@ -113,10 +108,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    preventShift: {
-      type: Boolean,
-      default: true,
-    },
+
     customClass: {
       type: String,
       default: '',
@@ -131,9 +123,12 @@ export default {
     return {
       isOpen: false,
       lastFocusedElement: null,
+      scrollbarWidth: null,
     };
   },
-
+  mounted() {
+    this.scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+  },
   computed: {
     classes() {
       return [
@@ -209,8 +204,14 @@ export default {
 
       this.$refs.focusContainer.focus();
 
-      classlist.add(document.body, 'n-modal-is-open');
+      // Remove scrollbar when modal open. Without padding content would shift.
       classlist.add(document.body, 'n-no-scrolling');
+
+      document.documentElement.style.paddingRight = `${this.scrollbarWidth}px`;
+      document
+        .getElementsByClassName('n-navbar fixed')[0]
+        .style.setProperty('padding-right', `${this.scrollbarWidth}px`, 'important');
+
       this.incrementOpenModalCount();
 
       this.$emit('open');
@@ -237,8 +238,10 @@ export default {
       });
 
       if (newCount === 0) {
-        classlist.remove(document.body, 'n-modal-is-open');
+        // Reset scrollbar.
         classlist.remove(document.body, 'n-no-scrolling');
+        document.documentElement.style.paddingRight = '0px';
+        document.getElementsByClassName('n-navbar')[0].style.paddingRight = '0px';
       }
     },
 
@@ -295,9 +298,7 @@ $n-modal-header-font-size: rem(18px);
 
   &.has-footer {
     .n-modal-body {
-      max-height: calc(
-        100vh - #{$n-modal-header-height + $n-modal-footer-height}
-      );
+      max-height: calc(100vh - #{$n-modal-header-height + $n-modal-footer-height});
     }
   }
 
@@ -316,6 +317,7 @@ $n-modal-header-font-size: rem(18px);
   position: fixed;
   top: 0;
   left: 0;
+  overflow-y: auto;
   width: 100vw;
   height: 100vh;
 }

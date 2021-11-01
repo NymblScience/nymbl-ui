@@ -9,7 +9,7 @@
   min-height: 4rem;
 }
 
- .container {
+.container {
   margin-top: 0;
 }
 
@@ -38,97 +38,23 @@
   right: 1rem;
   top: 0.8rem;
 }
-
-// @media only screen and (max-width: 70rem) {
-//   .n-navbar.drawer .n-nav-toggle,
-//   .n-navbar.drawer .menu-close {
-//     display: block;
-//     animation: fadeIn 400ms;
-//   }
-
-//   .n-navbar.drawer .n-navbar-brand {
-//     width: 100%;
-//     text-align: center;
-//   }
-
-//   .n-navbar.drawer .sidebar {
-//     width: 14rem;
-//     height: 100%;
-//     position: fixed;
-//     top: 0;
-//     background: #fff;
-//     z-index: 3010;
-//     left: -14rem;
-//     transition: 400ms left;
-//     transition-timing-function: ease-in-out;
-//     z-index: 2061;
-//     display: block;
-//     padding: 4rem 0;
-//     .nav-item:hover {
-//       background: rgba(32, 33, 36, 0.039);
-//     }
-//     .nav-item:active {
-//       background: rgba(32, 33, 36, 0.045);
-//     }
-//     .nav-link:focus {
-//       box-shadow: none;
-//       outline: none;
-//       background: #f1f1f1;
-//       background: rgba(32, 33, 36, 0.039);
-//     }
-//     .nav-link {
-//       padding-left: 1.8rem;
-//     }
-//   }
-
-//   .n-navbar.drawer .sidebar.open {
-//     left: 0;
-//   }
-
-//   .backdrop {
-//     position: fixed;
-//     top: 0;
-//     height: 100%;
-//     width: 100%;
-//     left: 0;
-//     right: 0;
-//     background: rgba(0, 0, 0, 0.2);
-//     z-index: 2060;
-//     animation: fadeIn 400ms;
-//   }
-//   // Disable scrolling & add placeholder for scrollbar. Removes shifting.
-//   // .n-navbar__open {
-//   //   overflow: hidden;
-//   //   padding-right: 17.5px;
-//   //   .n-navbar {
-//   //     padding-right: 17.5px;
-//   //   }
-//   //   &.is-mobile {
-//   //     padding-right: 0;
-//   //     .n-navbar {
-//   //       padding-right: 1rem !important;
-//   //     }
-//   //   }
-//   // }
-
-//   .n-navbar .n-transparent {
-//     .n-navbar-brand {
-//       color: #333;
-//     }
-//     background: transparent;
-//     box-shadow: none;
-//     z-index: 1989;
-//   }
-// }
 </style>
 
 <template>
   <div
-
-    class="n-navbar w-full flex items-center px-12"
-    :class="{ drawer, 'n-transparent': transparent, fixed, 'top-0': fixed, 'right-0': fixed, 'left-0': fixed}"
+    class="n-navbar w-full flex items-center"
+    :class="{
+      drawer,
+      'n-transparent': transparent,
+      fixed,
+      'top-0': fixed,
+      'right-0': fixed,
+      'left-0': fixed,
+      'px-0': fixed,
+      'px-12': !fixed,
+    }"
   >
-    <div class="w-full flex mx-auto"  :style="`max-width: ${containerWidth}`">
+    <div class="w-full flex mx-auto" :style="`max-width: ${containerWidth}`">
       <n-button-icon
         v-if="drawer"
         is-raised
@@ -138,7 +64,7 @@
         <menu-icon />
       </n-button-icon>
 
-      <div tabindex="-1" class="navbar-brand flex item-center" href="#" >
+      <div tabindex="-1" class="navbar-brand flex item-center" href="#">
         <slot name="logo" />
       </div>
 
@@ -146,11 +72,7 @@
         <h1><slot name="title"></slot></h1>
       </div>
       <!-- Hidden in drawer  -->
-      <ul
-        id="side-bar"
-        :class="{ open: show }"
-        class="ml-auto sidebar flex list-none"
-      >
+      <ul id="side-bar" :class="{ open: show }" class="ml-auto sidebar flex list-none">
         <n-button-icon
           is-raised
           variant="danger"
@@ -172,7 +94,6 @@
 </template>
 
 <script>
-
 import ClickOutside from 'vue-click-outside';
 // import Hammer from 'hammerjs';
 import MenuIcon from '../assets/icons/Menu.vue';

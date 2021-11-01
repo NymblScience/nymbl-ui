@@ -60,3 +60,10 @@ html {
 html {
   font-size: 20px
 }
+
+
+// Disabled scroll attribute for Modals
+
+.n-no-scrolling-new {
+  overflow: hidden;
+}
