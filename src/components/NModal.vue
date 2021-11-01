@@ -63,8 +63,6 @@ import CloseIcon from '../icons/Close.vue';
 import NFocusContainer from './NFocusContainer.vue';
 import NButtonIcon from './NButtonIcon.vue';
 
-import classlist from '../helpers/classlist';
-
 export default {
   name: 'NModal',
   components: {
@@ -209,8 +207,8 @@ export default {
 
       this.$refs.focusContainer.focus();
 
-      classlist.add(document.body, 'n-modal-is-open');
-      classlist.add(document.body, 'n-no-scrolling');
+      document.documentElement.setAttribute('DisableScroll', true);
+
       this.incrementOpenModalCount();
 
       this.$emit('open');
@@ -237,8 +235,7 @@ export default {
       });
 
       if (newCount === 0) {
-        classlist.remove(document.body, 'n-modal-is-open');
-        classlist.remove(document.body, 'n-no-scrolling');
+        document.documentElement.removeAttribute('DisableScroll');
       }
     },
 
@@ -295,9 +292,7 @@ $n-modal-header-font-size: rem(18px);
 
   &.has-footer {
     .n-modal-body {
-      max-height: calc(
-        100vh - #{$n-modal-header-height + $n-modal-footer-height}
-      );
+      max-height: calc(100vh - #{$n-modal-header-height + $n-modal-footer-height});
     }
   }
 
