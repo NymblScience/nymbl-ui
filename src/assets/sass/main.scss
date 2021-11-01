@@ -60,3 +60,14 @@ html {
 html {
   font-size: 20px
 }
+
+
+// Disabled scroll attribute for Modals
+html[DisableScroll] {
+  overflow-y: scroll;
+}
+
+html[DisableScroll] body {
+  overflow-y: hidden;
+  height: 100vh;
+}
