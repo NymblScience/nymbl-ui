@@ -11,12 +11,7 @@
       :role="role"
       @click.self="onBackdropClick"
     >
-      <div
-        class="n-modal-wrapper"
-        :class="{ 'has-dummy-scrollbar': preventShift }"
-        :style="alignTopStyle"
-        @click.self="onBackdropClick"
-      >
+      <div class="n-modal-wrapper" :style="alignTopStyle" @click.self="onBackdropClick">
         <n-focus-container
           ref="focusContainer"
           class="n-modal-container"
@@ -62,6 +57,8 @@
 import CloseIcon from '../icons/Close.vue';
 import NFocusContainer from './NFocusContainer.vue';
 import NButtonIcon from './NButtonIcon.vue';
+
+import classlist from '../helpers/classlist';
 
 export default {
   name: 'NModal',
@@ -111,10 +108,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    preventShift: {
-      type: Boolean,
-      default: true,
-    },
+
     customClass: {
       type: String,
       default: '',
@@ -129,9 +123,12 @@ export default {
     return {
       isOpen: false,
       lastFocusedElement: null,
+      scrollbarWidth: null,
     };
   },
-
+  mounted() {
+    this.scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+  },
   computed: {
     classes() {
       return [
@@ -207,7 +204,13 @@ export default {
 
       this.$refs.focusContainer.focus();
 
-      document.documentElement.setAttribute('DisableScroll', true);
+      // Remove scrollbar when modal open. Without padding content would shift.
+      classlist.add(document.body, 'n-no-scrolling');
+
+      document.documentElement.style.paddingRight = `${this.scrollbarWidth}px`;
+      document
+        .getElementsByClassName('n-navbar fixed')[0]
+        .style.setProperty('padding-right', `${this.scrollbarWidth}px`, 'important');
 
       this.incrementOpenModalCount();
 
@@ -235,7 +238,10 @@ export default {
       });
 
       if (newCount === 0) {
-        document.documentElement.removeAttribute('DisableScroll');
+        // Reset scrollbar.
+        classlist.remove(document.body, 'n-no-scrolling');
+        document.documentElement.style.paddingRight = '0px';
+        document.getElementsByClassName('n-navbar')[0].style.paddingRight = '0px';
       }
     },
 
@@ -311,6 +317,7 @@ $n-modal-header-font-size: rem(18px);
   position: fixed;
   top: 0;
   left: 0;
+  overflow-y: auto;
   width: 100vw;
   height: 100vh;
 }
