@@ -67,7 +67,7 @@
 import moment from 'moment';
 import NTableColumn from '../components/NTableColumn.vue';
 import NTextbox from '../components/NTextbox.vue';
-import { users } from '../users';
+import users from '../users';
 
 export default {
   name: 'TableExample',

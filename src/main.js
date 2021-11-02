@@ -1,7 +1,7 @@
 import Vue from 'vue';
 
-import NSection from '@/ui/NSection.vue';
 import VueClipboard from 'vue-clipboard2';
+import NSection from '@/ui/NSection.vue';
 
 import App from './App.vue';
 import './registerServiceWorker';

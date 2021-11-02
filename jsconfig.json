@@ -1,8 +1,0 @@
-// Webpack
-module.exports = {
-  resolve: {
-    alias: {
-      '@': 'src'
-    }
-  }
-}

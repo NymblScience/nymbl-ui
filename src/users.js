@@ -1,4 +1,4 @@
-exports.users = [
+export default () => [
   {
     name: 'Lily DuBuque',
     id: '1bd04b03-f5fa-45d9-868d-c3a663cf1736',

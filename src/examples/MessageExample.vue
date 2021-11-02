@@ -1,16 +1,15 @@
 <template>
   <div class="flex">
+    <n-button size="sm" variant="secondary" @click="open">Primary</n-button>
 
-      <n-button size="sm" variant="secondary" @click="open">Primary</n-button>
+    <n-button size="sm" @click="openSuccess">Success</n-button>
 
-      <n-button size="sm"  @click="openSuccess">Success</n-button>
+    <n-button size="sm" variant="danger" @click="openError">Error</n-button>
 
-      <n-button size="sm" variant="danger" @click="openError">Error</n-button>
-
-      <n-button size="sm" @click="openNoClose">Open</n-button>
-      <n-button size="sm" @click="openWithTitle">Title</n-button>
-      <n-button size="sm" @click="openWithButton">Button</n-button>
-        </div>
+    <n-button size="sm" @click="openNoClose">Open</n-button>
+    <n-button size="sm" @click="openWithTitle">Title</n-button>
+    <n-button size="sm" @click="openWithButton">Button</n-button>
+  </div>
 </template>
 
 <script>
@@ -81,5 +80,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

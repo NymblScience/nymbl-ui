@@ -8,6 +8,7 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
+    "dev": "vite",
     "deploy": "vue-cli-service build; gh-pages -d styleguide",
     "build:bundle": "vue-cli-service build --target lib --name nymbl-ui ./src/index.js --dest dist"
   },
@@ -21,6 +22,7 @@
     "fuzzysearch": "^1.0.3",
     "lodash": "^4.17.19",
     "moment": "^2.27.0",
+    "postcss": "^8.3.11",
     "register-service-worker": "^1.7.1",
     "sortablejs": "^1.10.2",
     "stickybits": "^3.7.7",
@@ -31,9 +33,12 @@
     "vue-click-outside": "^1.1.0",
     "vue-clipboard2": "^0.3.1",
     "vue-router": "^3.2.0",
-    "vuex": "^4.0.2"
+    "vuex": "^4.0.2",
+    "autoprefixer": "^10.0.2",
+    "postcss-loader": "^4.0.4"
   },
   "devDependencies": {
+    "@vitejs/plugin-vue": "^1.9.4",
     "@vue/cli-plugin-babel": "~4.5.13",
     "@vue/cli-plugin-eslint": "~4.5.13",
     "@vue/cli-plugin-pwa": "~4.5.13",
@@ -50,6 +55,7 @@
     "postcss-focus-visible": "^5.0.0",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
-    "tailwindcss": "^2.2.19"
+    "tailwindcss": "^2.2.19",
+    "vite": "^2.6.13"
   }
 }
