@@ -7,10 +7,12 @@ import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
 import store from './store';
-import '@/assets/css/tailwind.css';
+import './assets/sass/main.scss';
 
 // Import Nymbl Vue UI kit from organization GitHub npm package.
 import NymblUI from '@/';
+
+// import './assets/tailwind.css';
 
 Object.keys(NymblUI.Components).forEach((name) => {
   Vue.component(name, NymblUI.Components[name]);
@@ -19,7 +21,6 @@ Object.keys(NymblUI.Components).forEach((name) => {
 Vue.use(NymblUI.Plugins.nconfirm);
 Vue.use(NymblUI.Plugins.nmessage);
 
-Vue.config.productionTip = false;
 Vue.component('NSection', NSection);
 
 Vue.use(VueClipboard);

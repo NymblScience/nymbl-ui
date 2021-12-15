@@ -94,7 +94,5 @@ module.exports = {
 
     },
   },
-  variants: ['responsive', 'group-hover', 'hover', 'focus', 'active'],
-
   plugins: [],
 };

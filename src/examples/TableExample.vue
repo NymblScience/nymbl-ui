@@ -1,6 +1,6 @@
 <template>
   <div>
-    <n-section title="Filter & Expand">
+    <!-- <n-section title="Filter & Expand">
       <n-textbox
         v-model="filter.value"
         clearable
@@ -59,27 +59,27 @@
         url-queries
         :pages="Math.round(data.length / pageSize)"
       />
-    </n-section>
+    </n-section> -->
   </div>
 </template>
 
 <script>
 import moment from 'moment';
-import NTableColumn from '../components/NTableColumn.vue';
-import NTextbox from '../components/NTextbox.vue';
+// import NTableColumn from '../components/NTableColumn.vue';
+// import NTextbox from '../components/NTextbox.vue';
 import users from '../users';
 
 export default {
   name: 'TableExample',
   title: 'Table',
-  components: {
-    NTableColumn,
-    NTextbox,
-  },
+  // components: {
+  //   NTableColumn,
+  //   NTextbox,
+  // },
 
   data() {
     return {
-      data: users,
+      users,
 
       filter: {
         value: '',
@@ -90,17 +90,17 @@ export default {
       pageSize: 3,
     };
   },
-  computed: {
-    dataA() {
-      return this.data.slice(0, 5);
-    },
-    dataB() {
-      return this.data.slice(
-        this.activePage * this.pageSize - 1,
-        this.activePage * this.pageSize + (this.pageSize === 3 ? 2 : 0),
-      );
-    },
-  },
+  // computed: {
+  //   dataA() {
+  //     return this.users.slice(0, 5);
+  //   },
+  //   dataB() {
+  //     return this.users.slice(
+  //       this.activePage * this.pageSize - 1,
+  //       this.activePage * this.pageSize + (this.pageSize === 3 ? 2 : 0),
+  //     );
+  //   },
+  // },
   methods: {
     handleChange(page) {
       this.activePage = page;
