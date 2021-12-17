@@ -42,7 +42,7 @@ export default {
     version,
   }),
   mounted() {
-    this.sections.forEach((section) => this.observeSections(section));
+    // this.sections.forEach((section) => this.observeSections(section));
   },
   computed: {
     sections() {
