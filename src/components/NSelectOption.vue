@@ -1,5 +1,5 @@
 <template>
-  <li class="n-select-option" :class="classes">
+  <li class="n-select-option" :class="classes" @mouseover.stop="$emit('mouseover')" @click.stop="$emit('click')"  >
     <slot>
       <div v-if="type === 'basic'" class="n-select-option__basic">
         {{ option[keys.label] || option }}
@@ -14,8 +14,6 @@
 </template>
 
 <script>
-// import UiIcon from './UiIcon.vue';
-
 export default {
   name: 'NSelectOption',
   props: {
@@ -50,7 +48,6 @@ export default {
       },
     },
   },
-
   computed: {
     classes() {
       return [
@@ -60,17 +57,12 @@ export default {
         { 'is-selected': this.selected },
       ];
     },
-
     imageStyle() {
       return {
         'background-image': `url(${this.option[this.keys.image]})`,
       };
     },
   },
-
-  // components: {
-  //     UiIcon
-  // }
 };
 </script>
 

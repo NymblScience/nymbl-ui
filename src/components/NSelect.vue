@@ -18,19 +18,12 @@
         @keydown.space.prevent="openDropdown"
         @keydown.tab="onBlur"
       >
-        <div
-          v-if="label || $slots.default"
-          class="n-select__label-text"
-          :class="labelClasses"
-        >
+        <div v-if="label || $slots.default" class="n-select__label-text" :class="labelClasses">
           <slot>{{ label }}</slot>
         </div>
 
         <div class="n-select__display" :class="containerClasses">
-          <div
-            class="n-select__display-value"
-            :class="{ 'is-placeholder': !hasDisplayText }"
-          >
+          <div class="n-select__display-value" :class="{ 'is-placeholder': !hasDisplayText }">
             <div v-if="type === 'image'" class="n-select-option__image">
               <div class="n-select-option__image-text">
                 {{
@@ -93,12 +86,7 @@
             @keydown.tab="onBlur"
             @keydown.up.prevent="highlightOption(highlightedIndex - 1)"
           >
-            <div
-              v-if="hasSearch"
-              class="n-select__search"
-              @click.stop
-              @keydown.space.stop
-            >
+            <div v-if="hasSearch" class="n-select__search" @click.stop @keydown.space.stop>
               <input
                 ref="searchInput"
                 v-model="query"
@@ -109,12 +97,7 @@
               />
               <!-- eslint-disable -->
               <div class="n-select__search-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 18 18"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
                   <path
                     d="M9.516 14.016c2.484 0 4.5-2.016 4.5-4.5s-2.016-4.5-4.5-4.5-4.5 2.016-4.5 4.5 2.016 4.5 4.5 4.5zm6 0l4.97 4.97-1.5 1.5-4.97-4.97v-.797l-.28-.282c-1.126.984-2.626 1.547-4.22 1.547-3.61 0-6.516-2.86-6.516-6.47S5.906 3 9.516 3s6.47 2.906 6.47 6.516c0 1.594-.564 3.094-1.548 4.22l.28.28h.798z"
                   />
@@ -132,7 +115,7 @@
             <ul ref="optionsList" class="n-select__options">
               <n-select-option
                 v-for="(option, index) in filteredOptions"
-                ref="options"
+                :ref="setOptionsRefs"
                 :key="index"
                 :highlighted="highlightedIndex === index"
                 :keys="keys"
@@ -141,9 +124,8 @@
                 :selected="isOptionSelected(option)"
                 :type="type"
                 :class="containerClasses"
-                @click.stop="selectOption(option, index)"
-                @mouseover.stop="highlightOption(index, { autoScroll: false })"
-              >
+                @click="selectOption(option, index)"
+                @mouseover="highlightOption(index, { autoScroll: false })">
                 <slot
                   name="option"
                   :highlighted="highlightedIndex === index"
@@ -286,6 +268,7 @@ export default {
       selectedIndex: -1,
       highlightedIndex: -1,
       initialValue: JSON.stringify(this.selectedOption),
+      optionsRefs: [],
     };
   },
 
@@ -372,9 +355,7 @@ export default {
         return '';
       }
 
-      return this.selectedOption
-        ? this.selectedOption[this.keys.label] || this.selectedOption
-        : '';
+      return this.selectedOption ? this.selectedOption[this.keys.label] || this.selectedOption : '';
     },
 
     hasDisplayText() {
@@ -397,9 +378,7 @@ export default {
       }
 
       if (Array.isArray(this.selectedOption)) {
-        return this.selectedOption
-          .map((option) => option[this.keys.value] || option)
-          .join(',');
+        return this.selectedOption.map((option) => option[this.keys.value] || option).join(',');
       }
 
       return this.selectedOption[this.keys.value] || this.selectedOption;
@@ -444,31 +423,33 @@ export default {
       this.setValue(null);
     }
   },
+  beforeUpdate() {
+    this.optionsRefs = [];
+  },
 
   methods: {
+    setOptionsRefs(el) {
+      if (el) {
+        this.optionsRefs.push(el);
+      }
+    },
     /* eslint-disable  */
     setValue(value) {
       value = value ? value : this.multiple ? [] : "";
 
-      this.$emit(
-        "input",
-        value[this.keys.value] == null ? value : value[this.keys.value]
-      );
+      this.$emit("input", value[this.keys.value] == null ? value : value[this.keys.value]);
 
-      this.$emit(
-        "change",
-        value[this.keys.value] == null ? value : value[this.keys.value]
-      );
+      this.$emit("change", value[this.keys.value] == null ? value : value[this.keys.value]);
     },
     /* eslint-enable  */
     highlightOption(index, options = { autoScroll: true }) {
       let indexComputed = index;
-      if (this.highlightedIndex === indexComputed || this.$refs.options.length === 0) {
+      if (this.highlightedIndex === indexComputed || this.optionsRefs.length === 0) {
         return;
       }
 
       const firstIndex = 0;
-      const lastIndex = this.$refs.options.length - 1;
+      const lastIndex = this.optionsRefs.length - 1;
 
       if (indexComputed < firstIndex) {
         indexComputed = lastIndex;
@@ -479,18 +460,19 @@ export default {
       this.highlightedIndex = indexComputed;
 
       if (options.autoScroll) {
-        this.scrollOptionIntoView(this.$refs.options[indexComputed].$el);
+        this.scrollOptionIntoView(this.optionsRefs[indexComputed].$el);
       }
     },
 
     selectHighlighted(index, e) {
-      if (this.$refs.options.length > 0) {
+      if (this.optionsRefs.length > 0) {
         e.preventDefault();
-        this.selectOption(this.$refs.options[index].option, index);
+        this.selectOption(this.optionsRefs[index].option, index);
       }
     },
 
     selectOption(option, index, options = { autoClose: true }) {
+      console.log('clicked select option');
       const shouldSelect = this.multiple && !this.isOptionSelected(option);
 
       if (this.multiple) {
@@ -616,9 +598,7 @@ export default {
     onOpen() {
       this.isActive = true;
 
-      this.$refs.dropdown.$el.style.width = `${
-        this.$refs.label.getBoundingClientRect().width
-      }px`;
+      this.$refs.dropdown.$el.style.width = `${this.$refs.label.getBoundingClientRect().width}px`;
 
       this.$nextTick(() => {
         this.scrollOptionIntoView(this.$refs.optionsList.querySelector('.is-selected'));
