@@ -1,16 +1,18 @@
 /* eslint-disable  no-param-reassign */
+import { defineComponent } from 'vue';
 
 import NMessages from '../components/NMessages.vue';
 
 const message = {
-  install(Vue) {
-    Vue.component('NMessages', NMessages);
+  install(app) {
+    app.component('NMessages', NMessages);
 
-    Vue.prototype.$nMessage = (options) => {
+    app.config.globalProperties.$nMessage = (options) => {
       const nMessagesElement = document.getElementById('n-messages');
       if (!nMessagesElement) {
-        const ComponentClass = Vue.extend(NMessages);
-        const nMessages = new ComponentClass();
+        const nMessages = defineComponent({
+          extends: defineComponent({ ...NMessages }),
+        });
         nMessages.$mount();
         window.nMessages = nMessages;
         document.getElementsByTagName('body')[0].appendChild(nMessages.$el);
@@ -19,7 +21,7 @@ const message = {
       window.nMessages.add(options);
     };
 
-    Vue.prototype.$nMessage.closeAll = () => {
+    app.config.globalProperties.$nMessage.closeAll = () => {
       if (window.nMessages) {
         window.nMessages.closeAll();
       }

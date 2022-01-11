@@ -1,12 +1,13 @@
 /* eslint-disable  no-param-reassign */
+import { defineComponent } from 'vue';
 
 import NConfirm from '../components/NConfirm.vue';
 
 const confirm = {
-  install(Vue) {
-    Vue.component('NConfirm', NConfirm);
+  install(app) {
+    app.component('NConfirm', NConfirm);
 
-    Vue.prototype.$nConfirm = (
+    app.config.globalProperties.$nConfirm = (
       title,
       body,
       denyButtonText,
@@ -14,15 +15,9 @@ const confirm = {
       confirmFunction,
       denyFunction,
     ) => {
-      const ComponentClass = Vue.extend(NConfirm);
-      const instance = new ComponentClass({
-        propsData: {
-          isPlugin: true,
-          body,
-          title,
-          denyButtonText,
-          confirmButtonText,
-        },
+      // const ComponentClass = app.extend(NConfirm);
+      const instance = defineComponent({
+        extends: defineComponent({ ...NConfirm }),
       });
       instance.$mount();
       instance.$on('confirm', confirmFunction);
