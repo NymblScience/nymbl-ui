@@ -1,5 +1,3 @@
-import Vue from 'vue';
-
 import NButton from './components/NButton.vue';
 import NButtonIcon from './components/NButtonIcon.vue';
 import NModal from './components/NModal.vue';
@@ -27,8 +25,6 @@ import NLoadingCircle from './components/NLoadingCircle.vue';
 import './assets/sass/main.scss';
 import nconfirm from './plugins/nconfirm';
 import nmessage from './plugins/nmessage';
-
-Vue.config.productionTip = false;
 
 const Components = {
   NButton,

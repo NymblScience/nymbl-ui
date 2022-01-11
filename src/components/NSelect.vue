@@ -472,7 +472,6 @@ export default {
     },
 
     selectOption(option, index, options = { autoClose: true }) {
-      console.log('clicked select option');
       const shouldSelect = this.multiple && !this.isOptionSelected(option);
 
       if (this.multiple) {
