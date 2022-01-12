@@ -4,8 +4,8 @@ import VueClipboard from 'vue-clipboard2';
 import router from './router';
 
 import App from './App.vue';
-import './assets/tailwind.css';
 import NymblUI from '@/';
+import './assets/tailwind.css';
 import NSection from '@/ui/NSection.vue';
 
 const app = createApp(App);
@@ -18,12 +18,15 @@ app.use(router);
 // import './assets/tailwind.css';
 
 // console.log(NymblUI.Components);
-Object.keys(NymblUI.Components).forEach((name) => {
-  app.component(name, NymblUI.Components[name]);
+// Import Nymbl Vue UI kit from organization GitHub npm package.
+const { Components, Plugins } = NymblUI;
+
+Object.keys(Components).forEach((name) => {
+  app.component(name, Components[name]);
 });
 
-app.use(NymblUI.Plugins.nconfirm);
-app.use(NymblUI.Plugins.nmessage);
+app.use(Plugins.nconfirm);
+app.use(Plugins.nmessage);
 
 app.component('NSection', NSection);
 
