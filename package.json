@@ -21,6 +21,8 @@
     "autosize": "^4.0.2",
     "color": "^3.1.2",
     "core-js": "^3.6.5",
+    "@vuelidate/core": "^2.0.0-alpha.33",
+    "@vuelidate/validators": "^2.0.0-alpha.26",
     "focus-visible": "^5.1.0",
     "fuzzysearch": "^1.0.3",
     "lodash": "^4.17.19",
