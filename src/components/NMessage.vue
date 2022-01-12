@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes" class="n-message">
+  <div v-if="isMounted" :class="classes" class="n-message">
     <div v-if="title" class="n-message-title">{{ title }}</div>
     <div class="n-message-container">
       {{ message }}
@@ -27,6 +27,11 @@
 import CloseIcon from '../icons/Close.vue';
 
 export default {
+  data() {
+    return {
+      isMounted: true,
+    };
+  },
   components: {
     CloseIcon,
   },
@@ -64,6 +69,7 @@ export default {
       };
     },
   },
+
   created() {
     const that = this;
     if (this.duration) {
@@ -77,9 +83,8 @@ export default {
       const that = this;
       this.$emit('close');
       setTimeout(() => {
-        that.$destroy();
-        that.$el.remove();
-      }, 500);
+        that.isMounted = false;
+      }, 0);
     },
   },
 };

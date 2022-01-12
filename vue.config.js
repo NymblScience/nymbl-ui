@@ -19,9 +19,6 @@ module.exports = {
     config.module
       .rule("vue")
       .use("vue-loader")
-
-      .rule("eslint")
-      .use("eslint-loader")
       .options({
         fix: true,
       });

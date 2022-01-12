@@ -13,10 +13,7 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import nmessage from '../plugins/nmessage';
 
-Vue.use(nmessage);
 export default {
   name: 'MessageExample',
   title: 'Messages',
@@ -28,7 +25,6 @@ export default {
 
   methods: {
     open() {
-      this.count = +1;
       this.$nMessage({ message: 'Sample message' });
     },
     openSuccess() {

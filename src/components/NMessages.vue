@@ -39,7 +39,7 @@ export default {
       });
     },
     close(msgToClose) {
-      this.messages = this.messages.filter((msg) => msg !== msgToClose);
+      this.messages = [...this.messages.filter((msg) => msg !== msgToClose)];
     },
     closeAll() {
       this.messages = [];
@@ -47,7 +47,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style >
 .toasts-enter,
 .toasts-leave-to {
   opacity: 0;
@@ -60,7 +60,7 @@ export default {
 }
 </style>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 #n-messages {
   position: fixed;
   top: 0;
