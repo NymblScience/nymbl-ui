@@ -10712,7 +10712,6 @@ if (typeof window !== 'undefined') {
 
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
-var external_commonjs_vue_commonjs2_vue_root_Vue_default = /*#__PURE__*/__webpack_require__.n(external_commonjs_vue_commonjs2_vue_root_Vue_);
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader-v16/dist??ref--1-1!./src/components/NButton.vue?vue&type=template&id=b926a8be
 
@@ -23885,22 +23884,19 @@ const NMenu_exports_ = /*#__PURE__*/exportHelper_default()(NMenuvue_type_script_
 var sass_main = __webpack_require__("9299");
 
 // CONCATENATED MODULE: ./src/plugins/nconfirm.js
+
+
 /* eslint-disable  no-param-reassign */
 
-var nconfirm_confirm = {
-  install: function install(Vue) {
-    Vue.component('NConfirm', NConfirm);
 
-    Vue.prototype.$nConfirm = function (title, body, denyButtonText, confirmButtonText, confirmFunction, denyFunction) {
-      var ComponentClass = Vue.extend(NConfirm);
-      var instance = new ComponentClass({
-        propsData: {
-          isPlugin: true,
-          body: body,
-          title: title,
-          denyButtonText: denyButtonText,
-          confirmButtonText: confirmButtonText
-        }
+var nconfirm_confirm = {
+  install: function install(app) {
+    app.component('NConfirm', NConfirm);
+
+    app.config.globalProperties.$nConfirm = function (title, body, denyButtonText, confirmButtonText, confirmFunction, denyFunction) {
+      // const ComponentClass = app.extend(NConfirm);
+      var instance = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
+        extends: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])(_objectSpread2({}, NConfirm))
       });
       instance.$mount();
       instance.$on('confirm', confirmFunction);
@@ -24203,18 +24199,22 @@ const NMessages_exports_ = /*#__PURE__*/exportHelper_default()(NMessagesvue_type
 
 /* harmony default export */ var NMessages = (NMessages_exports_);
 // CONCATENATED MODULE: ./src/plugins/nmessage.js
+
+
 /* eslint-disable  no-param-reassign */
 
-var nmessage_message = {
-  install: function install(Vue) {
-    Vue.component('NMessages', NMessages);
 
-    Vue.prototype.$nMessage = function (options) {
+var nmessage_message = {
+  install: function install(app) {
+    app.component('NMessages', NMessages);
+
+    app.config.globalProperties.$nMessage = function (options) {
       var nMessagesElement = document.getElementById('n-messages');
 
       if (!nMessagesElement) {
-        var ComponentClass = Vue.extend(NMessages);
-        var nMessages = new ComponentClass();
+        var nMessages = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
+          extends: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])(_objectSpread2({}, NMessages))
+        });
         nMessages.$mount();
         window.nMessages = nMessages;
         document.getElementsByTagName('body')[0].appendChild(nMessages.$el);
@@ -24223,7 +24223,7 @@ var nmessage_message = {
       window.nMessages.add(options);
     };
 
-    Vue.prototype.$nMessage.closeAll = function () {
+    app.config.globalProperties.$nMessage.closeAll = function () {
       if (window.nMessages) {
         window.nMessages.closeAll();
       }
@@ -24259,8 +24259,6 @@ var nmessage_message = {
 
 
 
-
-external_commonjs_vue_commonjs2_vue_root_Vue_default.a.config.productionTip = false;
 var Components = {
   NButton: NButton,
   NButtonIcon: NButtonIcon,
