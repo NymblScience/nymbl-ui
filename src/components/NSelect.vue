@@ -173,6 +173,7 @@ export default {
     NLoadingCircle,
     NSelectOption,
   },
+  emits: ['update:modelValue'],
 
   mixins: [RespondsToExternalClick],
 
@@ -183,7 +184,7 @@ export default {
     //   type: [String, Number, Object, Array],
     //   required: true
     // },
-    value: {
+    modelValue: {
       type: [String, Number, Object, Array, Boolean],
     },
     options: {
@@ -320,8 +321,8 @@ export default {
 
     selectedOption() {
       return this.options.filter((option) => (option[this.keys.value] == null
-        ? option === this.value
-        : option[this.keys.value] === this.value))[0];
+        ? option === this.modelValue
+        : option[this.keys.value] === this.modelValue))[0];
     },
 
     filteredOptions() {
@@ -437,7 +438,7 @@ export default {
     setValue(value) {
       value = value ? value : this.multiple ? [] : "";
 
-      this.$emit("input", value[this.keys.value] == null ? value : value[this.keys.value]);
+      this.$emit("update:modelValue", value[this.keys.value] == null ? value : value[this.keys.value]);
 
       this.$emit("change", value[this.keys.value] == null ? value : value[this.keys.value]);
     },

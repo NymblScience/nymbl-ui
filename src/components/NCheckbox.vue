@@ -29,12 +29,13 @@ import { looseEqual } from '../helpers/util';
 
 export default {
   name: 'NCheckbox',
+  emits: ['update:modelValue'],
 
   props: {
     name: String,
     label: String,
     tabindex: [String, Number],
-    value: {
+    modelValue: {
       required: true,
     },
     trueValue: {
@@ -68,7 +69,7 @@ export default {
   data() {
     return {
       isActive: false,
-      isChecked: looseEqual(this.value, this.trueValue) || this.checked,
+      isChecked: looseEqual(this.modelValue, this.trueValue) || this.checked,
     };
   },
 
@@ -85,13 +86,13 @@ export default {
   },
 
   watch: {
-    value() {
-      this.isChecked = looseEqual(this.value, this.trueValue);
+    modelValue() {
+      this.isChecked = looseEqual(this.modelValue, this.trueValue);
     },
   },
 
   created() {
-    this.$emit('input', this.isChecked ? this.trueValue : this.falseValue);
+    this.$emit('update:modelValue', this.isChecked ? this.trueValue : this.falseValue);
   },
 
   methods: {
@@ -103,7 +104,7 @@ export default {
       const isCheckedPrevious = this.isChecked;
       const isChecked = e.target.checked;
 
-      this.$emit('input', isChecked ? this.trueValue : this.falseValue, e);
+      this.$emit('update:modelValue', isChecked ? this.trueValue : this.falseValue, e);
 
       if (isCheckedPrevious !== isChecked) {
         this.$emit('change', isChecked ? this.trueValue : this.falseValue, e);

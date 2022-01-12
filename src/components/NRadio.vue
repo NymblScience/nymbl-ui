@@ -30,12 +30,13 @@
 <script>
 export default {
   name: 'NRadio',
+  emits: ['update:modelValue'],
 
   props: {
     name: String,
     label: String,
     tabindex: [String, Number],
-    value: {
+    modelValue: {
       required: true,
     },
     trueValue: {
@@ -78,13 +79,13 @@ export default {
 
     isChecked() {
       // eslint-disable-next-line eqeqeq
-      return String(this.value).length > 0 && this.value == this.trueValue;
+      return String(this.modelValue).length > 0 && this.modelValue == this.trueValue;
     },
   },
 
   created() {
     if (this.checked) {
-      this.$emit('input', this.trueValue);
+      this.$emit('update:modelValue', this.trueValue);
     }
   },
 
@@ -95,7 +96,7 @@ export default {
 
     toggleCheck() {
       if (!this.disabled) {
-        this.$emit('input', this.trueValue);
+        this.$emit('update:modelValue', this.trueValue);
       }
     },
 

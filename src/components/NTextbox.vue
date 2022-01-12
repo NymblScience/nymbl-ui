@@ -31,7 +31,7 @@
             :step="stepValue"
             :tabindex="tabindex"
             :type="type"
-            :value="value"
+            :value="modelValue"
             :pattern="pattern"
             @blur="onBlur"
             @change="onChange"
@@ -57,7 +57,7 @@
             :required="required"
             :rows="rows"
             :tabindex="tabindex"
-            :value="value"
+            :value="modelValue"
             @blur="onBlur"
             @change="onChange"
             @focus="onFocus"
@@ -116,6 +116,7 @@ import CloseIcon from '../icons/Close.vue';
 
 export default {
   name: 'NTextbox',
+  emits: ['update:modelValue'],
 
   directives: {
     autofocus,
@@ -127,7 +128,7 @@ export default {
     name: String,
     placeholder: String,
     tabindex: [String, Number],
-    value: {
+    modelValue: {
       type: [String, Number],
       default: '',
     },
@@ -223,7 +224,7 @@ export default {
     return {
       isActive: false,
       isTouched: false,
-      initialValue: this.value,
+      initialValue: this.modelValue,
       autosizeInitialized: false,
     };
   },
@@ -284,7 +285,7 @@ export default {
     },
 
     valueLength() {
-      return this.value ? this.value.length : 0;
+      return this.modelValue ? this.modelValue.length : 0;
     },
 
     hasFeedback() {
@@ -303,6 +304,7 @@ export default {
     value(value) {
       // Normalize the value to an empty string if it's null
       if (value === null) {
+        console.log('val');
         this.initialValue = '';
         this.updateValue('');
       }
@@ -311,7 +313,7 @@ export default {
 
   created() {
     // Normalize the value to an empty string if it's null
-    if (this.value === null) {
+    if (this.modelValue === null) {
       this.initialValue = '';
       this.updateValue('');
     }
@@ -331,12 +333,12 @@ export default {
   },
 
   methods: {
-    updateValue(value, e) {
-      this.$emit('input', value, e);
+    updateValue(value) {
+      this.$emit('update:modelValue', value);
     },
 
     onChange(e) {
-      this.$emit('change', this.value, e);
+      this.$emit('change', this.modelValue, e);
     },
 
     onFocus(e) {
