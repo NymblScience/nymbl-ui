@@ -2,14 +2,14 @@
   <component
     :is="isAnchor ? 'a' : 'button'"
     :class="classes"
-    class="n-button"
+    class="n-button "
     :disabled="disabled || loading"
     :href="isAnchor ? (disabled ? null : href) : null"
     :type="isAnchor ? null : type"
     @click="onClick"
   >
     <div class="n-button__content " :class="containerClasses">
-      <div v-show="!loading">
+      <div>
         <slot  />
       </div>
     </div>
@@ -164,7 +164,7 @@ export default {
   },
   methods: {
     onClick(e) {
-      this.$emit('click', e);
+      this.$emit('onClick', e);
     },
   },
 };
