@@ -23,7 +23,7 @@
 
 </template>
 <script>
-import tailwind from '../tailwind.config'
+import tailwind from '../tailwind.config';
 
 export default {
   name: 'Colors',
