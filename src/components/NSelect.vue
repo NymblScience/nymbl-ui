@@ -1,5 +1,5 @@
 <template>
-  <div class="n-select" :class="classes">
+  <div  class="n-select" :class="classes" >
     <input
       v-if="name"
       class="n-select__hidden-input"
@@ -95,7 +95,7 @@
           >
             <div
               v-if="hasSearch"
-              class="n-select__search"
+              class="n-select__search relative"
               @click.stop
               @keydown.space.stop
             >
@@ -298,6 +298,7 @@ export default {
         { 'is-invalid': this.invalid },
         { 'is-touched': this.isTouched },
         { 'is-disabled': this.disabled },
+        { 'pointer-events-none': this.disabled },
         { 'is-multiple': this.multiple },
         { 'has-label': this.hasLabel },
         { 'has-floating-label': this.hasFloatingLabel },
@@ -900,7 +901,7 @@ export default {
   .n-select__search-icon,
   .n-select__search-progress {
     position: absolute;
-    top: rem(8px);
+    top: 20%;
   }
   background: #fff;
 }
@@ -909,7 +910,6 @@ export default {
   color: $ui-input-icon-color;
   font-size: rem(20px);
   left: rem(12px);
-  top: 0.1rem !important;
 }
 
 .n-select__search-progress {
