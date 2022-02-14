@@ -68,3 +68,8 @@ html {
 .n-no-scrolling {
   overflow: hidden;
 }
+
+// Disable outline for focused elements for Firefox
+*, ::after, ::before {
+  outline: none !important
+}
