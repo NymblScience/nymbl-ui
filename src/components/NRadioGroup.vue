@@ -140,8 +140,11 @@ export default {
       this.$emit('change', this.selectedOptionValue);
     },
 
-    value() {
-      this.selectedOptionValue = this.modelValue;
+    modelValue(newValue) {
+      if (newValue === null) {
+        return;
+      }
+      this.selectedOptionValue = newValue;
     },
   },
 

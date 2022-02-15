@@ -417,6 +417,9 @@ export default {
         this.removeExternalClickListener();
       }
     },
+    modelValue(newValue) {
+      this.setValue(newValue);
+    },
   },
 
   created() {
