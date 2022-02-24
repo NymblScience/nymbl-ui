@@ -29,7 +29,27 @@ export default {
       messages: [],
     };
   },
+  watch: {
+    messages: {
+      immediate: false,
+      deep: true,
+      handler(messages) {
+        if (messages.length === 0) {
+          return;
+        }
+        const that = this;
 
+        setTimeout(() => {
+          const touchMove = function () {
+            document.removeEventListener('click', touchMove);
+            that.closeAll();
+          };
+
+          document.addEventListener('click', touchMove, { once: true });
+        }, 0);
+      },
+    },
+  },
   methods: {
     add(options) {
       this.$nextTick(() => {

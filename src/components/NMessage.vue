@@ -64,14 +64,6 @@ export default {
       };
     },
   },
-  created() {
-    const that = this;
-    if (this.duration) {
-      setTimeout(() => {
-        that.close();
-      }, this.duration);
-    }
-  },
   methods: {
     close() {
       const that = this;
