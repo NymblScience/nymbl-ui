@@ -50,7 +50,7 @@ export default {
     },
     duration: {
       type: Number,
-      default: 5000,
+      default: 0,
     },
     showClose: {
       type: Boolean,
@@ -68,15 +68,6 @@ export default {
         'is-error': this.type === 'error',
       };
     },
-  },
-
-  created() {
-    const that = this;
-    if (this.duration) {
-      setTimeout(() => {
-        that.close();
-      }, this.duration);
-    }
   },
   methods: {
     close() {
