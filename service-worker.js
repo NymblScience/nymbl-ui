@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/nymbl-ui/precache-manifest.e578902984593c36d233a9df209987e3.js"
+  "/nymbl-ui/precache-manifest.6eeefe9f6e38029bd6143aa603c84c1f.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "nymbl-ui"});
