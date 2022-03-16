@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint",
+    "lint": "eslint . --fix",
     "deploy": "vue-cli-service build; gh-pages -d styleguide",
     "build:bundle": "vue-cli-service build --target lib --name nymbl-ui ./src/index.js --dest dist",
     "dev": "vite"
@@ -16,12 +16,12 @@
   "dependencies": {
     "@tailwindcss/postcss7-compat": "^2.2.17",
     "@vue/cli": "^5.0.0-beta.3",
+    "@vuelidate/core": "^2.0.0-alpha.33",
+    "@vuelidate/validators": "^2.0.0-alpha.26",
     "autoprefixer": "^9",
     "autosize": "^4.0.2",
     "color": "^3.1.2",
     "core-js": "^3.6.5",
-    "@vuelidate/core": "^2.0.0-alpha.33",
-    "@vuelidate/validators": "^2.0.0-alpha.26",
     "focus-visible": "^5.1.0",
     "fuzzysearch": "^1.0.3",
     "lodash": "^4.17.19",
@@ -39,7 +39,6 @@
     "vue-clipboard2": "^0.3.1",
     "vue-router": "^4.0.0",
     "vuex": "^4.0.2"
-
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.9.4",
@@ -53,9 +52,9 @@
     "@vue/compiler-sfc": "^3.2.11",
     "@vue/eslint-config-airbnb": "^5.0.2",
     "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
+    "eslint": "^6.8.0",
     "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-vue": "^6.2.2",
+    "eslint-plugin-vue": "^7.0.0-beta.4",
     "postcss-focus-visible": "^5.0.0",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",

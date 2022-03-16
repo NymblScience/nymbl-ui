@@ -1,4 +1,4 @@
-/* eslint-disable  no-param-reassign */
+/* eslint-disable  vue/one-component-per-file */
 import { defineComponent } from 'vue';
 
 import NConfirm from '../components/NConfirm.vue';
