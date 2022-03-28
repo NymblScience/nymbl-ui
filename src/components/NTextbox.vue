@@ -429,7 +429,7 @@ export default {
   align-items: flex-start;
   display: flex;
   position: relative;
-  font-family: $font-stack;
+  
   margin-bottom: $ui-input-margin-bottom;
   .is-center {
     justify-items: center;
