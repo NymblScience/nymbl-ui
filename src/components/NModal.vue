@@ -167,7 +167,7 @@ export default {
     },
   },
 
-  beforeDestroy() {
+  unmounted() {
     if (this.isOpen) {
       this.returnFocus();
     }

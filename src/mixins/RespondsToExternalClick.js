@@ -1,5 +1,5 @@
 export default {
-  beforeDestroy() {
+  unmounted() {
     if (typeof this.externalClickListener === 'function') {
       this.removeExternalClickListener();
     }

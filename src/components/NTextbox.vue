@@ -326,7 +326,7 @@ export default {
     }
   },
 
-  beforeDestroy() {
+  unmounted() {
     if (this.autosizeInitialized) {
       autosize.destroy(this.$refs.textarea);
     }

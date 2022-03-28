@@ -111,7 +111,7 @@ export default {
     this.setupPopover();
   },
 
-  beforeDestroy() {
+  unmounted() {
     this.destroyPopover();
   },
 

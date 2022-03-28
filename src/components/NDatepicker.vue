@@ -241,7 +241,7 @@ export default {
     document.addEventListener('click', this.onExternalClick);
   },
 
-  beforeDestroy() {
+  unmounted() {
     document.removeEventListener('click', this.onExternalClick);
   },
 
