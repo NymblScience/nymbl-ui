@@ -260,7 +260,7 @@ $n-calendar-padding: rem(8px) !default;
 
 .n-calendar {
   color: $primary-text-color;
-  font-family: $font-stack;
+
 }
 
 .n-calendar__header {
