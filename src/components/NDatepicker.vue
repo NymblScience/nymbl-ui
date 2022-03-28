@@ -508,7 +508,7 @@ body[modality="keyboard"]
 .n-datepicker {
   align-items: flex-start;
   display: flex;
-  
+
   margin-bottom: $ui-input-margin-bottom;
   outline: none;
   position: relative;

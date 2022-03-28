@@ -285,7 +285,7 @@ $n-modal-font-size: rem(14px);
 $n-modal-header-font-size: rem(18px);
 
 .n-modal {
-  
+
   display: flex;
   justify-content: center;
   flex-direction: column;

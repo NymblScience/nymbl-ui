@@ -674,7 +674,7 @@ export default {
 .n-select {
   align-items: flex-start;
   display: flex;
-  
+
   margin-bottom: $ui-input-margin-bottom;
   outline: none;
   position: relative;

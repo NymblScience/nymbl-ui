@@ -172,7 +172,7 @@ export default {
   border-radius: default-border-radius;
   cursor: pointer;
   display: inline-flex;
-  
+
   font-size: button-font-size;
   font-weight: 600;
   justify-content: center;
