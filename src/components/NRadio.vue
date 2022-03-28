@@ -129,7 +129,7 @@ $n-radio-label-font-size: rem(16px) !default;
 .n-radio {
   align-items: center;
   display: flex;
-  font-family: $font-stack;
+  
   font-size: $ui-input-label-font-size;
   height: $n-radio-size;
   margin: 0;

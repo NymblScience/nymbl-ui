@@ -121,7 +121,7 @@ export default {
 .n-menu {
   background-color: white;
   border: rem(1px) solid rgba(black, 0.08);
-  font-family: $font-stack;
+  
   list-style: none;
   margin: 0;
   max-height: 100vh;

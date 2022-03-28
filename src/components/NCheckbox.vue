@@ -138,7 +138,7 @@ $n-checkbox-focus-ring-size: $n-checkbox-size * 2.1;
 .n-checkbox {
   align-items: center;
   display: flex;
-  font-family: $font-stack;
+  
   font-weight: normal;
   margin: 0;
   // margin-bottom: rem(8px);

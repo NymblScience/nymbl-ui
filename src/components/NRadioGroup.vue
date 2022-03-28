@@ -180,7 +180,7 @@ export default {
 @import "@/assets/sass/imports.scss";
 
 .n-radio-group {
-  font-family: $font-stack;
+  
 
   &:not(.is-disabled):not(.is-invalid):hover {
     .n-radio-group__label-text {
