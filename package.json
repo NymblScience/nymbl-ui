@@ -13,7 +13,7 @@
     "dev": "vite"
   },
   "main": "./dist/nymbl-ui.common.js",
-  "dependencies": {
+  "devDependencies": {
     "@tailwindcss/postcss7-compat": "^2.2.17",
     "@vue/cli": "^5.0.0-beta.3",
     "@vuelidate/core": "^2.0.0-alpha.33",
@@ -38,9 +38,7 @@
     "vue-click-outside": "^1.1.0",
     "vue-clipboard2": "^0.3.1",
     "vue-router": "^4.0.0",
-    "vuex": "^4.0.2"
-  },
-  "devDependencies": {
+    "vuex": "^4.0.2",
     "@vitejs/plugin-vue": "^1.9.4",
     "@vue/cli-plugin-babel": "~4.5.13",
     "@vue/cli-plugin-eslint": "~4.5.13",
