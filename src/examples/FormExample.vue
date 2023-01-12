@@ -3,45 +3,87 @@
     <n-card class="max-w-lg">
       <n-form @submit.prevent="submit">
         <n-form-item>
-          <n-textbox label="First Name" placeholder="John" v-model="firstName" />
+          <n-textbox
+            v-model="firstName"
+            label="First Name"
+            placeholder="John"
+          />
         </n-form-item>
         <n-form-item>
-          <n-textbox label="Last Name" placeholder="Smith" v-model="lastName" />
+          <n-textbox
+            v-model="lastName"
+            label="Last Name"
+            placeholder="Smith"
+          />
         </n-form-item>
         <n-form-item>
-          <n-radio-group name="group1" :options="radioOptions" v-model="gender"
-            >Gender</n-radio-group
+          <n-radio-group
+            v-model="gender"
+            name="group1"
+            :options="radioOptions"
           >
+            Gender
+          </n-radio-group>
         </n-form-item>
         <n-form-item>
           <n-select
+            v-model="country"
             label="Country"
             placeholder="Select..."
-            v-model="country"
             :options="countries"
           />
         </n-form-item>
         <n-form-item>
-          <n-datepicker v-model="dob" placeholder="10/11/1960" label="Date of Birth" />
+          <n-datepicker
+            v-model="dob"
+            placeholder="10/11/1960"
+            label="Date of Birth"
+          />
         </n-form-item>
         <n-form-item>
-          <n-checkbox v-model="isActive" label="Is Active?" />
+          <n-checkbox
+            v-model="isActive"
+            label="Is Active?"
+          />
         </n-form-item>
         <template #footer>
-          <n-button :loading="loading" @click="submit" type="button">Submit</n-button>
+          <n-button
+            :loading="loading"
+            type="button"
+            @click="submit"
+          >
+            Submit
+          </n-button>
         </template>
       </n-form>
     </n-card>
     <n-card class="mt-10 max-w-lg">
       <n-form @submit.prevent="submit">
         <n-form-item>
-          <n-textbox border center  placeholder="Enter first name" v-model="firstNameBorder" />
+          <n-textbox
+            v-model="firstNameBorder"
+            border
+            center
+            placeholder="Enter first name"
+          />
         </n-form-item>
         <n-form-item>
-          <n-textbox border  center  placeholder="Enter last name" v-model="lastNameBorder" />
+          <n-textbox
+            v-model="lastNameBorder"
+            border
+            center
+            placeholder="Enter last name"
+          />
         </n-form-item>
-                <template #footer>
-          <n-button :loading="loading" disabled  @click="submit" type="button">Submit</n-button>
+        <template #footer>
+          <n-button
+            :loading="loading"
+            disabled
+            type="button"
+            @click="submit"
+          >
+            Submit
+          </n-button>
         </template>
       </n-form>
     </n-card>
@@ -56,7 +98,7 @@ const initialValues = {
   lastNameBorder: null,
   isActive: true,
   country: 'null',
-  dob: null,
+  dob: "2023-01-12T16:18:41.81",
   gender: '',
   loading: false,
 };

@@ -1,5 +1,4 @@
 <template>
-
   <div
     ref="n-table"
     class="n-table"
@@ -8,7 +7,6 @@
     :style="
       isEmpty || filter.value ? null : { 'padding-bottom': rowPadding + 'px' }
     "
-    v-on="$listeners"
   >
     <div>
       <n-table-header
@@ -24,7 +22,10 @@
       />
 
       <n-table-rows ref="rows">
-        <div v-if="isEmpty" class="n-table-empty">
+        <div
+          v-if="isEmpty"
+          class="n-table-empty"
+        >
           <span v-if="!loading && !isFiltered && filter.value.length === 0">
             {{ emptyText }}
           </span>
@@ -35,11 +36,15 @@
             class="n-button__loading"
             :size="24"
             :stroke="3"
-          ></n-loading-circle>
+          />
         </div>
 
-        <n-table-row v-if="isEmpty" v-show="false" :is-empty="isEmpty">
-          <slot :row="{}"></slot>
+        <n-table-row
+          v-if="isEmpty"
+          v-show="false"
+          :is-empty="isEmpty"
+        >
+          <slot :row="{}" />
         </n-table-row>
 
         <n-table-row
@@ -62,7 +67,10 @@
             @expand="toggleExpand(index.toString())"
           />
 
-          <slot :row="row" :index="index" />
+          <slot
+            :row="row"
+            :index="index"
+          />
 
           <n-table-row-expand
             v-if="isExpandable"
@@ -70,7 +78,10 @@
             :expand-width="expandWidth"
             :expanded-rows="expandedRows"
           >
-            <slot :row="row" name="expanded" />
+            <slot
+              :row="row"
+              name="expanded"
+            />
           </n-table-row-expand>
         </n-table-row>
       </n-table-rows>

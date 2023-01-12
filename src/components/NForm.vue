@@ -1,5 +1,8 @@
 <template>
-  <form class="n-form" v-bind="$attrs" v-on="$listeners">
+  <form
+    class="n-form"
+    v-bind="$attrs"
+  >
     <slot />
     <div class="n-form__footer">
       <slot name="footer" />

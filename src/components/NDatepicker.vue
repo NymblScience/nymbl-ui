@@ -1,5 +1,9 @@
 <template>
-  <div tabindex="-1" class="n-datepicker" :class="classes">
+  <div
+    tabindex="-1"
+    class="n-datepicker"
+    :class="classes"
+  >
     <div class="n-datepicker__content">
       <div
         class="n-datepicker__display-value"
@@ -23,8 +27,7 @@
           @clear="clear"
           @keydown.tab="onBlur"
           @input="onUpdateInput"
-        >
-        </n-textbox>
+        />
       </div>
 
       <div class="">
@@ -50,7 +53,7 @@
             :value="date"
             :start-of-week="startOfWeek"
             @date-select="onDateSelect"
-          ></n-calendar>
+          />
         </n-popover>
       </div>
     </div>
@@ -75,6 +78,7 @@ export default {
   props: {
     name: String,
     value: [Date, String],
+    modelValue: [Date, String],
     tabindex: [String, Number],
     startOfWeek: {
       type: Number,
@@ -146,6 +150,7 @@ export default {
       default: true,
     },
   },
+  emits: ['update:modelValue'],
 
   data() {
     return {
@@ -153,14 +158,14 @@ export default {
       isTouched: false,
       isTextBox: false,
       valueAtModalOpen: null,
-      initialValue: JSON.stringify(this.value),
-      inputDate: humanize(this.value),
+      initialValue: JSON.stringify(this.modelValue),
+      inputDate: humanize(this.modelValue),
     };
   },
 
   computed: {
     date() {
-      return typeof this.value === 'string' ? new Date(this.value) : this.value;
+      return typeof this.modelValue === 'string' ? new Date(this.modelValue) : this.modelValue;
     },
 
     classes() {
@@ -232,7 +237,7 @@ export default {
     },
   },
   watch: {
-    value() {
+    modelValue() {
       this.$emit('input', this.date);
     },
   },
@@ -259,6 +264,7 @@ export default {
       console.log(date);
       this.inputDate = humanize(date.toISOString());
       this.$emit('change', date.toISOString());
+      this.$emit('update:modelValue', date.toISOString());
       this.closePicker();
     },
     onUpdateInput() {
@@ -306,9 +312,9 @@ export default {
       console.log(event);
       const clearable = document.getElementsByClassName('n-textbox__clearable');
       if (event.composedPath().includes(clearable[0])) {
-        console.log('clearble');
+        console.log('clearable');
         this.closePicker();
-
+        
         return;
       }
 
@@ -336,7 +342,7 @@ export default {
     },
 
     onPickerOpen() {
-      if (!this.value && this.defaultDate) {
+      if (!this.modelValue && this.defaultDate) {
         this.$emit('input', this.defaultDate);
       }
 

@@ -2,13 +2,18 @@
   <table class="n-calendar-month">
     <thead class="n-calendar-month__header">
       <tr>
-        <th v-for="(day, index) in daysOfWeek" :key="day + index">{{ day }}</th>
+        <th
+          v-for="(day, index) in daysOfWeek"
+          :key="day + index"
+        >
+          {{ day }}
+        </th>
       </tr>
     </thead>
 
     <tbody class="n-calendar-month__body">
-      <tr
-        is="n-calendar-week"
+      <component
+        :is="'NCalendarWeek'"
         v-for="date in currentWeekStartDates"
         :key="date.toString()"
         :color="color"
@@ -21,10 +26,16 @@
         :week-start="date"
         @date-select="onDateSelect"
       >
-        <template v-if="$slots.date" slot-scope="props">
-          <slot name="date" :date="props.date"></slot>
+        <template
+          v-if="$slots.date"
+          #default="props"
+        >
+          <slot
+            name="date"
+            :date="props.date"
+          />
         </template>
-      </tr>
+      </component>
     </tbody>
   </table>
 </template>
