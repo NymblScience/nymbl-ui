@@ -32,27 +32,21 @@ app.component('NSection', NSection);
 
 app.use(VueClipboard);
 
-// app.mixin({
-//   methods: {
-//     updateQuery(query) {
-//       this.$router.push({
-//         query: { ...this.$route.query, ...query },
-//       });
-//     },
-//     removeQuery(queryToRemove) {
-//       const query = { ...this.$route.query };
-//       if (!query[queryToRemove]) {
-//         return;
-//       }
-//       delete query[queryToRemove];
-//       this.$router.replace({ query });
-//     },
-//   },
-// });
-
-// new Vue({
-//   router,
-//   store,
-//   render: (h) => h(App),
-// }).$mount('#app');
+app.mixin({
+  methods: {
+    updateQuery(query) {
+      this.$router.push({
+        query: { ...this.$route.query, ...query },
+      });
+    },
+    removeQuery(queryToRemove) {
+      const query = { ...this.$route.query };
+      if (!query[queryToRemove]) {
+        return;
+      }
+      delete query[queryToRemove];
+      this.$router.replace({ query });
+    },
+  },
+});
 app.mount('#app');

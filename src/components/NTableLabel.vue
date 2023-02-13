@@ -14,7 +14,7 @@
     }"
   >
     <span v-if="label.customHeader">
-      <custom-header :custom-header="slots[label.customHeader]"></custom-header>
+      <custom-header :custom-header="slots[label.customHeader]" />
     </span>
 
     <span
@@ -26,14 +26,17 @@
       <n-table-arrows
         :active-arrow="sortOrder"
         :is-active="sortedBy === label.prop"
-      ></n-table-arrows>
+      />
     </span>
 
-    <span v-else class="n-table-label-container" style="width: 100%">{{
+    <span
+      v-else
+      class="n-table-label-container"
+      style="width: 100%"
+    >{{
       label.label
     }}</span>
-
-    <slot> </slot>
+    <slot />
   </div>
 </template>
 <script>

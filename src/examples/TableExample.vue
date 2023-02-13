@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <n-section title="Filter & Expand">
+    <n-section title="Filter & Expand">
       <n-textbox
         v-model="filter.value"
         clearable
@@ -10,19 +10,40 @@
       <n-card>
         <n-table
           :filter="filter"
-          :sortBy="{ order: 'ascending', prop: 'name' }"
+          :sort-by="{ order: 'ascending', prop: 'name' }"
           :data="dataA"
           is-expandable
         >
-          <template v-slot:default="table">
-            <n-table-column sortable prop="date" label="Date">
+          <template #default="table">
+            <n-table-column
+              :max-width="50"
+              :sortable="true"
+              :custom-filter="customFilter"
+              custom-header="das"
+              prop="date"
+              label="Date"
+            >
               {{ formatDate(table.row.date) }}
             </n-table-column>
-            <n-table-column sortable prop="name" label="Name">{{ table.row.name }}</n-table-column>
-            <n-table-column sortable prop="email" label="Email">
+            <n-table-column
+              sortable
+              prop="name"
+              label="Name"
+            >
+              {{ table.row.name }}
+            </n-table-column>
+            <n-table-column
+              sortable
+              prop="email"
+              label="Email"
+            >
               {{ table.row.email }}
             </n-table-column>
-            <n-table-column sortable prop="phone" label="Phone">
+            <n-table-column
+              sortable
+              prop="phone"
+              label="Phone"
+            >
               {{ table.row.phone }}
             </n-table-column>
           </template>
@@ -34,13 +55,27 @@
     </n-section>
     <n-section title="Pagination">
       <n-card>
-        <n-table :sortBy="{ order: 'ascending', prop: 'name' }" :data="dataB">
-          <template v-slot:default="table">
-            <n-table-column prop="name" label="Name">{{ table.row.name }}</n-table-column>
-            <n-table-column prop="email" label="Email">
+        <n-table
+          :sort-by="{ order: 'ascending', prop: 'name' }"
+          :data="dataB"
+        >
+          <template #default="table">
+            <n-table-column
+              prop="name"
+              label="Name"
+            >
+              {{ table.row.name }}
+            </n-table-column>
+            <n-table-column
+              prop="email"
+              label="Email"
+            >
               {{ table.row.email }}
             </n-table-column>
-            <n-table-column prop="phone" label="Phone">
+            <n-table-column
+              prop="phone"
+              label="Phone"
+            >
               {{ table.row.phone }}
             </n-table-column>
           </template>
@@ -51,31 +86,31 @@
       </n-card>
 
       <n-pagination
-        :pageSize="pageSize.toString()"
-        :pageSizes="['1', '3']"
+        :page-size="pageSize.toString()"
+        :page-sizes="['1', '3']"
         page-size-switch
+        url-queries
+        :pages="pages"
         @change="handleChange"
         @pageSizeChange="handlePageSizeChange"
-        url-queries
-        :pages="Math.round(data.length / pageSize)"
       />
-    </n-section> -->
+    </n-section>
   </div>
 </template>
 
 <script>
 import moment from 'moment';
-// import NTableColumn from '../components/NTableColumn.vue';
-// import NTextbox from '../components/NTextbox.vue';
+import NTableColumn from '../components/NTableColumn.vue';
+import NTextbox from '../components/NTextbox.vue';
 import users from '../users';
 
 export default {
   name: 'TableExample',
   title: 'Table',
-  // components: {
-  //   NTableColumn,
-  //   NTextbox,
-  // },
+  components: {
+    NTableColumn,
+    NTextbox,
+  },
 
   data() {
     return {
@@ -90,17 +125,19 @@ export default {
       pageSize: 3,
     };
   },
-  // computed: {
-  //   dataA() {
-  //     return this.users.slice(0, 5);
-  //   },
-  //   dataB() {
-  //     return this.users.slice(
-  //       this.activePage * this.pageSize - 1,
-  //       this.activePage * this.pageSize + (this.pageSize === 3 ? 2 : 0),
-  //     );
-  //   },
-  // },
+  computed: {
+    dataA() {
+      return this.users.slice(0, 5);
+    },
+    dataB() {
+      return this.users.slice(
+        this.activePage * this.pageSize - 1,
+        this.activePage * this.pageSize + (this.pageSize === 3 ? 2 : 0),
+      );
+    },
+    pages() {
+      return Math.round(3 / this.pageSize);}
+  },
   methods: {
     handleChange(page) {
       this.activePage = page;

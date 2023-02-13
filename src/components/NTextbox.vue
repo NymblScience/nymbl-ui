@@ -1,7 +1,14 @@
 <template>
-  <div class="n-textbox" :class="classes">
-    <div v-if="icon || $slots.icon" class="n-textbox__icon-wrapper" style="">
-      <slot name="icon"> </slot>
+  <div
+    class="n-textbox"
+    :class="classes"
+  >
+    <div
+      v-if="icon || $slots.icon"
+      class="n-textbox__icon-wrapper"
+      style=""
+    >
+      <slot name="icon" />
     </div>
 
     <div class="n-textbox__content">
@@ -40,7 +47,7 @@
             @input="updateValue($event.target.value, $event)"
             @keydown.enter="onKeydownEnter"
             @keydown="onKeydown"
-          />
+          >
 
           <textarea
             v-else
@@ -64,10 +71,10 @@
             @input="updateValue($event.target.value, $event)"
             @keydown.enter="onKeydownEnter"
             @keydown="onKeydown"
-          ></textarea>
+          />
 
           <n-button-icon
-            v-if="clearable && value.length > 0"
+            v-if="clearable && modalValue"
             is-raised
             variant="danger"
             is-transparent
@@ -92,15 +99,28 @@
         class="n-textbox__feedback"
         :class="feedbackClasses"
       >
-        <div v-if="showError" class="n-textbox__feedback-text">
-          <slot name="error">{{ error }}</slot>
+        <div
+          v-if="showError"
+          class="n-textbox__feedback-text"
+        >
+          <slot name="error">
+            {{ error }}
+          </slot>
         </div>
 
-        <div v-else-if="showHelp" class="n-textbox__feedback-text">
-          <slot name="help">{{ help }}</slot>
+        <div
+          v-else-if="showHelp"
+          class="n-textbox__feedback-text"
+        >
+          <slot name="help">
+            {{ help }}
+          </slot>
         </div>
 
-        <div v-if="maxlength && showMaxLength" class="n-textbox__counter">
+        <div
+          v-if="maxlength && showMaxLength"
+          class="n-textbox__counter"
+        >
           {{ valueLength + "/" + maxlength }}
         </div>
       </div>
@@ -116,7 +136,6 @@ import CloseIcon from '../icons/Close.vue';
 
 export default {
   name: 'NTextbox',
-  emits: ['update:modelValue'],
 
   directives: {
     autofocus,
@@ -219,6 +238,7 @@ export default {
     },
     feedbackClasses: String,
   },
+  emits: ['update:modelValue'],
 
   data() {
     return {
@@ -301,7 +321,7 @@ export default {
     },
   },
   watch: {
-    value(value) {
+    modalValue(value) {
       // Normalize the value to an empty string if it's null
       if (value === null) {
         console.log('val');

@@ -50,7 +50,7 @@
         <n-table-row
           v-for="(row, index) in rows"
           :key="index.toString()"
-          :ref="`row-${index}`"
+          ref="rows"
           :class="getRowClasses(row, index)"
           :href="getRowLink(row, index)"
           @click="handleRowClick(row, index, $event)"
@@ -99,6 +99,7 @@ import NTableRow from './NTableRow.vue';
 import NTableRowExpand from './NTableRowExpand.vue';
 import NTableColumnExpand from './NTableColumnExpand.vue';
 import orderBy from '../helpers/orderBy';
+import { useSlots } from 'vue';
 
 export default {
   name: 'NTable',
@@ -220,7 +221,20 @@ export default {
       rowLoaded: 30,
     };
   },
+  setup() {
+
+
+const slots = useSlots();
+
+const children = slots.default();
+// const children2 = children.de;
+return {children};
+
+  },
   computed: {
+    slots() {
+      return this.$slots.default;
+    },
     classes() {
       const classes = [];
       return classes;
@@ -231,13 +245,7 @@ export default {
       }
       return 0;
     },
-    children() {
-      // #TODO Add protection that just column elements are valid children.
-      if (this.loaded && !this.isEmpty && this.$refs.rows) {
-        return this.$refs.rows.$children;
-      }
-      return [];
-    },
+
     labels() {
       let labels = [];
 
@@ -245,39 +253,38 @@ export default {
         return labels;
       }
    
-      const getLabels = (column2) => {
+      const getLabels = (children) => {
         const labels = [];
+        for (const child in children) {
+          if (children[child].type.name === 'NTableColumn') {
+            console.log(children[child]);
+            labels.push(createLabel(children[child]));
+          } 
 
-        for (const column of column2.$children) {
-          if (column.$options._componentTag === 'n-table-column') {
-            labels.push(createLabel(column));
-          } else if (column.$options._componentTag.includes('user-list')) {
-            labels.push(getLabels(column)[0]);
-          }
         }
      
         return labels;
       };
 
       const createLabel = (column) => ({
-        label: column._props.label,
-        sortable: column._props.sortable,
-        prop: column._props.prop,
-        align: column._props.align,
-        labelAlign: column._props.align,
-        maxWidth: column._props.maxWidth,
-        minWidth: column._props.minWidth,
-        customHeader: column._props.customHeader,
-        sortMethod: column._props.sortMethod,
-        borderRight: column._props.borderRight,
-        isNested: column._props.isNested,
-        nestedWidth: column._props.nestedWidth,
+        label: column.props.label,
+        sortable: !!column.props.sortable,
+        prop: column.props.prop,
+        align: column.props.align,
+        labelAlign: column.props.align,
+        maxWidth: column.props['max-width'],
+        minWidth: column.props['min-width'],
+        customHeader: column.props['custom-header'],
+        sortMethod: column.props['sort-method'],
+        borderRight: column.props['border-right'],
+        isNested: column.props['is-nested'],
+        nestedWidth: column.props['nested-width'],
         // Get nested columns as children
-        labels: column._props.isNested ? getLabels(column) : [],
+        // labels: column._props.isNested ? getLabels(column) : [],
       });
 
-      if (this.children[0]) {
-        labels = getLabels(this.children[0]);
+      if (this.children) {
+        labels = getLabels(this.children);
       }
 
       return labels;
@@ -480,7 +487,8 @@ export default {
     handleRowClick(row, index, $event) {
       
 
-      const rowElement = this.$refs[`row-${index}`][0].$el;
+      const rowElement = this.$refs.rows[index].$el;
+
 
       const expandColumn = rowElement.getElementsByClassName(
         'n-table-column__expand',
@@ -489,6 +497,7 @@ export default {
       const expandRow = rowElement.getElementsByClassName(
         'n-table-row__expanded',
       );
+      
 
       if (
         $event.composedPath().includes(expandColumn[0])
@@ -500,8 +509,8 @@ export default {
     },
     handleRowClickMiddle(row, index, $event) {
 
-      const rowElement = this.$refs[`row-${index}`][0].$el;
-
+      const rowElement = this.$refs.rows[index].$el;
+      
       const expandColumn = rowElement.getElementsByClassName(
         'n-table-column__expand',
       );
