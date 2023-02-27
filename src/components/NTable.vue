@@ -38,7 +38,6 @@
             :stroke="3"
           />
         </div>
-
         <n-table-row
           v-if="isEmpty"
           v-show="false"
@@ -257,7 +256,6 @@ return {children};
         const labels = [];
         for (const child in children) {
           if (children[child].type.name === 'NTableColumn') {
-            console.log(children[child]);
             labels.push(createLabel(children[child]));
           } 
 
@@ -274,7 +272,6 @@ return {children};
         labelAlign: column.props.align,
         maxWidth: column.props['max-width'],
         minWidth: column.props['min-width'],
-        customHeader: column.props['custom-header'],
         sortMethod: column.props['sort-method'],
         borderRight: column.props['border-right'],
         isNested: column.props['is-nested'],
@@ -485,11 +482,11 @@ return {children};
       return link
     },
     handleRowClick(row, index, $event) {
-      
+        
 
       const rowElement = this.$refs.rows[index].$el;
-
-
+      // console.log(rowElement)
+      // console.log(this.$refs['rows'][index].$el)
       const expandColumn = rowElement.getElementsByClassName(
         'n-table-column__expand',
       );
@@ -509,7 +506,7 @@ return {children};
     },
     handleRowClickMiddle(row, index, $event) {
 
-      const rowElement = this.$refs.rows[index].$el;
+      const rowElement = this.$refs.rows[index];
       
       const expandColumn = rowElement.getElementsByClassName(
         'n-table-column__expand',

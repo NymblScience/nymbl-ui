@@ -1,5 +1,8 @@
 <template>
-  <label class="n-checkbox" :class="classes">
+  <label
+    class="n-checkbox"
+    :class="classes"
+  >
     <input
       ref="input"
       class="n-checkbox__input bg-purple"
@@ -12,13 +15,16 @@
       @blur="onBlur"
       @click="onClick"
       @focus="onFocus"
-    />
+    >
 
     <div class="n-checkbox__checkmark">
-      <div class="n-checkbox__focus-ring"></div>
+      <div class="n-checkbox__focus-ring" />
     </div>
 
-    <div v-if="label || $slots.default" class="n-checkbox__label-text">
+    <div
+      v-if="label || $slots.default"
+      class="n-checkbox__label-text"
+    >
       <slot>{{ label }}</slot>
     </div>
   </label>
@@ -29,8 +35,6 @@ import { looseEqual } from '../helpers/util';
 
 export default {
   name: 'NCheckbox',
-  emits: ['update:modelValue'],
-
   props: {
     name: String,
     label: String,
@@ -65,6 +69,7 @@ export default {
       default: false,
     },
   },
+emits: ['update:modelValue', 'change', 'focus', 'blur'],
 
   data() {
     return {

@@ -74,7 +74,7 @@
           />
 
           <n-button-icon
-            v-if="clearable && modalValue"
+            v-if="clearable && modelValue"
             is-raised
             variant="danger"
             is-transparent
@@ -321,10 +321,9 @@ export default {
     },
   },
   watch: {
-    modalValue(value) {
+    modelValue(value) {
       // Normalize the value to an empty string if it's null
       if (value === null) {
-        console.log('val');
         this.initialValue = '';
         this.updateValue('');
       }

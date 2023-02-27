@@ -1,5 +1,9 @@
 <template>
-  <transition-group id="n-messages" name="toasts" tag="div">
+  <transition-group
+    id="n-messages"
+    name="toasts"
+    tag="div"
+  >
     <n-message
       v-for="message in messages"
       :key="message.id"
@@ -44,7 +48,6 @@ export default {
           const touchMove = function () {
             document.removeEventListener('click', touchMove);
             that.closeAll();
-            console.log('ckick');
           };
 
           document.addEventListener('click', touchMove, { once: true });

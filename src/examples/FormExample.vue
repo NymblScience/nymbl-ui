@@ -12,6 +12,7 @@
         <n-form-item>
           <n-textbox
             v-model="lastName"
+            clearable
             label="Last Name"
             placeholder="Smith"
           />
