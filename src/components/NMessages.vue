@@ -41,7 +41,6 @@ export default {
         if (vak.length === 0) {
           return;
         }
-        console.log(vak);
         const that = this;
 
         setTimeout(() => {

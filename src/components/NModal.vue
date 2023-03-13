@@ -11,7 +11,11 @@
       :role="role"
       @click.self="onBackdropClick"
     >
-      <div class="n-modal-wrapper" :style="alignTopStyle" @click.self="onBackdropClick">
+      <div
+        class="n-modal-wrapper"
+        :style="alignTopStyle"
+        @click.self="onBackdropClick"
+      >
         <n-focus-container
           ref="focusContainer"
           class="n-modal-container"
@@ -23,8 +27,13 @@
             class="n-modal-header"
             :class="{ 'no-title': noTitle }"
           >
-            <slot v-if="!noTitle" name="header">
-              <h1 class="n-modal-header-text">{{ title }}</h1>
+            <slot
+              v-if="!noTitle"
+              name="header"
+            >
+              <h1 class="n-modal-header-text">
+                {{ title }}
+              </h1>
             </slot>
 
             <div class="n-modal-close-button">
@@ -41,11 +50,14 @@
           </div>
 
           <div class="n-modal-body">
-            <slot></slot>
+            <slot />
           </div>
 
-          <div v-if="hasFooter" class="n-modal-footer">
-            <slot name="footer"></slot>
+          <div
+            v-if="hasFooter"
+            class="n-modal-footer"
+          >
+            <slot name="footer" />
           </div>
         </n-focus-container>
       </div>
@@ -126,9 +138,6 @@ export default {
       scrollbarWidth: null,
     };
   },
-  mounted() {
-    this.scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-  },
   computed: {
     classes() {
       return [
@@ -165,6 +174,9 @@ export default {
         this[this.isOpen ? 'onOpen' : 'onClose']();
       });
     },
+  },
+  mounted() {
+    this.scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
   },
 
   unmounted() {
@@ -215,9 +227,6 @@ export default {
       this.incrementOpenModalCount();
 
       this.$emit('open');
-      this.$nextTick(() => {
-        this.$store.commit('updateOpenedModals', this);
-      });
     },
 
     onClose() {
@@ -232,10 +241,6 @@ export default {
     onLeave() {
       this.$emit('hide');
       const newCount = this.decrementOpenModalCount();
-
-      this.$nextTick(() => {
-        this.$store.commit('removeFromOpenedModals', this);
-      });
 
       if (newCount === 0) {
         // Reset scrollbar.
