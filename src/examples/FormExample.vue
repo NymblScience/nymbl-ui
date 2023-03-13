@@ -27,6 +27,14 @@
           </n-radio-group>
         </n-form-item>
         <n-form-item>
+          <n-datepicker
+            ref="date"
+            label="Active Start Date"
+            :has-year="false"
+            clearable
+          />
+        </n-form-item>
+        <n-form-item>
           <n-select
             v-model="country"
             label="Country"

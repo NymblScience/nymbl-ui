@@ -1,5 +1,4 @@
 <template>
-
   <n-focus-container
     ref="focusContainer"
     class="ui-popover"
@@ -9,7 +8,7 @@
     :focus-redirector="focusRedirector"
     @focus-overflow="close()"
   >
-    <slot></slot>
+    <slot />
   </n-focus-container>
 </template>
 

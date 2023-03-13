@@ -303,7 +303,7 @@ export default {
     },
 
     closePicker() {
-      if (this.usesPopover) {
+      if (this.usesPopover && this.$refs.popover) {
         this.$refs.popover.close();
       }
     },
@@ -351,7 +351,6 @@ export default {
     },
 
     onPickerClose() {
-      this.$emit('close');
       this.$emit('close');
       if (!this.isTouched) {
         this.isTouched = true;
