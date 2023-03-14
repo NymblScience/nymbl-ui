@@ -482,47 +482,10 @@ return {children};
       return link
     },
     handleRowClick(row, index, $event) {
-        
-
-      const rowElement = this.$refs.rows[index].$el;
-      // console.log(rowElement)
-      // console.log(this.$refs['rows'][index].$el)
-      const expandColumn = rowElement.getElementsByClassName(
-        'n-table-column__expand',
-      );
-
-      const expandRow = rowElement.getElementsByClassName(
-        'n-table-row__expanded',
-      );
-      
-
-      if (
-        $event.composedPath().includes(expandColumn[0])
-        || $event.composedPath().includes(expandRow[0])
-      ) {
-        return;
-      }
-      this.$emit('row-click', row, index, $event, rowElement);
+      this.$emit('row-click', row, index, $event);
     },
     handleRowClickMiddle(row, index, $event) {
-
-      const rowElement = this.$refs.rows[index];
-      
-      const expandColumn = rowElement.getElementsByClassName(
-        'n-table-column__expand',
-      );
-
-      const expandRow = rowElement.getElementsByClassName(
-        'n-table-row__expanded',
-      );
-
-      if (
-        $event.composedPath().includes(expandColumn[0])
-        || $event.composedPath().includes(expandRow[0])
-      ) {
-        return;
-      }
-      this.$emit('row-click-middle', row, index, $event, rowElement);
+      this.$emit('row-click-middle', row, index, $event);
     },
     toggleExpand(key, close = false) {
       const expandedRows = [...this.expandedRows];

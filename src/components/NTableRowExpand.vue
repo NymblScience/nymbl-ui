@@ -1,7 +1,8 @@
-  <template>
+<template>
   <div
     :class="{ 'is-expanded': expandedRows.includes(id) }"
     class="n-table-row__expanded"
+    @click.stop="handleExpandedClick"
   >
     <div v-if="expandedRows.includes(id)">
       <div
@@ -17,7 +18,6 @@
 <script>
 export default {
   name: 'NTableRowExpand',
-
   props: {
     expandedRows: {
       type: Array,
@@ -31,6 +31,12 @@ export default {
     expandWidth: {
       type: Number,
       default: 70,
+    },
+  },
+  emits: ['expanded-click'],
+  methods: {
+    handleExpandedClick() {
+      this.$emit('expanded-click');
     },
   },
 };

@@ -13,7 +13,7 @@
         width="24"
         height="24"
         viewBox="0 0 24 24"
-        @click="handleExpand"
+        @click.stop="handleExpand"
       >
         <path d="M8.578 16.36l4.594-4.595L8.578 7.17l1.406-1.405 6 6-6 6z" />
       </svg>
