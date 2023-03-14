@@ -482,10 +482,12 @@ return {children};
       return link
     },
     handleRowClick(row, index, $event) {
-      this.$emit('row-click', row, index, $event);
+           const rowElement = this.$refs.rows[index];
+      this.$emit('row-click', row, index, $event, rowElement);
     },
     handleRowClickMiddle(row, index, $event) {
-      this.$emit('row-click-middle', row, index, $event);
+           const rowElement = this.$refs.rows[index];
+      this.$emit('row-click-middle', row, index, $event, rowElement);
     },
     toggleExpand(key, close = false) {
       const expandedRows = [...this.expandedRows];
