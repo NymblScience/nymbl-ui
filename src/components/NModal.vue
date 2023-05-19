@@ -220,9 +220,10 @@ export default {
       classlist.add(document.body, 'n-no-scrolling');
 
       document.documentElement.style.paddingRight = `${this.scrollbarWidth}px`;
-      document
-        .getElementsByClassName('n-navbar fixed')[0]
-        .style.setProperty('padding-right', `${this.scrollbarWidth}px`, 'important');
+
+      if (document.getElementsByClassName('n-navbar')) {
+        document.getElementsByClassName('n-navbar')[0].style.paddingRight = `${this.scrollbarWidth}px`;
+      }
 
       this.incrementOpenModalCount();
 
