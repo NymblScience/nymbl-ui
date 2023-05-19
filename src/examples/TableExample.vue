@@ -13,6 +13,7 @@
           :sort-by="{ order: 'ascending', prop: 'name' }"
           :data="dataA"
           is-expandable
+          @row-click="handleRowClick"
         >
           <template #default="table">
             <n-table-column
@@ -141,6 +142,9 @@ export default {
   methods: {
     handleChange(page) {
       this.activePage = page;
+    },
+    handleRowClick(row) {
+      console.log(row);
     },
     handlePageSizeChange(pageSize) {
       this.pageSize = Number(pageSize);
