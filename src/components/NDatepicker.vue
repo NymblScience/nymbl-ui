@@ -344,6 +344,8 @@ export default {
     onPickerOpen() {
       if (!this.modelValue && this.defaultDate) {
         this.$emit('input', this.defaultDate);
+        this.$emit('update:modelValue', this.defaultDate);
+
       }
 
       this.isActive = true;
